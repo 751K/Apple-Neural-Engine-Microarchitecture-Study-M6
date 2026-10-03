@@ -1,0 +1,14 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "opv/act_tanh.mlmodelc/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "opv_hwx/act_tanh/";
+}
+flags {
+    TargetArchitecture = h18g;
+}
+ANECCompile returned 0

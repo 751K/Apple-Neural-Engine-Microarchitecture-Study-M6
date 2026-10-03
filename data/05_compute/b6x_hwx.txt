@@ -1,0 +1,80 @@
+===== L16  622592 字节
+/tmp/hb_16/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x1988 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x175c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x1774 字节
+===== L20  622592 字节
+/tmp/hb_20/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x1fe8 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x1d1c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x1d34 字节
+===== L28  622592 字节
+/tmp/hb_28/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x2ca8 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x289c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x28b4 字节
+===== L30  622592 字节
+/tmp/hb_30/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x2fd8 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x2b7c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x2b94 字节
+===== L32  622592 字节
+/tmp/hb_32/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x3308 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x2e5c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x2e74 字节
+===== L34  622592 字节
+/tmp/hb_34/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x3638 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x313c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x3154 字节
+===== L36  622592 字节
+/tmp/hb_36/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x3968 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x341c 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x3434 字节
+===== L40  622592 字节
+/tmp/hb_40/model.hwx: subtype 11, segments ['__PAGEZERO', '__DATA', '__RUNTIME', '__TEXT', '__KERN_0']
+  过程: ['main', 'main__nonbonded', 'main__bonded']
+  [nonbonded] 运行时操作 15 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load', 'rt_op_load_rt_op_map_bss__ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_param']
+  [bonded] 运行时操作 24 个，kick 2 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_1', 'rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+      操作类型: ['main__bonded', 'main__nonbonded', 'rt_op_alloc_bss_for_ane0_P', 'rt_op_ane_kick', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_load_rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_load_rt_op_map_planar__', 'rt_op_load_rt_op_map_text__ane0_P', 'rt_op_load_rt_op_map_text__ane1_P', 'rt_op_map_bss__ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane0_P', 'rt_op_map_nm_kernel_KernelSymbolStart0_ane1_P', 'rt_op_map_planar__', 'rt_op_map_text__ane0_P', 'rt_op_map_text__ane1_P']
+  TD 流 ane0_P_main__nonbonded           @ 0x30104000  0x3fc8 字节
+  TD 流 ane0_P_main__bonded              @ 0x30108000  0x39dc 字节
+  TD 流 ane1_P_main__bonded              @ 0x3010c000  0x39f4 字节

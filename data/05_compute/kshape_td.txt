@@ -1,0 +1,64 @@
+20
+k1x1  nonbonded 流长 L4 0x0061c  L8 0x00bdc  每层 368 字节
+k1x3  nonbonded 流长 L4 0x0061c  L8 0x00bdc  每层 368 字节
+k1x5  nonbonded 流长 L4 0x00630  L8 0x00bf0  每层 368 字节
+k1x9  nonbonded 流长 L4 0x01174  L8 0x02234  每层 1072 字节
+k1x15  nonbonded 流长 L4 0x02264  L8 0x04364  每层 2112 字节
+Traceback (most recent call last):
+  File "/tmp/tdcount.py", line 5, in <module>
+    st = tw.streams(sys.argv[1])
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/anehal/hwx/td_widths.py", line 17, in streams
+    b, sub, segs, syms = hb.load(path)
+                         ^^^^^^^^^^^^^
+  File "~/anehal/hwx/hwx_bonded.py", line 12, in load
+    b = open(path, "rb").read()
+        ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kk/model.hwx'
+Traceback (most recent call last):
+  File "/tmp/tdcount.py", line 5, in <module>
+    st = tw.streams(sys.argv[1])
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/anehal/hwx/td_widths.py", line 17, in streams
+    b, sub, segs, syms = hb.load(path)
+                         ^^^^^^^^^^^^^
+  File "~/anehal/hwx/hwx_bonded.py", line 12, in load
+    b = open(path, "rb").read()
+        ^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kk/model.hwx'
+k1x16  nonbonded 流长 L4   L8   每层 0 字节
+k9x1  nonbonded 流长 L4 0x00c08  L8 0x01788  每层 736 字节
+k3x3  nonbonded 流长 L4 0x00be4  L8 0x01724  每层 720 字节
+k5x5  nonbonded 流长 L4 0x01788  L8 0x02e88  每层 1472 字节
+k17x1  nonbonded 流长 L4 0x02264  L8 0x04364  每层 2112 字节
+k1x1 L4   卷积 TD 数 4  位置 ['0x104', '0x2a4', '0x404', '0x574']
+k1x1 L8   卷积 TD 数 8  位置 ['0x104', '0x2a4', '0x404', '0x574', '0x6e4', '0x854', '0x9c4', '0xb34']
+k1x3 L4   卷积 TD 数 4  位置 ['0x104', '0x2a4', '0x404', '0x574']
+k1x3 L8   卷积 TD 数 8  位置 ['0x104', '0x2a4', '0x404', '0x574', '0x6e4', '0x854', '0x9c4', '0xb34']
+k1x5 L4   卷积 TD 数 4  位置 ['0x104', '0x2a4', '0x414', '0x584']
+k1x5 L8   卷积 TD 数 8  位置 ['0x104', '0x2a4', '0x414', '0x584', '0x6f4', '0x864', '0x9d4', '0xb44']
+k1x9 L4   卷积 TD 数 0  位置 []
+k1x9 L8   卷积 TD 数 0  位置 []
+k1x15 L4   卷积 TD 数 0  位置 []
+k1x15 L8   卷积 TD 数 0  位置 []
+k9x1 L4   卷积 TD 数 8  位置 ['0x104', '0x2b4', '0x424', '0x594', '0x6f4', '0x864', '0x9d4', '0xb64']
+k9x1 L8   卷积 TD 数 16  位置 ['0x104', '0x2b4', '0x424', '0x594', '0x6f4', '0x864', '0x9d4', '0xb44']
+k3x3 L4   卷积 TD 数 8  位置 ['0x104', '0x2b4', '0x414', '0x584', '0x6e4', '0x854', '0x9b4', '0xb44']
+k3x3 L8   卷积 TD 数 16  位置 ['0x104', '0x2b4', '0x414', '0x584', '0x6e4', '0x854', '0x9b4', '0xb24']
+k5x5 L4   卷积 TD 数 16  位置 ['0x104', '0x2b4', '0x424', '0x594', '0x704', '0x874', '0x9d4', '0xb34']
+k5x5 L8   卷积 TD 数 32  位置 ['0x104', '0x2b4', '0x424', '0x594', '0x704', '0x874', '0x9d4', '0xb34']
+k17x1 L4   卷积 TD 数 24  位置 ['0x104', '0x2a4', '0x414', '0x584', '0x6f4', '0x864', '0x9c4', '0xb24']
+k17x1 L8   卷积 TD 数 48  位置 ['0x104', '0x2a4', '0x414', '0x584', '0x6f4', '0x864', '0x9c4', '0xb24']
+== k1x5 L4（W=32，H=16）
+    ×  4  32 16 256 2471067653 32
+    ×  4  32 16 256 1342480453 16
+== k1x9 L4（W=32，H=16）
+    × 12  32 16 256 2437513221 16
+== k1x15 L4（W=32，H=16）
+    × 20  32 16 256 2437513221 16
+    ×  4  32 16 256 2437447685 16
+== k9x1 L4（W=32，H=16）
+    ×  8  32 16 256 2471067653 32
+== k3x3 L4（W=32，H=16）
+    ×  4  32 16 256 2471067653 32
+    ×  4  32 16 256 2437513221 32

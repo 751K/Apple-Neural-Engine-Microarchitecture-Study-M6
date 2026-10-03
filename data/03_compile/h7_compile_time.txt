@@ -1,0 +1,41 @@
+k1_c64_h1w1024_L256 h16g 返回 0 用时 0.67s 产物 163840
+k1_c64_h1w1024_L256 h17s 返回 0 用时 0.68s 产物 163840
+k1_c64_h1w1024_L256 h18 返回 0 用时 0.68s 产物 163840
+k1_c64_h1w1024_L256 h18g 返回 0 用时 1.19s 产物 360448
+k1_c64_h1w1024_L256 h19 返回 0 用时 1.19s 产物 360448
+ovl_B64 h16g 返回 0 用时 0.09s 产物 81920
+ovl_B64 h17s 返回 0 用时 0.09s 产物 81920
+ovl_B64 h18 返回 0 用时 0.09s 产物 81920
+ovl_B64 h18g 返回 0 用时 1.1s 产物 147456
+ovl_B64 h19 返回 0 用时 1.1s 产物 147456
+k1_c256_h1w32768_L2 h16g 返回 0 用时 0.03s 产物 180224
+k1_c256_h1w32768_L2 h17s 返回 0 用时 0.03s 产物 180224
+k1_c256_h1w32768_L2 h18 返回 0 用时 0.03s 产物 180224
+k1_c256_h1w32768_L2 h18g 返回 0 用时 0.05s 产物 229376
+k1_c256_h1w32768_L2 h19 返回 0 用时 0.05s 产物 229376
+ovl_B256 h18 返回 0 用时 0.39s 产物 131072
+ovl_B256 h18g 返回 0 用时 178.62s 产物 294912
+ANECCompile returned 0
+zin_ane_compiler v10.26.6
+coremltools-component-milinternal: 
+coremltools-version: 9.0
+coremlc-component-MIL: 3600.16.1
+coremlc-version: 3600.25.1
+ Module ANEC: 
+ ModuleBundleName: com.apple.ANECompilerFramework
+ ModuleVersion: 10.26.6
+ ModuleCompilationFlags: 
+-t h18g
+--fno-fold-scale=true
+--fdram-allocator=ffreuse
+--fdram-tensor-priority=sizebyliverange
+ovl_B32 h18 0.06s
+ovl_B32 h18g 0.18s
+ovl_B64 h18 0.1s
+ovl_B64 h18g 1.13s
+ovl_B96 h18 0.14s
+ovl_B96 h18g 4.57s
+ovl_B128 h18 0.18s
+ovl_B128 h18g 13.13s
+ovl_B192 h18 0.28s
+ovl_B192 h18g 61.26s

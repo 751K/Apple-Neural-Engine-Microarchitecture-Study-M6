@@ -1,0 +1,14 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "chains/k1_c512_h32w32_L4_u_w8.mlmodelc/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "h8/k1_c512_h32w32_L4_u_w8_h18g/";
+}
+flags {
+    TargetArchitecture = h18g;
+}
+ANECCompile returned 0

@@ -1,0 +1,33 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.1"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<ios18>(tensor<fp16, [1, 64, 64, 64]> x) {
+            tensor<fp16, [64, 64, 1, 1]> conv0_weight_0 = const()[name = string("conv0_weight_0"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(64)))];
+            tensor<fp16, [64]> conv0_bias_0 = const()[name = string("conv0_bias_0"), val = tensor<fp16, [64]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(8320)))];
+            tensor<int32, [2]> conv0_strides_0 = const()[name = string("conv0_strides_0"), val = tensor<int32, [2]>([1, 1])];
+            string conv0_pad_type_0 = const()[name = string("conv0_pad_type_0"), val = string("valid")];
+            tensor<int32, [4]> conv0_pad_0 = const()[name = string("conv0_pad_0"), val = tensor<int32, [4]>([0, 0, 0, 0])];
+            tensor<int32, [2]> conv0_dilations_0 = const()[name = string("conv0_dilations_0"), val = tensor<int32, [2]>([1, 1])];
+            int32 conv0_groups_0 = const()[name = string("conv0_groups_0"), val = int32(1)];
+            tensor<fp16, [1, 64, 64, 64]> conv0 = conv(bias = conv0_bias_0, dilations = conv0_dilations_0, groups = conv0_groups_0, pad = conv0_pad_0, pad_type = conv0_pad_type_0, strides = conv0_strides_0, weight = conv0_weight_0, x = x)[name = string("conv0")];
+            tensor<fp16, [1, 64, 64, 64]> relu0 = relu(x = conv0)[name = string("relu0")];
+            tensor<fp16, [64, 64, 1, 1]> conv1_weight_0 = const()[name = string("conv1_weight_0"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(8512)))];
+            tensor<fp16, [64]> conv1_bias_0 = const()[name = string("conv1_bias_0"), val = tensor<fp16, [64]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(16768)))];
+            tensor<int32, [2]> conv1_strides_0 = const()[name = string("conv1_strides_0"), val = tensor<int32, [2]>([1, 1])];
+            string conv1_pad_type_0 = const()[name = string("conv1_pad_type_0"), val = string("valid")];
+            tensor<int32, [4]> conv1_pad_0 = const()[name = string("conv1_pad_0"), val = tensor<int32, [4]>([0, 0, 0, 0])];
+            tensor<int32, [2]> conv1_dilations_0 = const()[name = string("conv1_dilations_0"), val = tensor<int32, [2]>([1, 1])];
+            int32 conv1_groups_0 = const()[name = string("conv1_groups_0"), val = int32(1)];
+            tensor<fp16, [1, 64, 64, 64]> conv1 = conv(bias = conv1_bias_0, dilations = conv1_dilations_0, groups = conv1_groups_0, pad = conv1_pad_0, pad_type = conv1_pad_type_0, strides = conv1_strides_0, weight = conv1_weight_0, x = relu0)[name = string("conv1")];
+            tensor<fp16, [1, 64, 64, 64]> relu1 = relu(x = conv1)[name = string("relu1")];
+            tensor<fp16, [64, 64, 1, 1]> conv2_weight_0 = const()[name = string("conv2_weight_0"), val = tensor<fp16, [64, 64, 1, 1]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(16960)))];
+            tensor<fp16, [64]> conv2_bias_0 = const()[name = string("conv2_bias_0"), val = tensor<fp16, [64]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(25216)))];
+            tensor<int32, [2]> conv2_strides_0 = const()[name = string("conv2_strides_0"), val = tensor<int32, [2]>([1, 1])];
+            string conv2_pad_type_0 = const()[name = string("conv2_pad_type_0"), val = string("valid")];
+            tensor<int32, [4]> conv2_pad_0 = const()[name = string("conv2_pad_0"), val = tensor<int32, [4]>([0, 0, 0, 0])];
+            tensor<int32, [2]> conv2_dilations_0 = const()[name = string("conv2_dilations_0"), val = tensor<int32, [2]>([1, 1])];
+            int32 conv2_groups_0 = const()[name = string("conv2_groups_0"), val = int32(1)];
+            tensor<fp16, [1, 64, 64, 64]> conv2 = conv(bias = conv2_bias_0, dilations = conv2_dilations_0, groups = conv2_groups_0, pad = conv2_pad_0, pad_type = conv2_pad_type_0, strides = conv2_strides_0, weight = conv2_weight_0, x = relu1)[name = string("conv2")];
+            tensor<fp16, [1, 64, 64, 64]> relu2 = relu(x = conv2)[name = string("relu2")];
+        } -> (relu2);
+}

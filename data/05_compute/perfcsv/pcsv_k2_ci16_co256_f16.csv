@@ -1,0 +1,4 @@
+,is_chained,NumWU,mac_cycles_per_WU,post_cycles_per_WU,ne_cycle_single_buffering,ne_cycle_double_buffering,pe_cycle,l2_bcast,lw_writeback,kdma,rdma,wdma,core_cycle_count,l2_cycle_count,power(W),estimated_time(ms)
+1,0,4,513,404,2456,2052,0,256,1024,32768,17408,262144,2052,1024,4.47995,0.00348576
+1,0,4,513,404,2456,2052,0,256,1024,32768,16384,262144,2052,1024,4.4766,0.00347693
+, , , , , , , , , , , , , , , ,0.00348576

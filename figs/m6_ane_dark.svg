@@ -1,0 +1,208 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1850" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
+  <style>
+    text { fill: #f2f2f2; text-anchor: middle; }
+    .h2 { font-size: 21px; }
+    .n { font-size: 19px; }
+    .s { font-size: 15px; fill: #b8b8b8; }
+    .sec { font-size: 32px; font-weight: 700; fill: #8a8a8a; }
+    .big { font-size: 32px; font-weight: 500; }
+    .lab { font-size: 19px; font-weight: 500; }
+    .grp { fill: #3a3a3c; }
+    .ctl { fill: #4a4a4c; stroke: #e6e6e6; stroke-width: 1.5; }
+    .mem { fill: #5a1414; stroke: #e04848; stroke-width: 2; }
+    .buf { fill: #12394a; stroke: #3cb4dc; stroke-width: 2; }
+    .cmp { fill: #3a1550; stroke: #b050e0; stroke-width: 2; }
+    .dma { fill: #3c4a10; stroke: #c8d830; stroke-width: 2; }
+    .clk { fill: #4a3410; stroke: #f0a830; stroke-width: 2; }
+    .div { stroke: #c8d830; stroke-width: 1.5; }
+    .divp { stroke: #b050e0; stroke-width: 1.5; }
+    .ar { stroke: #e6e6e6; stroke-width: 2; marker-end: url(#a); }
+    .ard { stroke: #f0a830; stroke-width: 2; stroke-dasharray: 6 5; marker-end: url(#b); }
+  </style>
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#e6e6e6" stroke-width="1.6"/></marker>
+    <marker id="b" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#f0a830" stroke-width="1.6"/></marker>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c1c1e"/><stop offset="1" stop-color="#111113"/></linearGradient>
+  </defs>
+  <rect width="1600" height="1850" fill="url(#bg)"/>
+
+  <!-- 标题 -->
+  <text x="800" y="118" style="font-size:84px;font-weight:300;fill:#cfcfcf">M6 - <tspan style="font-weight:800;fill:#e8e8e8">神经网络引擎</tspan></text>
+  <text x="800" y="162" class="s" style="font-size:19px">h18g · 2 个 ANE × 16 NE · NE 时钟 852–2580 MHz · TD 布局 v24（下图为一个 ANE）</text>
+
+  <!-- 外框：后面错开的一张是 ANE1（结构相同），前面一张展开画 ANE0 -->
+  <rect x="74" y="211" width="1500" height="1560" rx="42" fill="#18191c" stroke="#2c3240" stroke-width="5"/>
+  <rect x="50" y="195" width="1500" height="1560" rx="42" fill="#1f2024" stroke="#3a4152" stroke-width="7"/>
+  <text x="1500" y="1789" class="s" style="text-anchor:end;font-size:16px;fill:#8a93a8">↘ 后面一层为 ANE1，结构相同</text>
+  <text x="1490" y="240" class="s" style="text-anchor:end;font-size:18px;fill:#8a93a8">ANE0</text>
+
+  <text x="185" y="272" class="sec">– 控制 –</text>
+
+  <!-- TD 程序 -->
+  <rect class="mem" x="650" y="232" width="300" height="80"/>
+  <text x="800" y="264" class="n">任务描述符 TD 程序</text>
+  <text x="800" y="292" class="n">每层一个 TD · 串行执行</text>
+  <line class="ar" x1="800" y1="314" x2="800" y2="346"/>
+
+  <!-- 控制链 -->
+  <rect class="grp" x="100" y="350" width="1400" height="392"/>
+  <rect class="ctl" x="440" y="370" width="720" height="56"/>
+  <text x="800" y="405" class="h2">主机驱动 · 优先级映射 · 选 ANE 与 bonded 变体 · 节流</text>
+  <line class="ar" x1="800" y1="428" x2="800" y2="458"/>
+  <rect class="ctl" x="440" y="462" width="720" height="56"/>
+  <text x="800" y="497" class="h2">IOP 固件 · 6 级优先级 · 8+1 作业队列 · 硬件 TQ 双槽 · 可切换</text>
+  <line class="ar" x1="800" y1="520" x2="800" y2="550"/>
+  <rect class="ctl" x="440" y="554" width="720" height="56"/>
+  <text x="800" y="589" class="h2">TD 取指 / 解码（15 位寄存器地址 · 稠密 / 掩码 / 地址包）</text>
+  <line class="ar" x1="800" y1="612" x2="800" y2="644"/>
+  <rect class="ctl" x="120" y="648" width="1360" height="56"/>
+  <text x="800" y="683" class="h2">寄存器写入 → 各单元配置（Shape · ConvCfg · DMA · PE）</text>
+
+  <!-- 左侧：TD 头部、调用开销 -->
+  <rect class="buf" x="120" y="370" width="300" height="100"/>
+  <text x="270" y="408" class="n">TD 头部 · 0x00–0x20</text>
+  <text x="270" y="435" class="s">exe_cycles · 事件掩码</text>
+  <text x="270" y="457" class="s">Tsr / Tde / Publish 标志</text>
+  <rect class="buf" x="120" y="484" width="300" height="126"/>
+  <text x="270" y="520" class="n">每次调用的开销</text>
+  <text x="270" y="547" class="s">提交 ≈30 µs · 完成通知 130–325 µs</text>
+  <text x="270" y="569" class="s">两次调用之间 ANE 空闲 ≈384 µs</text>
+  <text x="270" y="591" class="s">固件处理 ≈45–50 µs</text>
+
+  <!-- 右侧：BAR、CLPC -->
+  <rect class="buf" x="1180" y="370" width="300" height="100"/>
+  <text x="1330" y="408" class="n">地址表 BAR</text>
+  <text x="1330" y="435" class="s">4 = 权重 · 20 = DSID</text>
+  <text x="1330" y="457" class="s">24 起：先输出后输入</text>
+  <rect class="clk" x="1180" y="484" width="300" height="126"/>
+  <text x="1330" y="520" class="n">CLPC 调频（主机内核）</text>
+  <text x="1330" y="547" class="s">按 ANE 利用率 · 目标 ≈77% 忙</text>
+  <text x="1330" y="569" class="s">升满 ≈50 ms · 降到底 ≈150 ms</text>
+  <text x="1330" y="591" class="s">空闲 ≈100 ms 后落到 852 MHz</text>
+
+  <line class="ar" x1="370" y1="706" x2="370" y2="756"/>
+  <line class="ar" x1="800" y1="706" x2="800" y2="756"/>
+  <line class="ar" x1="1255" y1="706" x2="1255" y2="756"/>
+
+  <!-- 三列 -->
+  <rect class="grp" x="100" y="760" width="580" height="500"/>
+  <rect class="grp" x="700" y="760" width="380" height="640"/>
+  <rect class="grp" x="1100" y="760" width="400" height="500"/>
+
+  <!-- 计算 -->
+  <rect class="cmp" x="120" y="780" width="540" height="76"/>
+  <text x="390" y="812" class="n">16 × NE（MAC 阵列）</text>
+  <text x="390" y="840" class="n">每 NE 每周期 256 FP16 / 512 INT8 乘加</text>
+  <line class="ar" x1="390" y1="858" x2="390" y2="886"/>
+  <rect class="buf" x="120" y="890" width="540" height="76"/>
+  <text x="390" y="922" class="n">权重缓冲 64 KiB / NE（合计 1 MiB）</text>
+  <text x="390" y="950" class="s">每次最多 16 个输出通道（OCG）· 超出即出现耗时台阶</text>
+  <line class="ar" x1="390" y1="968" x2="390" y2="996"/>
+  <rect class="cmp" x="120" y="1000" width="540" height="150"/>
+  <line class="divp" x1="255" y1="1042" x2="255" y2="1112"/>
+  <line class="divp" x1="390" y1="1042" x2="390" y2="1112"/>
+  <line class="divp" x1="525" y1="1042" x2="525" y2="1112"/>
+  <text x="188" y="1054" class="lab">FP16</text><text x="188" y="1102" class="big">×4096</text>
+  <text x="322" y="1054" class="lab">INT8</text><text x="322" y="1102" class="big">×8192</text>
+  <text x="458" y="1054" class="lab">PE</text><text x="458" y="1102" class="big">×1</text>
+  <text x="592" y="1054" class="lab">LUT</text><text x="592" y="1102" class="big">33点</text>
+  <text x="390" y="1137" class="s">MAC 与 PE 串行 · PE ≈61 G 元素 / s / ANE</text>
+  <text x="390" y="1202" class="sec" style="fill:#e8e8e8;font-size:30px">计算</text>
+
+  <!-- 搬运 -->
+  <rect class="dma" x="720" y="780" width="340" height="76"/>
+  <text x="890" y="812" class="n">Tile DMA 入</text>
+  <text x="890" y="840" class="n">Src1 / Src2 共用 ≈35–40 GB/s</text>
+  <line class="ar" x1="890" y1="858" x2="890" y2="886"/>
+  <rect class="dma" x="720" y="890" width="340" height="76"/>
+  <text x="890" y="922" class="n">Kernel DMA</text>
+  <text x="890" y="950" class="n">16 组 · 每 NE 一组</text>
+  <line class="ar" x1="890" y1="968" x2="890" y2="996"/>
+  <rect class="dma" x="720" y="1000" width="340" height="150"/>
+  <line class="div" x1="890" y1="1042" x2="890" y2="1112"/>
+  <text x="805" y="1054" class="lab">入</text><text x="805" y="1102" class="big">×2</text>
+  <text x="975" y="1054" class="lab">出</text><text x="975" y="1102" class="big">×1</text>
+  <text x="890" y="1137" class="s">每 TD 最多读 2 写 1 · 读权重 ≈153 GB/s</text>
+  <text x="890" y="1202" class="sec" style="fill:#e8e8e8;font-size:30px">搬运</text>
+  <line class="ar" x1="805" y1="1216" x2="805" y2="1242"/>
+  <line class="ar" x1="975" y1="1216" x2="975" y2="1242"/>
+  <rect class="buf" x="720" y="1246" width="165" height="70"/>
+  <text x="802" y="1276" class="n">Tile DMA 出</text>
+  <text x="802" y="1302" class="s">Dst · 格式 / 压缩</text>
+  <rect class="buf" x="895" y="1246" width="165" height="70"/>
+  <text x="977" y="1276" class="n">DSID 标签</text>
+  <text x="977" y="1302" class="s">BAR 20</text>
+  <rect class="mem" x="720" y="1328" width="340" height="62"/>
+  <text x="890" y="1354" class="n">L2 · 2 MiB · 64 bank × 16 B</text>
+  <text x="890" y="1379" class="s">编译器补 512 / 768 B 步长避冲突</text>
+
+  <!-- 双 ANE -->
+  <rect class="cmp" x="1120" y="780" width="360" height="76"/>
+  <text x="1300" y="812" class="n">双 ANE 切分（编译期）</text>
+  <text x="1300" y="840" class="n">nonbonded / bonded 两套程序</text>
+  <line class="ar" x1="1300" y1="858" x2="1300" y2="886"/>
+  <rect class="cmp" x="1120" y="890" width="360" height="76"/>
+  <text x="1300" y="922" class="n">切分条件</text>
+  <text x="1300" y="950" class="n">Σ单 &gt; 0.5 ×（Σ切块 + Σ拷贝）</text>
+  <line class="ar" x1="1300" y1="968" x2="1300" y2="996"/>
+  <rect class="cmp" x="1120" y="1000" width="360" height="150"/>
+  <line class="divp" x1="1240" y1="1042" x2="1240" y2="1112"/>
+  <line class="divp" x1="1360" y1="1042" x2="1360" y2="1112"/>
+  <text x="1180" y="1054" class="lab">ANE</text><text x="1180" y="1102" class="big">×2</text>
+  <text x="1300" y="1054" class="lab">NE</text><text x="1300" y="1102" class="big">×32</text>
+  <text x="1420" y="1054" class="lab">按</text><text x="1420" y="1102" class="big" style="font-size:24px">行/通道</text>
+  <text x="1300" y="1137" class="s">两边各读一份权重 · 共用 DRAM 带宽</text>
+  <text x="1300" y="1202" class="sec" style="fill:#e8e8e8;font-size:30px">双 ANE</text>
+
+  <!-- 左下：数值 -->
+  <rect class="buf" x="120" y="1280" width="540" height="70"/>
+  <text x="390" y="1310" class="n">FP16 累加器 · 32 位定点 Q15.16</text>
+  <text x="390" y="1336" class="s">|和| ≥ 32768 → inf（粘住）· bias 为初值</text>
+  <rect class="buf" x="120" y="1364" width="540" height="70"/>
+  <text x="390" y="1394" class="n">INT8 累加器 · 32 位整数</text>
+  <text x="390" y="1420" class="s">≥ 2^31 → inf · 累加完才乘缩放</text>
+
+  <!-- 右下：峰值、能效 -->
+  <rect class="buf" x="1120" y="1280" width="360" height="70"/>
+  <text x="1300" y="1310" class="n">峰值 21.1 / 42.3 TFLOPS</text>
+  <text x="1300" y="1336" class="s">INT8 42.3 / 84.5 TOPS · 实测 FP16 20.6 / 39.5</text>
+  <rect class="buf" x="1120" y="1364" width="360" height="70"/>
+  <text x="1300" y="1394" class="n">FP16 0.6–0.8 pJ / 乘加</text>
+  <text x="1300" y="1420" class="s">INT8 约其 55–60% · PE ≈50–60 pJ / 元素</text>
+
+  <!-- 存储 -->
+  <line class="ar" x1="890" y1="1402" x2="890" y2="1448"/>
+  <rect class="mem" x="300" y="1452" width="440" height="80"/>
+  <text x="520" y="1486" class="n">系统级缓存 SLC（MCache）16 MiB</text>
+  <text x="520" y="1514" class="s">权重不经过 · 编译选项已关闭</text>
+  <rect class="mem" x="860" y="1452" width="440" height="80"/>
+  <text x="1080" y="1486" class="n">DRAM · 8 通道 · 10656 MT/s · 16 GB</text>
+  <text x="1080" y="1514" class="s">理论 170.5 GB/s · ANE ≈153 · 与 GPU 合计 ≈160–168</text>
+
+  <!-- 时钟 · 功耗 -->
+  <rect class="grp" x="100" y="1556" width="1400" height="170"/>
+  <text x="185" y="1600" class="sec" style="font-size:26px">– 时钟 –</text>
+  <text x="185" y="1640" class="sec" style="font-size:26px">– 功耗 –</text>
+  <rect class="clk" x="280" y="1574" width="290" height="134"/>
+  <text x="425" y="1608" class="n">NE 时钟（每个 ANE）</text>
+  <text x="425" y="1636" class="s">32 档 · 实用 852–2580 MHz</text>
+  <text x="425" y="1658" class="s">CLPC 选档 · 固件不参与</text>
+  <text x="425" y="1680" class="s">低档每次推理能耗 ≈1/3</text>
+  <rect class="clk" x="585" y="1574" width="290" height="134"/>
+  <text x="730" y="1608" class="n">ANE 共享簇（PE / L2）</text>
+  <text x="730" y="1636" class="s">与 NE 分开调频</text>
+  <text x="730" y="1658" class="s">PE 启动慢 ≈0.5 s · GPU 忙时被压低</text>
+  <text x="730" y="1680" class="s">绝对频率未知</text>
+  <rect class="clk" x="890" y="1574" width="290" height="134"/>
+  <text x="1035" y="1608" class="n">SoC 互连（fabric）</text>
+  <text x="1035" y="1636" class="s">534 / 712 / 1068 / 1150 / 1308 MHz</text>
+  <text x="1035" y="1658" class="s">ANE 向 SOC 域投带宽票</text>
+  <text x="1035" y="1680" class="s">编译器的"DMA 频率表"即此</text>
+  <rect class="buf" x="1195" y="1574" width="285" height="134"/>
+  <text x="1337" y="1608" class="n">ANE 功耗（满载）</text>
+  <text x="1337" y="1636" class="s">单 6.2 W · 双 10.8 W · 共享 ≈1.6 W</text>
+  <text x="1337" y="1658" class="s">读 DRAM ≤46 pJ / B（含内存轨）</text>
+  <text x="1337" y="1680" class="s">空闲 0 W · 5.7 s 后整体断电</text>
+
+  <text x="800" y="1830" class="s" style="font-size:15px;fill:#8a8a8a">依据：kdebug 计时 · HWX 编译产物 · ANECompiler / 固件 / kernelcache 只读分析 · IOReport · SMC（PP0b 已扣除 P 核）；均为 M6 实测或推断</text>
+</svg>

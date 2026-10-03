@@ -1,0 +1,67 @@
+   0.10 s  ANE  → Running
+   5.70 s  ANE  → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+   5.80 s  ANE  → Off
+  10.30 s  ANE  → Off+Wait Vr+Vers OK+Ready+Running
+  10.40 s  ANE  → Running
+  13 s 后第 1 次调用 9495.4 us
+   23287 /tmp/h16_stream.txt
+2026-10-02 21:13:09.625 Df kernel[0:3342f2] (AppleH16ANEInterface) : operator(): Program prepare Done for ANEId:0 programId:0
+2026-10-02 21:13:09.625 Df kernel[0:3342f2] (AppleH16ANEInterface) : operator(): Program prepare Done for ANEId:1 programId:0
+2026-10-02 21:13:09.625 Df kernel[0:3342f2] (AppleH16ANEInterface) ANE0: sendInferenceCmd: send Inference cmd property dva:100014c0528 numsegs=1 1492264 statsSize:0
+2026-10-02 21:13:09.625 Df kernel[0:3342f2] (AppleH16ANEInterface) ANE1: sendInferenceCmd: send Inference cmd property dva:100014c0528 numsegs=1 1492264 statsSize:0
+2026-10-02 21:13:09.626 Df kernel[0:1303] (AppleH16ANEInterface) ANE0: removeRequestByUUID: Found inference request with uuid (0x10da6f2)
+2026-10-02 21:13:09.626 Df kernel[0:1303] (AppleH16ANEInterface) : processDeviceEvent: Request completed by ANE:0. Requires other ANE to complete for this Bonded request 3 1
+2026-10-02 21:13:09.626 Df kernel[0:1303] (AppleH16ANEInterface) ANE1: removeRequestByUUID: Found inference request with uuid (0x10da6f2)
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.xpc.transaction:all] [0x200007858c89b00] 'unloadModel:options:qos:withReply:': Transaction created
+2026-10-02 21:13:09.627 I  aned[73666:33409f] [com.apple.ane:aned] START: <private>: <private>
+2026-10-02 21:13:09.627 I  aned[73666:33409f] [com.apple.ane:aned] <private>: SecTaskCopySigningIdentifier() returned csIdentity="<private>"
+2026-10-02 21:13:09.627 I  aned[73666:33409f] [com.apple.ane:aned] <private>: SecTaskCopyTeamIdentifier() returned teamIdentity=""
+2026-10-02 21:13:09.627 I  aned[73666:33409f] [com.apple.ane:aned] <private>:  removeProgramForConnection: <private>, Model cacheURLIdentifier:<private>
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.ane:aned] <private>: connStr=<private> : cacheKey=<private> : dict=<private>
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.ane:common] Telemetry: report to category modelUnload.
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.powerlog:ClientLogging] Sending xpc message for client id: 110 withKey:<private> withPayload:<private> dispatching...
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.powerlog:ClientLogging] XPC Send Message - Batching enabled xpcSendMessageWithRateLimitingforClient: 110 withKey:<private>
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.defaults:User Defaults] found no value for key <private> in CFPrefsPlistSource<0xe00007859065180> (Domain: com.apple.powerlogd, User: kCFPrefer
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.powerlog:ClientLogging] buildMessageForClientID: 110 message:<private>
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.ane:aned] <private>: Stopping the program=0x900007859009740 : refcount=0
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.ane:aned] <private>: Destroying the program=0x900007859009740
+2026-10-02 21:13:09.627 Df kernel[0:33409f] (AppleH16ANEInterface) : ANE_ProgramDestroy: programHandle: 0x10d88b2, client: 0x<decode: bad range for [%llx] got [offs:20 len:0 within:0]>
+2026-10-02 21:13:09.627 Df kernel[0:33409f] (AppleH16ANEInterface) : ANE_ProgramDestroy: WARN: Process not found. ProgramHandle: 0x10d88b2
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.xpc.transaction:all] [0x50000785908c730] '<private>': Transaction released
+2026-10-02 21:13:09.627 Db aned[73666:33409f] [com.apple.ane:common] <private>: self.usecount=0 : self.device=0xe000078590081c0
+2026-10-02 21:13:09.627 Df kernel[0:33409f] (AppleH16ANEInterface) : ANE_UserClientCleanup:
+2026-10-02 21:13:09.627 Df kernel[0:33409f] (AppleH16ANEInterface) : ANE_UserClientCleanup: Client <decode: bad range for [%p] got [offs:23 len:0 within:0]> cleanup done 2
+2026-10-02 21:13:09.627 Df kernel[0:33409f] (AppleH16ANEInterface) : ANE_UserClientCleanup: -
+2026-10-02 21:13:09.627 Df kernel[0:33409f] (AppleH16ANEInterface) : ANE_UserClientClose: client closing :<decode: bad range for [%p] got [offs:21 len:0 within:0]>
+2026-10-02 21:13:09.628 Db aned[73666:33409f] [com.apple.ane:common] <private>: ANEDeviceClose() self.usecount=0 : self.device=0x0
+2026-10-02 21:13:09.628 Db aned[73666:33409f] [com.apple.xpc.transaction:all] [0x200007858c89b00] 'unloadModel:options:qos:withReply:': Transaction released
+2026-10-02 21:13:09.628 I  aned[73666:33409f] [com.apple.ane:aned] END: <private>: <private> : <private> : 0
+2026-10-02 21:13:09.628 Db kernel[0:33409f] (AppleH16ANEInterface) [DEBUG] : exiting: ClientInterface(<decode: bad range for [%p] got [offs:9 len:0 within:0]>): Exiting '2' state with event '3' [Clien
+2026-10-02 21:13:09.628 Db kernel[0:33409f] (AppleH16ANEInterface) [DEBUG] : entered: ClientInterface(<decode: bad range for [%p] got [offs:9 len:0 within:0]>): Entered '4' state with event '3' [Clien
+2026-10-02 21:13:09.628 Db kernel[0:70] (AppleH16ANEInterface) [DEBUG] : exiting: ClientInterface(<decode: bad range for [%p] got [offs:9 len:0 within:0]>): Exiting '4' state with event '2' [Client: a
+2026-10-02 21:13:09.628 Db kernel[0:70] (AppleH16ANEInterface) [DEBUG] : entered: ClientInterface(<decode: bad range for [%p] got [offs:9 len:0 within:0]>): Entered '3' state with event '2' [Client: a
+2026-10-02 21:13:09.628 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: +
+2026-10-02 21:13:09.628 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: -
+2026-10-02 21:13:09.628 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientContext: Removing client: <decode: bad range for [%p] got [offs:19 len:0 within:0]>, clientName: aned
+2026-10-02 21:13:09.628 Db kernel[0:70] (AppleH16ANEInterface) [DEBUG] : exiting: ClientInterface(<decode: bad range for [%p] got [offs:9 len:0 within:0]>): Exiting '3' state with event '4' [Client: a
+2026-10-02 21:13:09.628 Db kernel[0:70] (AppleH16ANEInterface) [DEBUG] : entered: ClientInterface(<decode: bad range for [%p] got [offs:9 len:0 within:0]>): Entered '0' state with event '4' [Client: a
+2026-10-02 21:13:09.628 Df kernel[0:3342f2] (AppleH16ANEInterface) : ANE_UserClientCleanup:
+2026-10-02 21:13:09.628 Df kernel[0:3342f2] (AppleH16ANEInterface) : ANE_UserClientCleanup: Client <decode: bad range for [%p] got [offs:23 len:0 within:0]> cleanup done 2
+2026-10-02 21:13:09.628 Df kernel[0:3342f2] (AppleH16ANEInterface) : ANE_UserClientCleanup: -
+2026-10-02 21:13:09.628 Df kernel[0:3342f2] (AppleH16ANEInterface) : ANE_UserClientClose: client closing :<decode: bad range for [%p] got [offs:21 len:0 within:0]>
+2026-10-02 21:13:09.628 Df kernel[0:3340a2] (AppleH16ANEInterface) : operator(): Process Unprepare For aneId:0 epoch:5027 processId:0
+2026-10-02 21:13:09.628 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: +
+2026-10-02 21:13:09.628 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientDeviceCore: -
+2026-10-02 21:13:09.628 Df kernel[0:70] (AppleH16ANEInterface) : ~ANEClientContext: Removing client: <decode: bad range for [%p] got [offs:19 len:0 within:0]>, clientName: coldwake
+2026-10-02 21:13:09.628 Df aned[73666:33409f] [com.apple.xpc:connection] [0xe00007859090f00] invalidated because the client process (pid 81853) either cancelled the connection or exited
+2026-10-02 21:13:09.629 Df kernel[0:3340a2] (AppleH16ANEInterface) : operator(): Process Unprepare For aneId:1 epoch:5026 processId:0
+2026-10-02 21:13:09.628 Df aned[73666:334351] [com.apple.xpc:connection] [0xd00007859090dc0] invalidated because the client process (pid 81853) either cancelled the connection or exited
+2026-10-02 21:13:09.629 Db aned[73666:334351] [com.apple.ane:aned] <private>: invalidationHandler : com.apple.appleneuralengine : 81853 : <private>
+2026-10-02 21:13:09.628 Db aned[73666:33409f] [com.apple.ane:aned] <private>: invalidationHandler : com.apple.appleneuralengine : 81853 : <private>
+2026-10-02 21:13:09.629 Db aned[73666:334351] [com.apple.ane:aned] <private>: connStr=<private>
+2026-10-02 21:13:09.629 Db aned[73666:33409f] [com.apple.ane:aned] <private>: connStr=<private>
+2026-10-02 21:13:09.629 Df kernel[0:3340a2] (AppleH16ANEInterface) : operator(): Program Unprepare For aneId:0 epoch:5027 programId:0
+2026-10-02 21:13:09.630 Df kernel[0:3340a2] (AppleH16ANEInterface) : operator(): Program Unprepare For aneId:1 epoch:5026 programId:0
+2026-10-02 21:13:09.630 Df kernel[0:1302] (AppleH16ANEInterface) : ~ANEProgramResource: totalPrograms = 0 keyWasRemoved=1
+2026-10-02 21:13:09.630 Df kernel[0:1302] (AppleH16ANEInterface) : ~ANEProgramResource: Release vnode iocount: 0 usecount: 2 machoFilePath=/Library/Caches/com.apple.aned/26A434/ModelAssetsCache/coldwa
+2026-10-02 21:13:10.132 Df kernel[0:3340a2] (AppleH16ANEInterface) : canEnableSchedulerMaintenanceTimer: fInactiveResources->size(): 0 pendingRequestsCount() : 0. Not re-enabling maintenance timer

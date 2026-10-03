@@ -1,0 +1,25 @@
+L64 返回 0 产物 33751040
+  [nonbonded] 运行时操作 10 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+  [bonded] 运行时操作 13 个，kick 1 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+  TD 流 ane0_P_main__nonbonded           @ 0x30004000  0x5870 字节
+  TD 流 ane0_P_main__bonded              @ 0x3000c000  0x5870 字节
+L96 返回 0 产物 50610176
+  [nonbonded] 运行时操作 10 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+  [bonded] 运行时操作 13 个，kick 1 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+  TD 流 ane0_P_main__nonbonded           @ 0x30004000  0x8470 字节
+  TD 流 ane0_P_main__bonded              @ 0x30010000  0x8470 字节
+L112 返回 0 产物 59031552
+  [nonbonded] 运行时操作 10 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+  [bonded] 运行时操作 13 个，kick 1 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+  TD 流 ane0_P_main__nonbonded           @ 0x30004000  0x9a70 字节
+  TD 流 ane0_P_main__bonded              @ 0x30010000  0x9a70 字节
+L128 返回 0 产物 67436544
+  [nonbonded] 运行时操作 10 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+  [bonded] 运行时操作 13 个，kick 1 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+  TD 流 ane0_P_main__nonbonded           @ 0x30004000  0xb070 字节
+  TD 流 ane0_P_main__bonded              @ 0x30010000  0xb070 字节
+L160 返回 0 产物 84295680
+  [nonbonded] 运行时操作 10 个，kick 1 个: ['rt_op_ane_kick_main__nonbonded_bb_0_segment_0_ane_0']
+  [bonded] 运行时操作 13 个，kick 1 个: ['rt_op_ane_kick_main__bonded_bb_0_segment_0_ane_0']
+  TD 流 ane0_P_main__nonbonded           @ 0x30004000  0xdc70 字节
+  TD 流 ane0_P_main__bonded              @ 0x30014000  0xdc70 字节

@@ -1,0 +1,44 @@
+匹配 "ANE" 的通道 221 个
+[Interrupt Statistics (by index)] / [ane 2] / [ First Level Interrupt Handler Count] fmt=1 unit= value=3359
+[Interrupt Statistics (by index)] / [ane 2] / [ Second Level Interrupt Handler Count] fmt=1 unit= value=3359
+[Interrupt Statistics (by index)] / [ane 2] / [ First Level Interrupt Handler Time (MATUs)] fmt=1 unit= value=3636
+[Interrupt Statistics (by index)] / [ane 2] / [ Second Level Interrupt Handler CPU Time (MATUs)] fmt=1 unit= value=900923
+[Interrupt Statistics (by index)] / [ane 2] / [Second Level Interrupt Handler System Time (MATUs)] fmt=1 unit= value=906841
+[SoC Stats] / [Service States] / [ANE0_CPU_BLOCKI] fmt=2 unit=24Mticks states=2: INACT=0 ACT=24505829
+[SoC Stats] / [Service States] / [ANE0_SYS_0] fmt=2 unit=24Mticks states=2: INACT=0 ACT=24505830
+[SoC Stats] / [Service States] / [ANE1_CPU_BLOCKI] fmt=2 unit=24Mticks states=2: INACT=0 ACT=24505828
+[SoC Stats] / [Service States] / [ANE1_SYS_0] fmt=2 unit=24Mticks states=2: INACT=0 ACT=24505828
+[ANE] / [IOP State] / [status] fmt=2 unit=24Mticks states=9: unused=0 Off=0 Sleep=0 Quiesce=0 Wait Vr=0 Vers OK=0 Ready=0 Pwr Dwn=0 Running=24505926
+[ANE1] / [IOP State] / [status] fmt=2 unit=24Mticks states=9: unused=0 Off=0 Sleep=0 Quiesce=0 Wait Vr=0 Vers OK=0 Ready=0 Pwr Dwn=0 Running=24505926
+[SoC Stats] / [PMGR Counters] / [ANE0_SYS_IDLE] fmt=1 unit= value=248824
+[SoC Stats] / [PMGR Counters] / [ANE0_CPU_IDLE] fmt=1 unit= value=250240
+[SoC Stats] / [PMGR Counters] / [ANE1_SYS_IDLE] fmt=1 unit= value=22247032
+[SoC Stats] / [PMGR Counters] / [ANE1_CPU_IDLE] fmt=1 unit= value=22259216
+[SoC Stats] / [PMGR Counters] / [PLL_ANE0_PLL0_CLK_OFF] fmt=1 unit= value=267336
+[SoC Stats] / [PMGR Counters] / [PLL_ANE0_PLL1_CLK_OFF] fmt=1 unit= value=267336
+[SoC Stats] / [PMGR Counters] / [PLL_ANE1_PLL0_CLK_OFF] fmt=1 unit= value=24505120
+[SoC Stats] / [PMGR Counters] / [PLL_ANE1_PLL1_CLK_OFF] fmt=1 unit= value=24505128
+[SoC Stats] / [PMGR Counters] / [ANE0_BYP_CLK_ON] fmt=1 unit= value=574408
+[SoC Stats] / [PMGR Counters] / [ANE0_DPE_CLK_ON] fmt=1 unit= value=24270384
+[SoC Stats] / [PMGR Counters] / [ANE0_SYS_CLK_ON] fmt=1 unit= value=24274216
+[SoC Stats] / [PMGR Counters] / [RC_PWRS_ANE0_CLK_ON] fmt=1 unit= value=24270400
+[SoC Stats] / [PMGR Counters] / [ANE0_CPU_CLK_ON] fmt=1 unit= value=24271496
+[SoC Stats] / [PMGR Counters] / [ANE0_CPU_POWER_ON] fmt=1 unit= value=24252976
+[SoC Stats] / [PMGR Counters] / [ANE1_CPU_POWER_ON] fmt=1 unit= value=1516912
+[SoC Stats] / [PMGR Counters] / [ANE0_KA_TXN_POWER] fmt=1 unit= value=18269122
+[SoC Stats] / [PMGR Counters] / [ANE1_KA_TXN_POWER] fmt=1 unit= value=612734
+[SoC Stats] / [PMGR Counters] / [ANEXL0_KA_TXN_POWER] fmt=1 unit= value=14676067
+[SoC Stats] / [PMGR Counters] / [ANE_COUNT_1_ANE_ON_ACC1_ON_0] fmt=1 unit= value=20535408
+[SoC Stats] / [PMGR Counters] / [ANE_COUNT_1_ANE_ON_ACC1_ON_1] fmt=1 unit= value=3491744
+[SoC Stats] / [PMGR Counters] / [ANE_COUNT_1_ANE_ON_ACC1_ON_2] fmt=1 unit= value=209816
+[SoC Stats] / [PMGR Counters] / [ANE_COUNT_1_ANE_ON_ACC1_ON_3] fmt=1 unit= value=416
+[SoC Stats] / [PMGR Counters] / [ANE_COUNT_1_ANE_ON_ACC1_ON_4] fmt=1 unit= value=8
+[SoC Stats] / [PMGR Counters] / [ANE_COUNT_1_ANE_ON_ACC1_ON_6] fmt=1 unit= value=48
+[PMP] / [SOC-NI Util BW] / [SOC-NI3 ANE0_UP] fmt=2 unit=events states=32: 2GB/s=141 4GB/s=128 6GB/s=93 8GB/s=88 10GB/s=109 12GB/s=109 14GB/s=109 16GB/s=102 18GB/s=116 20GB/s=77 22GB/s=117 24GB/s=101 26GB/s=106 28GB/s=122 30GB/s=114 32GB/s=92 34GB/s=96 36GB/s=111 38GB/s=120 40GB/s=116 42GB/s=104 44GB/s=111 46GB/s=88 48GB/s=95 50GB/s=116 52GB/s=123 54GB/s=121 56GB/s=114 58GB/s=109 60GB/s=111 62GB/s=120 64GB/s=1039
+[PMP] / [SOC-NI Util BW] / [SOC-NI4 ANEXL0_] fmt=2 unit=events states=32: 2GB/s=205 4GB/s=115 6GB/s=96 8GB/s=90 10GB/s=108 12GB/s=118 14GB/s=98 16GB/s=109 18GB/s=102 20GB/s=88 22GB/s=114 24GB/s=99 26GB/s=116 28GB/s=121 30GB/s=105 32GB/s=90 34GB/s=96 36GB/s=118 38GB/s=118 40GB/s=113 42GB/s=103 44GB/s=107 46GB/s=79 48GB/s=109 50GB/s=109 52GB/s=125 54GB/s=116 56GB/s=111 58GB/s=105 60GB/s=115 62GB/s=107 64GB/s=952
+[PMP] / [AF BW] / [ANE0 L0 RD] fmt=2 unit=events states=32: 1GB/s=133 2GB/s=39 3GB/s=57 4GB/s=62 5GB/s=42 6GB/s=40 7GB/s=42 8GB/s=39 9GB/s=44 10GB/s=41 11GB/s=57 12GB/s=45 13GB/s=59 14GB/s=58 15GB/s=42 16GB/s=49 17GB/s=43 18GB/s=49 19GB/s=54 20GB/s=50 21GB/s=36 22GB/s=35 23GB/s=48 24GB/s=58 25GB/s=51 26GB/s=45 27GB/s=49 28GB/s=44 29GB/s=65 30GB/s=53 31GB/s=41 32GB/s=2880
+[PMP] / [AF BW] / [ANE0 L0 RD+WR] fmt=2 unit=events states=32: 1GB/s=127 2GB/s=42 3GB/s=52 4GB/s=59 5GB/s=48 6GB/s=42 7GB/s=39 8GB/s=37 9GB/s=45 10GB/s=43 11GB/s=56 12GB/s=45 13GB/s=57 14GB/s=57 15GB/s=47 16GB/s=47 17GB/s=42 18GB/s=52 19GB/s=54 20GB/s=48 21GB/s=39 22GB/s=35 23GB/s=48 24GB/s=52 25GB/s=54 26GB/s=48 27GB/s=46 28GB/s=43 29GB/s=67 30GB/s=52 31GB/s=40 32GB/s=2886
+[PMP] / [AF BW] / [ANE0 L1 RD] fmt=2 unit=events states=32: 1GB/s=237 2GB/s=54 3GB/s=54 4GB/s=53 5GB/s=39 6GB/s=42 7GB/s=44 8GB/s=36 9GB/s=43 10GB/s=55 11GB/s=45 12GB/s=58 13GB/s=56 14GB/s=48 15GB/s=42 16GB/s=45 17GB/s=43 18GB/s=53 19GB/s=54 20GB/s=37 21GB/s=40 22GB/s=41 23GB/s=56 24GB/s=56 25GB/s=48 26GB/s=45 27GB/s=50 28GB/s=50 29GB/s=48 30GB/s=53 31GB/s=57 32GB/s=2768
+[PMP] / [AF BW] / [ANE0 L1 RD+WR] fmt=2 unit=events states=32: 1GB/s=235 2GB/s=54 3GB/s=55 4GB/s=52 5GB/s=40 6GB/s=42 7GB/s=43 8GB/s=35 9GB/s=45 10GB/s=54 11GB/s=47 12GB/s=54 13GB/s=58 14GB/s=47 15GB/s=43 16GB/s=45 17GB/s=44 18GB/s=53 19GB/s=54 20GB/s=38 21GB/s=40 22GB/s=40 23GB/s=54 24GB/s=57 25GB/s=48 26GB/s=47 27GB/s=45 28GB/s=50 29GB/s=53 30GB/s=52 31GB/s=58 32GB/s=2768
+[PMP] / [DCS Floor] / [ANE-DCS-BW] fmt=2 unit=events states=8: F2=185686 F3=10922 F4=10923 F5=10923 F6=10922 F7=10923 F8=16384 F9=24242449
+[PMP] / [SOC Floor] / [ANE0-AF-BW] fmt=2 unit=events states=5: VMIN=229376 VNOM=70997 VMAX=5462 VOVD=5461 VOVD2=24187836

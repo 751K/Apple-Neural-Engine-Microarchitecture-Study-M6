@@ -1,0 +1,29 @@
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x1'.
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x2'.
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x3'.
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x4'.
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x5'.
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x6'.
+AssertionError: Main block's input name, 'x0', is different from its corresponding var's name, 'x7'.
+add_8 1339.6 626.5 4.00 4.01 1868.3
+add_32 2107.4 2077.3 2.29 2.28 2209.1
+add_64 4923.7 4642.0 4.01 4.01 3983.7
+sum1 332.2 325.7 0.00 0.00 30.4
+sum2    
+sum3    
+sum4    
+sum5    
+sum6    
+sum7    
+sum8    
+add_8 691.0 541.4 2.41 2.41 777.2
+add_32 2105.5 2073.9 2.31 2.30 2218.5
+add_64 4899.1 4658.5 4.00 4.00 3942.3
+sum1 335.4 327.6 0.00 0.00 30.9
+sum2    
+sum3    
+sum4    
+sum5    
+sum6    
+sum7    
+sum8    

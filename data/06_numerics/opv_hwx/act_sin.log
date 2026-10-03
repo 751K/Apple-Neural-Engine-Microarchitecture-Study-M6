@@ -1,0 +1,14 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "opv/act_sin.mlmodelc/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "opv_hwx/act_sin/";
+}
+flags {
+    TargetArchitecture = h18g;
+}
+ANECCompile returned 0

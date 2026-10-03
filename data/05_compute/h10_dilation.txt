@@ -1,0 +1,23 @@
+XGBoost version 3.0.0 has not been tested with coremltools. You may run into unexpected errors. XGBoost 1.4.2 is the most recent version that has been tested.
+built dil1_k3_c512_h16w16_L32
+built dil2_k3_c512_h16w16_L32
+built dil1_k3_c512_h16w16_L96
+built dil2_k3_c512_h16w16_L96
+### 第 1 轮
+dil/dil1_k3_c512_h16w16_L32.mlmodelc  耗时 中位数 1597.5 us p10 1592.0 p90 1615.1  ANE1: 中断 0（0.00 次/调用） 读 活跃采样 2504 平均 0.5 GB/s 写 活跃采样 2504 平均 0.5 GB/s 
+
+dil/dil1_k3_c512_h16w16_L96.mlmodelc  耗时 中位数 4095.0 us p10 4085.4 p90 4151.6  ANE1: 中断 0（0.00 次/调用） 读 活跃采样 4810 平均 0.5 GB/s 写 活跃采样 4810 平均 0.5 GB/s 
+
+dil/dil2_k3_c512_h16w16_L32.mlmodelc  耗时 中位数 1723.7 us p10 1713.0 p90 1791.7  ANE1: 中断 802（2.00 次/调用） 读 活跃采样 6146 平均 21.4 GB/s 写 活跃采样 6146 平均 0.5 GB
+
+dil/dil2_k3_c512_h16w16_L96.mlmodelc  耗时 中位数 4378.2 us p10 4358.2 p90 4646.9  ANE1: 中断 834（2.08 次/调用） 读 活跃采样 15650 平均 26.4 GB/s 写 活跃采样 15650 平均 0.5 
+
+### 第 2 轮
+dil/dil1_k3_c512_h16w16_L32.mlmodelc  耗时 中位数 1448.7 us p10 1440.9 p90 1479.3  ANE1: 中断 0（0.00 次/调用） 读 活跃采样 1968 平均 0.5 GB/s 写 活跃采样 1968 平均 0.5 GB/s 
+
+dil/dil1_k3_c512_h16w16_L96.mlmodelc  耗时 中位数 4092.2 us p10 4084.4 p90 4129.4  ANE1: 中断 0（0.00 次/调用） 读 活跃采样 4773 平均 0.5 GB/s 写 活跃采样 4773 平均 0.5 GB/s 
+
+dil/dil2_k3_c512_h16w16_L32.mlmodelc  耗时 中位数 1721.5 us p10 1710.3 p90 1797.8  ANE1: 中断 802（2.00 次/调用） 读 活跃采样 6138 平均 21.5 GB/s 写 活跃采样 6138 平均 0.5 GB
+
+dil/dil2_k3_c512_h16w16_L96.mlmodelc  耗时 中位数 4370.4 us p10 4358.8 p90 4590.6  ANE1: 中断 802（2.00 次/调用） 读 活跃采样 15569 平均 26.6 GB/s 写 活跃采样 15569 平均 0.5 
+

@@ -1,0 +1,10 @@
+1 pem/pe_sc_c256_h64w64_L96.mlmodelc
+1 sweep/k1x1_512_h1w128_L384.mlmodelc
+2 pem/pe_sc_c256_h64w64_L96.mlmodelc
+2 sweep/k1x1_512_h1w128_L384.mlmodelc
+3 pem/pe_sc_c256_h64w64_L96.mlmodelc
+3 sweep/k1x1_512_h1w128_L384.mlmodelc
+4 pem/pe_sc_c256_h64w64_L96.mlmodelc
+4 sweep/k1x1_512_h1w128_L384.mlmodelc
+5 pem/pe_sc_c256_h64w64_L96.mlmodelc
+5 sweep/k1x1_512_h1w128_L384.mlmodelc

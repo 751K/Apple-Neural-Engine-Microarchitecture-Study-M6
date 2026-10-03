@@ -1,0 +1,34 @@
+sweep/k1x1_512_h1w256_L384.mlmodelc
+稳态中位数 1680.4 us
+第 1 轮：
+   0.10 s  ANE  → Running
+   0.10 s  ANE1 → Running
+   5.70 s  ANE  → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+   5.70 s  ANE1 → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+   5.80 s  ANE  → Off
+   5.80 s  ANE1 → Off
+  10.20 s  ANE  → Off+Wait Vr+Vers OK+Ready+Running
+  10.20 s  ANE1 → Off+Wait Vr+Vers OK+Ready+Running
+  10.30 s  ANE  → Running
+  10.30 s  ANE1 → Running
+  15.30 s  ANE  → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+  15.30 s  ANE1 → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+  15.40 s  ANE  → Off
+  15.40 s  ANE1 → Off
+  40 s 后第 1 次调用 54313.4 us
+第 2 轮：
+   0.10 s  ANE  → Running
+   0.10 s  ANE1 → Running
+   6.00 s  ANE  → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+   6.00 s  ANE1 → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+   6.10 s  ANE  → Off
+   6.10 s  ANE1 → Off
+  10.10 s  ANE  → Off+Wait Vr+Vers OK+Ready+Running
+  10.10 s  ANE1 → Off+Wait Vr+Vers OK+Ready+Running
+  10.20 s  ANE  → Running
+  10.20 s  ANE1 → Running
+  15.10 s  ANE  → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+  15.10 s  ANE1 → Off+Wait Vr+Vers OK+Ready+Pwr Dwn+Running
+  15.20 s  ANE  → Off
+  15.20 s  ANE1 → Off
+  40 s 后第 1 次调用 57107.5 us

@@ -1,0 +1,26 @@
+== 默认  返回 0
+  ane0_P_main__nonbonded     流长 0x05014  TD 数  98    列数合计 245760  每层 30720
+  ane0_P_main__bonded        流长 0x02254  TD 数  42    列数合计 107520  每层 13440
+  ane1_P_main__bonded        流长 0x02ddc  TD 数  56    列数合计 138240  每层 17280
+== DisableNetworkImbalanceAnalysis=true  返回 0
+  ane0_P_main__nonbonded     流长 0x05014  TD 数  98    列数合计 245760  每层 30720
+  ane0_P_main__bonded        流长 0x02254  TD 数  42    列数合计 107520  每层 13440
+  ane1_P_main__bonded        流长 0x02ddc  TD 数  56    列数合计 138240  每层 17280
+== EnableForcedMaximalBondedSplit=true  返回 0
+  ane0_P_main__nonbonded     流长 0x05014  TD 数  98    列数合计 245760  每层 30720
+  ane0_P_main__bonded        流长 0x02254  TD 数  42    列数合计 107520  每层 13440
+  ane1_P_main__bonded        流长 0x02ddc  TD 数  56    列数合计 138240  每层 17280
+== SpatialSplitMode=generic-dag-memory  返回 1
+日志       43 行
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Architecture '<private>' supports_bonded_networks=true
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Initial state - generate_bonded=not set, generate_nonbonded=not set, use_extended_macho_format=not set, spatial_split=<private>
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: DetermineConfiguration() decided - bonded=true, nonbonded=true, rtgraph=true, spatial_split=<private>, procedure_family=true
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Applied generate_bonded_procedures=true
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Applied generate_nonbonded_procedures=true
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Applied spatial_split_mode=<private>
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Final state - bonded=true, nonbonded=true, rtgraph=true, spatial_split=<private>, procedure_family=true
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Configuring bonded mode for procedure '<private>'
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Set procedure '<private>' to NON-BONDED mode (concurrency=1)
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Configuring bonded mode for procedure '<private>'
+I  anecc[91112:34c7e0] (ANECompiler) Multi-Flavor: Set procedure '<private>' to BONDED mode (concurrency=2, spatial_split=GenericDAG)
+Df anecc[91112:34c7e1] (ANECompiler) Ending segment at piece: 23

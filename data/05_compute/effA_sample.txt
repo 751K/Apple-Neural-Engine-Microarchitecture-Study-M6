@@ -1,0 +1,15 @@
+== L16
+Sort by top of stack, same collapsed (when >= 5):
+        __workq_kernreturn  (in libsystem_kernel.dylib)        2166
+        mach_msg2_trap  (in libsystem_kernel.dylib)        2138
+        start_wqthread  (in libsystem_pthread.dylib)        79
+        kevent_id  (in libsystem_kernel.dylib)        41
+        _platform_memmove  (in libsystem_platform.dylib)        14
+        objc_msgSend  (in libobjcMsgSend1.dylib)        8
+
+== L28
+Sort by top of stack, same collapsed (when >= 5):
+        __workq_kernreturn  (in libsystem_kernel.dylib)        1516
+        mach_msg2_trap  (in libsystem_kernel.dylib)        1516
+        start_wqthread  (in libsystem_pthread.dylib)        7
+

@@ -1,0 +1,14 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "opv/elt_minimum.mlmodelc/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "opv_hwx/elt_minimum/";
+}
+flags {
+    TargetArchitecture = h18g;
+}
+ANECCompile returned 0

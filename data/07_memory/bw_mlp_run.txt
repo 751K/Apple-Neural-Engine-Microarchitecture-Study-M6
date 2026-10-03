@@ -1,0 +1,13 @@
+65Gi
+XGBoost version 3.0.0 has not been tested with coremltools. You may run into unexpected errors. XGBoost 1.4.2 is the most recent version that has been tested.
+XGBoost version 3.0.0 has not been tested with coremltools. You may run into unexpected errors. XGBoost 1.4.2 is the most recent version that has been tested.
+XGBoost version 3.0.0 has not been tested with coremltools. You may run into unexpected errors. XGBoost 1.4.2 is the most recent version that has been tested.
+XGBoost version 3.0.0 has not been tested with coremltools. You may run into unexpected errors. XGBoost 1.4.2 is the most recent version that has been tested.
+fp16_k1_t1 960.6 829.0 2.21 0.00
+fp16_k2_t1 1606.7 1557.8 2.06 0.00
+fp16_k3_t1 2198.8 2191.0 2.01 0.00
+fp16_k4_t1 2818.8 2811.5 2.01 0.00
+fp16_k1_t1 954.5 946.8 2.01 0.00
+fp16_k2_t1 1577.3 1569.5 2.01 0.00
+fp16_k3_t1 2198.8 2191.6 2.01 0.00
+fp16_k4_t1 2821.1 2811.5 2.01 0.00

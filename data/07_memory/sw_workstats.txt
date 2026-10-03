@@ -1,0 +1,12 @@
+ 耗时 中位数 497.2 us p10 491.6 p90 510.2  ANE0: 中断 5987（2.99 次/调用） 读 活跃采样 887 <- L96 21:56:53
+ 耗时 中位数 513.4 us p10 505.7 p90 563.8  ANE0: 中断 5649（2.82 次/调用） 读 活跃采样 934 <- L100 21:57:03
+ 耗时 中位数 510.8 us p10 504.9 p90 545.0  ANE0: 中断 5980（2.99 次/调用） 读 活跃采样 914 <- L100 21:57:12
+ 耗时 中位数 499.8 us p10 492.1 p90 548.9  ANE0: 中断 5735（2.87 次/调用） 读 活跃采样 905 <- L96 21:57:22
+2026-10-02 21:56:50erface) ANE0: ANE_Init: Work Stats:  WorkSubmit: 5996402 WorkSubmitFailed: 0 WorkBegin: 5950138 WorkEnd: 5996488
+2026-10-02 21:56:58erface) ANE0: ANE_deInit: Work Stats:  WorkSubmitted: 6000128 WorkSubmitFailed 0 WorkBegin: 5953864 WorkEnded: 6000214
+2026-10-02 21:57:00erface) ANE0: ANE_Init: Work Stats:  WorkSubmit: 6000128 WorkSubmitFailed: 0 WorkBegin: 5953864 WorkEnd: 6000214
+2026-10-02 21:57:08erface) ANE0: ANE_deInit: Work Stats:  WorkSubmitted: 6003806 WorkSubmitFailed 0 WorkBegin: 5957542 WorkEnded: 6003892
+2026-10-02 21:57:10erface) ANE0: ANE_Init: Work Stats:  WorkSubmit: 6003806 WorkSubmitFailed: 0 WorkBegin: 5957542 WorkEnd: 6003892
+2026-10-02 21:57:18erface) ANE0: ANE_deInit: Work Stats:  WorkSubmitted: 6007509 WorkSubmitFailed 0 WorkBegin: 5961245 WorkEnded: 6007595
+2026-10-02 21:57:20erface) ANE0: ANE_Init: Work Stats:  WorkSubmit: 6007509 WorkSubmitFailed: 0 WorkBegin: 5961245 WorkEnd: 6007595
+2026-10-02 21:57:28erface) ANE0: ANE_deInit: Work Stats:  WorkSubmitted: 6011257 WorkSubmitFailed 0 WorkBegin: 5964993 WorkEnded: 6011343

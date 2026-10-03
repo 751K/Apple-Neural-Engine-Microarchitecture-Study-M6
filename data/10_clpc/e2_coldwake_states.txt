@@ -1,0 +1,10 @@
+sweep/k1x1_512_h1w128_L384.mlmodelc
+稳态中位数 1599.9 us
+空闲  0.002 s → 第 1 次   1730.8 us，第 2 次  1640.0，第 8 次  1618.3（稳态的 1.08×）  ANE0_DPE_CLK_ON 72%  ANE0_CPU_POWER_ON 58%  ANE1_CPU_POWER_ON 12%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲  0.010 s → 第 1 次   1745.5 us，第 2 次  1686.5，第 8 次  1659.5（稳态的 1.09×）  ANE0_DPE_CLK_ON 32%  ANE0_CPU_POWER_ON 21%  ANE1_CPU_POWER_ON 11%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲  0.030 s → 第 1 次   1988.8 us，第 2 次  1905.2，第 8 次  2054.9（稳态的 1.24×）  ANE0_DPE_CLK_ON 22%  ANE0_CPU_POWER_ON 12%  ANE1_CPU_POWER_ON 9%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲  0.100 s → 第 1 次   5651.5 us，第 2 次  4437.7，第 8 次  3489.9（稳态的 3.53×）  ANE0_DPE_CLK_ON 15%  ANE0_CPU_POWER_ON 8%  ANE1_CPU_POWER_ON 7%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲  0.300 s → 第 1 次   5504.8 us，第 2 次  4350.1，第 8 次  3463.6（稳态的 3.44×）  ANE0_DPE_CLK_ON 14%  ANE0_CPU_POWER_ON 7%  ANE1_CPU_POWER_ON 7%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲  1.000 s → 第 1 次   6090.3 us，第 2 次  4629.6，第 8 次  3307.2（稳态的 3.81×）  ANE0_DPE_CLK_ON 8%  ANE0_CPU_POWER_ON 7%  ANE1_CPU_POWER_ON 7%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲  3.000 s → 第 1 次   6119.7 us，第 2 次  4761.8，第 8 次  3819.1（稳态的 3.82×）  ANE0_DPE_CLK_ON 11%  ANE0_CPU_POWER_ON 7%  ANE1_CPU_POWER_ON 7%  ANE IOP: Running 100%  ANE1 IOP: Running 100%
+空闲 10.000 s → 第 1 次  53036.8 us，第 2 次  4336.3，第 8 次  2866.2（稳态的 33.15×）  ANE0_DPE_CLK_ON 5%  ANE0_CPU_POWER_ON 4%  ANE1_CPU_POWER_ON 4%  ANE IOP: Off 40% Wait Vr 0% Vers OK 0% Ready 0% Pwr Dwn 0% Running 60%  ANE1 IOP: Off 40% Wait Vr 0% Vers OK 0% Ready 0% Pwr Dwn 0% Running 60%

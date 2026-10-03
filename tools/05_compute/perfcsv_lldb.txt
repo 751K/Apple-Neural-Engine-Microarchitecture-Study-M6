@@ -1,0 +1,63 @@
+# 用 lldb 观察编译器性能 CSV（DebugMask bit 11）为什么没有输出（只读：只下断点、读寄存器 / 内存后继续）。
+# 第二版：DebugMask 必须放在 flags["all"] 子字典（ANECGetTargetOptions 只读 flags["all"] 和 flags[目标架构名]），anecc 写法 all.DebugMask=0x800。
+# 用法（M6）：cd ~/anehal/hwx && sudo lldb -b -s perfcsv_lldb.txt > perfcsv_lldb2.out 2>&1; sudo chown "$USER" perfcsv_lldb2.out
+# 使用前把 <HOME> 换成 M6 上的家目录绝对路径（lldb 脚本里不能用变量）。
+settings set auto-confirm true
+target create <HOME>/anehal/hwx/anecc
+settings set -- target.run-args <HOME>/anehal/hwx/macw/k3_c512_h64w64_L1_f16/k3_c512_h64w64_L1_f16.mlmodelc /tmp/perfcsv_out2 h18g all.DebugMask=0x800
+breakpoint set -n ZinIrCompilerParameters::setDebugMask
+breakpoint command add 1
+register read x0 w1
+continue
+DONE
+breakpoint set -n ZinCompilerCoreClassic::CompileProcedure
+breakpoint command add 2
+register read x0
+continue
+DONE
+breakpoint set -n ZinCompilerCoreJIT::CompileProcedure
+breakpoint command add 3
+register read x0
+continue
+DONE
+breakpoint set -n ZinCompilerCoreLLIROnline::CompileProcedure
+breakpoint command add 4
+register read x0
+continue
+DONE
+breakpoint set -n ZinCompilerCore::DumpDebugProfilingInfo
+breakpoint command add 5
+register read x0
+memory read -s8 -fx -c3 $x0
+memory read -s4 -fx -c4 `*(long*)($x0+0x10)+0x110`
+bt 6
+continue
+DONE
+breakpoint set -n ZinPerfUtil::ZinDebugPrintPerfEstimateParams
+breakpoint command add 6
+bt 4
+register read x0 x1
+memory read -s8 -fx -c2 `$x0+0x170`
+x/s `*(long*)($x1+8)+0x60`
+x/s `*(long*)(*(long*)($x1+8)+0x60)`
+x/s `*(long*)($x1+8)+0x18`
+x/s `*(long*)(*(long*)($x1+8)+0x18)`
+continue
+DONE
+breakpoint set -n ZinPerfUtil::WritePerfCsvHeader
+breakpoint command add 7
+bt 4
+continue
+DONE
+breakpoint set -n fopen
+breakpoint set -n open
+breakpoint command add 9
+x/s $x0
+continue
+DONE
+breakpoint command add 8
+x/s $x0
+x/s $x1
+continue
+DONE
+run

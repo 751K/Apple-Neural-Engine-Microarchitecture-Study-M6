@@ -1,0 +1,67 @@
+HasReduction                         v31: —                                             v36: —
+IsDualSourcePETask                   v31: —                                             v36: —
+GetTaskSize                          v31: ldrh w8,[x0,#0x6]; and w0,w8,#0x7ff           v36: ldrh w8,[x0,#0x6]; and w0,w8,#0x7ff
+GetTsr                               v31: ldr w8,[x0,#0x8]; and w0,w8,#0x1              v36: ldr w8,[x0,#0x8]; and w0,w8,#0x1
+GetTde                               v31: ldrb w8,[x0,#0x8]; ubfx w0,w8,#1,#1           v36: ldrb w8,[x0,#0x8]; ubfx w0,w8,#1,#1
+GetPublishBit                        v31: ldrb w8,[x0,#0x9]; ubfx w0,w8,#4,#1           v36: ldrb w8,[x0,#0x9]; ubfx w0,w8,#4,#1
+GetXtde                              v31: ldrb w8,[x0,#0x9]; ubfx w0,w8,#3,#1           v36: ldrb w8,[x0,#0x9]; ubfx w0,w8,#3,#1
+IsMxInFmt                            v31: —                                             v36: ldr w8,[x0,#0x2ec]; and w8,w8,#0xf
+IsMxSrc2InFmt                        v31: —                                             v36: ldr w8,[x0,#0x2ec]; and w8,w8,#0xf0
+IsMxOutFmt                           v31: —                                             v36: ldr w8,[x0,#0x2ec]; and w8,w8,#0xf00
+GetWin                               v31: ldr w8,[x0,#0x274]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x2f0]; and w0,w8,#0x1ffff
+GetHin                               v31: ldr w8,[x0,#0x278]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x2f4]; and w0,w8,#0x1ffff
+GetCin                               v31: ldr w8,[x0,#0x27c]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x2f8]; and w0,w8,#0x1ffff
+GetDin                               v31: ldr w8,[x0,#0x280]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x2fc]; and w0,w8,#0x1ffff
+GetWout                              v31: ldr w8,[x0,#0x284]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x300]; and w0,w8,#0x1ffff
+GetHout                              v31: ldr w8,[x0,#0x288]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x304]; and w0,w8,#0x1ffff
+GetCout                              v31: ldr w8,[x0,#0x28c]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x308]; and w0,w8,#0x1ffff
+GetDout                              v31: ldr w8,[x0,#0x290]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x30c]; and w0,w8,#0x1ffff
+GetNumGroups                         v31: ldr w8,[x0,#0x294]; and w0,w8,#0x1ffff        v36: ldr w8,[x0,#0x310]; and w0,w8,#0x1ffff
+HasSrc2DBroadcast                    v31: ldrb w8,[x0,#0x2b8]; ubfx w0,w8,#6,#1         v36: ldrb w8,[x0,#0x334]; ubfx w0,w8,#6,#1
+HasSrc2WBroadcast                    v31: ldrb w8,[x0,#0x2b8]; ubfx w0,w8,#4,#1         v36: ldrb w8,[x0,#0x334]; ubfx w0,w8,#4,#1
+HasSrc2CBroadcast                    v31: ldrb w8,[x0,#0x2b8]; lsr w0,w8,#7             v36: ldrb w8,[x0,#0x334]; lsr w0,w8,#7
+HasSrc1WBroadcast                    v31: ldr w8,[x0,#0x2b8]; and w0,w8,#0x1            v36: ldr w8,[x0,#0x334]; and w0,w8,#0x1
+HasOutputTranspose                   v31: ldr w8,[x0,#0x2b8]; and w8,w8,#0x400; ldr w9,[x0,#0x2ac] v36: ldr w8,[x0,#0x334]; and w8,w8,#0x400; ldr w9,[x0,#0x328]
+HasSrc2HBroadcast                    v31: ldrb w8,[x0,#0x2b8]; ubfx w0,w8,#5,#1         v36: ldrb w8,[x0,#0x334]; ubfx w0,w8,#5,#1
+HasSrc1DBroadcast                    v31: ldrb w8,[x0,#0x2b8]; ubfx w0,w8,#2,#1         v36: ldrb w8,[x0,#0x334]; ubfx w0,w8,#2,#1
+HasSrc1HBroadcast                    v31: ldrb w8,[x0,#0x2b8]; ubfx w0,w8,#1,#1         v36: ldrb w8,[x0,#0x334]; ubfx w0,w8,#1,#1
+HasSrc1CBroadcast                    v31: ldrb w8,[x0,#0x2b8]; ubfx w0,w8,#3,#1         v36: ldrb w8,[x0,#0x334]; ubfx w0,w8,#3,#1
+HasSrc1Transpose                     v31: ldrb w8,[x0,#0x2b9]; and w0,w8,#0x1           v36: ldrb w8,[x0,#0x335]; and w0,w8,#0x1
+HasSrc2Transpose                     v31: ldrb w8,[x0,#0x2b9]; ubfx w0,w8,#1,#1         v36: ldrb w8,[x0,#0x335]; ubfx w0,w8,#1,#1
+GetCommonTaskType                    v31: ldr w8,[x0,#0x2ac]; ubfx x8,x8,#4,#4; ldr x0,[x9,x8,lsl#3] v36: ldr w8,[x0,#0x338]; and x8,x8,#0xf; ldr x0,[x9,x8,lsl#3]
+IsTileDmaSrc1DoubleRate              v31: ldr w8,[x0,#0x2d8]; lsr w0,w8,#31             v36: ldr w8,[x0,#0x354]; lsr w0,w8,#31
+IsTileDmaSrc1Enabled                 v31: —                                             v36: ldr w8,[x0,#0x354]; and w0,w8,#0x1
+IsTileDmaSrc2Enabled                 v31: —                                             v36: ldr w8,[x0,#0x358]; and w0,w8,#0x1
+IsTileDmaSrc2DoubleRate              v31: ldr w8,[x0,#0x2dc]; lsr w0,w8,#31             v36: ldr w8,[x0,#0x358]; lsr w0,w8,#31
+GetDmaSrc1FormatMode                 v31: ldr w9,[x0,#0x348]; and x9,x9,#0x3; ldr w8,[x8,x9,lsl#2] v36: ldr w9,[x0,#0x404]; and x9,x9,#0x3; ldr w8,[x8,x9,lsl#2]
+GetSrc1Interleave                    v31: ldr w8,[x0,#0x348]; ubfx w0,w8,#4,#4          v36: ldr w8,[x0,#0x404]; ubfx w0,w8,#4,#4
+GetSrc2Interleave                    v31: ldr w8,[x0,#0x34c]; ubfx w0,w8,#4,#4          v36: ldr w8,[x0,#0x408]; ubfx w0,w8,#4,#4
+GetDmaSrc2FormatMode                 v31: ldr w9,[x0,#0x34c]; and x9,x9,#0x3; ldr w8,[x8,x9,lsl#2] v36: ldr w9,[x0,#0x408]; and x9,x9,#0x3; ldr w8,[x8,x9,lsl#2]
+IsTileDmaSrc1Compressed              v31: ldr w8,[x0,#0x358]; and w0,w8,#0x1            v36: ldr w8,[x0,#0x414]; and w0,w8,#0x1
+GetCropOffsetSrc1Y                   v31: ldrh w0,[x0,#0x364]                           v36: ldrh w0,[x0,#0x420]
+IsTileDmaSrc2Compressed              v31: ldr w8,[x0,#0x368]; and w0,w8,#0x1            v36: ldr w8,[x0,#0x424]; and w0,w8,#0x1
+GetCropOffsetSrc2Y                   v31: ldrh w0,[x0,#0x374]                           v36: ldrh w0,[x0,#0x430]
+GetTextureMode                       v31: ldr w8,[x0,#0x3a0]; and x8,x8,#0x7; ldr w0,[x9,x8,lsl#2] v36: ldr w8,[x0,#0x45c]; and x8,x8,#0x7; ldr w0,[x9,x8,lsl#2]
+IsTexModeEnabled                     v31: ldrb w8,[x0,#0x3a0]                           v36: ldrb w8,[x0,#0x45c]
+GetGatherModeIndexHeightDimension    v31: ldr w8,[x0,#0x3a4]; ubfx w8,w8,#3,#3; ldr w8,[x0,#0x278] v36: ldr w8,[x0,#0x460]; ubfx w8,w8,#3,#3; ldr w8,[x0,#0x2f4]
+GetGatherModeIndexPlaneDimension     v31: ldr w8,[x0,#0x3a4]; ubfx w8,w8,#6,#3; ldr w8,[x0,#0x278] v36: ldr w8,[x0,#0x460]; ubfx w8,w8,#6,#3; ldr w8,[x0,#0x2f4]
+GetGatherModeIndexWidthDimension     v31: ldr w8,[x0,#0x3a4]; and w8,w8,#0x7; ldr w8,[x0,#0x278] v36: ldr w8,[x0,#0x460]; and w8,w8,#0x7; ldr w8,[x0,#0x2f4]
+GetGatherModeIndexGroupDimension     v31: ldr w8,[x0,#0x3a4]; ubfx w8,w8,#12,#3; ldr w8,[x0,#0x278] v36: ldr w8,[x0,#0x460]; ubfx w8,w8,#12,#3; ldr w8,[x0,#0x2f4]
+GetGatherModeIndexDepthDimension     v31: ldr w8,[x0,#0x3a4]; ubfx w8,w8,#9,#3; ldr w8,[x0,#0x278] v36: ldr w8,[x0,#0x460]; ubfx w8,w8,#9,#3; ldr w8,[x0,#0x2f4]
+GetTextureSourceDimensions           v31: ldr w9,[x0,#0x3c0]; ldr w10,[x0,#0x3b4]; ldr w11,[x0,#0x3b0] v36: ldr w10,[x0,#0x47c]; ldr w11,[x0,#0x470]; ldr w12,[x0,#0x46c]
+IsSource1Ephemeral                   v31: ldr w8,[x0,#0x490]; ubfx w9,w8,#1,#1; and w8,w8,#0x3 v36: ldr w8,[x0,#0x54c]; ubfx w9,w8,#1,#1; and w8,w8,#0x3
+IsL2Src1DmaDoubleRate                v31: ldr w8,[x0,#0x490]; lsr w0,w8,#31             v36: ldr w8,[x0,#0x54c]; lsr w0,w8,#31
+IsL2Src2DmaDoubleRate                v31: ldr w8,[x0,#0x494]; lsr w0,w8,#31             v36: ldr w8,[x0,#0x550]; lsr w0,w8,#31
+IsSource2Ephemeral                   v31: ldr w8,[x0,#0x494]; ubfx w9,w8,#1,#1; and w8,w8,#0x3 v36: ldr w8,[x0,#0x550]; ubfx w9,w8,#1,#1; and w8,w8,#0x3
+IsResultEphemeral                    v31: ldr w8,[x0,#0x4d4]; ubfx w9,w8,#1,#1; and w8,w8,#0x3 v36: ldr w8,[x0,#0x590]; ubfx w9,w8,#1,#1; and w8,w8,#0x3
+GetCircularBufferSrc1                v31: ldr w8,[x0,#0x4f0]; and x8,x8,#0x7; ldr x9,[x9,x8,lsl#3] v36: ldr w8,[x0,#0x5c0]; and x8,x8,#0x7; ldr x9,[x9,x8,lsl#3]
+GetCircularBufferSrc2                v31: ldr w8,[x0,#0x4f0]; ubfx x8,x8,#4,#3; ldr x9,[x9,x8,lsl#3] v36: ldr w8,[x0,#0x5c0]; ubfx x8,x8,#4,#3; ldr x9,[x9,x8,lsl#3]
+GetCircularBufferResult              v31: ldr w8,[x0,#0x4f0]; ubfx x8,x8,#8,#3; ldr x9,[x9,x8,lsl#3] v36: ldr w8,[x0,#0x5c0]; ubfx x8,x8,#8,#3; ldr x9,[x9,x8,lsl#3]
+IsPEIndexingEnabled                  v31: ldrb w8,[x0,#0x51a]                           v36: ldrb w8,[x0,#0x5ea]
+GetNEPostRightShift                  v31: ldrh w8,[x0,#0x59e]; and w0,w8,#0x1f          v36: ldr w8,[x0,#0x660]; ubfx w0,w8,#19,#5
+GetNEAccBiasShift                    v31: ldr w8,[x0,#0x598]; lsr w8,w8,#13             v36: ldr w8,[x0,#0x660]; lsr w8,w8,#11
+IsTileDmaDstEnabled                  v31: —                                             v36: ldr w8,[x0,#0x69c]; and w0,w8,#0x1
+GetDmaDstFormatMode                  v31: ldr w9,[x0,#0x608]; and x9,x9,#0x3; ldr w8,[x8,x9,lsl#2] v36: ldr w9,[x0,#0x700]; and x9,x9,#0x3; ldr w8,[x8,x9,lsl#2]
+GetOutputInterleave                  v31: ldr w8,[x0,#0x608]; ubfx w0,w8,#4,#4          v36: ldr w8,[x0,#0x700]; ubfx w0,w8,#4,#4
+IsTileDmaDstCompressed               v31: ldr w8,[x0,#0x610]; and w0,w8,#0x1            v36: ldr w8,[x0,#0x708]; and w0,w8,#0x1
+GetCropOffsetDstY                    v31: ldrh w0,[x0,#0x624]                           v36: ldrh w0,[x0,#0x71c]

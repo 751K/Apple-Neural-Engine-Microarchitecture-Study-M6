@@ -1,0 +1,25 @@
+== L30
+Sort by top of stack, same collapsed (when >= 5):
+        __workq_kernreturn  (in libsystem_kernel.dylib)        1665
+        mach_msg2_trap  (in libsystem_kernel.dylib)        1657
+
+== L32
+Sort by top of stack, same collapsed (when >= 5):
+        __workq_kernreturn  (in libsystem_kernel.dylib)        3165
+        mach_msg2_trap  (in libsystem_kernel.dylib)        1679
+        _platform_memmove  (in libsystem_platform.dylib)        173
+        E5RT::ElementwiseOpCast<_Float16, float>(_Float16*, float const*, unsigned long)  (in Espresso)        100
+        E5RT::ElementwiseOpCast<float, _Float16>(float*, _Float16 const*, unsigned long)  (in Espresso)        56
+        start_wqthread  (in libsystem_pthread.dylib)        52
+        vDSP_vthr  (in libvDSP.dylib)        39
+        kevent_id  (in libsystem_kernel.dylib)        32
+        iokit_user_client_trap  (in IOKit)        8
+        mach_absolute_time  (in libsystem_kernel.dylib)        6
+        _os_log_impl_flatten_and_send  (in libsystem_trace.dylib)        5
+
+== L36
+Sort by top of stack, same collapsed (when >= 5):
+        __workq_kernreturn  (in libsystem_kernel.dylib)        1159
+        mach_msg2_trap  (in libsystem_kernel.dylib)        1150
+        _platform_memmove  (in libsystem_platform.dylib)        5
+

@@ -1,0 +1,189 @@
+== 18:33:51
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=884312
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4225840
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION1] value=54455016
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=185824400
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION1] value=54454928
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=185824512
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION1] value=54454840
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=185824632
+== 18:34:01
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=976152
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4540568
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240059576
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240059576
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240059568
+== 18:34:11
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=938592
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4463872
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240279336
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240279360
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240279376
+== 18:34:21
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=967408
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4586920
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240047600
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240047632
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240047656
+== 18:34:31
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=1012352
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4741528
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240056392
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240056400
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240056368
+== 18:34:41
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=1066376
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4968680
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240171400
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240171400
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240171416
+== 18:34:52
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=910208
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4128448
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278808
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278840
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278864
+== 18:35:02
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=1021376
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4915912
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240279352
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240279376
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240279400
+== 18:35:12
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=1020536
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4733848
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240065928
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240065952
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240065968
+== 18:35:22
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=973696
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4532640
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278680
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278696
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278712
+== 18:35:32
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=966144
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4424080
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240057512
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240057544
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240057568
+== 18:35:42
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=895096
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4041544
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240183360
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240183384
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240183416
+== 18:35:52
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=986624
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4669968
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240241528
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240241560
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240241592
+== 18:36:02
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=967952
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4415768
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278096
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278120
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278152
+== 18:36:12
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=942352
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4393000
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278784
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278808
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278832
+== 18:36:22
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=996696
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4698056
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240058624
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240058640
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240058656
+== 18:36:32
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=979288
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4521984
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240042584
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240042608
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240042632
+== 18:36:42
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=985776
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4559248
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240228352
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240228384
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240228416
+== 18:36:52
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=972464
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4426088
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240066392
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240066432
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240066440
+== 18:37:02
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=953984
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4540688
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240277000
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240277024
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240277048
+== 18:37:12
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=985552
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4610888
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240225360
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240225384
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240225400
+== 18:37:22
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=921320
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4300680
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240047104
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240047136
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240047160
+== 18:37:32
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=991440
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4714840
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240277904
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240277904
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240277928
+== 18:37:42
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=807944
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=3530712
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240078600
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240078608
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240078624
+== 18:37:52
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=1006496
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4750640
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278080
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278104
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278136
+== 18:38:02
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=943888
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4438328
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278056
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278088
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278120
+== 18:38:12
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=980584
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4689384
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240277728
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240277744
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240277752
+== 18:38:22
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=973016
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4679640
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240063856
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240063872
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240063912
+== 18:38:32
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=917120
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4225808
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240276784
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240276808
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240276824
+== 18:38:42
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=1002800
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=4623816
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240278328
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240278352
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240278384
+== 18:38:53
+[SoC Stats] / [PMGR Counters] / [SOC_PERFSTAT_TRANS_TIME] value=794544
+[SoC Stats] / [PMGR Counters] / [DCS_PERFSTAT_TRANS_TIME] value=3035640
+[SoC Stats] / [PMGR Counters] / [SOC_TVM_PERFCNT_TEMP_REGION2] value=240336408
+[SoC Stats] / [PMGR Counters] / [DCS_TVM_PERFCNT_TEMP_REGION2] value=240336568
+[SoC Stats] / [PMGR Counters] / [DISP_TVM_PERFCNT_TEMP_REGION2] value=240336728

@@ -1,0 +1,19 @@
+== w=0.000244140625  （输入位 / ANE 输出 / ANE 输出÷w / CPU）
+    0x7C00  np.float64(16.0)  np.float64(65536.0)  np.float64(inf)
+    0xFC00  np.float64(-16.0)  np.float64(-65536.0)  np.float64(-inf)
+    0x7E00  np.float64(24.0)  np.float64(98304.0)  np.float64(nan)
+    0x7C01  np.float64(24.015625)  np.float64(98368.0)  np.float64(nan)
+    0x7FFF  np.float64(31.984375)  np.float64(131008.0)  np.float64(nan)
+    0xFE00  np.float64(-24.0)  np.float64(-98304.0)  np.float64(nan)
+    0x7BFF  np.float64(15.9921875)  np.float64(65504.0)  np.float64(15.9921875)
+    0x8000  np.float64(0.0)  np.float64(0.0)  np.float64(0.0)
+== w=0.0625  （输入位 / ANE 输出 / ANE 输出÷w / CPU）
+    0x7C00  np.float64(4096.0)  np.float64(65536.0)  np.float64(inf)
+    0xFC00  np.float64(-4096.0)  np.float64(-65536.0)  np.float64(-inf)
+    0x7E00  np.float64(6144.0)  np.float64(98304.0)  np.float64(nan)
+    0x7C01  np.float64(6148.0)  np.float64(98368.0)  np.float64(nan)
+    0x7FFF  np.float64(8188.0)  np.float64(131008.0)  np.float64(nan)
+    0xFE00  np.float64(-6144.0)  np.float64(-98304.0)  np.float64(nan)
+    0x7BFF  np.float64(4094.0)  np.float64(65504.0)  np.float64(4094.0)
+    0x8000  np.float64(0.0)  np.float64(0.0)  np.float64(0.0)
+[anewho] ANE0 中断 59，ANE1 中断 53，ANE0 DPE 时钟开启 71.3 ms

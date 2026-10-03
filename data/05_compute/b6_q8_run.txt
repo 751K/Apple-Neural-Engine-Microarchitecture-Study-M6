@@ -1,0 +1,28 @@
+    output_types = self.type_inference()
+                   ^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/miniconda3/envs/mps/lib/python3.12/site-packages/coremltools/converters/mil/mil/ops/defs/iOS17/quantization_ops.py", line 147, in type_inference
+    raise ValueError("quantize op: scale cannot be 0")
+ValueError: quantize op: scale cannot be 0
+10
+k1_c512_h32w32_L1_u_q8 205.8 185.4 2.79 2.66
+k1_c512_h32w32_L1_u_w8 199.0 175.8 2.66 2.80
+k1_c512_h32w32_L4_u_q8 218.8 201.9 3.30 3.18
+k1_c512_h32w32_L4_u_w8 229.0 206.4 3.43 3.40
+k1_c512_h32w32_L8_u_q8 313.0 277.5 3.41 3.23
+k1_c512_h32w32_L8_u_w8 334.6 302.0 3.56 3.33
+k1_c512_h32w32_L16_u_q8 378.5 346.0 3.36 3.22
+k1_c512_h32w32_L16_u_w8 419.0 401.9 3.20 3.17
+k1_c512_h32w32_L32_u_q8 458.1 416.6 3.01 3.01
+k1_c512_h32w32_L32_u_w8 795.8 784.2 2.01 2.01
+k1_c512_h32w32_L48_u_q8   
+k1_c512_h32w32_L48_u_w8   
+k1_c512_h32w32_L1_u 201.3 175.3 2.67 2.73
+k1_c512_h32w32_L4_u 246.5 218.8 3.50 3.42
+k1_c512_h32w32_L8_u 341.9 308.3 3.48 3.31
+k1_c512_h32w32_L16_u 406.8 400.1 3.07 3.06
+k1_c512_h32w32_L32_u 908.1 895.0 2.05 2.05
+k1_c512_h32w32_L48_u 1011.7 1003.3 2.01 2.01
+built k1_c512_h32w32_L48_u_q8
+built k1_c512_h32w32_L48_u_w8
+k1_c512_h32w32_L48_u_q8 726.0 696.2 2.01 2.01
+k1_c512_h32w32_L48_u_w8 1010.5 999.9 2.01 2.01
