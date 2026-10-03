@@ -251,6 +251,25 @@
     - tdma add2：P 核簇 4.2 W，ANE 净功耗约 0。
   - §7.5 的"每次调用约 1.8 mJ 固定能耗"其实是**主机 CPU 的能耗**，见更正后的 §7.5。§5 中"单 ANE 小模型 9.0 W"同理。
 
+### 7.0b PP0b 上到底挂了哪些核（2026-10-03）
+
+- M6 的 CPU 是 2 个 Super + 4 个 Performance + 6 个 Efficiency（`hw.perflevel0/1/2`）。IOReport 的命名是：S 核叫 `PCPU0`、`PCPU1`，P 核叫 `MCPU2`–`MCPU5`，**两者同属一个簇 `PACC0`**；E 核 `ECPU0`–`ECPU5` 属于 `EACC`。`PMP / Energy` 组里只有 `PACC0`、`EACC0`（各带 SRAM）和 `AGX` 三路，没有单独的 S 簇。
+- 所以本节说的"P 核簇功耗"，准确地说是 **S 核 + P 核整个 `PACC0` 簇**的功耗。
+- 依次让 N 个线程空转（`yes`），同时读每个核的活跃度（`CPU Stats / CPU Core Performance States`）、`PACC0` 能耗直方图和 PP0b：
+
+| 空转线程 | 实际落在 | PACC0 | PP0b | PP0b − PACC0 |
+|---|---|---|---|---|
+| 0 | — | 1.1 W | 0.0 W | −1.1 |
+| 1 | S 核（两个 S 核各约 50%） | 8.6 | 7.5 | −1.1 |
+| 2 | 2 个 S 核 | 11.7 | 10.3 | −1.4 |
+| 3 | 2 S + 1 P | 12.6 | 10.8 | −1.8 |
+| 4 | 2 S + 2 P | 15.2 | 13.0 | −2.2 |
+| 6 | 2 S + 4 P | 16.4 | 14.4 | −2.0 |
+| 6（`taskpolicy -b`） | 6 个 E 核 | 1.2 | **0.0** | — |
+
+- 结论：**PP0b = ANE + S 核 + P 核**；E 核不在这一路上（E 簇满载约 0.5 W，`EACC0`）。线程先放到 S 核上，第 3 个起才用 P 核。
+- 差值 PP0b − PACC0 并不是常数：只有 S 核忙时约 −1.1 到 −1.4 W，P 核也忙时到 −2 W 左右（直方图 1 W 分档，加上 SRAM 等成分）。第 4 轮功耗实验里 PACC0 只有 1.2–1.4 W（调用线程阻塞），或者只占一个 S 核（16 层小模型，7.3 W），用 −1.15 W 的空闲差值做基线，误差在 0.3 W 以内。但如果 ANE 负载期间 P 核也很忙，这个基线会偏差 1 W 左右。
+
 ### 7.1 编译器的功耗模型只算内存访问
 
 - perf CSV（compute_array.md H53）的 `power(W)` 列来自 `perfmodel::EnginePerf::ComputePowerMetric()`：
