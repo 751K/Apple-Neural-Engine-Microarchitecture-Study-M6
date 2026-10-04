@@ -157,9 +157,19 @@ int main(int argc, char **argv) {
       MLMultiArrayConstraint *c = model.modelDescription.inputDescriptionsByName[k].multiArrayConstraint;
       MLMultiArray *a = [[MLMultiArray alloc] initWithShape:c.shape dataType:MLMultiArrayDataTypeFloat16 error:&err];
       __fp16 *p = a.dataPointer;
-      // BONDRUN_FILL=zero：输入全为 0（看数据翻转对功耗的影响）；默认 [-1, 1) 随机
-      int zero = getenv("BONDRUN_FILL") && !strcmp(getenv("BONDRUN_FILL"), "zero");
-      for (NSInteger i = 0; i < a.count; i++) p[i] = zero ? 0 : (__fp16)((arc4random_uniform(2000) - 1000) / 1000.0f);
+      // BONDRUN_FILL：默认 [-1, 1) 随机；zero 全为 0（看数据翻转对功耗的影响）；
+      //   half 随机一半元素为 0；chan 前一半通道（轴 1）整体为 0（按 strides 定位，不假设连续存放）
+      const char *fill = getenv("BONDRUN_FILL") ? getenv("BONDRUN_FILL") : "";
+      int zero = !strcmp(fill, "zero"), half = !strcmp(fill, "half"), chan = !strcmp(fill, "chan");
+      NSInteger nch = c.shape.count > 1 ? c.shape[1].integerValue : 1, cs = a.strides.count > 1 ? a.strides[1].integerValue : 1;
+      for (NSInteger i = 0; i < a.count; i++) p[i] = (__fp16)((arc4random_uniform(2000) - 1000) / 1000.0f);
+      if (zero) memset(p, 0, a.count * sizeof(__fp16));
+      if (half)
+        for (NSInteger i = 0; i < a.count; i++)
+          if (arc4random_uniform(2)) p[i] = 0;
+      if (chan)
+        for (NSInteger ch = 0; ch < nch / 2; ch++)
+          for (NSInteger j = 0; j < cs; j++) p[ch * cs + j] = 0;
       feats[k] = [MLFeatureValue featureValueWithMultiArray:a];
     }
     MLDictionaryFeatureProvider *in = [[MLDictionaryFeatureProvider alloc] initWithDictionary:feats error:&err];
@@ -242,6 +252,7 @@ int main(int argc, char **argv) {
       }
     }
     if (phf) fclose(phf);
+    uint64_t t_end = mach_absolute_time();
     double wall_s = (mach_absolute_time() - t_all) * tb.numer / tb.denom / 1e9;
     CFDictionaryRef s1 = sub ? create_samples(sub, subbed, NULL) : NULL;
 
@@ -254,7 +265,7 @@ int main(int argc, char **argv) {
     double med = us[iters / 2];
     printf("%s\n  耗时 中位数 %.1f us  p10 %.1f  p90 %.1f", argv[1], med, us[iters / 10], us[iters * 9 / 10]);
     if (gflop > 0) printf("  吞吐 %.2f TFLOPS", gflop / med * 1e3);
-    printf("\n");
+    printf("\n  计时窗口 mach %llu %llu\n", (unsigned long long)t_all, (unsigned long long)t_end);  // 与 kdebug 同一时基
     if (s0 && s1) {
       engine_stats st;
       ior_delta(s0, s1, &st);

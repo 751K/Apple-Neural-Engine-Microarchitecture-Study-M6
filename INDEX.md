@@ -56,6 +56,7 @@
 | 按深度的吞吐（对照 M4）；32 层"反常地慢"= 主机唤醒 + relu 放到 CPU | 【计时】【kdebug】 | `data/05_compute/b6_*`、`data/05_compute/chains_run*.txt` | `tools/05_compute/b6_ktrace.sh`、`tools/05_compute/b6_split.py`、`tools/common/runall.sh` | ● | compute_array B6 / B6b、defects B7 |
 | space_to_depth：9.5 → 31.7 TFLOPS，没有 block = 2 陷阱 | 【计时】 | `data/05_compute/b8_s2d_run.txt` | `tools/05_compute/s2d.py` | | compute_array B8 |
 | PE 逐元素：单个运算约 121.5 G 元素 / s，融合后每 ANE 约 61 G；与 MAC 串行 | 【kdebug】 | `data/05_compute/pe_kt/`、`data/05_compute/pe_kt_fit.txt`、`data/05_compute/pe_run.txt` | `tools/05_compute/pe.py`、`tools/05_compute/pe_ktrace.sh`、`tools/05_compute/pe_kt.py` | ● | compute_array（PE 节） |
+| 稀疏：剪枝权重按"非零值 + 1 位掩码"存放、按压缩字节读（M6 约 150、M4 约 67 GB/s）；M6 / M4 都跳过零权重（权重在片上时剪 75% / 90% 按稠密折合 47 / 54 TFLOPS），2:4 与非结构化一样；3×3 剪枝后关掉 Winograd；不跳过零激活 | 【kdebug】【HWX】【编译器】 | `data/05_compute/sparse/`（kdebug 原始记录不公开：`private/sparse_traces/`） | `tools/05_compute/sparse_gen.py`、`sparse.sh`、`sparse_fit.py`、`sparse_err.py`、`tools/common/bondrun.m` | ● | compute_array sparse |
 
 ## 06 数值
 
