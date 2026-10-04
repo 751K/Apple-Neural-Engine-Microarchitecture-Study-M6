@@ -4,15 +4,20 @@
 #   h16g（M4 目标）、h18（M6 单引擎目标，不生成双 ANE 程序）、h18g + Core ML 传的 EnableLowEffortCPAllocation、h18g 不加选项。
 # 每秒记录 anecc 的内存（RSS）和可用空间；每 30 s 记录 anecc 打开的大文件（找交换文件）。
 # 超过时限或可用空间低于 15 GB 时结束 anecc（本进程，不需要 root）。
-# 用法（M6）：cd ~/anehal/hwx && ./whisper_anecc.sh <ane_mil_model 目录> [配置名 ...]
+# 用法（M6）：cd ~/anehal/hwx && [OUT=输出目录] [LIM=各配置的秒数上限] ./whisper_anecc.sh <ane_mil_model 目录> [配置名 ...]
 # 输出：wanecc/<配置>/model.hwx（成功时）、wanecc/<配置>.mon（秒 可用KB RSS_KB）、<配置>.lsof_<秒>、results.txt
 cd "$(dirname "$0")"
 SRC=$1; shift
 typeset -A ARGS LIMIT
-ARGS=(h16g "h16g" h18 "h18" h18g_lowcp "h18g h18g.EnableLowEffortCPAllocation=true" h18g "h18g")
-LIMIT=(h16g 600 h18 600 h18g_lowcp 300 h18g 300)
+ARGS=(h16g "h16g" h18 "h18" h18g_lowcp "h18g h18g.EnableLowEffortCPAllocation=true" h18g "h18g"
+      h18g_norefine "h18g GlobalRefinementInSpatialSplit=false"
+      h18g_norefine_t "h18g h18g.GlobalRefinementInSpatialSplit=false")
+LIMIT=(h16g 600 h18 600 h18g_lowcp 300 h18g 300 h18g_norefine 300 h18g_norefine_t 300)
+# GlobalRefinementInSpatialSplit：ANECompiler 字符串里的选项（命令行写法 global-refinement-in-spatial-split），
+# 对应采样里占满时间的 ZinMirSpatialSplitter::TileWithGlobalRefinement；两种写法分别放在顶层 flags 和 h18g 目标子字典里。
 if (( $# )); then CFGS=("$@"); else CFGS=(h16g h18 h18g_lowcp h18g); fi
-out=wanecc; mkdir -p $out
+out=${OUT:-wanecc}; mkdir -p $out
+[[ -n $LIM ]] && for k in ${(k)LIMIT}; do LIMIT[$k]=$LIM; done
 free_kb() { df -k / | awk 'NR==2 {print $4}'; }
 for c in $CFGS; do
   o=$out/$c; rm -rf $o

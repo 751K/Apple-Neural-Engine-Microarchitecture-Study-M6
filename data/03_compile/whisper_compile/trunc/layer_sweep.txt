@@ -1,0 +1,10 @@
+L1 h18g        done rc=0 12s peak_rss=2.6GB disk_peak=2.7GB kern=64520192 hwx=73089024 after=59.1GB
+L1 h18         done rc=0 5s peak_rss=1.2GB disk_peak=0.0GB kern=52002816 hwx=56213504 after=59.0GB
+L2 h18g        done rc=0 21s peak_rss=3.9GB disk_peak=4.7GB kern=103874560 hwx=113098752 after=59.0GB
+L2 h18         done rc=0 6s peak_rss=1.3GB disk_peak=0.0GB kern=91406336 hwx=95846400 after=58.9GB
+L4 h18g        done rc=0 47s peak_rss=5.1GB disk_peak=10.0GB kern=182599680 hwx=193118208 after=58.9GB
+L4 h18         done rc=0 8s peak_rss=1.3GB disk_peak=0.0GB kern=170262528 hwx=175210496 after=58.7GB
+L8 h18g        done rc=0 88s peak_rss=5.5GB disk_peak=19.4GB kern=340049920 hwx=353157120 after=58.6GB
+L8 h18         done rc=0 13s peak_rss=1.5GB disk_peak=0.0GB kern=327909376 hwx=333856768 after=58.3GB
+L16 h18g        done rc=0 182s peak_rss=5.7GB disk_peak=39.0GB kern=654950400 hwx=673218560 after=58.3GB
+L16 h18         done rc=0 23s peak_rss=1.8GB disk_peak=0.0GB kern=643235840 hwx=651198464 after=57.7GB
