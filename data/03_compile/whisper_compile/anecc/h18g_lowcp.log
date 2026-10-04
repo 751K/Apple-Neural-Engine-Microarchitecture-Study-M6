@@ -1,0 +1,16 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "~/anehal/hwx/whisper_capture/H18G.bundle/main/main_ane/ane_mil_model/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "wanecc/h18g_lowcp/";
+}
+flags {
+    TargetArchitecture = h18g;
+    h18g =     {
+        EnableLowEffortCPAllocation = 1;
+    };
+}

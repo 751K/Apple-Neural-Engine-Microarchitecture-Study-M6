@@ -20,3 +20,21 @@ Core ML 包要先经 Core ML 自己的转换。
 
 文件：`wload_M6/`（各子模型两次加载）、`wtmp_Mac18_5/`（M6，每秒可用空间与编译服务 CPU、每 30 s 的大文件与 lsof）、`wtmp_Mac16_10/`（M4）。
 路径中的用户主目录已替换为 `~`。
+
+## 不经 Core ML 复现（whisper_capture.sh、whisper_anecc.sh）
+
+编译开始后 17 s，从 e5rt 缓存抓出 Core ML 交给 ANE 编译器的模型 `H18G.bundle/main/main_ane/ane_mil_model/`：
+`model.mil`（3.9 MB，15,854 行：5,120 个 einsum、2,560 个 softmax、4,480 个 slice_by_index，WhisperKit 把注意力按头和按块拆开）、
+`weights1.bin`（1.27 GB）、`options.plist`（只有 `h18g.EnableLowEffortCPAllocation = true`）。model.mil 放在 `private/whisper_ane_mil/`。
+
+用 anecc 在本进程里编译这份模型（`anecc/`）：
+
+| 编译目标 | 结果 | 用时 | 内存峰值 | 磁盘峰值 |
+|---|---|---:|---:|---:|
+| h16g（M4） | 成功，HWX 1.29 GB | 41 s | 2.4 GB | 3.8 GB |
+| h18（M6 单引擎，不生成双 ANE 程序） | 成功，HWX 1.29 GB | 41 s | 2.5 GB | 3.8 GB |
+| h18g + EnableLowEffortCPAllocation | 可用空间低于 15 GB 时结束 | 219 s | 5.9 GB | 44.2 GB |
+| h18g | 同上 | 225 s | 6.1 GB | 44.3 GB |
+
+h18g 时 anecc 在输出目录写 `anecompiler.swap.*`，约 15 GB/min，内存只到约 6 GB；进程结束后交换文件被删除。
+只有双 ANE 目标失控，选项无影响：编译器（ANECompiler 10.26.6，macOS 27.0.1）在 h18g 的双 ANE 规划上的缺陷。

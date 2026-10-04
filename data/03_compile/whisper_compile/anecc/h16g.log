@@ -1,0 +1,14 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "~/anehal/hwx/whisper_capture/H18G.bundle/main/main_ane/ane_mil_model/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "wanecc/h16g/";
+}
+flags {
+    TargetArchitecture = h16g;
+}
+ANECCompile returned 0

@@ -1,0 +1,4 @@
+h16g        done rc=0 41s peak_rss=2.4GB disk_peak=3.8GB kern=1273905152 hwx=1286127616 after=60.4GB
+h18         done rc=0 41s peak_rss=2.5GB disk_peak=3.8GB kern=1273905152 hwx=1285881856 after=59.2GB
+h18g_lowcp  free < 15 GB rc=143 219s peak_rss=5.9GB disk_peak=44.2GB kern=- hwx= after=59.2GB
+h18g        free < 15 GB rc=143 225s peak_rss=6.1GB disk_peak=44.3GB kern=- hwx= after=59.2GB

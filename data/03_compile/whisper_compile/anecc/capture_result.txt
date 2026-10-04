@@ -1,0 +1,8 @@
+captured at 17s; got=1; bundle: 1.2G; free after cleanup 60 GB
+whisper_capture/H18G.bundle
+whisper_capture/H18G.bundle/main
+whisper_capture/H18G.bundle/main/main_ane
+whisper_capture/H18G.bundle/main/main_ane/ane_mil_model
+whisper_capture/H18G.bundle/main/main_ane/ane_mil_model/weights1.bin
+whisper_capture/H18G.bundle/main/main_ane/ane_mil_model/model.mil
+whisper_capture/H18G.bundle/main/main_ane/ane_mil_model/options.plist
