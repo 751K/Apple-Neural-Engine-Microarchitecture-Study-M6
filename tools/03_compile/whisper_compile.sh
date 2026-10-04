@@ -1,9 +1,12 @@
 #!/bin/zsh
 # Whisper large-v3-turbo（WhisperKit 的 Core ML 包）各子模型的 ANE 编译代价：用 anecc 在本进程里调用 ANECCompile，
-# 分别按 h18（M6）和 h16（M4）编译，每秒记录可用空间，得到编译用时、临时空间峰值和产物大小。
+# 分别按 h18g（M6）和 h16g（M4）编译，每秒记录可用空间，得到编译用时、临时空间峰值和产物大小。
+# 注意目标名：h18g / h16g 是两台机器的实际目标；h18 是不生成双 ANE（bonded）程序的单引擎目标。
+# 要比较双 ANE 的影响，用 ARCHS="h18 h18g"。
+# 结果（2026-10-04）：这些 Core ML 包 anecc 直接编译都失败（返回 1），要先经 Core ML 自己的转换，所以改用 whisper_load.sh。
 # 背景：M6 上 whisperkit-cli 加载全 ANE 组合要编译 20 多分钟，8 分钟内吃掉约 30 GB 临时空间；M4 上加载不到 1 秒。
 # 安全：可用空间低于 15 GB 时结束 anecc 并跳过该次。不需要 root。
-# 用法（M6）：cd ~/anehal/hwx && ./whisper_compile.sh <模型目录> [子模型名 ...]
+# 用法（M6）：cd ~/anehal/hwx && [ARCHS="h18g h16g"] ./whisper_compile.sh <模型目录> [子模型名 ...]
 # 输出：wcomp/results.txt（模型 架构 退出码 用时s 空间峰值GB 产物MB）、wcomp/free_<模型>_<架构>.txt（每秒可用空间 KB）
 cd "$(dirname "$0")"
 MD=$1; shift
@@ -11,7 +14,7 @@ if (( $# )); then NAMES=("$@"); else NAMES=(MelSpectrogram TextDecoderContextPre
 out=wcomp; mkdir -p $out
 free_kb() { df -k / | awk 'NR==2 {print $4}'; }
 for n in $NAMES; do
-  for arch in h18 h16; do
+  for arch in ${=ARCHS:-h18g h16g}; do
     o=/tmp/wcomp_${n}_$arch; rm -rf $o
     f0=$(free_kb); lo=$f0; t0=$(date +%s)
     ./anecc $MD/$n.mlmodelc $o $arch > $out/log_${n}_$arch.txt 2>&1 &

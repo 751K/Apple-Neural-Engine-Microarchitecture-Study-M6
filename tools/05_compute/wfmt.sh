@@ -16,7 +16,7 @@ T=6
 : > $out/kern_all.txt
 for M in $MODELS; do
   n=${M:t:r}
-  rm -rf /tmp/wfmt_hwx; sudo -u "$U" ./anecc $M /tmp/wfmt_hwx h18 > /dev/null 2>&1
+  rm -rf /tmp/wfmt_hwx; sudo -u "$U" ./anecc $M /tmp/wfmt_hwx h18g > /dev/null 2>&1   # M6 的实际目标（h18 是单引擎目标，不生成双 ANE 程序）
   if [[ -f /tmp/wfmt_hwx/model.hwx ]]; then
     echo "$n $(python3 hwx_kern.py /tmp/wfmt_hwx/model.hwx)" >> $out/kern_all.txt
   else
