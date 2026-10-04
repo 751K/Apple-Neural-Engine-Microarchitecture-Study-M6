@@ -41,6 +41,12 @@ W = [
     ("f16_sl300", "sweep/k1x1_512_h1w128_L384.mlmodelc", {"BONDRUN_SLEEP_US": "300"}),
     ("f16_sl800", "sweep/k1x1_512_h1w128_L384.mlmodelc", {"BONDRUN_SLEEP_US": "800"}),
     ("f16_sl3200", "sweep/k1x1_512_h1w128_L384.mlmodelc", {"BONDRUN_SLEEP_US": "3200"}),
+    # 13.3 节"全 0 输入功耗 +7.5%"的复核（2026-10-04）：上面 f16_single 的模型偏置为随机值、层间 ReLU，全 0 输入只让
+    # 第 1 层为 0，之后每层是"每通道一个常数"。sparse/c1x1_fp16_L128（sparse_gen.py）偏置为 0，全 0 输入每层都是 0。
+    ("f16_single_chconst", "sweep/k1x1_512_h1w128_L384.mlmodelc", {"BONDRUN_FILL": "chconst"}),
+    ("b0_rand", "sparse/c1x1_fp16_L128.mlmodelc", {}),
+    ("b0_zero", "sparse/c1x1_fp16_L128.mlmodelc", {"BONDRUN_FILL": "zero"}),
+    ("b0_chconst", "sparse/c1x1_fp16_L128.mlmodelc", {"BONDRUN_FILL": "chconst"}),
 ]
 # PP_ONLY=标签1,标签2,...：按给定顺序运行（可重复；重复的标签输出名加 _r2、_r3…）
 only = os.environ.get("PP_ONLY")

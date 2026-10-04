@@ -158,9 +158,11 @@ int main(int argc, char **argv) {
       MLMultiArray *a = [[MLMultiArray alloc] initWithShape:c.shape dataType:MLMultiArrayDataTypeFloat16 error:&err];
       __fp16 *p = a.dataPointer;
       // BONDRUN_FILL：默认 [-1, 1) 随机；zero 全为 0（看数据翻转对功耗的影响）；
-      //   half 随机一半元素为 0；chan 前一半通道（轴 1）整体为 0（按 strides 定位，不假设连续存放）
+      //   half 随机一半元素为 0；chan 前一半通道（轴 1）整体为 0（按 strides 定位，不假设连续存放）；
+      //   chconst 每个通道一个随机常数（空间上处处相同；复现偏置非 0 的模型在全 0 输入下第 2 层起的激活）
       const char *fill = getenv("BONDRUN_FILL") ? getenv("BONDRUN_FILL") : "";
       int zero = !strcmp(fill, "zero"), half = !strcmp(fill, "half"), chan = !strcmp(fill, "chan");
+      int chconst = !strcmp(fill, "chconst");
       NSInteger nch = c.shape.count > 1 ? c.shape[1].integerValue : 1, cs = a.strides.count > 1 ? a.strides[1].integerValue : 1;
       for (NSInteger i = 0; i < a.count; i++) p[i] = (__fp16)((arc4random_uniform(2000) - 1000) / 1000.0f);
       if (zero) memset(p, 0, a.count * sizeof(__fp16));
@@ -170,6 +172,11 @@ int main(int argc, char **argv) {
       if (chan)
         for (NSInteger ch = 0; ch < nch / 2; ch++)
           for (NSInteger j = 0; j < cs; j++) p[ch * cs + j] = 0;
+      if (chconst)
+        for (NSInteger ch = 0; ch < nch; ch++) {
+          __fp16 v = (__fp16)((arc4random_uniform(2000) - 1000) / 1000.0f);
+          for (NSInteger j = 0; j < cs; j++) p[ch * cs + j] = v;
+        }
       feats[k] = [MLFeatureValue featureValueWithMultiArray:a];
     }
     MLDictionaryFeatureProvider *in = [[MLDictionaryFeatureProvider alloc] initWithDictionary:feats error:&err];
