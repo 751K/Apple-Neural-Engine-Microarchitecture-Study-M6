@@ -27,6 +27,26 @@
 - **期望**：编译失败时返回错误，或者确定性地退回 CPU 并给出提示；aned 应该对编译服务设超时。
 - **出处**：scheduling.md D5；repro_plan.md H24。
 
+### A3 双 ANE（h18g）空间拆分的全局细化把权重副本写成交换文件，用量与层数成正比（Whisper 编码器约 78 GB）
+
+- **现象**：WhisperKit 的 Whisper large-v3-turbo 编码器（Core ML 转换后 15,849 个运算，其中 5,120 个 einsum）编译为 h18g 时，
+  编译器在输出目录写 `anecompiler.swap.*`，每个编码器层约 2.4 GB（约为该层权重的 60 倍），32 层约 78 GB；用时为单引擎 h18 的 8–9 倍。
+  h18、h16g 同一模型 41 s、磁盘 3.8 GB。截到一层即可复现（h18g 12 s、2.7 GB；h18 5 s、0）。经 Core ML 加载时要 20 分钟以上，并写满磁盘。
+- **位置**：调用栈 97% 在 `ZinMirSplitSpatially → ZinMirSpatialSplitter::TileWithGlobalRefinement → MirOpt::MergeConvolutions →
+  MirOpt::CreateMergedNEConvLayer`（复制权重、`ZinIrKernel::AddWeightsToSHA`）。顶层选项 `GlobalRefinementInSpatialSplit=false`
+  让编译回到 8 s、磁盘 0，但双 ANE 程序退化为只用 ANE0。
+- **期望**：细化不应把每个合并候选的权重副本都落盘，或应及时回收；超出预算时放弃细化、退回单引擎程序；编译前检查可用空间。
+- **复现**：`tools/03_compile/whisper_capture.sh` 抓出 Core ML 交给编译器的模型，`whisper_trunc.py` 截层，`whisper_anecc.sh` 以 h18g 编译。
+- **出处**：whisper_compile.md；数据 `data/03_compile/whisper_compile/`。
+
+### A4 客户端退出后编译服务继续运行，并把系统盘写满，随后 ANE 编译缓存被清除
+
+- **现象**：经 Core ML 加载 A3 的模型时，结束加载进程（或 `whisperkit-cli`）后，`ANECompilerService` 仍满负荷运行、继续写
+  `/Library/Caches/com.apple.aned/<build>/ModelAssetsCache/<进程名>_unsigned/…/anecompiler.swap.*`；2026-10-02 写到系统盘只剩 121 MB，
+  系统随之清除 ANE 编译缓存，所有模型下次加载都要重新编译。只能 `sudo killall -9 ANECompilerService`，交换文件随之释放。
+- **期望**：客户端取消或退出时停止编译；aned 对编译的磁盘用量设上限。与 A2（aned 一直等编译服务）同属"编译服务没有超时和预算"。
+- **出处**：whisper_compile.md §1、§2.2。
+
 ## B 性能问题 / 有争议的策略
 
 ### B1 双 ANE 版本的编译时间随逐元素层数超线性增长
@@ -37,9 +57,9 @@
 
 ### B2 Core ML 首次加载时，编译只在能效核（E 核）上运行，慢 2.7 倍
 
-- **现象**：同一模型，进程内直接编译 12.65 s（P 核）；经 Core ML 首次加载，编译用时 34.05 s，期间 6 个 E 核合计忙约 30 s，P 核只有 0.2 s。
+- **现象**：同一模型，进程内直接编译 12.65 s（单线程，各核忙碌时间未记录，推断在 S 核上）；经 Core ML 首次加载，编译用时 34.05 s，期间 6 个 E 核合计忙约 30 s，2 个 S 核合计 0.2 s，4 个 P 核为 0。
 - **机制**：编译服务由 `ProcessType = Adaptive` 的守护进程 aned 派生；客户端 QoS 会被传递（user-interactive 33 → aned 收到 33 → 编译线程用 25），但线程仍只上 E 核。客户端设为 background 时更慢（98.8 s）。
-- **争议点**：不是实现错误，是调度策略，可能出于功耗和发热考虑。但 QoS 25 在普通 App 里通常会上 P 核，这里客户端无法加速；在 M6 上又和 B1 叠加，大模型首次加载要多等几分钟。
+- **争议点**：不是实现错误，是调度策略，可能出于功耗和发热考虑。但 QoS 25 在普通 App 里通常会上 S 核或 P 核，这里客户端无法加速；在 M6 上又和 B1 叠加，大模型首次加载要多等几分钟。
 - **出处**：compile_cost.md §3.1；repro_plan.md H35。
 
 ### B3 同一个编译后的程序，在一个进程里严格串行
@@ -73,7 +93,7 @@
 - **问题**：整个图用 ANE 编译器直接编译没有问题，拆分没有收益，而且是静默发生的，只能从缓存里的执行计划（`main_classic_cpu` 段）或者采样中发现。划分理由在系统日志中不可见。
 - **出处**：compute_array.md B6b。
 
-### B8 切块时双 ANE 的工作划分不均（ANE1 多拿 12–19%）
+### B8 切块时双 ANE 的工作划分不均（ANE1 拿 56–59%，耗时比均分长 12.5–19%，吞吐降 11–16%）
 
 - **现象**：中间张量需要切块时，编译器把更多的块分给 ANE1（W12288：44% / 56%；W8192：41% / 59%）。双 ANE 调用的耗时由 ANE1 决定，比均分慢约 12.5–19%。不切块时两边均衡。
 - **证据**：编译产物里 ANE1 的 TD 数和列数都更多（8 层模型 56 对 42 个 TD）；固件时间戳测得的 ANE1 / ANE0 时间比（1.29、1.47）与列数比（1.29、1.46）一致；不同宽度的总耗时比例也与预测一致。

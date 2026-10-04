@@ -57,24 +57,30 @@
 
 | 方式 | 用时 | 运行在 |
 |---|---|---|
-| 直接编译（`anecc`，本进程，默认优先级） | **12.65 s** | P 核 |
-| 直接编译，`taskpolicy -c utility` | 12.66 s | P 核 |
-| 直接编译，`taskpolicy -b`（后台） | 83.9 s | E 核（低频） |
-| **Core ML 首次加载**（客户端 QoS 为 default / utility / user-initiated / user-interactive） | **33.7–34.3 s**，其中编译 34.05 s | **E 核**：25 s 窗口里 6 个 E 核合计忙约 30 s，P 核 0.2 s |
-| Core ML 首次加载，客户端 QoS = background | 98.8 s | E 核（低频） |
+| 直接编译（`anecc`，本进程，默认优先级） | **12.65 s** | 未记录（单线程，推断为 S 核） |
+| 直接编译，`taskpolicy -c utility` | 12.66 s | 未记录（推断为 S 核） |
+| 直接编译，`taskpolicy -b`（后台） | 83.9 s | 未记录（推断为低频 E 核） |
+| **Core ML 首次加载**（客户端 QoS 为 default / utility / user-initiated / user-interactive） | **33.7–34.3 s**，其中编译 34.05 s | **E 核**：25 s 窗口里 6 个 E 核合计忙约 30 s，2 个 S 核合计 0.2 s，4 个 P 核 0 |
+| Core ML 首次加载，客户端 QoS = background | 98.8 s | 未记录（推断为低频 E 核） |
 
-- **只编译了一次**：编译服务日志里 "Start of compilation" 到 "End of compilation" 正好 34.05 s，加载过程的其余步骤合计不到 0.3 s。编译选项也不是原因：同一个编译器、同一个目标，耗时比 34.05 / 12.65 = 2.7，正好是 E 核与 P 核单线程性能之比。
+- **只编译了一次**：编译服务日志里 "Start of compilation" 到 "End of compilation" 正好 34.05 s，加载过程的其余步骤合计不到 0.3 s。编译选项也不是原因：同一个编译器、同一个目标，耗时比 34.05 / 12.65 = 2.7，与 E 核和 S 核的单线程性能之比相符（直接编译时各核忙碌时间未记录，按"线程先上 S 核"推断在 S 核上，见 power.md §7.0b）。
 - **为什么在 E 核**：
   - aned 的 launchd 配置是 `ProcessType = Adaptive`，空闲时处于后台优先级（`ps` 显示 pri 4）；
   - 编译服务（`ANECompilerService.xpc`，`_MultipleInstances`）由 aned 拉起，继承这个角色：空闲时 pri 4，编译时被客户端请求提升到 pri 31（默认 QoS，日志 `clientQos=21 threadQos=21`），但线程仍被调度到 E 核；
-  - 编译服务的可执行文件里没有绑定 CPU 簇或主动降优先级的代码，只有 CPU 用量监控（`proc_set_cpumon_params`）。所以这是系统对"守护进程派生的 XPC 服务"的调度策略，客户端 QoS 只能把它变得更慢（background），不能把它提到 P 核。
+  - 编译服务的可执行文件里没有绑定 CPU 簇或主动降优先级的代码，只有 CPU 用量监控（`proc_set_cpumon_params`）。所以这是系统对"守护进程派生的 XPC 服务"的调度策略，客户端 QoS 只能把它变得更慢（background），不能把它提到 S 核或 P 核。
 - aned 有 4 种编译服务实例：`Regular`（本次）、`Background`、`LongerDuration`，以及单独的 `ANELargeModelCompilerService.xpc`，按请求的 QoS / 模型大小选择。
-- M6 的 CPU：2 个 P 核（PCPU0–1）、4 个 M 核（MCPU2–5）、6 个 E 核（ECPU0–5），见 IOReport `PACC0_PCPU*` / `PACC0_MCPU*` / `EACC_ECPU*`。
+- M6 的 CPU：2 个 S 核（Super，IOReport 记为 `PACC0_PCPU0–1`）、4 个 P 核（Performance，`PACC0_MCPU2–5`）、6 个 E 核（Efficiency，`EACC_ECPU0–5`），对应 `hw.perflevel0/1/2`；S 核与 P 核同属 `PACC0` 簇（power.md §7.0b）。~~2 个 P 核（PCPU0–1）、4 个 M 核（MCPU2–5）~~：2026-10-03 更正，旧说法把 `PCPU` 当成了 P 核。
 - 对使用者的含义：在 M6 上，大模型的首次加载慢主要有两个原因：一是双 ANE 版本的编译开销随逐元素层数超线性增长，二是编译跑在 E 核上，又慢 2.7 倍。之后的加载走缓存，不受影响。
 
 ## 4. 双 ANE 编译路径的深度上限（H9）
 
 同一种 64 通道卷积链，h18g 在 **387 层起编译崩溃**（栈溢出，SIGBUS），h16g / h18 到 512 层都正常。崩溃发生在只有 h18g 才执行的 `ZinIrParallelExecutionOpportunityFinder::FindIntraANEParallelism`（经由递归的 `ZinIrOpLayerGraphScheduler::Schedule`）。详见 `scheduling.md` D5。
+
+## 5. 双 ANE 空间拆分的磁盘代价：Whisper 编码器（2026-10-04）
+
+详见 `whisper_compile.md`。WhisperKit 的 Whisper large-v3-turbo 编码器编译为 h18g 时，空间拆分的全局细化（`TileWithGlobalRefinement` →
+`MergeConvolutions`）每个编码器层写约 2.4 GB 交换文件，32 层约 78 GB；h18、h16g 41 s、磁盘 3.8 GB。这是继 §1–2（时间超线性）、§4（深度上限）
+之后，双 ANE 编译路径的第三个代价：磁盘（defects A3、A4）。
 
 ## 结论（报告用）
 

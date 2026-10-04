@@ -26,6 +26,7 @@
 | 卷积配置字位定义（Kw / Kh / Sx / Sy / Pad / Ox / Oy） | 【HWX】【编译器】 | `data/03_compile/convcfg_scan.txt`、`data/03_compile/ox_tddump.txt`（反汇编 `td31.*` 不公开） | `tools/03_compile/convcfg.py`、`tools/03_compile/tddump.py` | | hwx_h18g §10 |
 | 编译耗时：双 ANE 版本对逐元素层超线性（约 3.5–3.8 次方）；Core ML 首次加载时编译只在 E 核上跑（慢 2.7 倍） | 【计时】 | `data/03_compile/h7_compile_time.txt`、`data/03_compile/cm_load_vs_compile.txt` | `tools/common/anecc.m`、`tools/common/cmload.m` | | compile_cost |
 | 图深度上限 386 层：双 ANE 编译路径栈溢出，之后退回 CPU 或加载卡死 | 【计时】【编译器】 | `data/03_compile/h9_depth_compile.txt`、`data/04_schedule/d5_depth_run.txt` | `tools/common/chain.py`、`tools/common/anecc.m` | | compile_cost §4、defects A1 |
+| Whisper 编码器编译为 h18g：空间拆分的全局细化每层写约 2.4 GB 交换文件（32 层约 78 GB），h18 / h16g 41 s、3.8 GB；一层即可复现；关掉 `GlobalRefinementInSpatialSplit` 则退回只用 ANE0 | 【计时】【编译器】【HWX】 | `data/03_compile/whisper_compile/`（调用栈、`model.mil` 不公开：`private/whisper_ane_mil/`） | `tools/03_compile/whisper_load.sh`、`whisper_tmp.sh`、`whisper_capture.sh`、`whisper_anecc.sh`、`whisper_trunc.py` | ●（抓取、看交换文件） | whisper_compile、compile_cost §5、defects A3 / A4 |
 
 ## 04 调度
 
