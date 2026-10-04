@@ -362,3 +362,33 @@ v31 的布局相同，只是 0x274（Win）起整体比 v36 前移 0x7c，之后
   - **对 §11.2 和 memory.md C1d 的更正**：0x134x 块是 Tile DMA 源（读 DRAM）的寄存器，不是 L2 块；0x1349 很可能是 Tile DMA 源的通道跨步，而不是 L2 通道跨步。
   - 这些包放在每个 TD 的末尾，大概是为了方便加载时集中修补。
 
+## 12. 权重配置字 0x1240（2026-10-05）
+
+**来源**：在 M4 上对同版本 ANECompiler（10.26.6）导出 `ZinAneTd<24>` 全部 518 个函数（`tools/re/fnbytes.c`），反汇编后提取每个 setter 对对象偏移的读改写（不只 bfi / bfxil，也看 orr / and 常量）。字段表 `private/data/03_compile/td24_setters_all.txt`（编译器派生，不公开）。
+
+**寄存器与对象偏移的对应**：v24 的 NE 块按掩码写 0x1240、0x1242、0x1245（§11.2），对应对象 0x4fc、0x504、0x510（每个寄存器 4 字节）：0x1242 = 0x504 是 NE 配置字（`SetOpMode` 0–2、`SetKernelMode` 3、`SetNEBias` 4、`SetPassthroughEnable` 5、`SetNEMatrixVectorBias` 6、`SetNEBinaryPoint` 8–13、`SetNEPostScale` 14、`SetNENonLinearMode` 16–17、`SetMaxPoolMode` 19、`SetArgOutputSelect` 20–23、`SetDoubleInt8Enable` 26、`SetNESmallSourceMode` 27）；0x1245 = 0x510 是 NE 后缩放值。**0x1240 = 对象 0x4fc，是权重（kernel）配置字**：
+
+| 位 | setter | 稠密 FP16 | 剪枝（稀疏格式） | W8 | 4 位调色板 |
+|---|---|---|---|---|---|
+| 0–1 | `SetKernelFmt`（权重数据类型） | 2 | 2 | 1 | 2 |
+| 2 | `SetKernelPalettizedEn` | 0 | 0 | 0 | 1 |
+| 4–7 | `SetKernelPalettizedBits`（1 / 2 / 3 / 4 / 6 / 8） | 8 | 8 | 8 | 4 |
+| **8** | **`SetKernelSparseFmt`** | 0 | **1** | 0 | 0 |
+| 10 | `SetGroupKernelReuse` | 0 | 0 | 0 | 0 |
+| 15 | `SetKernelSparseBinary` | 0 | 0 | 0 | 0 |
+| 16 | `SetKernelAlignmentFormat` | 0 | 0 | 0 | 0 |
+| 17–18 | `SetAlignedKernelBias` | 0 | 0 | 0 | 0 |
+| 19–20 | `SetAlignedKernelPostScale` | 0 | 0 | 0 | 0 |
+| 21–23 | `SetKernelSparseBlockSize` | 0 | 0 | 0 | 0 |
+| 24 | `SetKernelAsymQuantEn` | 0 | 0 | 0 | 0 |
+| 25–27 | `SetPaletteBlockSize` | 0 | 0 | 0 | 0 |
+| **28** | **`SetKernelDetectZeros`** | **1** | **0** | 1 | 1 |
+
+（实测值：稠密 0x10000082，稀疏 0x182，W8 0x10000081，4 位调色板 0x10000046；c1x1、512 通道，`tools/05_compute/kfmt_gen.py`，h18g。）
+
+- `SetKernelSparseFmt` 同时置对象 0x3c 第 5 位；实测权重 DMA 配置寄存器 0x1540 由 0x10040 变为 0x10060，所以 **0x1540 = 对象 0x3c（`KernelDmaSrc` 配置）**，第 5 位 = 稀疏格式，第 11–13 位 `SetPaletteBlockSize`、第 4 位 `SetGroupKernelReuse` 也在这里各有一份。
+- `SetKernelDetectZeros` 对应编译器 MLIR 方言 `polylang::anehlo` 里的 `DetectZerosOp`（`NEOp` 的修饰操作），是正式的硬件功能。**稠密格式（含 W8、调色板）一律打开，稀疏格式关闭**。
+- **稠密存放的零权重不会被编译器改成稀疏格式**：同一模型权重 50% / 75% / 90% / 100% 为 0（MIL 里是普通常量），权重段、0x1240、exe_cycles 与随机权重完全相同。
+- **DetectZeros 不带来明显加速**（M4，c1x1，32 → 128 层调用耗时斜率，最干净的一遍）：随机 4.07 µs / 层，50% / 75% / 90% / 100% 为 0 时 3.91 / 3.74 / 3.73 / 3.75（至多 −8%）；同比例的稀疏格式（剪 75%）2.02。另两遍里 dz 版本的 128 层有 1.5–2 倍的跳变（随机、调色板、稀疏版本没有），原因未查，可能与零权重降低功耗后时钟策略的变化有关。推测 DetectZeros 用于省电（与 power.md §7.3 零激活省电不省时一致），未测功耗。
+- 由此，14.4 节的 55.6 TFLOPS 也不能用"稠密权重里有大量 0"解释：要靠零权重加速，权重必须以稀疏格式（constexpr_sparse_to_dense）交给编译器。原因仍未查明。
+- 一个 constexpr_sparse_to_dense 但一个 0 都没有的模型，编译器按稠密处理（权重段为稠密大小），且不写 0x1240。
