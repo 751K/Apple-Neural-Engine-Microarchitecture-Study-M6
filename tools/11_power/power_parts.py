@@ -47,6 +47,13 @@ W = [
     ("b0_rand", "sparse/c1x1_fp16_L128.mlmodelc", {}),
     ("b0_zero", "sparse/c1x1_fp16_L128.mlmodelc", {"BONDRUN_FILL": "zero"}),
     ("b0_chconst", "sparse/c1x1_fp16_L128.mlmodelc", {"BONDRUN_FILL": "chconst"}),
+    ("b0_negzero", "sparse/c1x1_fp16_L128.mlmodelc", {"BONDRUN_FILL": "negzero"}),
+    # 零值省电是门控还是"不翻转"：每层输入 0 的比例 0 / 50 / 75 / 90%（随机位置）与一半通道整体为 0（sparse_gen.py 的掩码模型）
+    ("z00", "sparse/c1x1_z00_L128.mlmodelc", {}),
+    ("z50", "sparse/c1x1_z50_L128.mlmodelc", {}),
+    ("z75", "sparse/c1x1_z75_L128.mlmodelc", {}),
+    ("z90", "sparse/c1x1_z90_L128.mlmodelc", {}),
+    ("zch", "sparse/c1x1_zch_L128.mlmodelc", {}),
 ]
 # PP_ONLY=标签1,标签2,...：按给定顺序运行（可重复；重复的标签输出名加 _r2、_r3…）
 only = os.environ.get("PP_ONLY")

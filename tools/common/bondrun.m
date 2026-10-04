@@ -159,13 +159,16 @@ int main(int argc, char **argv) {
       __fp16 *p = a.dataPointer;
       // BONDRUN_FILL：默认 [-1, 1) 随机；zero 全为 0（看数据翻转对功耗的影响）；
       //   half 随机一半元素为 0；chan 前一半通道（轴 1）整体为 0（按 strides 定位，不假设连续存放）；
-      //   chconst 每个通道一个随机常数（空间上处处相同；复现偏置非 0 的模型在全 0 输入下第 2 层起的激活）
+      //   chconst 每个通道一个随机常数（空间上处处相同；复现偏置非 0 的模型在全 0 输入下第 2 层起的激活）；
+      //   negzero 全为 −0（0x8000：数值等于 0，位模式不是全 0）
       const char *fill = getenv("BONDRUN_FILL") ? getenv("BONDRUN_FILL") : "";
       int zero = !strcmp(fill, "zero"), half = !strcmp(fill, "half"), chan = !strcmp(fill, "chan");
-      int chconst = !strcmp(fill, "chconst");
+      int chconst = !strcmp(fill, "chconst"), negzero = !strcmp(fill, "negzero");
       NSInteger nch = c.shape.count > 1 ? c.shape[1].integerValue : 1, cs = a.strides.count > 1 ? a.strides[1].integerValue : 1;
       for (NSInteger i = 0; i < a.count; i++) p[i] = (__fp16)((arc4random_uniform(2000) - 1000) / 1000.0f);
       if (zero) memset(p, 0, a.count * sizeof(__fp16));
+      if (negzero)
+        for (NSInteger i = 0; i < a.count; i++) ((uint16_t *)p)[i] = 0x8000;
       if (half)
         for (NSInteger i = 0; i < a.count; i++)
           if (arc4random_uniform(2)) p[i] = 0;
