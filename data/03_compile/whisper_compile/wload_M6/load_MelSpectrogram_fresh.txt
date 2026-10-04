@@ -1,0 +1,1 @@
+~/ane-small/B7/models/models/argmaxinc/whisperkit-coreml/openai_whisper-large-v3-v20240930_turbo/MelSpectrogram.mlmodelc 加载 0.39 s 成功

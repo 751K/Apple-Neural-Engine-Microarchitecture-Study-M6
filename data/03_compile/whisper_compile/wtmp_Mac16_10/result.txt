@@ -1,0 +1,1 @@
+Mac16,10 loaded: 136s, peak_GB=1.3, free after cleanup 15.8 GB, load: /Volumes/MacoutDsik/Clip/9.22-测评/AI/ane-small/B7/models/models/argmaxinc/whisperkit-coreml/openai_whisper-large-v3-v20240930_turbo/AudioEncoder.mlmodelc 加载 80.07 s 成功 

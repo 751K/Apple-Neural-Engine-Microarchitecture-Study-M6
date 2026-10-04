@@ -1,0 +1,1 @@
+./whisper_load.sh:log:21: too many arguments

@@ -1,0 +1,10 @@
+ANECompil 62974 root  txt    REG   1,18 8038383616             4735719 /Library/Caches/com.apple.aned/26A434/ModelAssetsCache/cmload_unsigned/F0A66ADCF4A3BFF244C5F8E81119B2DF3DB246D73BC1E0E73EF44B21BFFDB388/26544B02A8F2E182630BAE1322CADC9AEC1279DD019DE057C0ABB1C4525D91EA/anecompiler.swap.wPapLnhBS
+ANECompil 62974 root    3u   REG   1,18 8038383616             4735719 /Library/Caches/com.apple.aned/26A434/ModelAssetsCache/cmload_unsigned/F0A66ADCF4A3BFF244C5F8E81119B2DF3DB246D73BC1E0E73EF44B21BFFDB388/26544B02A8F2E182630BAE1322CADC9AEC1279DD019DE057C0ABB1C4525D91EA/anecompiler.swap.wPapLnhBS
+ANECompil 62974 root  txt    REG   1,18 1273974400             4735703 ~/Library/Caches/cmload_t1791110831/com.apple.e5rt.e5bundlecache/26A434/19273C1EFA0C865266720528078835A6D45D6075BA6BAE1D7349704606A489C6/0610F9A0BAB03CB7B46C61BD6F052E07D759FB8CEDE16729EA7C6C30738295E3.tmp.63082_4343177648.bundle/H18G.bundle/main/main_ane/ane_mil_model/weights1.bin
+ANECompil 62974 root  txt    REG   1,18   36103568 1152921500312619766 /usr/share/icu/icudt78l.dat
+ANECompil 62974 root  txt    REG   1,18    4129840 1152921500312609216 /usr/lib/dyld
+ANECompil 62974 root  txt    REG   1,18     702640 1152921500312262398 /System/Library/PrivateFrameworks/AppleNeuralEngine.framework/XPCServices/ANECompilerService.xpc/Contents/MacOS/ANECompilerService
+ANECompil 62974 root  txt    REG   1,18     331113             4681043 /private/var/db/analyticsd/events.allowlist
+ANECompil 62974 root  txt    REG   1,18      77368             3759252 /private/var/db/diagnostics/logd/.plist-cache.uK5QwwPP
+ANECompil 62974 root  txt    REG   1,18        110 1152921500312109332 /System/Library/CoreServices/SystemVersion.bundle/English.lproj/SystemVersion.strings
+ANECompil 62974 root  txt    REG   1,18          2             4735710 /Library/Caches/com.apple.aned/26A434/ModelAssetsCache/cmload_unsigned/F0A66ADCF4A3BFF244C5F8E81119B2DF3DB246D73BC1E0E73EF44B21BFFDB388/26544B02A8F2E182630BAE1322CADC9AEC1279DD019DE057C0ABB1C4525D91EA/model.hwx.tmp.additional_weights.bin

@@ -1,0 +1,6 @@
+ANECompil 53912 root  txt    REG   1,15 36103568 1152921500312619766 /usr/share/icu/icudt78l.dat
+ANECompil 53912 root  txt    REG   1,15  4129840 1152921500312609216 /usr/lib/dyld
+ANECompil 53912 root  txt    REG   1,15   702640 1152921500312262398 /System/Library/PrivateFrameworks/AppleNeuralEngine.framework/XPCServices/ANECompilerService.xpc/Contents/MacOS/ANECompilerService
+ANECompil 53912 root  txt    REG   1,15   331225           180211562 /private/var/db/analyticsd/events.allowlist
+ANECompil 53912 root  txt    REG   1,15    77368           179242277 /private/var/db/diagnostics/logd/.plist-cache.rr1MXiQa
+ANECompil 53912 root  txt    REG   1,15      110 1152921500312109332 /System/Library/CoreServices/SystemVersion.bundle/English.lproj/SystemVersion.strings

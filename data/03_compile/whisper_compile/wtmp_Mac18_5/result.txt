@@ -1,0 +1,1 @@
+Mac18,5 time limit 240s: 248s, peak_GB=17.7, free after cleanup 56.2 GB, load: 
