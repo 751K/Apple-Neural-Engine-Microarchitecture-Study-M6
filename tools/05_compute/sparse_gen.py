@@ -11,6 +11,10 @@
         nm24   每 4 个剪 2 个（n_m_ratio=(2, 4)，即常说的 2:4 结构化稀疏，50%）
         nm34   每 4 个剪 3 个（n_m_ratio=(3, 4)，即每 4 个只留 1 个的 1:4，75%）
         s50p4  剪枝 50% 后再对非零值做 4 位调色板（palettize_weights(joint_compression=True)），只做 m2048
+        d50 / d75 / d90 / d100  同样按绝对值把 50% / 75% / 90% / 100% 置 0，但以普通常量（稠密）存放，不经过 prune_weights：
+               编译器不会改用稀疏格式（只看改写补出的零），只打开 KernelDetectZeros（"on-the-fly sparse encoding"）。
+               用来看读权重受限时稠密存放的零是否省带宽（hwx_h18g.md §13.3）。m2048 上编译器不开 DetectZeros；
+               c3x3（共享权重，M4 上每层从 DRAM 重读）开
   激活版本（只做 c1x1、c3x3，权重为稠密 FP16、各层共享，让每一层的输入都有给定比例的 0）
         lin    层间无激活函数：激活稠密（约 0% 为 0）
         ch50   ReLU，一半输出通道的偏置为 −30（这些通道恒为 0），另一半偏置为 0：共约 75% 为 0，其中一半是整通道为 0
@@ -46,13 +50,15 @@ SHAPES = {
     "c1x1": dict(C=512, H=1, W=128, k=(1, 1), shared=True),
     "c3x3": dict(C=512, H=16, W=16, k=(3, 3), shared=True),
 }
+DENSEZ = {"d50": 0.5, "d75": 0.75, "d90": 0.9, "d100": 1.0}
 WVARS = ["fp16", "s50", "s75", "s90", "nm24", "nm34"]
 AVARS = ["lin", "ch50", "z00", "z50", "z75", "z90", "zch"]
 LAYERS = {"m2048": (16, 32), "c1x1": (32, 128), "c3x3": (16, 32)}   # c1x1 每层只有约 3 µs，取 32 和 128 层
 ALL = ([f"m2048_{v}_L{L}" for v in WVARS + ["s50p4"] for L in LAYERS["m2048"]]
        + [f"{s}_{v}_L{L}" for s in ("c1x1", "c3x3") for v in WVARS + AVARS for L in LAYERS[s]]
        + [f"c1x1_{v}_L64" for v in AVARS if v.startswith("z")]
-       + [f"c1x1_{v}_L128" for v in ("zpc", "zpco", "zpw", "zpwo")])   # 128 层的掩码模型在 M6 上每个编译约 5 分钟，另做 64 层
+       + [f"c1x1_{v}_L128" for v in ("zpc", "zpco", "zpw", "zpwo")]
+       + [f"{sh}_{v}_L{L}" for sh in ("m2048", "c3x3") for v in DENSEZ for L in (16, 32)])   # 128 层的掩码模型在 M6 上每个编译约 5 分钟，另做 64 层
 PRUNE = {"s50": dict(target_sparsity=0.5), "s75": dict(target_sparsity=0.75), "s90": dict(target_sparsity=0.9),
          "nm24": dict(n_m_ratio=(2, 4)), "nm34": dict(n_m_ratio=(3, 4)), "s50p4": dict(target_sparsity=0.5)}
 MASK = {"z00": 0.0, "z50": 0.5, "z75": 0.75, "z90": 0.9, "zch": "ch",
@@ -65,6 +71,8 @@ def base_weight(rng, C, k):
 
 def np_prune(w, var):
     """numpy 近似 coremltools 的剪枝（只用来算增益和激活统计，不进模型）。"""
+    if var in DENSEZ:
+        return np.zeros_like(w) if DENSEZ[var] >= 1 else np.where(np.abs(w) > np.quantile(np.abs(w), DENSEZ[var]), w, 0)
     if var not in PRUNE:
         return w
     p = PRUNE[var]
@@ -156,14 +164,14 @@ def build(name):
                 hi = g
             else:
                 lo = g
-        ws = [w * g]
+        ws = [np_prune(w, var) * g if var in DENSEZ else w * g]   # 稠密带零：零直接写进常量
     else:
         ws, x = [], x0
         for _ in range(L):                                  # 逐层增益：每层预激活均方根 = 1
             w = base_weight(rng, C, k)
             y = conv_np(x, np_prune(w, var))
-            g = 1.0 / np.sqrt((y ** 2).mean())
-            ws.append(w * g)
+            g = 1.0 / max(np.sqrt((y ** 2).mean()), 1e-6)
+            ws.append(np_prune(w, var) * g if var in DENSEZ else w * g)   # 稠密带零：零直接写进常量
             y = y * g + b[:, None, None]
             x = np.maximum(y, 0) if relu else y
     st = []
