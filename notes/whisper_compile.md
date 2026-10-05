@@ -153,6 +153,30 @@ L4，h18g，关掉全局细化（`tools/03_compile/whisper_anecc.sh` 的 `h18g_n
 - 关掉后编译器找不到可行的拆分，"bonded"程序退化为只在 ANE0 上运行：全局细化是这个模型能拆到两个 ANE 的必要步骤，关掉它不是修复。【HWX】
 - 默认 h18g 的拆分本身很不均衡：ANE1 的 TD 流是 ANE0 的约 13 倍（与 defects B8 的"ANE1 拿 56–59%"同方向，但程度大得多）。【HWX】
 
+### 3.3 交换文件的来源（lldb，2026-10-05）
+
+在 M4 上用同版本 ANECompiler 以 h18g 复现（模型图是抓出的真实 `model.mil`，权重用 `tools/03_compile/whisper_fakeweights.py` 按
+MIL blob 格式生成的假数据——真实权重只在 M6 上；HWX 大小 73,089,024 字节、13 s、磁盘剩余下降 2725 MB，与 M6 一致），
+用 `tools/03_compile/swaptrace_lldb.py` 在 mkstemp / unlink / ftruncate / mmap / write 上设断点记录参数与调用栈
+（汇总 `data/03_compile/whisper_compile/swaptrace/summary.txt`）：
+
+1. 交换文件是 **`ZinIrFileBacking`**：`ANECCompile` 开头由 `ANECCreateFileBacking → ZinIrFileBacking::Open` 用 mkstemp 在输出目录创建
+   `anecompiler.swap.XXXXXXXXX`，**随即 unlink**（目录里看不到，只有打开的句柄；lsof 能看到、du 看不到，要看剩余空间）。
+2. 之后不调用 write，而是 `ZinIrFileBacking::Allocate` 用 **ftruncate 扩容 + mmap 映射**：存放转成 float32 的常量数据
+   （`ZinIrConstData_specialization<float>` / `ZinIrMappedData_Impl<float>`，FP16 权重转成 float32 后体积翻倍）。
+   ftruncate 104 次，8 MB → 2656 MB，**单调不减**。
+3. **`ZinIrFileBacking` 没有释放单块空间的方法**（只有 Open、Allocate、Valid、HasFileBacking、UnmapSystem、Close、析构），
+   是只增不减的分配器：编译过程中分配出去的常量空间到编译结束才一起释放。
+4. 566 次 mmap、2644 MB 中，**2372 MB（303 次）来自 `MirOpt::CreateMergedNEConvLayer`**，调用链：
+   `ZinMirSplitSpatially → ZinMirSpatialSplitUtils::ExecuteGenericDAGMode → ZinMirSpatialSplitter::Tile →
+   TileWithGlobalRefinement → MirOpt::MergeConvolutions →（遍历图）CreateMergedNEConvLayer → ZinIrConstData<float> → ZinIrFileBacking::Allocate`。
+   一层里 `TileWithGlobalRefinement` 被调用 2 次、`MergeConvolutions` 4 次，生成 101 个合并卷积层，每层 3 块约 7.7 MB 的 float32 常量。
+   其余 256 MB 是写 HWX 时 `ANECRasterizeProgramKernels` 的一次性缓冲。
+
+**结论**：每个编码器层的约 2.4 GB = 全局细化里合并卷积新建的 float32 权重副本（约 100 个合并层 × 3 块），存放在只增不减的
+`ZinIrFileBacking` 里、编译结束前不回收，所以磁盘用量与层数成正比。单引擎 h18 不走全局细化、不合并，交换文件为 0。
+§3.1 推测的"`AddWeightsToSHA` 去重"不是原因。
+
 ## 4. 问题的完整描述
 
 | | 内容 |
@@ -174,8 +198,7 @@ L4，h18g，关掉全局细化（`tools/03_compile/whisper_anecc.sh` 的 `h18g_n
 
 ## 6. 未查明
 
-- 交换文件里具体是什么（合并候选的权重副本、细化的中间图，还是两者都有），旧的副本是否被回收。可以在编译中读交换文件，或在
-  `CreateMergedNEConvLayer` / `ZinIrMappedDataBase_Impl` 上设断点（lldb 附加到自己的 anecc 进程）。
+- ~~交换文件里具体是什么、是否回收~~：已查明（§3.3），是合并卷积新建的 float32 权重副本，存放在只增不减的 `ZinIrFileBacking`，编译结束前不回收。
 - 是否只有"大量小 einsum"的网络触发：可用 `tools/common/chain.py` 构造只含 einsum、只含 1×1 卷积的链对照。
 - 完整的 h18g 编码器能否编完（需要约 80 GB 可用空间），编完后在 M6 上的实际速度，以及拆分不均对速度的影响。
 - 新版本 macOS / ANECompiler 是否已修复。

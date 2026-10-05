@@ -1,0 +1,13 @@
+# Whisper 编码器 1 层（真实图、假权重），h18g，M4 上同版本 ANECompiler；tools/03_compile/swaptrace_lldb.py
+# 交换文件 = ZinIrFileBacking（ANECCreateFileBacking -> ZinIrFileBacking::Open：mkstemp 后立即 unlink），以 ftruncate + mmap 使用
+ftruncate 104 次，8 MB -> 2656 MB，单调不减 True
+mmap 共 566 次、2644 MB，按发起分配的函数：
+      2372 MB   303 次  MirOpt::CreateMergedNEConvLayer < ZinIrOpLayerGraph::Traverse < ZinIrControlFlowGraph::Traverse
+       256 MB     1 次  ANECRasterizeProgramKernels < ANECHandleProgramKernelsAndMetadataToFile < ANECHandleProgramKernelsAndMetadataToFile
+        15 MB   162 次  ZinValidationContext::CreateGraphFromLayer < ZinValidationContext::CreateContextWithGraph < ZinValidationContext::Validate
+         0 MB    72 次  ZinIrVectorMergeBiasAndScale < ZinIrVectorFoldBiasWithBotScaleBotBias::Apply < ZinIrVector::Transform
+         0 MB    24 次  ZinBuilder::CreatePerCoutGOC < ZinBatchNormLayer::Lower < ZinIrOpLayerGraph::Traverse
+         0 MB     4 次  ZinPatternUtils::CreatePEGOCConstInLayer < ZinPEPatterns::GOC::Fuse < ZinIrOpLayerGraph::Traverse
+调用次数（cnt）：TileWithGlobalRefinement 2，MergeConvolutions 4，CreateMergedNEConvLayer 101，ZinIrFileBacking::Allocate 566
+ZinIrFileBacking 的方法：Open、Allocate、Valid、HasFileBacking、UnmapSystem、Close、析构；没有释放单块空间的方法
+磁盘剩余下降峰值 2725 MB（M6 上同模型 2.7 GB）；HWX 73,089,024 字节（与 M6 相同），h18 56,213,504 字节、0 MB

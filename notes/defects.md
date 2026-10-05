@@ -33,7 +33,9 @@
   编译器在输出目录写 `anecompiler.swap.*`，每个编码器层约 2.4 GB（约为该层权重的 60 倍），32 层约 78 GB；用时为单引擎 h18 的 8–9 倍。
   h18、h16g 同一模型 41 s、磁盘 3.8 GB。截到一层即可复现（h18g 12 s、2.7 GB；h18 5 s、0）。经 Core ML 加载时要 20 分钟以上，并写满磁盘。
 - **位置**：调用栈 97% 在 `ZinMirSplitSpatially → ZinMirSpatialSplitter::TileWithGlobalRefinement → MirOpt::MergeConvolutions →
-  MirOpt::CreateMergedNEConvLayer`（复制权重、`ZinIrKernel::AddWeightsToSHA`）。顶层选项 `GlobalRefinementInSpatialSplit=false`
+  MirOpt::CreateMergedNEConvLayer`。**机制（2026-10-05，lldb）**：交换文件是 `ZinIrFileBacking`（创建后立即 unlink，ftruncate + mmap 使用），
+  只有 `Allocate`、没有释放单块空间的方法；每个合并卷积层新建 3 块 float32 权重副本（FP16 转 float32，体积翻倍），一层约 100 个合并层、
+  约 2.4 GB，编译结束前不回收（whisper_compile.md §3.3）。顶层选项 `GlobalRefinementInSpatialSplit=false`
   让编译回到 8 s、磁盘 0，但双 ANE 程序退化为只用 ANE0。
 - **期望**：细化不应把每个合并候选的权重副本都落盘，或应及时回收；超出预算时放弃细化、退回单引擎程序；编译前检查可用空间。
 - **复现**：`tools/03_compile/whisper_capture.sh` 抓出 Core ML 交给编译器的模型，`whisper_trunc.py` 截层，`whisper_anecc.sh` 以 h18g 编译。
