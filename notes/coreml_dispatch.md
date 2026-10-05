@@ -3,7 +3,8 @@
 - 日期：2026-10-05
 - 环境：M4（Mac16,12，h16g，16 GB），macOS 27.0.1（26A434）；coremltools 9.0，ML Program，最低部署目标 macOS 15，FP16，
   `MLComputeUnits.cpuAndNeuralEngine`。只测了 M4。M6 的 ANE 支持面与代价常数可能不同，待测。
-- 工具：`tools/03_compile/opdispatch_gen.py`（单算子模型；`--ctx` 前后各包两层卷积）、`tools/common/computeplan.swift`
+- 工具：`tools/03_compile/opd_arch.sh`（h16g / h18g 直接编译对比）、`topk_ctx.py` 与 `tools/common/predict.swift`（topk 计时）、
+  `tools/03_compile/opdispatch_gen.py`（单算子模型；`--ctx` 前后各包两层卷积）、`tools/common/computeplan.swift`
   （公开 API `MLComputePlan`：每个运算的支持设备、首选设备）、`tools/03_compile/opdispatch_run.sh`（逐模型串行跑，带内存看门狗）、
   `opd_all.sh` / `opd_ana.sh` / `opd_sw2.sh`（流水线；每个模型独立 `CFFIXED_USER_HOME`，收集分段器写出的 `analytics.mil`）、
   `tools/03_compile/opdispatch_fit.py`（解析 `analytics.mil`，用最短路径模型复现分段）。
@@ -32,6 +33,13 @@
    各种 resize / upsample、pad（含 reflect / replicate）、pixel shuffle、transpose、concat。FP32 输入会被插入 cast 后上 ANE。【编译器】
 6. **单是查分派也会触发完整的 ANE 编译，可能非常重。** 对一层 16×16 卷积（64 通道、32×32）调用 `MLComputePlan.load`，
    ANECompilerService 用了 212–229 s，峰值 11.7 GB；13×13 只要 2–23 s、0.1–0.3 GB（§3.3）。【计时】
+
+7. **尺寸上限在 M4 和 M6 上相同。** 在 M4 上用 anecc 直接调用 ANECCompile，分别以 h16g（M4）和 h18g（M6）为目标编译 67 个边界/对照模型，
+   两个目标的成败逐个相同（只有 topk 例外，见下条）；h16g 的成败又与 Core ML 在 M4 上的判断一致，说明 Core ML 的上限就来自 ANE 编译器（§3.4）。
+   int32、lstm、cumsum、asin、动态 gather、sliding_windows 在两个目标上也都编不过。M6 的估计耗时和分段结果仍需在 M6 上测。【编译器】
+8. **topk 在 M4 上被放进 ANE，但很慢，分段器把它低估了约 200 倍。** 前后各 4 层 256 通道卷积、中间一个 topk 的模型，Core ML 在 M4 上整图放 ANE，
+   比同形状对照多 6.0 ms（沿宽，k=4）和 10.1 ms（沿通道，k=256），而分段器的估计只有 0.03 和 0.06 ms；结果整图放 ANE 比只用 CPU 还慢
+   （8.00 对 6.23 ms，12.59 对 11.08 ms）。直接编译单个 topk 时，h16g 报 "Validation for RCAS failed / Invalid TD"，h18g 能编过（§3.5）。【计时】【编译器】
 
 ## 1. 方法
 
@@ -145,9 +153,47 @@ affine、resample；静态索引 gather；topk（含 k=40、32000 宽）；quant
 
 （一次跑满 11.7 GB 在 16 GB 机器上已接近上限；查分派本身就会做完整的 ANE 编译。）
 
+### 3.4 h16g 与 h18g 的编译器上限（`arch_h16g_h18g.tsv`）
+
+方法：`tools/03_compile/opd_arch.sh`，把单算子模型用 `ct.utils.compile_model` 转成 mlmodelc，再用 `tools/common/anecc.m` 直接调用 ANECCompile，
+目标分别为 h16g、h18g；每个模型一个进程、串行，看门狗 8 GB。返回 0 且有 model.hwx 记为成功。
+
+| 项目 | h16g | h18g |
+|---|---|---|
+| 方核 K×K | ≤ 15 通过；17 失败；16 编译超过 8 GB 被杀 | 同左（16 在 8.4 GB 被杀） |
+| 1×K | ≤ 15；16、17、24、32、64 失败 | 同左 |
+| K×1 | ≤ 31；32、64 失败 | 同左 |
+| max_pool | ≤ 8；9（same / valid）、1×9、13、14、15 失败；9×1 通过 | 同左 |
+| avg_pool 13、14 | 通过 | 通过 |
+| matmul 内积维 | ≤ 32768；40000 起失败 | 同左 |
+| 单维 65536 / 65537 | 通过 / 失败 | 同左 |
+| int32 add、argmax、lstm、cumsum、asin、动态 gather、sliding_windows | 失败 | 失败 |
+| conv3x3、sdpa、layer_norm | 通过 | 通过 |
+| **topk（1×64×32×32，k=4，沿宽）** | **失败（rc=22，RCAS 校验）** | **通过** |
+
+h18g 的 HWX 普遍是 h16g 的约 2 倍大（双 ANE 两份程序）。
+
+### 3.5 topk
+
+- Core ML 在 M4 上把 topk 标为 ANE 可用（BackendSupport 含 ane），前后各接 4 层 256 通道 3×3 卷积（1×256×64×64）时整图一个 ANE 段，编译成功、预测正常。
+  单独一个 topk 时直接走 ANECCompile 的 h16g 会失败（日志：`hw.l2_config.ane_l2_config.source1_cfg.alias_conv_rslt`、
+  "Validation for RCAS failed"、"Invalid TD exists"），可见 Core ML 的路径与直接编译单个 MIL 不同，或失败只在这种输入直通输出的形状上出现。
+- 计时（`topk_timing.txt`，20 次中位数，ms）：
+
+| 模型 | cpuAndNeuralEngine | cpuOnly |
+|---|---|---|
+| 对照（slice 到宽 4） | 2.01 | 1.72 |
+| topk k=4，沿宽 | 8.00 | 6.23 |
+| 对照（relu） | 2.48 | 9.91 |
+| topk k=256，沿通道 | 12.59 | 11.08 |
+
+  topk 在 ANE 上多花约 6.0 / 10.1 ms，分段器估计 0.0305 / 0.0574 ms（ane）、0.0366 / 0.0689 ms（bnns），即把 topk 当作普通访存型运算。
+  （宽 4 的对照在 CPU 上只要 1.72 ms，比 4 层 64×64 卷积的计算量所需少得多，CPU 路径可能裁掉了不影响输出的列；不影响 topk 的结论。）
+- TD 跟踪里 h18g 的 topk 走 RCAS（hwx_h18g.md）；M4 上是否也走 RCAS、为什么慢，未查。
+
 ## 4. 未完成 / 疑点
 
-- 只测了 M4（h16g）。M6（h18g，双 ANE、HAL 2026）上的支持面、估计耗时和 0.125 ms 常数需要复测：流水线现成，带着 `opd_all.sh`、`opd_ana.sh` 跑一遍即可。
+- 尺寸上限已用 h18g 目标在 M4 上核对（§3.4）。M6 上的估计耗时、分段结果和 0.125 ms 常数需要在 M6 上复测：带着 `opd_all.sh`、`opd_ana.sh` 跑一遍即可；topk 在 M6 上是否同样慢也要测（`topk_ctx.py`、`predict.swift`）。
 - `MLComputePlan` 的首选设备与 `analytics.mil` 的 SelectedBackend 逐运算一致（2187 个运算，0 处不同）；运行时是否严格按这个分配（例如 ANE 编译失败时退回）没测。
 - 分段器的 `EstimatedRuntime` 与实测的关系没核对（compute_array.md H53b 是 ANE 编译器内部的另一套估计）。
 - 决策树本身（特征 → 耗时）没有导出；`[CostModelFeature]` 日志需要私有数据开关（要 sudo）。

@@ -1,0 +1,8 @@
+# M4（Mac16,12），macOS 27.0.1，tools/common/predict.swift：预热 1 次后 20 次预测的中位数（ms）
+# 模型（tools/03_compile/topk_ctx.py）：前后各 4 层 256 通道 3×3 卷积（1×256×64×64），中间 topk 或同形状对照
+# 列：模型  cpuAndNeuralEngine  cpuOnly  （cpuAndNeuralEngine 下整图一个 ANE 段：bundle 只有 main_ane）
+ctrl_big_w	2.01	1.72	# 对照：slice 到宽 4
+topk_big_w	8.00	6.23	# topk k=4，沿宽（axis 3）
+ctrl_big_c	2.48	9.91	# 对照：relu
+topk_big_c	12.59	11.08	# topk k=256，沿通道（axis 1）
+# 分段器估计 topk 的 ANE 耗时：topk_big_w 0.0305 ms，topk_big_c 0.0574 ms（ana/topk/*.mil）；实测增量约 6.0 ms、10.1 ms
