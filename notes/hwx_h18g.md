@@ -445,3 +445,32 @@ v31 的布局相同，只是 0x274（Win）起整体比 v36 前移 0x7c，之后
 | 0x1440–0x1457 | Tile DMA 目标 | 同上；转置卷积、上采样的 ChannelStride / CropOffset 加倍 |
 | 0x1540 [6] | `SetKernelDmaSrcEnable` | 有权重时为 1；逐元素、池化、layernorm 为 0 |
 | 0x1544 | `SetKernalDmaSrcBaseAddr` | 各 TD 的权重块偏移（§11.4） |
+
+### 13.2 第二批：补没出现的字段（2026-10-05）
+
+- 第一批 35 个模型有 122 个位段在 HWX 里没出现。按字段名设计第二批 32 个模型（`tdtrace_gen.py ALL2`：3D 卷积、大尺寸 reflect 填充、大激活、gather / gather_along_axis / embedding、奇数位置切片、slice_update、argmax、topk、双线性 resize / 上采样、crop_resize、int8 输出、每通道缩放的 W8A8、6 / 8 位调色板、每 4 通道一组的调色板、leaky ReLU / PReLU / SiLU / clip / ELU、reduce_max / sum、instance norm、广播加、depth_to_space / space_to_depth、reshape、C↔W 转置、稠密存放的 75% 零权重），另加编译选项变体（`tdtrace.sh` 支持 `模型@选项=值`）。共 75 次跟踪，全部编译成功。
+- 结果：空白位段 122 → 79；随模型变化的位段 104 → 134。新补上的主要是：
+
+| 字段 | 触发者 | 解读 |
+|---|---|---|
+| `SetTexture*`（0x1372–0x137a）整组 | gather、gather_along_axis | **ANE 的 gather 借用纹理采样单元**：TextureMode = 1，另写 Permute、ExtMax、BackgroundEn 等 |
+| `SetRcas*`（0x1246 [8:20]） | topk | RCAS 只用于 topk：比较位、感知轴 / 位、模式，推测是 NE 内的比较选择（排序）硬件；编译器字符串 `rcas_kernel`、`transpose_rcas`、`ne_supports_rcas` |
+| `SetSourceWrap` / `SetL2ResultWrapCfg`（0x1059–0x105a） | 大尺寸 reflect 填充 | 循环（镜像）寻址用于 reflect 填充 |
+| `SetOrReturnDin/Dout`、`SetCommonConvCfg3d*` | conv3d | 3D 卷积原生支持（D = 8，Kd = 3）；gather_along_axis 也借用了 Kd 字段 |
+| 7 个 `Set*TraceCfg` | `ForcePerfTracerRegisters=true` | L2、PE、NE、Tile DMA 源 / 目标、权重 DMA 的性能跟踪配置（0x101 / 0x202） |
+| `SetTileDmaSrc1DependencyOffset` | 每 4 通道一组的调色板 | 依赖偏移 0x40 |
+
+- 附带：`ScanWeightsForCompression=true` 不会把稠密存放的零权重改成稀疏格式（dz75 的 `KernelSparseFmt` 仍为 0）；双线性上采样也打开 `KernelSparseFmt`（实现为固定核的转置卷积，核里带零）。
+- 仍为空的 79 个位段：激活压缩（`Compressed*` / `MetaData`，约 30 个；`EnableIntermediateCompression` 写在顶层或 h18g 子字典都没打开，可能 h18g 不支持）、权重系数 DMA（`AlignedKernelBias` / `PostScale` / `PaletteLut` 及其缓存提示，约 12 个）、多调色板（5 个；`EnableKernelSplitForMultiPaletteLUT` 也没触发）、静态循环寻址 / L2 索引源 / PE 索引（约 15 个）、`TileOverlap`、`StochasticRound`、CacheDma 预取限流（`DisableCachePrefetchMask` 不影响）。多半是这版编译器在 h18g 上默认不用的功能。
+
+### 13.3 `HandleNEConfig` 的决策逻辑（2026-10-05）
+
+由子 agent 反汇编 `ZinAneTd<24u>::HandleNEConfig` 并用 lldb 在 27 个模型上核对（全文 `private/data/03_compile/handle_ne_config.md`）。记号：K = 层的权重对象（`ZinIrKernel`，层 +0x70），MAK = K +0x440（`ZinMirAneKernel`）。多数 setter 读的是编译器更早阶段的决定，不是层的原始属性。
+
+- **`SetKernelSparseFmt`** = `ZinMirAneKernelCoeff::compr`，由 `ZinNELayer::CheckKernelCompressed` 决定，两条路：
+  1. **必须压缩**：上游已置压缩标志。膨胀 3×3 在 `ZinMirDilatedConv::CreateDilatedConvKernel` 里调用 `SetMustCompressWeight`（展开成 5×5 后 25 个位置只有 9 个非零，比例 0.36）。
+  2. **稀疏度检查**：`IsWeightSparse`，零的比例超过 **1/7** 即用稀疏格式。剪枝模型的权重来源本身就是稀疏格式，直接通过；否则由 `CalculateSparsityFromPadding` 按改写核的步长、扩展、填充计算补进去的零：步长 2 卷积 0.4375、1×9 为 0.55（通过），普通 3×3、5×5 为 0。**只看改写补出的零，不扫描权重本身的零**——所以稠密存放的零权重不会走稀疏格式（§12）。
+- **`SetKernelDetectZeros`** = `ZinMirAneKernelInfo.detect_zeros_enabled` 且非 DP2Add；只有 `ZinNELayer::EnableOnTheFlySparseEncodingIfPossible` 会打开它，条件：有真实权重、无零点、不是单位权重、权重来源不是预先压缩的。softmax 用无权重的单位核（格式 30）、layernorm 的 NE 层没有权重 → 0；剪枝模型为 0 是因为权重已预先压缩，不是因为稀疏格式；1×9、膨胀、步长 2 两位都是 1。函数名"on-the-fly sparse encoding"提示它在读权重时即时编码零值，作用可能在读权重带宽上（§12 的 c1x1 权重在片上，测不出），待在读权重受限的层上验证。
+- **`SetKernelPalettizedEn` / `Bits`** 的参数就是编译器内部的权重格式编号（K +0xf8）：4 = FP16、1 = int8、13 = 2 位调色板、21 = 4 位调色板；没有权重时硬编码为 4（所以 softmax 也是 4）。`SetKernelFmt` 由同一编号换算成硬件代码（FP16 → 2、int8 → 1）。
+- 其他：`SetDoubleInt8Enable` = MirInfo +0x81f；`SetNEBinaryPoint` 的参数是层 +0x304 的 `optional<int>`（跟踪值 8589934588 即 −4）；`SetNENonLinearMode` = 激活对象 +0x80；`SetOpMode` 由 `GetMacCfgOpMode` 按层类型选择；`SetKernelMode` = MAK +0x4（无 MAK 时由 HAL 决定 1 或 2）。
+- 未解决：编译器里有一条硬件校验字符串，要求"FP16 输入的稀疏格式权重必须 DetectZeros = 1"，但剪枝模型编出来是稀疏格式且 DetectZeros = 0，没找到这条校验在哪里执行；部分 HAL / MirInfo 字段的含义只是从用法推断。
