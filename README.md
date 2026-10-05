@@ -16,28 +16,28 @@ The report is currently written in Chinese. An English version is planned.
 
 ## Contents
 
-| Directory | Contents |
-|---|---|
-| [`final_report/`](final_report/) | The report, [`zh.md`](final_report/zh.md) (Chinese) |
-| [`figs/`](figs/) | Report figures (`fig<chapter>-<n>_*`). Each has an SVG and a PNG, plus a `*_dark` version for dark-mode web pages |
-| [`data/`](data/) | Raw data, one subdirectory per topic. `_obsolete/` holds superseded data kept for reference |
-| [`tools/`](tools/) | Experiment tools and analysis scripts, organized like `data/` |
-| [`notes/`](notes/) | Lab notes and summaries of prior work |
+| Directory                        | Contents                                                                                                          |
+| -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| [`final_report/`](final_report/) | The report, [`zh.md`](final_report/zh.md) (Chinese)                                                               |
+| [`figs/`](figs/)                 | Report figures (`fig<chapter>-<n>_*`). Each has an SVG and a PNG, plus a `*_dark` version for dark-mode web pages |
+| [`data/`](data/)                 | Raw data, one subdirectory per topic. `_obsolete/` holds superseded data kept for reference                       |
+| [`tools/`](tools/)               | Experiment tools and analysis scripts, organized like `data/`                                                     |
+| [`notes/`](notes/)               | Lab notes and summaries of prior work                                                                             |
 
 The subdirectory numbers in `data/` and `tools/` differ from the report's chapter numbers:
 
-| Subdirectory | Report chapter |
-|---|---|
-| `02_overview` | Ch. 4 Architecture overview |
-| `03_compile` | Ch. 5 Compiler and program format |
-| `04_schedule` | Ch. 6 Scheduling and execution |
-| `05_compute` | Ch. 7 Compute array |
-| `06_numerics` | Ch. 8 Numerical behavior |
-| `07_memory` | Ch. 9 Memory hierarchy and data movement |
-| `08_bonded` | Ch. 10 Dual-engine cooperation |
-| `09_clock` | Ch. 11 Clock domains |
-| `10_clpc` | Ch. 12 Dynamic frequency scaling |
-| `11_power` | Ch. 13 Power and energy efficiency |
+| Subdirectory  | Report chapter                           |
+| ------------- | ---------------------------------------- |
+| `02_overview` | Ch. 4 Architecture overview              |
+| `03_compile`  | Ch. 5 Compiler and program format        |
+| `04_schedule` | Ch. 6 Scheduling and execution           |
+| `05_compute`  | Ch. 7 Compute array                      |
+| `06_numerics` | Ch. 8 Numerical behavior                 |
+| `07_memory`   | Ch. 9 Memory hierarchy and data movement |
+| `08_bonded`   | Ch. 10 Dual-engine cooperation           |
+| `09_clock`    | Ch. 11 Clock domains                     |
+| `10_clpc`     | Ch. 12 Dynamic frequency scaling         |
+| `11_power`    | Ch. 13 Power and energy efficiency       |
 
 `tools/` also has a few directories shared across chapters:
 
@@ -67,6 +67,7 @@ Steps:
 
 1. **Set up a working directory.** Copy the tools and generator scripts you need into a single working directory. The scripts call each other through relative paths such as `./bondrun`, so they expect all tools to sit flat in one directory. `tools/deploy_m6.sh` can sync all of `tools/`, flattened, to another machine; usage is at the top of the script.
 2. **Build the tools.** The build command for each C or Objective-C tool is at the top of its file, for example:
+   
    ```bash
    clang -fobjc-arc -O2 bondrun.m -framework Foundation -framework CoreML -o bondrun
    ```
