@@ -26,8 +26,31 @@ def streams(path):
         d = hb.vm_bytes(b, segs, v, e - v)
         u = len(d.rstrip(b"\0"))
         d = d[:u + (-u % 4)]
-        out[n.replace("text_section_start_for_", "")] = [struct.unpack_from("<I", d, k)[0] for k in range(0, len(d), 4)]
+        w = [struct.unpack_from("<I", d, k)[0] for k in range(0, len(d), 4)]
+        if i + 1 == len(starts):
+            w = _trim_last(w)
+        out[n.replace("text_section_start_for_", "")] = w
     return out
+
+
+def _trim_last(w):
+    """最后一个流没有"下一个流的起点"作边界，按 __TEXT 段末尾截取会把其后其他节的数据也算进来
+    （Whisper 编码器的 ANE1 流因此虚高约 11 倍，2026-10-05 更正）。按 tdwalk.walk 的规则逐个 TD 前进（跳过补零），
+    TD 编号（头第 0 字低 16 位）不连续或长度为 0 处即流的结尾。"""
+    p = 4 if w[:4] == [1, 0, 0, 0] else 0
+    end, tid = p, None
+    while p < len(w):
+        while p < len(w) and w[p] == 0:
+            p += 1
+        if p >= len(w):
+            break
+        size = (w[p] >> 16) & 0x7ff
+        if size == 0 or (tid is not None and (w[p] & 0xffff) != tid + 1):
+            break
+        tid = w[p] & 0xffff
+        p += size
+        end = p
+    return w[:end]
 
 
 def widths(w):

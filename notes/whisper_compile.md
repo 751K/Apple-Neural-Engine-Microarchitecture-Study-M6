@@ -22,7 +22,7 @@
    但编出的"双 ANE"程序只剩 ANE0，编译器放弃了拆分。【HWX】
 5. **周边的两个问题把它放大成"机器不可用"：** 客户端退出后编译服务继续编、继续写；编译器不检查剩余磁盘空间，会把磁盘写满，系统随之清掉 ANE 编译缓存，
    之后每次加载都从头编译。【计时】【推断】
-6. 默认 h18g 拆出的双 ANE 程序也很不均衡：ANE1 的 TD 流约是 ANE0 的 13 倍（L4）。即使编完，双 ANE 对这个编码器的加速也有限。【HWX】
+6. 默认 h18g 拆出的双 ANE 程序不均衡：按编译器自己的估计（Σexe_cycles），ANE1 是 ANE0 的约 1.4–1.5 倍（L1 7074 / 4783，L4 20244 / 14875），比均分的关键路径长约 15%（§3.4）。**更正（2026-10-05）**：此前写的"约 13 倍"是解析工具把 ANE1 流取到 `__TEXT` 段末尾造成的，已修正 `tools/lib/td_widths.py`。【HWX】
 
 ## 1. 现象：B7 测评中的 M6 全 ANE 组合
 
@@ -151,7 +151,7 @@ L4，h18g，关掉全局细化（`tools/03_compile/whisper_anecc.sh` 的 `h18g_n
 
 - 选项只在顶层 flags 生效。【计时】
 - 关掉后编译器找不到可行的拆分，"bonded"程序退化为只在 ANE0 上运行：全局细化是这个模型能拆到两个 ANE 的必要步骤，关掉它不是修复。【HWX】
-- 默认 h18g 的拆分本身很不均衡：ANE1 的 TD 流是 ANE0 的约 13 倍（与 defects B8 的"ANE1 拿 56–59%"同方向，但程度大得多）。【HWX】
+- 默认 h18g 的拆分不均衡：ANE1 的 Σexe_cycles 是 ANE0 的约 1.4–1.5 倍（与 defects B8 同一机制，§3.4）；此前"约 13 倍"为工具误差。【HWX】
 
 ### 3.3 交换文件的来源（lldb，2026-10-05）
 
@@ -176,6 +176,20 @@ MIL blob 格式生成的假数据——真实权重只在 M6 上；HWX 大小 73
 **结论**：每个编码器层的约 2.4 GB = 全局细化里合并卷积新建的 float32 权重副本（约 100 个合并层 × 3 块），存放在只增不减的
 `ZinIrFileBacking` 里、编译结束前不回收，所以磁盘用量与层数成正比。单引擎 h18 不走全局细化、不合并，交换文件为 0。
 §3.1 推测的"`AddWeightsToSHA` 去重"不是原因。
+
+### 3.4 双 ANE 怎么拆、为什么不均（2026-10-05，子 agent 反汇编 + lldb；全文 `private/data/03_compile/spatial_split/spatial_split.md`）
+
+- **流程**：`ExecuteGenericDAGMode → ZinMirSpatialSplitter::Tile`，打开全局细化时进入 `TileWithGlobalRefinement`，bonded 程序依次做：
+  L2 压力切块（"SplitWithCB"）→ `RunFindInterANEParallelism` → 双 ANE 切分（"BondedSplit"，每个子图只沿一个维度、恒切 2 块）→
+  `SplitSubgraph` 改图（L1：63 + 39 次）→ `MergeConvolutions("SpatialSplit")`。nonbonded 程序只做 L2 切块与合并。
+- **合并卷积为什么这么多**：大卷积事先已按输出通道拆成权重分片，细化时分片又被当作独立子图切开；改图后每个空间块里有好几个读同一输入的
+  小卷积，`MergeConvolutions` 把它们拼成一个大卷积、新建拼接后的权重。L1 合并后的权重每套程序 306.9 MB（原始约 39 MB），
+  MLP fc1 每块一份 12.46 MB、共 12 块——这些就是 §3.3 交换文件里的 float32 副本。
+- **Whisper 的不均衡是规则叠加的结果，不是有意分工**（L1 / L4 的 ANE1 / ANE0 = 1.48 / 1.36）：
+  1. 切点按 128 列对齐、每块至少 128 列：attention 每块 W = 375，只能切成 **128 | 247**，第 0 块固定给 ANE0；
+  2. L2 切块出奇数块时，第 i 块给 ANE `(i ≥ T/2)`，多出的一块给 ANE1：W = 1500 切 3 块变成 **512 | 988**；
+  3. 成本模型把同一层各块的延迟**相加再 × 0.5**（`ComputeSplitLatencyBonded`），没有不均衡项；一个头组按单引擎算增益为 −14%，全靠 × 0.5 判"切"。
+  没有任何子图被指定给某个 ANE（`AneIndexHint` 未使用），不存在"一个 ANE 算 attention"的分工。完全均衡时 L4 关键路径约 17560，实际 20244（+15%）。
 
 ## 4. 问题的完整描述
 

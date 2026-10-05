@@ -145,6 +145,20 @@ L=256→384 的边际成本（最线性的一段）：
 - 双 ANE 时，编译产物把同一份权重分别映射给两个 ANE，每个 ANE 都要读完整的权重：2 × 0.5 MB / 7.3 µs ≈ **140 GB/s**，接近 DRAM 带宽，所以变慢。
 - 结果：权重放不进片上内存时，双 ANE 的收益从 1.9× 降到约 1.4×（同样计算量下）。**bonded 按空间切分，权重流量翻倍**，所以对权重带宽受限的负载帮助有限。
 
+## 3.4 编译器怎么决定双 ANE 拆分（2026-10-05，反汇编 + lldb；whisper_compile.md §3.4，全文 `private/data/03_compile/spatial_split/spatial_split.md`）
+
+- **只有全局细化路径会做双 ANE 切分**：`ZinMirSpatialSplitter::Tile` 在 `GlobalRefinementInSpatialSplit` 打开（默认）时走 `TileWithGlobalRefinement`；
+  关掉时走旧路径，只用单引擎判据 `IsWorthTile`，一刀都不切，bonded 程序退化为全部在 ANE0（Whisper 实验中"关掉全局细化后只剩 ANE0"的原因）。
+  进入前还要求 procedure 是 bonded 且 HAL +0x73c 置位（2026BaseLine 为 1）。
+- **怎么切**：每个子图只沿一个维度切（H = 1 的张量沿 W，64×64 沿 H）；BondedSplit 恒切 2 块；切点对齐到 256 B（FP16 为 128 列，W 太小时 64 列），
+  第 0 块 = ⌈W/2⌉ 向上取整到 128（剩余不足 128 时向下取整），例如 W = 300 → 128 | 172、375 → 128 | 247、384 → 256 | 128、640 → 384 | 256。
+- **分给哪个 ANE**：子图所有层的 `AneIndexHint` 相同时整个给那个 ANE；否则第 i 块给 ANE `(i ≥ T/2)`——**块数为奇数时多出的一块给 ANE1**（defects B8 的机制）。
+- **切不切**：`IsCurrentGraphMinLatencyInBonded`：`切前延迟 > 0.5 × (各块延迟之和 + 拷贝开销)` 且不如进一步细分（延迟单位 ms，来自 perfmodel 的 NE 光栅化估计）。
+  **没有不均衡项**，等于假设两块一样大、两个 ANE 互不干扰。实例（512 通道 1×1 链，16 层，H = 1）：W = 128 时切前 0.0550、切后 0.1022 → 不切（单 ANE）；
+  W = 256 时 0.10454 对 0.10374，**只赢 0.8%** 就切成双 ANE——这就是 §2 宽度扫描里 W = 128 / 256 的阈值。
+- **细化怎么进行**：子图工作表；整体切更好就定稿，否则按候选切点（`ClusterSplitCostModel::FindOptimalSplit`）细分后放回工作表，直到表空。
+  另有编译时间闸门 `IsWorthCompileTimeIncrease`（增益 < 2% 且 层数 × 块数 > 3 × 946 时放弃）。
+
 ## 4. 其他观察
 
 - 每次调用的中断数随单次工作量变大而减少（W=64 时约 3.8 次，W=4096 时约 2.25 次）。可能有一部分中断和数据量有关（例如 DMA 分块），没细查。
