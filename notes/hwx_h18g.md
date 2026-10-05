@@ -392,3 +392,26 @@ v31 的布局相同，只是 0x274（Win）起整体比 v36 前移 0x7c，之后
 - **DetectZeros 不带来明显加速**（M4，c1x1，32 → 128 层调用耗时斜率，最干净的一遍）：随机 4.07 µs / 层，50% / 75% / 90% / 100% 为 0 时 3.91 / 3.74 / 3.73 / 3.75（至多 −8%）；同比例的稀疏格式（剪 75%）2.02。另两遍里 dz 版本的 128 层有 1.5–2 倍的跳变（随机、调色板、稀疏版本没有），原因未查，可能与零权重降低功耗后时钟策略的变化有关。推测 DetectZeros 用于省电（与 power.md §7.3 零激活省电不省时一致），未测功耗。
 - 由此，14.4 节的 55.6 TFLOPS 也不能用"稠密权重里有大量 0"解释：要靠零权重加速，权重必须以稀疏格式（constexpr_sparse_to_dense）交给编译器。原因仍未查明。
 - 一个 constexpr_sparse_to_dense 但一个 0 都没有的模型，编译器按稠密处理（权重段为稠密大小），且不写 0x1240。
+
+## 13. TD 字段的动态跟踪（2026-10-05）
+
+**方法**（`tools/03_compile/tdtrace_gen.py`、`tdtrace_lldb.py`、`tdtrace.sh`、`tdtrace_fit.py`）：在 M4 上用同版本 ANECompiler 以 h18g 为目标编译 35 个 2 层小模型（各种卷积核 / 步长 / 膨胀 / 分组 / 深度、转置卷积、激活函数、BN、稀疏、调色板、W8、W8A8、linear、matmul、逐元素、池化、归约、softmax、layernorm、concat、transpose、pad、上采样、bonded），lldb 在 `ZinAneTd<24u>` 的 403 个方法上设断点（另 72 个与其他函数共用地址，禁用），记录每次调用的参数、调用者、层级，以及调用前后 TD 对象按寄存器地址换算的每个字的变化。寄存器地址 → 对象偏移来自 `ZinAneTdHw_v24::GetRegisterValueFromAddress` 的反汇编（8 块：0x0000 → 0x238、0x1040 → 0x400、0x1140 → 0x4b4、0x1240 → 0x4fc、0x1340 → 0x29c、0x1440 → 0x53c、0x1540 → 0x3c、0x1640 → 0x5b8，均为 setter 所见的对象偏移）。
+- 要点：anecc 需签 `get-task-allow`（`tdtrace_ent.plist`），不需要开发者模式；编译器多线程，不能依赖 lldb 断点回调（多个线程同时停下时回调偶尔不执行、进程停住），改为脚本循环逐个处理停下的线程。2 层模型每个 10–60 s。
+- 结果：35 个模型全部编译成功，226 个方法被调用 47508 次，134 个方法有可见的寄存器改动，覆盖 167 个寄存器。原始记录与函数表（编译器派生）在 `private/data/03_compile/tdtrace/`。
+- 校验：由跟踪还原的寄存器取值与 HWX 中的值 89%（2513 / 2832）一致；不一致集中在地址类寄存器（0x1041、0x1042、0x1052、0x1440、0x1642）与 0x1540，它们在 TD 生成之后由地址分配 / 重定位等其他代码改写，不在跟踪范围内。值没变的写入在快照里看不出，字段范围要结合静态 setter 表（§12）。
+
+**解出的字段取值**（参数为传给 setter 的值）：
+
+| 方法 | 寄存器位 | 取值 |
+|---|---|---|
+| `SetKernelFmt` | 0x1240 [1:0] | FP16 = 2，int8 权重（W8、W8A8）= 1 |
+| `SetKernelPalettizedBits` / `En` | 0x1240 [7:4] / [2] | 参数枚举：默认 4，int8 = 1，4 位调色板 = 0x15，2 位 = 0xd |
+| `SetKernelSparseFmt` | 0x1240 [8]，0x1540 [5] | 剪枝模型为 1；**1×9 卷积、膨胀 3×3、步长 2 卷积也为 1** |
+| `SetKernelDetectZeros` | 0x1240 [28] | 稀疏格式、softmax、layernorm 为 0，其余为 1 |
+| `SetOpMode` | 0x1242 [2:0] | 卷积 0；concat、linear、pad、transpose、layernorm 为 6；softmax 中有 3 |
+| `SetNENonLinearMode` | 0x1242 [17:16] 等 | 无激活 0、ReLU 1、sigmoid 2、tanh 6、GELU 0x22；softmax 0x12 / 0x15 |
+| `SetCommonConvCfgKw` | 0x000a [5:0] | 1 / 3 / 5；1×9 写成 10；池化 2 |
+
+- **稀疏权重格式被编译器内部用来实现带零的改写核**：1×9 改写成核宽 10（§11.2，补零）、膨胀卷积展开成带零的大核、步长 2 的改写，都打开 `KernelSparseFmt`，用跳零硬件省掉补出来的零。这解释了 compute_array 中"改写核的耗时与权重元素数成正比"（wfmt 第 3 点）和"膨胀卷积按展开核计"（H10）。
+- `SetKernelDetectZeros` 只由 `HandleNEConfig` 调用；稀疏格式下关闭，与 §12 一致。
+- 全部 226 个方法的改动位、各模型参数与调用者见 `private/data/03_compile/tdtrace/setters.txt`、`regmap.txt`、`matrix.txt`；逐个字段的语义解读尚未完成。
