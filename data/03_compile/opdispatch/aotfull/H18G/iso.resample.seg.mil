@@ -1,0 +1,13 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.2"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<E5Backend_ios16>(tensor<fp16, [1, 64, 32, 32]> x0, tensor<fp16, [1, 32, 32, 2]> x1) {
+            tensor<fp16, [1, 64, 32, 32]> x0_classic_cpu = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = x0);
+            tensor<fp16, [1, 32, 32, 2]> x1_classic_cpu = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = x1);
+            tensor<fp16, [1, 64, 32, 32]> resample_0_classic_cpu = call(x0_classic_cpu = x0_classic_cpu, x1_classic_cpu = x1_classic_cpu)[backend = string("classic_cpu"), function = string("main_classic_cpu")];
+            tensor<fp16, [1, 64, 32, 32]> resample_0 = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = resample_0_classic_cpu);
+        } -> (resample_0);
+    func main_classic_cpu<ios18>(tensor<fp16, [1, 64, 32, 32]> x0_classic_cpu, tensor<fp16, [1, 32, 32, 2]> x1_classic_cpu) {
+            tensor<fp16, [1, 64, 32, 32]> resample_0_classic_cpu = resample(align_corners = bool(true), coordinates = x1_classic_cpu, coordinates_format = string("xy"), coordinates_mode = string("normalized_minus_one_to_one"), coordinates_type = string("absolute"), padding_mode = string("constant"), padding_value = fp16(0x0p+0), sampling_mode = string("bilinear"), x = x0_classic_cpu)[milId = uint64(0), name = string("resample_0")];
+        } -> (resample_0_classic_cpu);
+}

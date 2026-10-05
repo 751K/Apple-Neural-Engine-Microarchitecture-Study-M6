@@ -3,7 +3,7 @@
 - 日期：2026-10-05
 - 环境：M4（Mac16,12，h16g，16 GB），macOS 27.0.1（26A434）；coremltools 9.0，ML Program，最低部署目标 macOS 15，FP16，
   `MLComputeUnits.cpuAndNeuralEngine`。只测了 M4。M6 的 ANE 支持面与代价常数可能不同，待测。
-- 工具：`tools/03_compile/opd_arch.sh`（h16g / h18g 直接编译对比）、`topk_ctx.py` 与 `tools/common/predict.swift`（topk 计时）、
+- 工具：`tools/common/aotdrv.cpp`、`tools/common/oslogtap.c`、`tools/03_compile/opd_aotcost.sh`（AOT 跨芯片代价对比）、`tools/03_compile/opd_arch.sh`（h16g / h18g 直接编译对比）、`topk_ctx.py` 与 `tools/common/predict.swift`（topk 计时）、
   `tools/03_compile/opdispatch_gen.py`（单算子模型；`--ctx` 前后各包两层卷积）、`tools/common/computeplan.swift`
   （公开 API `MLComputePlan`：每个运算的支持设备、首选设备）、`tools/03_compile/opdispatch_run.sh`（逐模型串行跑，带内存看门狗）、
   `opd_all.sh` / `opd_ana.sh` / `opd_sw2.sh`（流水线；每个模型独立 `CFFIXED_USER_HOME`，收集分段器写出的 `analytics.mil`）、
@@ -40,6 +40,12 @@
 8. **topk 在 M4 上被放进 ANE，但很慢，分段器把它低估了约 200 倍。** 前后各 4 层 256 通道卷积、中间一个 topk 的模型，Core ML 在 M4 上整图放 ANE，
    比同形状对照多 6.0 ms（沿宽，k=4）和 10.1 ms（沿通道，k=256），而分段器的估计只有 0.03 和 0.06 ms；结果整图放 ANE 比只用 CPU 还慢
    （8.00 对 6.23 ms，12.59 对 11.08 ms）。直接编译单个 topk 时，h16g 报 "Validation for RCAS failed / Invalid TD"，h18g 能编过（§3.5）。【计时】【编译器】
+
+9. **分段器的代价模型在 M6（H18G）上与 M4（H16G）完全相同。** Espresso 内置 AOT 编译驱动（`Espresso::AOT::AOTCompilerDriver`，
+   `--e5-platforms` 可指定 H18G / t8152）；在 M4 上注入 `oslogtap` 抓 `[CostModelFeature]`，490 个模型以 H16G、H18G 为目标的逐运算各后端估计、
+   分段结果全部相同（0 处差异）。同样方法下 H13G（M1）、H17G（M5）、H19 的估计都不同，说明代价模型确实按芯片分，只是 H18G 沿用了 H16G 的参数。
+   本机实际编译的 141 个估计值在 AOT H16G 输出里全部找到，AOT 可代表实际行为。所以 §2 的门槛和 §3 的分派结论可直接推到 M6（不含双 ANE 带来的
+   实际快慢，分段器并不知道）（§2.4）。【编译器】
 
 ## 1. 方法
 
@@ -103,6 +109,21 @@
 - 夹在 ANE 段中间的一个 CPU 运算（如 int32 的 argmax）会让分段器在"切两次（+0.25 ms）"和"整段放 CPU"之间二选一；网络不大时会整段放 CPU。
 - 上下文实验里很多"全图放 CPU"的结果正是这个原因：前后各两层 64 通道卷积在 CPU 上估计约 0.2 ms，不够付 ANE 的固定代价。
   这不说明那个算子本身不能上 ANE。
+
+### 2.4 不同芯片的代价模型（AOT）
+
+- 驱动：`tools/common/aotdrv.cpp` 直接调用 `AOTCompilerDriver::Run(argc, argv, ostream)`（`--help` / `--help-all` 有完整选项；
+  `--query-e5-platforms` 列出 H7–H19、M9–M12 等所有平台，H18G = t8152 = komodo）。`--e5-dump-ir-only` 只做分段、不调 ANE 编译器，
+  输出含 `10_dumped_Segmenter.mil`（分段后的函数与后端）。
+- 估计：AOT 不写 analytics.mil；打开 `espresso.e5compiler.log_cost_model` 后，用 `tools/common/oslogtap.c`（DYLD_INSERT_LIBRARIES 拦截
+  `_os_log_impl`，按格式串展开参数）在打码前取出每个运算每个后端一行：特征（gFlopCnt、totalMB、workUnitEfficiency16、isL2Resident…）+
+  GFLOP/s、GBP/s、Runtime、UsedDTree、Bound。
+- 流程：`tools/03_compile/opd_aotcost.sh`（PLAT、MODELS 可配），数据 `data/03_compile/opdispatch/aotcost/`（6 个平台 × 16 个模型）、
+  `aotfull/`（H16G、H18G × 490 个模型）。
+- 结果：H16G 与 H18G 逐行相同（490/490），分段 IR 也相同；H14G 除 topk（不支持）外与 H16G 相同；H13G、H17G、H19 不同，例如 1×64×32×32
+  3×3 卷积的 ANE 估计（µs）：H13G 6.52、H14G/H16G/H18G 4.67、H17G 8.77、H19 5.43；CPU（BNNS）估计也随平台变（H17G 63.3、H16G 100.1）。
+  H19 下 upsample_bilinear 的 CPU 估计 11.4 ms（H16G 0.50 ms），layer_norm、softmax、sdpa、topk、reduce_sum 的分段也随之变化。
+- 校准：M4 上 Core ML 实际编译（analytics.mil）的 141 个非零估计全部出现在 AOT H16G 的输出里。
 
 ## 3. 支持面（单算子，`analytics.mil` 的 BackendSupport）
 
@@ -193,7 +214,7 @@ h18g 的 HWX 普遍是 h16g 的约 2 倍大（双 ANE 两份程序）。
 
 ## 4. 未完成 / 疑点
 
-- 尺寸上限已用 h18g 目标在 M4 上核对（§3.4）。M6 上的估计耗时、分段结果和 0.125 ms 常数需要在 M6 上复测：带着 `opd_all.sh`、`opd_ana.sh` 跑一遍即可；topk 在 M6 上是否同样慢也要测（`topk_ctx.py`、`predict.swift`）。
+- 尺寸上限（§3.4）和代价模型（§2.4）已用 H18G 目标在 M4 上核对。仍可在 M6 上用 `opd_all.sh`、`opd_ana.sh` 直接确认（应得到与 M4 相同的 analytics.mil）：带着 `opd_all.sh`、`opd_ana.sh` 跑一遍即可；topk 在 M6 上是否同样慢也要测（`topk_ctx.py`、`predict.swift`）。
 - `MLComputePlan` 的首选设备与 `analytics.mil` 的 SelectedBackend 逐运算一致（2187 个运算，0 处不同）；运行时是否严格按这个分配（例如 ANE 编译失败时退回）没测。
 - 分段器的 `EstimatedRuntime` 与实测的关系没核对（compute_array.md H53b 是 ANE 编译器内部的另一套估计）。
 - 决策树本身（特征 → 耗时）没有导出；`[CostModelFeature]` 日志需要私有数据开关（要 sudo）。

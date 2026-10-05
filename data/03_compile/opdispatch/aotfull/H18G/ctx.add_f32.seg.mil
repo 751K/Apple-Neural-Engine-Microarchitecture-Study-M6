@@ -1,0 +1,16 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.2"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<E5Backend_ios16>(tensor<fp32, [1, 64, 32, 32]> x0, tensor<fp32, [1, 64, 32, 32]> x1) {
+            tensor<fp32, [1, 64, 32, 32]> x0_bnns = transfer(from = string("bnns"), to = string("bnns"), values = x0);
+            tensor<fp32, [1, 64, 32, 32]> x1_bnns = transfer(from = string("bnns"), to = string("bnns"), values = x1);
+            tensor<fp32, [1, 64, 32, 32]> add_0_bnns = call(x0_bnns = x0_bnns, x1_bnns = x1_bnns)[backend = string("bnns"), function = string("main_bnns")];
+            tensor<fp32, [1, 64, 32, 32]> add_0 = transfer(from = string("bnns"), to = string("bnns"), values = add_0_bnns);
+        } -> (add_0);
+    func main_bnns<ios18>(tensor<fp32, [1, 64, 32, 32]> x0_bnns, tensor<fp32, [1, 64, 32, 32]> x1_bnns) {
+            tensor<fp16, [1, 64, 32, 32]> x1_to_fp16 = cast(dtype = string("fp16"), x = x1_bnns)[milId = uint64(0), name = string("cast_1")];
+            tensor<fp16, [1, 64, 32, 32]> x0_to_fp16 = cast(dtype = string("fp16"), x = x0_bnns)[milId = uint64(1), name = string("cast_2")];
+            tensor<fp16, [1, 64, 32, 32]> add_0_cast_fp16 = add(x = x0_to_fp16, y = x1_to_fp16)[milId = uint64(2), name = string("add_0_cast_fp16")];
+            tensor<fp32, [1, 64, 32, 32]> add_0_bnns = cast(dtype = string("fp32"), x = add_0_cast_fp16)[milId = uint64(3), name = string("cast_0")];
+        } -> (add_0_bnns);
+}

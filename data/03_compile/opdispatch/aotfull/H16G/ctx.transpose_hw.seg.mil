@@ -1,0 +1,24 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.2"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<E5Backend_ios16>(tensor<fp16, [1, 64, 32, 32]> x0) {
+            tensor<fp16, [1, 64, 32, 32]> x0_ane = transfer(from = string("ane"), to = string("ane"), values = x0);
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_1_conv_ane = call(x0_ane = x0_ane)[backend = string("ane"), function = string("main_ane")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_1_conv_classic_cpu = transfer(from = string("ane"), to = string("classic_cpu"), values = wrap_out_1_conv_ane);
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_1_relu_classic_cpu = call(wrap_out_1_conv_classic_cpu = wrap_out_1_conv_classic_cpu)[backend = string("classic_cpu"), function = string("main_classic_cpu")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_1_relu = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = wrap_out_1_relu_classic_cpu);
+        } -> (wrap_out_1_relu);
+    func main_ane<ios18>(tensor<fp16, [1, 64, 32, 32]> x0_ane) {
+            tensor<fp16, [1, 64, 32, 32]> wrap_in0_0_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [64, 64, 3, 3]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(64))), x = x0_ane)[milId = uint64(0), name = string("wrap_in0_0_conv")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_in0_0_relu = relu(x = wrap_in0_0_conv)[milId = uint64(1), name = string("wrap_in0_0_relu")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_in0_1_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [64, 64, 3, 3]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(73856))), x = wrap_in0_0_relu)[milId = uint64(2), name = string("wrap_in0_1_conv")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_in0_1_relu = relu(x = wrap_in0_1_conv)[milId = uint64(3), name = string("wrap_in0_1_relu")];
+            tensor<fp16, [1, 64, 32, 32]> transpose_0 = transpose(perm = tensor<int32, [4]>([0, 1, 3, 2]), x = wrap_in0_1_relu)[milId = uint64(4), name = string("transpose_1")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_0_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [64, 64, 3, 3]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(147648))), x = transpose_0)[milId = uint64(5), name = string("wrap_out_0_conv")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_0_relu = relu(x = wrap_out_0_conv)[milId = uint64(6), name = string("wrap_out_0_relu")];
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_1_conv_ane = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [64, 64, 3, 3]>(BLOBFILE(path = string("@model_path/weights/weight.bin"), offset = uint64(221440))), x = wrap_out_0_relu)[milId = uint64(7), name = string("wrap_out_1_conv")];
+        } -> (wrap_out_1_conv_ane);
+    func main_classic_cpu<ios18>(tensor<fp16, [1, 64, 32, 32]> wrap_out_1_conv_classic_cpu) {
+            tensor<fp16, [1, 64, 32, 32]> wrap_out_1_relu_classic_cpu = relu(x = wrap_out_1_conv_classic_cpu)[milId = uint64(8), name = string("wrap_out_1_relu")];
+        } -> (wrap_out_1_relu_classic_cpu);
+}

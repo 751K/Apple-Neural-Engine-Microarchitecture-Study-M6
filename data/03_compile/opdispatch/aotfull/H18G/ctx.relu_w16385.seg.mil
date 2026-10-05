@@ -1,0 +1,19 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.2"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<E5Backend_ios16>(tensor<fp16, [1, 1, 1, 16385]> x0) {
+            tensor<fp16, [1, 1, 1, 16385]> x0_bnns = transfer(from = string("bnns"), to = string("bnns"), values = x0);
+            tensor<fp16, [1, 1, 1, 16385]> wrap_out_1_relu_bnns = call(x0_bnns = x0_bnns)[backend = string("bnns"), function = string("main_bnns")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_out_1_relu = transfer(from = string("bnns"), to = string("bnns"), values = wrap_out_1_relu_bnns);
+        } -> (wrap_out_1_relu);
+    func main_bnns<ios18>(tensor<fp16, [1, 1, 1, 16385]> x0_bnns) {
+            tensor<fp16, [1, 1, 1, 16385]> wrap_in0_0_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [1, 1, 3, 3]>([[[[0x1.9ap-6, 0x1.458p-6, -0x1.fap-5], [-0x1.bb8p-4, 0x1.048p-3, 0x1.204p-6], [-0x1.34cp-8, -0x1.628p-4, 0x1.b1p-4]]]]), x = x0_bnns)[milId = uint64(0), name = string("wrap_in0_0_conv")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_in0_0_relu = relu(x = wrap_in0_0_conv)[milId = uint64(1), name = string("wrap_in0_0_relu")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_in0_1_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [1, 1, 3, 3]>([[[[0x1.34cp-7, -0x1.82cp-5, 0x1.01cp-7], [0x1.3bcp-5, 0x1.c2p-7, -0x1.b4p-5], [0x1.968p-6, -0x1.43p-5, 0x1.834p-4]]]]), x = wrap_in0_0_relu)[milId = uint64(2), name = string("wrap_in0_1_conv")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_in0_1_relu = relu(x = wrap_in0_1_conv)[milId = uint64(3), name = string("wrap_in0_1_relu")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_out_0_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [1, 1, 3, 3]>([[[[0x1.a94p-5, -0x1.ab4p-6, -0x1.c58p-5], [-0x1.47cp-6, -0x1.0c4p-3, -0x1.83cp-6], [-0x1.7dp-5, 0x1.b8cp-7, -0x1.b1p-5]]]]), x = wrap_in0_1_relu)[milId = uint64(4), name = string("wrap_out_0_conv")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_out_0_relu = relu(x = wrap_out_0_conv)[milId = uint64(5), name = string("wrap_out_0_relu")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_out_1_conv = conv(dilations = tensor<int32, [2]>([1, 1]), groups = int32(1), pad = tensor<int32, [4]>([0, 0, 0, 0]), pad_type = string("same"), strides = tensor<int32, [2]>([1, 1]), weight = tensor<fp16, [1, 1, 3, 3]>([[[[0x1.d8p-8, -0x1.95cp-5, -0x1.edp-7], [0x1.2ecp-4, 0x1.744p-5, -0x1.a88p-5], [0x1.1a4p-6, -0x1.98cp-5, -0x1.cbp-9]]]]), x = wrap_out_0_relu)[milId = uint64(6), name = string("wrap_out_1_conv")];
+            tensor<fp16, [1, 1, 1, 16385]> wrap_out_1_relu_bnns = relu(x = wrap_out_1_conv)[milId = uint64(7), name = string("wrap_out_1_relu")];
+        } -> (wrap_out_1_relu_bnns);
+}

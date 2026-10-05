@@ -1,0 +1,14 @@
+program(1.3)
+[buildInfo = dict<string, string>({{"coremlc-component-MIL", "3600.16.1"}, {"coremlc-version", "3600.25.2"}, {"coremltools-component-milinternal", ""}, {"coremltools-version", "9.0"}})]
+{
+    func main<E5Backend_ios16>(tensor<fp16, [1, 64, 32, 32]> x0, tensor<int32, [4]> x1, tensor<fp16, [1, 64, 32, 4]> x2) {
+            tensor<fp16, [1, 64, 32, 32]> x0_classic_cpu = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = x0);
+            tensor<int32, [4]> x1_classic_cpu = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = x1);
+            tensor<fp16, [1, 64, 32, 4]> x2_classic_cpu = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = x2);
+            tensor<fp16, [1, 64, 32, 32]> scatter_0_classic_cpu = call(x0_classic_cpu = x0_classic_cpu, x1_classic_cpu = x1_classic_cpu, x2_classic_cpu = x2_classic_cpu)[backend = string("classic_cpu"), function = string("main_classic_cpu")];
+            tensor<fp16, [1, 64, 32, 32]> scatter_0 = transfer(from = string("classic_cpu"), to = string("classic_cpu"), values = scatter_0_classic_cpu);
+        } -> (scatter_0);
+    func main_classic_cpu<ios18>(tensor<fp16, [1, 64, 32, 32]> x0_classic_cpu, tensor<int32, [4]> x1_classic_cpu, tensor<fp16, [1, 64, 32, 4]> x2_classic_cpu) {
+            tensor<fp16, [1, 64, 32, 32]> scatter_0_classic_cpu = scatter(axis = int32(3), data = x0_classic_cpu, indices = x1_classic_cpu, mode = string("add"), updates = x2_classic_cpu, validate_indices = bool(false))[milId = uint64(0), name = string("scatter_0")];
+        } -> (scatter_0_classic_cpu);
+}
