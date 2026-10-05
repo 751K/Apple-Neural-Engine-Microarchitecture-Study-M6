@@ -445,7 +445,7 @@ M6 的 ANE 由两个结构相同、电源独立的引擎组成，每个引擎包
 
 ### 5.1 方法
 
-我们在自己的进程中直接调用编译接口 `ANECCompile`（[anecc.m](../tools/common/anecc.m)），输入 MIL 文件、目标名和编译选项，得到 HWX 格式的编译产物。该接口只进行编译，不访问硬件，因此可以把同一个模型分别编译为 h16g（M4）、h17s（H17 一代的一个变体）、h18、h18g（M6）和 h19 五个目标，并对产物逐字节比较。需要说明的是，h17s 并不是 M5 实际使用的编译目标：作者在 M5 上运行 ANE 监控程序 anemon [27]，从 IORegistry 中 ANE 驱动服务的设备属性读得其编译目标为 h17〔ioreg〕，而 Bryngelson [5] 把 M5 记为 H17s。本文选用 h17s 只是为了代表 H17 一代的编译器参数，本章（表 5-2、表 5-15）和第 7.4.1 节中 h17s 的结果不能直接视为 M5 的行为；h17 与 h17s 的差别，本文没有系统比较。编译选项以字典形式传入，其中包括若干控制双 ANE 行为的开关（例如 `EnableForcedMaximalBondedSplit` 和 `ForceAllToANE0OnBondedProcedure`），本章利用它们构造对照实验。
+我们在自己的进程中直接调用编译接口 `ANECCompile`（[anecc.m](../tools/common/anecc.m)），输入 MIL 文件、目标名和编译选项，得到 HWX 格式的编译产物。该接口只进行编译，不访问硬件，因此可以把同一个模型分别编译为 h16g（M4）、h17s（H17 一代的一个变体）、h18、h18g（M6）和 h19 五个目标，并对产物逐字节比较。需要说明的是，h17s 并不是 M5 实际使用的编译目标：我们在 M5 上运行 ANE 监控程序 anemon [27]，从 IORegistry 中 ANE 驱动服务的设备属性读得其编译目标为 h17〔ioreg〕，而 Bryngelson [5] 把 M5 记为 H17s。本文选用 h17s 只是为了代表 H17 一代的编译器参数，本章（表 5-2、表 5-15）和第 7.4.1 节中 h17s 的结果不能直接视为 M5 的行为；h17 与 h17s 的差别，本文没有系统比较。编译选项以字典形式传入，其中包括若干控制双 ANE 行为的开关（例如 `EnableForcedMaximalBondedSplit` 和 `ForceAllToANE0OnBondedProcedure`），本章利用它们构造对照实验。
 
 模型的执行一律通过 Core ML 完成，我们不加载、也不执行任何经过修改的 HWX。这一约束使本文的方法与 maderix [4] 不同：maderix 修改 HWX 中的字段后在硬件上执行，以输出和耗时的变化来确认字段含义；本文则只能通过"改变模型的一个属性，观察产物中哪些字发生变化"，并结合编译器的反汇编来推断字段含义。编译器的反汇编通过以下方式获得：在 M6 上把 ANECompiler 框架加载进自己的进程，用符号表定位未导出的函数，导出其机器码后用系统工具反汇编（工具：[syms.c](../tools/re/syms.c)、[fnbytes.c](../tools/re/fnbytes.c)、[xref.c](../tools/re/xref.c)）。因此，本章关于字段含义的结论均标注为〔HWX〕或〔编译器〕，没有经过执行层面的直接验证。
 
