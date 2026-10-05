@@ -75,8 +75,10 @@ for name in names:
     ux, idx = np.unique(xe, return_index=True)
     ea = ya[idx] - ye[idx]
     ec = yc[idx] - ye[idx]
-    scale = np.maximum(np.abs(ye[idx]), 2 ** -14)
-    ulp = np.abs(ea) / (scale * 2 ** -10)
+    # FP16 的实际 ulp：精确值所在指数区间内相邻可表示数的间距（非规格化区为 2^-24），见 lut_ulp.py
+    a_ = np.abs(ye[idx])
+    e_ = np.maximum(np.floor(np.log2(np.where(a_ > 0, a_, 2.0 ** -24))), -14)
+    ulp = np.abs(ea) / 2.0 ** (e_ - 10)
     print(f"== {name}  点数 {len(ux)}  ANE 最大绝对误差 {np.max(np.abs(ea)):.3e}  最大相对误差(ulp) {np.max(ulp):.1f}  "
           f"CPU 最大绝对误差 {np.max(np.abs(ec)):.3e}  ANE≠CPU 的点 {np.mean(ya[idx] != yc[idx]) * 100:.1f}%")
     # 误差的局部极小（推测采样点）：|误差| 平滑后的局部最小值

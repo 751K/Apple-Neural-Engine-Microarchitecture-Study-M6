@@ -71,7 +71,7 @@
 ## F3：激活函数（查表 + 线性插值）的误差
 
 - 工具：`tools/06_numerics/lut_err.py`（采集）、`tools/06_numerics/lut_plot.py`（画图）。
-- 图：`figs/fig8-2_lut_error.png`（12 个函数全貌）、`figs/fig8-3_lut_error_zoom.png`（sigmoid / gelu / silu / tanh 近景）。
+- 图：`figs/zh/light/fig8-2_lut_error.png`（12 个函数全貌）、`figs/zh/light/fig8-3_lut_error_zoom.png`（sigmoid / gelu / silu / tanh 近景）。
 - 原始数据：`data/06_numerics/lut_m6/*.npz`、`data/06_numerics/f3_lut_m6.txt`。
 - 方法：输入是 [−R, R] 上 52 万个点的 fp16 网格（正值函数用对数网格）。ANE 输出减去 float64 精确值得到误差。陪跑支路保证在 ANE 上执行（两个 ANE 都有中断）。
 
@@ -82,18 +82,20 @@
 | gelu（EXACT） | 6.2e-3 | 1.7e-3 | 最佳拟合间距 0.46，不是整数倍网格 |
 | gelu（TANH 近似） | 6.2e-3 | 3.9e-3 | **ANE 输出和 EXACT 模式逐位相同（100%）**，CPU 上两者有 78% 的点不同 |
 | silu | 1.5e-2 | 4.8e-3 | 不等于 x × ANE 的 sigmoid（只有 38% 的点相同），是单独的实现 |
-| exp | 相对误差 ≤ 5.5 ulp | | |
-| log | 6.6e-3（≤ 46 ulp） | | |
-| sqrt | ≤ 0.9 ulp | | 精度很高，可能是专用硬件（maderix：rsqrt / sqrt / reciprocal 有专用硬件） |
-| rsqrt | ≤ 1.5 ulp | | 同上 |
-| inverse | ≤ 7 ulp | | |
+| exp | 相对误差 ≤ 9.1 ulp | | |
+| log | 6.6e-3（≤ 91 ulp） | | |
+| sqrt | ≤ 1.2 ulp | | 精度很高，可能是专用硬件（maderix：rsqrt / sqrt / reciprocal 有专用硬件） |
+| rsqrt | ≤ 2.1 ulp | | 同上 |
+| inverse | ≤ 13.5 ulp | | |
 | erf | 8.6e-4 | 9.8e-4 | |
 | sin | 6.3e-4 | 2.4e-4 | |
+
+- 2026-10-05 更正：ulp 原按 |误差| ÷ (max(|精确值|, 2⁻¹⁴) × 2⁻¹⁰) 计算，这是随数值连续变化的近似；现改按 FP16 的实际间距（精确值所在指数区间内相邻可表示数的距离，同 numpy.spacing），各函数的最大 ulp 最多增大约 2 倍（`tools/06_numerics/lut_ulp.py`，`data/06_numerics/lut_ulp_m6.txt`）。
 
 结论：
 1. **sigmoid 是 33 点均匀查表加线性插值**（[−8, 8]，间距 0.5），和 maderix 在 M4 上的"33 个 fp16 采样点"一致。
 2. **gelu 不论选 EXACT 还是 TANH 近似，在 ANE 上都是同一张表**，选哪种模式不影响结果。
-3. sqrt / rsqrt 误差在 1–1.5 ulp 以内，不像查表，支持"有专用硬件"的说法。
+3. sqrt / rsqrt 误差在 1.2–2.1 ulp 以内，不像查表，支持"有专用硬件"的说法。
 4. silu、erf、sin、gelu 的采样点不在以 0 为原点的整数倍网格上，可能有偏移或者不均匀。还要做两参数（起点、间距）搜索，或者对照编译产物 `__KERN_0` 里的表。
 
 ## F3b：从编译产物直接读出查找表（A6）
@@ -186,6 +188,7 @@
 | 3 | 3×1，N = 65536；8×1、9×1，N = 16384 | 1.5·2^31、2^31、1.125·2^31 | 同上 | — | **inf** |
 | 3 | 3×1，正负交替（部分和 ≤ 约 2^30，最终 1.008·2^30） | — | 同上 | 16512 / 4128 | 准确 |
 
+- 样本取舍（2026-10-05 补）：上表只取 ANE 输出与 CPU_ONLY 不同的模型（结果不可能来自 CPU）。ANE 与 CPU 输出相同不能当作"落到 CPU"的判据：N = 2080 两边都输出 2048（理论 2047.6 的正确舍入），多半就是 ANE 算的。N ≥ 120000 不能上 ANE 是因为单维度超过 65536（报告表 5-22），N ≤ 1024 推测按分段代价放到 CPU，未逐个核对。
 - 结论：
   1. **int8 路径的累加器是 32 位有符号整数**：S = 2^30 准确，S = 2^31（int32 最大值 + 1）即溢出；溢出与输出值大小无关（缩放改为 2^-18 时，S = 2^31 对应的输出只有 8192，仍然溢出）。
   2. **溢出变成 inf**，与 fp16 路径一样不饱和。

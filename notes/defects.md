@@ -14,7 +14,7 @@
 
 - **现象**：64 通道、宽 1024 的 1×1 卷积链（共享权重），用 `ANECCompile` 编译为 h18g 时，387、388、400、512 层都崩溃，返回码 138（SIGBUS）；同一个模型编为 h16g（M4）、h18（单引擎）到 512 层都正常。
 - **原因**：崩溃报告显示是线程栈的保护页被访问，也就是栈溢出。调用栈是 `ZinIrOpLayerGraphScheduler::Schedule` 的逐层递归（每层网络一层递归），在只有 h18g 才执行的 `ZinIrParallelExecutionOpportunityFinder::FindIntraANEParallelism` → `FindAllAttentionBranchesInRegion` → `ZinIrNgraph::TopologicalSortImpl` 里耗尽栈。
-- **影响**：M6 上可用的图深度只有 386 层（M4 同一系统、同一模型至少 448 层）。这是编译器的递归实现问题，不是硬件限制。
+- **影响**：所测的 1×1 卷积链在 M6 上只能编译到 386 层（M4 同一系统、同一模型至少 448 层）；512 个逐元素层的链在 h18g 上可以编译，所以不是通用的图深度上限。这是编译器的递归实现问题，不是硬件限制。
 - **复现**：`tools/common/chain.py` 生成 `k1_c64_h1w1024_L387`，`tools/common/anecc.m` 以 h18g 编译。
 - **出处**：scheduling.md D5、compile_cost.md §4；数据 `data/03_compile/h9_depth_compile.txt`。
 

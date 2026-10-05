@@ -6,7 +6,8 @@ analytics.mil 由 opd_ana 流程收集（每个模型一个，见 notes/coreml_d
 
 用法：
   python opdispatch_fit.py ops <analytics.mil> ...   逐运算打印：模型 运算 输出名 选中后端 可用后端 各后端估计
-  python opdispatch_fit.py fit <analytics.mil> ...   用模型复现选择，统计完全一致 / 代价相同（平局）/ 不一致
+  python opdispatch_fit.py fit <analytics.mil> ...   用模型复现选择，统计完全一致 / 代价相同（平局）/ 不一致；
+      按两种口径各报一次：ANE / CPU 两类（bnns 与 classic_cpu 合并为 CPU），以及区分三种后端
 模型（拟合结果）：一段 ANE 计启动 0.125 ms；相邻两段后端不同时计切换 0.125 ms；图的最后一段在 ANE 上再计 0.125 ms
 （输出回到 CPU 缓冲）；图的输入不计。CPU 类后端（bnns / classic_cpu）之间的切换按同样的 0.125 ms 计。
 运算按文件中的顺序当作一条链（多输入的图是近似）。
@@ -73,7 +74,8 @@ def main():
                 print(n, o["op"], o["out"], o["sel"], ",".join(o["sup"]),
                       " ".join(f"{k}={v:.4f}" for k, v in o["est"].items()), sep="\t")
         return
-    exact = tie = 0
+    two = {"exact": 0, "tie": 0, "bad": 0}
+    three = {"exact": 0, "tie": 0, "bad": 0}
     bad = []
     for f in files:
         ops = parse(f)
@@ -81,15 +83,15 @@ def main():
             continue
         c, p = best_path(ops)
         act = [o["sel"] for o in ops]
+        same_cost = abs(path_cost(ops, act) - c) < 1e-6
         A = "".join("a" if x == "ane" else "c" for x in act)
         P = "".join("a" if x == "ane" else "c" for x in p)
-        if A == P:
-            exact += 1
-        elif abs(path_cost(ops, act) - c) < 1e-6:
-            tie += 1
-        else:
+        two["exact" if A == P else "tie" if same_cost else "bad"] += 1
+        three["exact" if act == p else "tie" if same_cost else "bad"] += 1
+        if A != P and not same_cost:
             bad.append((f, round(path_cost(ops, act), 4), round(c, 4), A, P))
-    print(f"完全一致 {exact}，平局 {tie}，不一致 {len(bad)}（共 {exact + tie + len(bad)}）")
+    for name, r in (("ANE / CPU 两类", two), ("区分三种后端", three)):
+        print(f"{name}：完全一致 {r['exact']}，平局 {r['tie']}，不一致 {r['bad']}（共 {sum(r.values())}）")
     for b in bad:
         print("  ", *b)
 
