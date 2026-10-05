@@ -1,0 +1,23 @@
+sw_conv_k13	2 s	ANECompilerService peak 308 MB
+sw_conv_k16	229 s	ANECompilerService peak 11708 MB
+sw_conv_k13	23 s	ANECompilerService peak 92 MB
+sw_conv_k16	212 s	ANECompilerService peak 11737 MB
+sw_conv_k1x9	1 s	ANECompilerService peak 12 MB
+sw_conv_k1x10	0 s	ANECompilerService peak 12 MB
+sw_conv_k1x11	1 s	ANECompilerService peak 12 MB
+sw_conv_k1x12	0 s	ANECompilerService peak 12 MB
+sw_conv_k1x13	1 s	ANECompilerService peak 12 MB
+sw_conv_k1x14	1 s	ANECompilerService peak 12 MB
+sw_conv_k1x15	0 s	ANECompilerService peak 12 MB
+sw_conv_k25x1	1 s	ANECompilerService peak 12 MB
+sw_conv_k28x1	0 s	ANECompilerService peak 14 MB
+sw_conv_k31x1	1 s	ANECompilerService peak 14 MB
+sw_conv_k1x16_valid	0 s	ANECompilerService peak 14 MB
+sw_conv_k15x15_valid	1 s	ANECompilerService peak 14 MB
+sw_maxpool_k9_valid	1 s	ANECompilerService peak 14 MB
+sw_maxpool_k1x9	0 s	ANECompilerService peak 14 MB
+sw_maxpool_k9x1	1 s	ANECompilerService peak 14 MB
+sw_matmul_k40000	0 s	ANECompilerService peak 14 MB
+sw_matmul_k49152	1 s	ANECompilerService peak 14 MB
+sw_matmul_k65535	0 s	ANECompilerService peak 14 MB
+SW2DONE

@@ -1,0 +1,5 @@
+iso/nms no analytics
+iso/shape no analytics
+ctx/nms no analytics
+ctx/shape no analytics
+ctx/slice_dyn no analytics
