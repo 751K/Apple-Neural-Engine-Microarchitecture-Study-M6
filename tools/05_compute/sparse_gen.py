@@ -18,6 +18,8 @@
                掩码中给定比例的元素为 0（位置随机），其余取 [0.5, 1) 的随机数（不是常数，编译器无法把它并进权重或省掉）。
                四个版本的图结构、权重、掩码位置之外完全相同，只有掩码里 0 的比例不同，下一层输入的 0 比例即为 0% / 50% / 75% / 90%
         zch    同上，掩码为前一半通道整体为 0（50%，与 z50 同样的 0 比例，比较整通道与随机位置）
+        zpc / zpco / zpw / zpwo  50% 为 0，0 两两成对，沿通道（c）或宽度（w），对齐 (2k, 2k+1) 或错开一位 (2k+1, 2k+2)；
+               只做 c1x1、128 层，用于功耗实验（power_parts.py 的 zp* 负载）
         （fp16 本身即 "ReLU、约 50% 为 0"。输入全 0 时偏置为 0 的模型每层都是 0，见 sparse.sh 的 BONDRUN_FILL。）
         （第一版曾用 ReLU(x − t_i) 逐层设阈值，但每层偏置不同时编译器不再共享权重，每层各存一份，改掉了；
           固定阈值则因共享权重反复作用、幅度漂移，0 的比例会从 71% 一路涨到 99.8%。）
@@ -49,10 +51,12 @@ AVARS = ["lin", "ch50", "z00", "z50", "z75", "z90", "zch"]
 LAYERS = {"m2048": (16, 32), "c1x1": (32, 128), "c3x3": (16, 32)}   # c1x1 每层只有约 3 µs，取 32 和 128 层
 ALL = ([f"m2048_{v}_L{L}" for v in WVARS + ["s50p4"] for L in LAYERS["m2048"]]
        + [f"{s}_{v}_L{L}" for s in ("c1x1", "c3x3") for v in WVARS + AVARS for L in LAYERS[s]]
-       + [f"c1x1_{v}_L64" for v in AVARS if v.startswith("z")])   # 128 层的掩码模型在 M6 上每个编译约 5 分钟，另做 64 层
+       + [f"c1x1_{v}_L64" for v in AVARS if v.startswith("z")]
+       + [f"c1x1_{v}_L128" for v in ("zpc", "zpco", "zpw", "zpwo")])   # 128 层的掩码模型在 M6 上每个编译约 5 分钟，另做 64 层
 PRUNE = {"s50": dict(target_sparsity=0.5), "s75": dict(target_sparsity=0.75), "s90": dict(target_sparsity=0.9),
          "nm24": dict(n_m_ratio=(2, 4)), "nm34": dict(n_m_ratio=(3, 4)), "s50p4": dict(target_sparsity=0.5)}
-MASK = {"z00": 0.0, "z50": 0.5, "z75": 0.75, "z90": 0.9, "zch": "ch"}
+MASK = {"z00": 0.0, "z50": 0.5, "z75": 0.75, "z90": 0.9, "zch": "ch",
+        "zpc": ("c", 0), "zpco": ("c", 1), "zpw": ("w", 0), "zpwo": ("w", 1)}
 
 
 def base_weight(rng, C, k):
@@ -99,6 +103,18 @@ def make_mask(var, C, H, W):
     m = np.random.default_rng(5).uniform(0.5, 1.0, (C, H, W)).astype(np.float32)
     if MASK[var] == "ch":
         m[:C // 2] = 0
+    elif isinstance(MASK[var], tuple):
+        # 成对的 0（50%）：沿通道（c）或宽度（w）把元素两两分组，每组随机地两个都为 0 或都不为 0。
+        # 偏移 0 按 (2k, 2k+1) 分组（对齐），偏移 1 按 (2k+1, 2k+2) 分组（错开一位，首尾循环）。
+        # 两者 0 的比例、成段长度和先后顺序相同，只差配对位置：用来区分"固定两元素为单位的门控"与"不翻转"。
+        ax, off = MASK[var]
+        n = C if ax == "c" else W
+        z = np.random.default_rng(6).random((n // 2,) + ((H, W) if ax == "c" else (C, H))) < 0.5
+        z = np.repeat(z, 2, axis=0)                       # [n, ...]：相邻两元素同为 0
+        z = np.roll(z, off, axis=0)
+        if ax == "w":
+            z = np.moveaxis(z, 0, -1)                     # [C, H, W]
+        m[z] = 0
     else:
         m[np.random.default_rng(6).random((C, H, W)) < MASK[var]] = 0
     return m
@@ -192,7 +208,11 @@ if __name__ == "__main__":
             m = compress(m, name.split("_")[1])
             pkg = os.path.join(out, name + ".mlpackage")
             m.save(pkg)
-            subprocess.run(["xcrun", "coremlcompiler", "compile", pkg, out], check=True, capture_output=True)
+            if subprocess.run(["xcrun", "--find", "coremlcompiler"], capture_output=True).returncode == 0:
+                subprocess.run(["xcrun", "coremlcompiler", "compile", pkg, out], check=True, capture_output=True)
+            else:                                         # 没有 Xcode 时用 Core ML 自己编译
+                import shutil
+                shutil.move(ct.utils.compile_model(pkg), os.path.join(out, name + ".mlmodelc"))
             z, r = [s[0] for s in st[1:]], [s[1] for s in st[1:]]
             msg = (f"{name}: 第 1 层输入 0 比例 {st[0][0]:.3f} 均方根 {st[0][1]:.3f}；第 2 层起 0 比例 {min(z):.3f}–{max(z):.3f}，"
                    f"均方根 {min(r):.3g}–{max(r):.3g}")

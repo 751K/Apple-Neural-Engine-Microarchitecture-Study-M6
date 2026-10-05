@@ -17,6 +17,7 @@ import time
 OUT = sys.argv[1] if len(sys.argv) > 1 else "power_parts"
 TARGET_S = float(os.environ.get("PP_SECONDS", 12))
 TAIL = float(os.environ.get("PP_TAIL", 8))
+GAP = float(os.environ.get("PP_GAP", 0))      # 每段之间额外冷却的秒数（无风扇机器用）
 KEYS = ["PP0b", "PP2b", "PP4b", "PZD1", "PSTR", "PPSR", "PHPC"]
 os.makedirs(OUT, exist_ok=True)
 
@@ -54,6 +55,11 @@ W = [
     ("z75", "sparse/c1x1_z75_L128.mlmodelc", {}),
     ("z90", "sparse/c1x1_z90_L128.mlmodelc", {}),
     ("zch", "sparse/c1x1_zch_L128.mlmodelc", {}),
+    # 成对的 0：对齐与错开一位（2026-10-05）
+    ("zpc", "sparse/c1x1_zpc_L128.mlmodelc", {}),
+    ("zpco", "sparse/c1x1_zpco_L128.mlmodelc", {}),
+    ("zpw", "sparse/c1x1_zpw_L128.mlmodelc", {}),
+    ("zpwo", "sparse/c1x1_zpwo_L128.mlmodelc", {}),
 ]
 # PP_ONLY=标签1,标签2,...：按给定顺序运行（可重复；重复的标签输出名加 _r2、_r3…）
 only = os.environ.get("PP_ONLY")
@@ -82,10 +88,12 @@ for tag, model, extra in W:
         continue
     per = us + float(extra.get("BONDRUN_SLEEP_US", 0))
     iters = max(300, int(TARGET_S * 1e6 / per))
-    time.sleep(7)  # 校准后让 ANE 断电，正式运行从冷态开始
+    time.sleep(7 + GAP)  # 校准后让 ANE 断电，正式运行从冷态开始
     # PP_PCLUS=1：改用 pclus（每 1 s 同时记 P 核簇功耗和 SMC 键；第 2 列为 P 核簇瓦数）
-    cmd = (["./pclus", str(TARGET_S + TAIL + 6), "1000", *KEYS] if os.environ.get("PP_PCLUS")
-           else ["./smcpower", "trace", str(TARGET_S + TAIL + 6), "100", *KEYS])
+    # 记录时长放宽到预计的 2 倍（正式运行可能比校准慢，如无风扇机器降频），负载结束后录满 TAIL 秒再停止
+    dur = str(2 * TARGET_S + TAIL + 30)
+    cmd = (["./pclus", dur, "1000", *KEYS] if os.environ.get("PP_PCLUS")
+           else ["./smcpower", "trace", dur, "100", *KEYS])
     tr = subprocess.Popen(cmd,
                           stdout=open(f"{OUT}/{tag}.trace", "w"))
     t0 = time.monotonic()
@@ -95,6 +103,8 @@ for tag, model, extra in W:
     te = time.monotonic() - t0
     open(f"{OUT}/{tag}.bondrun.txt", "w").write(br.stdout + br.stderr)
     open(f"{OUT}/{tag}.marks", "w").write(f"{ts:.3f} {te:.3f} {iters} {us:.1f}\n")
+    time.sleep(TAIL + 2)
+    tr.terminate()                     # pclus / smcpower 每行 fflush，停止不丢数据
     tr.wait()
     print(f"== {tag} {model} {extra} 次数 {iters} 校准 {us:.1f} us 开始 {ts:.2f} s 结束 {te:.2f} s")
     print(br.stdout.strip())
