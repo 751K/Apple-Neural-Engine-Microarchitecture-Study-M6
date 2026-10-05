@@ -1,7 +1,7 @@
 # 编译代价：双 ANE 版本让编译变慢（H7）
 
 - 日期：2026-10-02
-- 方法：用 `tools/common/anecc.m` 在 M6 上直接调用 `ANECCompile`（只编译、不执行），同一个 MIL 分别按 h16g（M4）、h17s（M5）、h18、h18g（M6）、h19 编译，记录墙钟时间。
+- 方法：用 `tools/common/anecc.m` 在 M6 上直接调用 `ANECCompile`（只编译、不执行），同一个 MIL 分别按 h16g（M4）、h17s（H17 一代；M5 为 h17）、h18、h18g（M6）、h19 编译，记录墙钟时间。
   - h18 是和 h18g 同一代的单引擎目标，产物里没有 bonded 版本，所以 **h18 和 h18g 的差就是生成双 ANE 版本的代价**，不需要任何开关。
 - 原始数据：`data/03_compile/h7_compile_time.txt`
 

@@ -34,7 +34,7 @@ for ax, n in zip(axs.flat, names):
     ax.legend(fontsize=7)
 plt.rcParams["font.sans-serif"] = ["PingFang SC", "Arial Unicode MS"]
 plt.tight_layout()
-plt.savefig(os.path.join(dst, "lut_error_m6.png"), dpi=110)
+plt.savefig(os.path.join(dst, "fig8-2_lut_error.png"), dpi=110)
 
 # sigmoid / gelu / silu / tanh 的近景
 fig, axs = plt.subplots(2, 2, figsize=(14, 8))
@@ -49,5 +49,5 @@ for ax, n, (lo, hi) in zip(axs.flat, ["sigmoid", "gelu", "silu", "tanh"], [(-8.5
     ax.set_title(f"{n}：ANE 误差（蓝线为 0.5 间隔）")
     ax.axhline(0, color="k", lw=0.3)
 plt.tight_layout()
-plt.savefig(os.path.join(dst, "lut_error_zoom_m6.png"), dpi=110)
+plt.savefig(os.path.join(dst, "fig8-3_lut_error_zoom.png"), dpi=110)
 print("ok")

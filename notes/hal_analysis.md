@@ -74,11 +74,11 @@
 | 0x60a | 0 | 1 | IsFusableBasedOnFormatOCGSizeAndActiveNE | NE 输出 transpose 可以融合 |
 | 0x64b | 0 | 1 | HasUnalignedOutputCropX, HandleL2Config | 支持输出 X 方向不对齐的裁剪 |
 | 0x658 | 14 | 12 | GetDSIDFromPriorityHalAndSecureMode | 系统缓存（SLC）的 DSID 分配变了 |
-| 0x72a | 1 | 0 | CreateRasterKernelHALConfig | 权重光栅化配置变了 |
-| 0x72f / 0x730 | 0 | 1 / 4 | ValidatePaletteVectorSize | **新增向量调色板，向量长度可到 4** |
+| ~~0x72a~~ | ~~1~~ | ~~0~~ | CreateRasterKernelHALConfig | **更正（2026-10-04）：这一项在 H16 → H17 时就已变化（H16g 1、H17 / H17s 0），不属于 H17 → H18** |
+| ~~0x72f / 0x730~~ | ~~0~~ | ~~1 / 4~~ | ValidatePaletteVectorSize | **更正（2026-10-04）：向量调色板在 H17 就已存在（H17 / H17s 均为 1 / 4，H16g 为 0），不是 H18 新增** |
 | 0x738 | — | 变化 | — | — |
 | 0x73a | 0 | 1 | 性能模型 | — |
-| 0x73b | 0 | 1 | EventFlagsV6/V7 | 新的调试和日志事件格式 |
+| ~~0x73b~~ | ~~0~~ | ~~1~~ | EventFlagsV6/V7 | **更正（2026-10-04）：H17 / H17s 已为 1，H16 → H17 的变化** |
 | 0x818 | 0 | 4 | 仅构造函数 | — |
 | 0x838 | 0 | 15 | ValidateReflectivePaddingMode | 支持反射填充，范围 15 |
 | 0x6a8 vector | 5 项 | 6 项（多了 6） | HandleL2Config, IsFusableToDequant | 可与反量化融合的权重类型多了一种 |
@@ -102,6 +102,8 @@
 | 0x563, 0x73c, 0x73f | 0 | 1 | 性能模型, ValidateFormat | 更多新格式 |
 
 另外，`2026BaseLine` 的表和 H19 在这些字段上一致，可能是 H19 的基线。
+
+**2026-10-04 逐字节核对**：`hal_2026BaseLine.bin` 与 `hal_H19.bin` 除表头名字指针和各 vector 的 begin / end / cap 指针外完全相同，各 vector 内容（`vec_*.txt`）也完全相同。h18g（M6）用的是 2026BaseLine，所以**编译器眼中 M6 的硬件参数 = H19 的参数**，与同代单引擎 H18 不同（多调色板、双倍速率、FIFO 2 MiB、DART 抖动参数、gather / 纹理维度上限、0x563 / 0x73c / 0x73f 等）。两者在编译器中的区别只在 SoC 参数（`Soc2026BaseLine` 与 `H19`）。核对时还发现上面 H17 → H18 表中 0x72a、0x72f / 0x730、0x73b 三项实为 H16 → H17 的变化，已更正。
 
 ## 待做
 

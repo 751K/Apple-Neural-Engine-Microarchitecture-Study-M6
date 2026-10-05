@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 600" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
+<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .b{font-size:14.5px;fill:#3a3a3c} .c{font-size:13px;fill:#6e6e73} .s{font-size:12px;fill:#3a3a3c} .m{font-size:12.5px;font-family:Menlo,SF Mono,monospace;fill:#3a3a3c} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#48484a"/></marker></defs>
+<text class="h" x="40" y="34">① 一层的权重按输出通道均分给 16 个 NE</text>
+<text class="c" x="40" y="58">基准模型：1×1 卷积，64 个输入通道 → 64 个输出通道（FP16）</text>
+<text class="c mid" x="180" y="84">权重（每行 = 一个输出通道）</text>
+<rect x="120" y="96.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="103.125" x2="240" y2="103.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="110.25" x2="240" y2="110.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="117.375" x2="240" y2="117.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 110.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="98.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="114.75">NE0</text>
+<text class="s end" x="490" y="114.75">通道 0–3</text>
+<rect x="120" y="124.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="131.625" x2="240" y2="131.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="138.75" x2="240" y2="138.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="145.875" x2="240" y2="145.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 138.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="126.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="143.25">NE1</text>
+<text class="s end" x="490" y="143.25">通道 4–7</text>
+<rect x="120" y="153.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="160.125" x2="240" y2="160.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="167.25" x2="240" y2="167.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="174.375" x2="240" y2="174.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 167.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="155.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="171.75">NE2</text>
+<text class="s end" x="490" y="171.75">通道 8–11</text>
+<rect x="120" y="181.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="188.625" x2="240" y2="188.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="195.75" x2="240" y2="195.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="202.875" x2="240" y2="202.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 195.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="183.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="200.25">NE3</text>
+<text class="s end" x="490" y="200.25">通道 12–15</text>
+<rect x="120" y="210.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="217.125" x2="240" y2="217.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="224.25" x2="240" y2="224.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="231.375" x2="240" y2="231.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 224.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="212.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="228.75">NE4</text>
+<text class="s end" x="490" y="228.75">通道 16–19</text>
+<rect x="120" y="238.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="245.625" x2="240" y2="245.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="252.75" x2="240" y2="252.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="259.875" x2="240" y2="259.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 252.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="240.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="257.25">NE5</text>
+<text class="s end" x="490" y="257.25">通道 20–23</text>
+<rect x="120" y="267.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="274.125" x2="240" y2="274.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="281.25" x2="240" y2="281.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="288.375" x2="240" y2="288.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 281.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="269.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="285.75">NE6</text>
+<text class="s end" x="490" y="285.75">通道 24–27</text>
+<rect x="120" y="295.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="302.625" x2="240" y2="302.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="309.75" x2="240" y2="309.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="316.875" x2="240" y2="316.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 309.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="297.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="314.25">NE7</text>
+<text class="s end" x="490" y="314.25">通道 28–31</text>
+<rect x="120" y="324.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="331.125" x2="240" y2="331.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="338.25" x2="240" y2="338.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="345.375" x2="240" y2="345.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 338.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="326.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="342.75">NE8</text>
+<text class="s end" x="490" y="342.75">通道 32–35</text>
+<rect x="120" y="352.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="359.625" x2="240" y2="359.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="366.75" x2="240" y2="366.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="373.875" x2="240" y2="373.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 366.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="354.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="371.25">NE9</text>
+<text class="s end" x="490" y="371.25">通道 36–39</text>
+<rect x="120" y="381.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="388.125" x2="240" y2="388.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="395.25" x2="240" y2="395.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="402.375" x2="240" y2="402.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 395.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="383.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="399.75">NE10</text>
+<text class="s end" x="490" y="399.75">通道 40–43</text>
+<rect x="120" y="409.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="416.625" x2="240" y2="416.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="423.75" x2="240" y2="423.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="430.875" x2="240" y2="430.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 423.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="411.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="428.25">NE11</text>
+<text class="s end" x="490" y="428.25">通道 44–47</text>
+<rect x="120" y="438.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="445.125" x2="240" y2="445.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="452.25" x2="240" y2="452.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="459.375" x2="240" y2="459.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 452.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="440.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="456.75">NE12</text>
+<text class="s end" x="490" y="456.75">通道 48–51</text>
+<rect x="120" y="466.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="473.625" x2="240" y2="473.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="480.75" x2="240" y2="480.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="487.875" x2="240" y2="487.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 480.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="468.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="485.25">NE13</text>
+<text class="s end" x="490" y="485.25">通道 52–55</text>
+<rect x="120" y="495.0" width="120" height="28.5" fill="#c3cbe0" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="502.125" x2="240" y2="502.125" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="509.25" x2="240" y2="509.25" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="516.375" x2="240" y2="516.375" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 509.25 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="497.0" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="513.75">NE14</text>
+<text class="s end" x="490" y="513.75">通道 56–59</text>
+<rect x="120" y="523.5" width="120" height="28.5" fill="#c8e9e1" stroke="#ffffff" stroke-width="1"/>
+<line x1="120" y1="530.625" x2="240" y2="530.625" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="537.75" x2="240" y2="537.75" stroke="#ffffff" stroke-width="0.6"/>
+<line x1="120" y1="544.875" x2="240" y2="544.875" stroke="#ffffff" stroke-width="0.6"/>
+<path d="M240 537.75 H296" stroke="#48484a" stroke-width="1.2" fill="none" marker-end="url(#ar)"/>
+<rect x="300" y="525.5" width="200" height="24.5" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.1"/>
+<text class="s" x="312" y="542.25">NE15</text>
+<text class="s end" x="490" y="542.25">通道 60–63</text>
+<rect x="120" y="96" width="120" height="456.0" fill="none" stroke="#8e8e93" stroke-width="1.2"/>
+<text class="c mid" x="92" y="324.0" transform="rotate(-90 92 324.0)">输出通道 0–63</text>
+<path d="M512 96 h8 v456.0 h-8" stroke="#48484a" stroke-width="1.2" fill="none"/>
+<text class="b" x="534" y="282.0">每个 NE 4 个输出通道</text>
+<text class="b" x="534" y="308.0">每块 576 字节（0x240）：</text>
+<text class="c" x="534" y="332.0">4 × 64 × 2 B = 512 B，</text>
+<text class="c" x="534" y="354.0">加偏置与对齐</text>
+<text class="c" x="534" y="386.0">编译产物中为 16 个符号</text>
+<text class="m" x="534" y="408.0">K…_ne_0 … K…_ne_15</text>
+<text class="h" x="760" y="34">② 每个 NE 的权重超过 64 KiB 时，按输出通道拆成多个 TD</text>
+<text class="c" x="760" y="58">256 通道的 1×9 卷积（改写后约 19.3 个抽头），16×32 输入</text>
+<text class="b" x="760" y="98">每个 NE 需要的权重</text>
+<rect x="760" y="108" width="524" height="26" rx="4" fill="#c8e9e1" stroke="#00a087" stroke-width="1.2"/>
+<text class="s mid" x="1130.6" y="126">≈ 154 KiB（16 个输出通道 × 9.6 KiB）</text>
+<line x1="978" y1="100" x2="978" y2="142" stroke="#dc3a26" stroke-width="2" stroke-dasharray="4 3"/>
+<text class="c" x="983.6" y="156">64 KiB 常驻上限</text>
+<text class="c" x="983.6" y="156"></text>
+<text class="c" x="760" y="186">输出通道 0–255</text>
+<rect x="760.0" y="196" width="160.0" height="30" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s mid" x="840.0" y="216">0–63</text>
+<path d="M840.0 226 V268" stroke="#48484a" stroke-width="1.3" fill="none" marker-end="url(#ar)"/>
+<rect x="760" y="272" width="204" height="150" rx="8" fill="#ffffff" stroke="#3c5488" stroke-width="1.3"/>
+<text class="b" x="774" y="298">TD0：64 个输出通道</text>
+<text class="c" x="774" y="322">每个 NE 4 个通道</text>
+<rect x="774" y="338" width="176" height="20" rx="3" fill="#ffffff" stroke="#dc3a26" stroke-width="1" stroke-dasharray="3 2"/>
+<rect x="774" y="338" width="105.9" height="20" rx="3" fill="#c8e9e1" stroke="#00a087" stroke-width="1"/>
+<text class="c" x="774" y="378">每 NE ≈ 39 KiB（上限 64）</text>
+<text class="m" x="774" y="402">exe_cycles = 7</text>
+<rect x="920.0" y="196" width="240.0" height="30" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s mid" x="1040.0" y="216">64–159</text>
+<path d="M1040.0 226 V268" stroke="#48484a" stroke-width="1.3" fill="none" marker-end="url(#ar)"/>
+<rect x="976" y="272" width="204" height="150" rx="8" fill="#ffffff" stroke="#3c5488" stroke-width="1.3"/>
+<text class="b" x="990" y="298">TD1：96 个输出通道</text>
+<text class="c" x="990" y="322">每个 NE 6 个通道</text>
+<rect x="990" y="338" width="176" height="20" rx="3" fill="#ffffff" stroke="#dc3a26" stroke-width="1" stroke-dasharray="3 2"/>
+<rect x="990" y="338" width="158.9" height="20" rx="3" fill="#c8e9e1" stroke="#00a087" stroke-width="1"/>
+<text class="c" x="990" y="378">每 NE ≈ 58 KiB（上限 64）</text>
+<text class="m" x="990" y="402">exe_cycles = 11</text>
+<rect x="1160.0" y="196" width="240.0" height="30" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s mid" x="1280.0" y="216">160–255</text>
+<path d="M1280.0 226 V268" stroke="#48484a" stroke-width="1.3" fill="none" marker-end="url(#ar)"/>
+<rect x="1192" y="272" width="204" height="150" rx="8" fill="#ffffff" stroke="#3c5488" stroke-width="1.3"/>
+<text class="b" x="1206" y="298">TD2：96 个输出通道</text>
+<text class="c" x="1206" y="322">每个 NE 6 个通道</text>
+<rect x="1206" y="338" width="176" height="20" rx="3" fill="#ffffff" stroke="#dc3a26" stroke-width="1" stroke-dasharray="3 2"/>
+<rect x="1206" y="338" width="158.9" height="20" rx="3" fill="#c8e9e1" stroke="#00a087" stroke-width="1"/>
+<text class="c" x="1206" y="378">每 NE ≈ 58 KiB（上限 64）</text>
+<text class="m" x="1206" y="402">exe_cycles = 11</text>
+<text class="c" x="760" y="458">TD 数 = ⌈154 ÷ 64⌉ = 3；三个 TD 的 exe_cycles 与输出通道数成正比。</text>
+<rect x="760" y="482" width="640" height="70" rx="8" fill="#f5f5f7" stroke="#aeaeb2" stroke-width="1.1"/>
+<text class="b" x="776" y="508">例外：输入较小时（4×32 的全部卷积核、8×32 的改写核）</text>
+<text class="c" x="776" y="534">全部 256 个输出通道放在一个 TD 中，执行时连续读入权重</text>
+</svg>

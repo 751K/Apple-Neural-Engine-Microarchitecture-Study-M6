@@ -121,7 +121,7 @@
      - **预测验证**（`data/08_bonded/bsplit_even.txt`，总耗时，不需要 root，两轮一致）：每层耗时 W10752 39.8 µs、W12288 50.3 µs、W14336 49.3 µs。W14336 比 W12288 多 17% 的计算量，耗时反而少 2%（吞吐高约 19%），与"块数为偶数即均衡"的预测一致。
      - 编译器开关 `DisableNetworkImbalanceAnalysis`、`EnableForcedMaximalBondedSplit` 都不改变这个划分（`data/08_bonded/bsplit_flags.txt`）；`anecc` 已改为按类型传递 flags（布尔、整数），键名是驼峰式的 flags 字典键（如 `DumpParallelScore`），不是命令行参数名。
      - 相关的编译器函数：`BondedSplitSubgraphIdentification::{ComputeTileSize, DetermineInputTileCountParams, ClusterSplitCostModel::FindOptimalSplit}`、`ZinBondedAne::ZinPieceGeneration`。没有逐条反汇编；上面的行为规律已由编译产物和计时两方面验证。
-  6. **实用规则**：双 ANE 切块时，让每层的块数为偶数（256 通道约每 1792 列一块，即宽度取 1792 的偶数倍附近），可以避免 12–19% 的损失。
+  6. **实用规则**：双 ANE 切块时，让每层的块数为偶数（256 通道约每 1792 列一块，即宽度取 1792 的偶数倍附近），可以避免耗时增加 12.5–19%（吞吐降低 11–16%）的损失。
 
 ## C1d：L2 的大小（2026-10-03）
 

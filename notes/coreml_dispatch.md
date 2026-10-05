@@ -16,8 +16,8 @@
 
 ## 0. 结论（报告用）
 
-1. **决定"上不上 ANE"的是 Espresso 里 E5 编译器的分段器，不是 ANE 编译器本身。** ANECompiler 导出 56 个 `ANECValidate*Layer`，
-   Espresso 用到其中 24 个做逐层校验；在此之上，分段器按代价模型给每个运算选后端（ane / bnns / classic_cpu），再按最短路径把图切成段。【编译器】
+1. **决定"上不上 ANE"的是 Espresso 里 E5 编译器的分段器，不是 ANE 编译器本身。** ANECompiler 导出 55 个 `ANECValidate*` 符号，其中 50 个是 `ANECValidate*Layer`
+   （与 data/03_compile/compiler_layers_neurons_m6.txt 的 M6 清单相同）；Espresso 导入其中 24 个，即 23 个层校验函数加 `ANECValidateNetworkCreate`（2026-10-05 用 dyld_info 核对，macOS 27.0.1）；在此之上，分段器按代价模型给每个运算选后端（ane / bnns / classic_cpu），再按最短路径把图切成段。【编译器】
 2. **分段器的规则可以用一个很简单的模型完全复现。** 每个运算取分段器自己给出的各后端估计耗时；**一段 ANE 固定加 0.125 ms 启动，
    相邻两段后端不同再加 0.125 ms 切换，图的输出落在 ANE 上再加 0.125 ms**。按这个模型求最短路径，482 个模型中 440 个与实际选择完全一致，
    41 个是代价相同的平局，只有 1 个不一致（§2.3）。这些常数在所有模型里都一样（0x1p-3 ms）。【编译器】
@@ -34,7 +34,7 @@
 6. **单是查分派也会触发完整的 ANE 编译，可能非常重。** 对一层 16×16 卷积（64 通道、32×32）调用 `MLComputePlan.load`，
    ANECompilerService 用了 212–229 s，峰值 11.7 GB；13×13 只要 2–23 s、0.1–0.3 GB（§3.3）。【计时】
 
-7. **尺寸上限在 M4 和 M6 上相同。** 在 M4 上用 anecc 直接调用 ANECCompile，分别以 h16g（M4）和 h18g（M6）为目标编译 67 个边界/对照模型，
+7. **尺寸上限在 M4 和 M6 上相同。** 在 M4 上用 anecc 直接调用 ANECCompile，分别以 h16g（M4）和 h18g（M6）为目标编译 62 个边界/对照模型，
    两个目标的成败逐个相同（只有 topk 例外，见下条）；h16g 的成败又与 Core ML 在 M4 上的判断一致，说明 Core ML 的上限就来自 ANE 编译器（§3.4）。
    int32、lstm、cumsum、asin、动态 gather、sliding_windows 在两个目标上也都编不过。M6 的估计耗时和分段结果仍需在 M6 上测。【编译器】
 8. **topk 在 M4 上被放进 ANE，但很慢，分段器把它低估了约 200 倍。** 前后各 4 层 256 通道卷积、中间一个 topk 的模型，Core ML 在 M4 上整图放 ANE，
@@ -42,9 +42,9 @@
    （8.00 对 6.23 ms，12.59 对 11.08 ms）。直接编译单个 topk 时，h16g 报 "Validation for RCAS failed / Invalid TD"，h18g 能编过（§3.5）。【计时】【编译器】
 
 9. **分段器的代价模型在 M6（H18G）上与 M4（H16G）完全相同。** Espresso 内置 AOT 编译驱动（`Espresso::AOT::AOTCompilerDriver`，
-   `--e5-platforms` 可指定 H18G / t8152）；在 M4 上注入 `oslogtap` 抓 `[CostModelFeature]`，490 个模型以 H16G、H18G 为目标的逐运算各后端估计、
-   分段结果全部相同（0 处差异）。同样方法下 H13G（M1）、H17G（M5）、H19 的估计都不同，说明代价模型确实按芯片分，只是 H18G 沿用了 H16G 的参数。
-   本机实际编译的 141 个估计值在 AOT H16G 输出里全部找到，AOT 可代表实际行为。所以 §2 的门槛和 §3 的分派结论可直接推到 M6（不含双 ANE 带来的
+   `--e5-platforms` 可指定 H18G / t8152）；在 M4 上注入 `oslogtap` 抓 `[CostModelFeature]`，490 个模型（2 个 nms 无输出，实际 488 个）以 H16G、H18G 为目标的逐运算各后端估计、
+   分段结果全部相同（0 处差异）。同样方法下，在 16 个对照模型上 H13G、H17G、H19 都有部分运算的估计不同（H19 16/16、H13G 12/16、H17G 7/16 个模型不同，以卷积、矩阵乘为主；G 后缀的平台名与芯片的对应只确认了 H18G = t8152，M5 是 H17 而不是 H17G），说明代价模型确实按平台分，只是 H18G 沿用了 H16G 的参数。
+   本机实际编译（analytics.mil）的 6489 个非零估计中 6483 个在 AOT H16G 输出里找到（16 个校准模型的 141 个全部找到；没找到的 6 个是 cast_f16_i8、quantize_i8、cast_f16_i32 输入侧 cast 的 ANE 估计），AOT 可代表实际行为。所以 §2 的门槛和 §3 的分派结论可直接推到 M6（不含双 ANE 带来的
    实际快慢，分段器并不知道）（§2.4）。【编译器】
 
 ## 1. 方法

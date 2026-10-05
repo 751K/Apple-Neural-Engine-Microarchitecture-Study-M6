@@ -102,7 +102,7 @@
 - **原因**：双 ANE 划分沿用不分引擎时的切块网格，只在块边界上把块列表分成两组；块数为奇数时多出的一块给 ANE1。块数为偶数时完全均衡：W14336（8 块）比 W12288（7 块）多 17% 的计算量，耗时反而少 2%。
 - **代码证据（2026-10-05）**：`ZinMirSpatialSplitter::InitializeBranchRangesForBondedANE` 把第 i 块分给 ANE `(i ≥ T/2)`（T/2 截断），奇数块时多出的一块必然给 ANE1；
   切点又要对齐到 128 列，W = 375 只能切成 128 | 247。成本模型 `ComputeSplitLatencyBonded` 把各块延迟相加再 × 0.5，看不见这种不均（bonded_measure.md §3.4）。
-  Whisper 编码器层因此 ANE1 / ANE0 = 1.4–1.5（whisper_compile.md §3.4）。
+  Whisper 编码器层因此 ANE1 / ANE0 = 1.36–1.48（whisper_compile.md §3.4）。
 - **建议**：编译器应在双 ANE 模式下按每个引擎重新切块，或者在块数为奇数时把最后一块再对半分。
 - **更极端的一例（2026-10-03）**：1×1、2048 通道、32² 的 W8A8 链（每层 3 块 TD 组），bonded 程序 ANE0 / ANE1 的 exe_cycles 之和为 434 / 880，即 1 : 2；W8A8 只比 FP16 快 1.21 倍，而均衡的形状快 1.76–1.87 倍（compute_array.md H51 第 3 步）。
 - **出处**：memory.md C1c。

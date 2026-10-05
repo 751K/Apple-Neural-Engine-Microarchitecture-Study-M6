@@ -1,98 +1,96 @@
-# 技术报告大纲（v2，2026-10-03）：Inside the M6 ANE
+# 技术报告大纲（v3，2026-10-03）
 
-- 暂定标题：**Inside the M6 ANE：两个引擎、一套程序、一个调频器**（英文 *Two Engines, One Program, One Governor*）
-- 形式：参照 maderix Part 4 的单页长文，中文版先写（`m6_report/zh.md`），再写英文版（`en.md`），最后做成网页。
-- 旧大纲（2026-10-01）保留为 `outline_v1.md`。
+- 标题（暂定）：**Apple M6 神经网络引擎的微体系结构：基于编译产物、执行追踪与功耗测量的实证研究**
+  - 英文：*Inside the Apple M6 Neural Engine: An Empirical Study of Its Microarchitecture via Compiled Programs, Execution Traces, and Power Measurements*
+- 体例：完整的技术报告（摘要、引言、相关工作、方法、分章结果、讨论、局限、结论、致谢、参考文献、附录），单篇发布。内容的深度与范围参照 maderix《Inside the M4 ANE》Part 4，但文体采用学术写法。
+- 中文版先写（`m6_report/zh.md`），英文版随后（`en.md`），最后通过 GitHub Pages 发布为网页；本仓库作为报告的源码与数据公开。
+- v2 大纲（博客体例）见 git 历史；更早的 v1 保留为 `outline_v1.md`。
 
-## 一、主线
+## 一、文体要求
 
-**一次推理调用的完整生命周期**：从编译出的程序，经过驱动和固件到达硬件，在计算阵列和存储通路里执行，由时钟和调频器决定快慢，最后落到功耗上。
+1. **句子完整**：每句话主语、谓语、宾语齐全，不以名词短语或冒号片段代替句子。表格和图注以外，不使用电报式的省略写法。
+2. **学术、干练**：陈述事实与推理，不使用口语和修饰性说法（如"卡了很久""更麻烦的是""令人惊讶"）。叙述主体用"本文"或"我们"，全文保持一致（定为"本文"指文章，"我们"指作者所做的实验）。
+3. **段落为主，列表为辅**：论证用段落展开；只有并列的条目（如工具清单、缺陷编号）才使用列表。每个结论应在同一段落内交代依据。
+4. **术语统一**：首次出现时给出中文名、英文名和缩写（例如"任务描述符（task descriptor，TD）"），之后只用缩写。术语表放在附录。
+5. **编号**：章节用"第 N 章 / N.M 节"；图表按章编号（图 5-1、表 5-2），每张图表都有标题，并在正文中被引用。
+6. **证据标注**：每条结论注明证据类别，写在句末的方括号中，例如"……为 64 KiB〔HWX，HAL〕"。证据类别在第 3 章定义（表 3-3）。由证据推出而未直接测量的结论标"推断"，并在正文中说明推理过程。
+7. **数据与源码引用**：正文以括注形式引用仓库中的数据和工具，写成相对链接，例如"（数据：[bsdecide.txt](../data/08_bonded/bsdecide.txt)）"。网页构建时改写为仓库链接。每章不再单设"复现"小节，复现方法统一列在附录 A。
+8. **文献引用**：用方括号编号，例如"maderix [1]"，文末列参考文献。
+9. **更正记录**：正文只陈述最终结论；被推翻的早期结论统一记入附录 C，正文不保留删除线。
+10. **章节结构**：每章以一段导言开始，说明本章研究的问题、方法和主要结论；正文分节论述；以"小结"结束（第 2、3 章介绍背景与方法，不设小结），必要时在小结前设"与 M4 的比较"一节。
 
-每一章回答一个问题，按"由外到内、再由内到外"排列：
+## 二、全文结构
 
-1. 它是什么（全景）
-2. 程序怎么到达硬件（编译 → 调度）
-3. 硬件内部怎么算、怎么搬（计算 → 数值 → 存储 → 双引擎）
-4. 多快、多费电，由谁决定（时钟 → 调频 → 功耗）
-5. 对使用者意味着什么（建议 → 缺陷 → 对照 → 局限）
+| 章 | 标题 | 内容 | 主要材料 | 图表 |
+|---|---|---|---|---|
+| — | 摘要 | 研究对象、方法、主要发现（约 400 字） | 全文 | — |
+| 1 | 引言 | 研究背景（M6 首次采用双 ANE）；既有工作的空白；研究问题；本文贡献（5–6 条）；全文组织 | maderix_summary、part4_deep | — |
+| 2 | 相关工作 | maderix 系列 [1–4]；Bryngelson 的综述与 ANEForge [5, 6]；Orion [7]；社区文档与 Asahi 驱动 [8, 9]；GPU 逆向的方法参考 [10] | bryngelson_summary、maderix_summary | — |
+| 3 | 实验平台与方法 | 平台与软件版本；工具链（只编译的 ANECCompile、Core ML 执行、IOReport / SMC / kdebug 观测、只读逆向）；证据类别（表 3-3）；测量规范（预热、斜率法、中断计数校验、P 核功耗扣除）；研究约束 | experiments §1、bonded_measure §1、compute_array §0、power §7.0、README 约定 | 表 3-1 证据类别 |
+| 4 | 体系结构概览 | 两个 ANE × 16 NE；命名层次；电源与时钟域；结构图导读；与 M4 的比较 | zh.md 原第 2 章、hal_analysis | 图 4-1 结构图（已有） |
+| 5 | 编译器与程序格式 | HWX 格式与两套程序；权重切分；TD 的寄存器包格式与版本；bonded 切分的成本模型；编译代价与深度上限 | hwx_h18g、bonded_measure §2、compile_cost | 图 5-1 权重切分；图 5-2 TD 格式；图 5-3 双 ANE 切分 |
+| 6 | 调度与执行 | 驱动（优先级、选引擎、变体选择）；固件（队列、优先级、抢占）；单次调用的时间分解；并发 | scheduling D1 / D2 / H15 / H54 §1–4 | 图 6-1 调用时间线 |
+| 7 | 计算阵列 | 每 NE 每周期乘加数；权重缓冲与 OCG；卷积核形状与 Winograd；PE；吞吐与深度 | compute_array | 图 7-1 OCG 台阶；图 7-2 吞吐与深度 |
+| 8 | 数值行为 | Q15.16 累加器；INT8 累加；PE 浮点；LUT 插值误差 | numerics | 图 8-1 累加器；图 8-2 LUT 误差；图 8-3 LUT 误差近景 |
+| 9 | 存储层次与数据搬运 | L2 与 bank；Tile DMA；Kernel DMA 与读权重带宽；SLC；DRAM | memory | 图 9-1 中间张量的切块 |
+| 10 | 双引擎协同 | 切分方式、同步与共享暂存区；扩展效率；共享带宽；进程内串行 | bonded_measure、hwx_h18g §4 / §7 | 图 10-1 单 / 双 ANE 耗时；图 10-2 切块分配 |
+| 11 | 时钟域 | NE 时钟档位与实测频率；共享簇；互连；DRAM | power §6、compute_array、memory C2k | 图 11-1 升频台阶 |
+| 12 | 动态调频 | CLPC 的利用率目标、阶跃响应、节流；冷唤醒与断电 | scheduling H54 §5–7、power §2–4 | 图 12-1 利用率目标；图 12-2 阶跃响应 |
+| 13 | 功耗与能效 | 测量方法（PP0b 扣除 P 核簇）；功耗分解；每次乘加与每字节能耗；档位与能耗 | power §5、§7 | 图 13-1 功耗分解；图 13-2 能耗与档位 |
+| 14 | 实际应用测试 | M4 与 M6 两台 Mac mini（16 GB）上的整机测评：大语言模型、图像分类、文字识别、语音转文字；以 M4 的 ANE 为参照，用前面各章的结论解释现象；GPU 只在功耗部分作参照 | 测评记录（9.22-测评/数据记录.md） | 表 14-1 至 14-6 |
+| 15 | 讨论 | 设计特点；对模型部署的建议；与 M1 / M4 / M5 的比较及 HAL 参数表的代际变化；已发现的缺陷与未文档化行为 | comparison、defects、hal_analysis、各章 | 表 15-1 至 15-5 |
+| 16 | 局限与未解决问题 | 方法的局限；尚未确定的硬件参数；后续工作 | experiments §5 | 表 16-1 |
+| 17 | 结论 | 主要发现的归纳 | 全文 | — |
+| — | 参考文献 | | | |
+| 附录 A | 工具与复现 | 按章列出工具、数据目录、是否需要 root；复现命令 | tools/、repro_plan、INDEX | |
+| 附录 B | 数据索引 | data/ 目录说明；Release 附件清单 | data/ | |
+| 附录 C | 更正记录 | 早期结论及其更正原因 | experiments §3、各 notes | |
+| 附录 D | 缺陷清单 | A1–A4、B1–B10、C1–C10 | defects | |
+| 附录 E | 术语表 | 中英文术语与缩写 | 全文 | |
 
-## 二、写法约定
+## 三、写作顺序
 
-- 每条结论标证据等级，标签沿用 Part 4 并扩充：
+1. 第 4、5 章已按 v3 文体重写，作为全文样板。
+2. 按章节号顺序写第 6–13 章，每章同时绘制对应的图。
+3. 写第 14–16 章与附录。
+4. 最后写第 1–3 章和摘要，因为它们要引用全文定稿后的数字。
+5. 中文定稿后翻译英文版，再构建网页。
 
-| 标签 | 证据来源 |
-|---|---|
-| 【计时】 | Core ML 公开接口计时（改层数取斜率） |
-| 【kdebug】 | 固件任务起止时间戳（用户 sudo，只记录事件） |
-| 【IOReport】 | 无 root 计数：中断、电源状态、链路带宽、P 核簇功耗 |
-| 【SMC】 | SMC 电源轨（PP0b 已扣除 P 核簇） |
-| 【HWX】 | 编译产物（只编译、不执行） |
-| 【HAL】【编译器】 | ANECompiler 参数表与逆向（含性能模型 CSV） |
-| 【固件】【内核】 | ANE 固件和 kernelcache 的只读分析（字符串、断言、少量反汇编） |
-| 【ioreg】 | 设备树 |
-| 【数值】 | 构造输入，比较 ANE 与 CPU 输出 |
-| 【推断】 | 由以上证据推出、未直接测到 |
-| 【引用】 | maderix、Bryngelson |
+## 四、图表
 
-- 每章结构固定：**一句话结论 → 关键数字表 → 证据与方法 → 图 → 对比 M4 / 文献 → 对使用者的意义**。
-- 纠错记录统一放附录 C；正文只给最终结论，必要时一句话注明"之前以为……，实测推翻"。
-- 约束写进第 1 章：不使用私有执行接口、不执行修改过的 HWX、固件和 kernelcache 只读且不分发。
+图统一采用浅色配色，每张图同时输出 SVG 和 PNG，文件名为 `figs/fig<章>-<序号>_<名称>.svg`。
 
-## 三、章节
-
-| # | 章节 | 回答的问题 | 核心内容 | 主要材料 | 图 |
-|---|---|---|---|---|---|
-| 0 | 摘要 | — | 一张"关键数字"表（约 15 行）+ 五条最重要的发现 | 各章 | — |
-| 1 | 方法与证据 | 怎么知道的 | 工具链（ANECCompile 只编译、Core ML 执行、IOReport / SMC / kdebug 观测、只读逆向）；证据标签；计时的坑（预热、空闲、P 核功耗）；约束 | experiments §1、bonded_measure §1、compute_array §0、power §7.0 | — |
-| 2 | 全景（✅ 初稿） | 它是什么 | 2 ANE × 16 NE、h18g / T8152 / H16 kext 命名层次、各自电源门控、结构图逐块导读 | hal_analysis、m6_ioreg、结构图 | **图 1 结构图（已完成）** |
-| 3 | 从模型到程序 | 编译器做了什么 | MIL → HWX；TD 格式（v24、包头、BAR、寄存器包）；nonbonded / bonded 两套程序与切分条件 Σ单 > 0.5×(Σ切块 + Σ拷贝)；编译代价与深度上限 | hwx_h18g、bonded_measure §2、compile_cost | 图 2 编译到执行流程；图 3 TD 格式 |
-| 4 | 从程序到硬件：调度 | 一次调用经过了谁 | 驱动（优先级映射、选引擎评分 WRK / HOL / CLPC / THROT、变体选择、fence）→ 固件（6 级优先级、8+1 队列、TQ 双槽、可切换）→ 硬件；每次调用的时间拆分（提交 30 µs、固件 45–50 µs、完成通知 130–325 µs、两次调用间空闲约 384 µs）；并发与多进程 | scheduling D1 / D2 / H15 / H54 §1–4 | 图 4 调用时间线 |
-| 5 | 计算阵列 | 怎么算 | 每 NE 每周期 256 FP16 / 512 INT8 乘加（三方印证）；64 KiB 权重缓冲与 OCG ≤ 16 的台阶；核形状与硬件 Winograd；PE（与 MAC 串行，约 61 G 元素 / s）；LUT 33 点；按深度的吞吐（对照 M4）；编译器高档位（FP16 512 / INT8 1024）只在单 ANE 大工作单元出现，Core ML 用不到 | compute_array（B2–B8、H10、H51、H53） | 图 5 OCG 台阶；图 6 吞吐与深度（FP16 / INT8，M6 / M4） |
-| 6 | 数值 | 算得准不准 | FP16 累加器为 Q15.16 定点（溢出即 inf 并粘住、bias 为初值、小于 1 LSB 的乘积被丢）；INT8 累加器 int32；PE 是浮点；LUT 插值误差；M4 结果相同 | numerics | 图 7 累加器示意；图 8 LUT 误差（已有） |
-| 7 | 存储与搬运 | 数据怎么流 | L2（64 bank × 16 B、补步长避冲突）；Tile DMA 2 入 1 出、约 35–40 GB/s；Kernel DMA 每 NE 一组；读权重约 153 GB/s 与"两种状态"（主机 CPU 空闲深度）；SLC 未用于权重；DRAM 8 通道 10656 MT/s、理论 170.5 GB/s | memory（C1–C4、C2j、C2k、C3b） | 图 9 L2 bank 冲突；图 10 读权重带宽与大小 |
-| 8 | 双引擎 | 两个 ANE 怎么配合 | 按行 / 通道切分、共享同步记录、各读一份权重；扩展 1.92×，读权重受限时没有收益（B9）；工作划分不均（B8）；同一程序在一个进程内严格串行 | bonded_measure、hwx_h18g §4 / §7、defects B3 / B8 / B9 | 图 11 单 / 双 ANE 耗时与层数 |
-| 9 | 时钟域 | 跑多快 | NE：32 档、实测满频 2.58 GHz（固件时间戳反推，编译器表 2.508 GHz 只用于性能模型）、下限 852 MHz；ANE 共享簇（PE / L2）单独调频、启动慢、GPU 忙时被压低；互连 5 档（即编译器的"DMA 表"）；DRAM 满载在最高档 | power §6、compute_array（PE 时钟、SOC 对齐）、memory C2k | 图 12 升频台阶（kdebug） |
-| 10 | 调频器 CLPC | 谁决定快慢 | 固件不选档；驱动向 CLPC 报告工作；CLPC 按利用率调频，目标约 77%；升满约 50 ms、降到底约 150 ms、空闲约 100 ms 落到 852 MHz；节流按占空比执行；冷唤醒（5.7 s 断电、10.2 s 维护唤醒） | scheduling H54 §5–7、power §2–4 | **图 13 利用率目标**（间隔 → 档位，77% 线）；**图 14 阶跃响应** |
-| 11 | 功耗与能效 | 费多少电 | PP0b 与 P 核共用（测法）；单 6.2 W、双 10.8 W、共享约 1.6 W；FP16 0.6–0.8 pJ / 乘加，INT8 约其 55–60%，PE 50–60 pJ / 元素，读 DRAM ≤ 46 pJ / B；低档每次推理能耗约 1/3；高频小调用主要是 CPU 在耗电；编译器的功耗模型只算 DMA（50 / 10 pJ / B） | power §5、§7 | 图 15 功耗拆分柱状图；图 16 每次推理能耗与档位 |
-| 12 | 给开发者的建议 | 怎么用好 | 让请求首尾相接（异步、批量、多进程）以保持高档；预热 ≥ 200 ms，基准测试不插空闲；何时用 INT8；避免高频小调用；形状与通道数（避开 OCG 台阶、避开 L2 冲突）；能效优先时可接受低档 | 各章"对使用者的意义" | — |
-| 13 | 缺陷与未写进文档的行为 | 哪里有坑 | A1–A2（编译崩溃、加载卡死）、B1–B10、C 组 | defects | — |
-| 14 | 与 M1 / M4 / M5 对照 | 这一代变了什么 | 结构、计算、存储、调度、数值、电源六个方面的对照表；HAL 各代变化 | comparison、hal_analysis、socfreq | 图 17 各代参数对照 |
-| 15 | 未知与局限 | 还不知道什么 | 累加器组织、输入行缓冲、SRAM 实际容量、PE 绝对频率、高档位是否可用、CLPC 内部增益、上下文切换阈值；方法上的局限（无每个 TD 的计数器、不执行修改的 HWX） | experiments §5、本次"已知 / 未知"清单 | — |
-| 附录 A | 工具与复现 | | 工具清单（按章）、复现命令、需要 sudo 的步骤 | tools/、repro_plan | — |
-| 附录 B | 原始数据索引 | | data/ 目录对照 | data/ | — |
-| 附录 C | 纠错记录 | | 被推翻的结论及原因（例如 PP0b 当作 ANE 功耗、"不是按利用率调频"、PE 跟随 SOC、2.508 GHz、HAL 0x890 = 带宽、C3 / C4 含主机开销） | experiments §3、各 notes 中的删除线 | — |
-
-## 四、图表清单与状态
-
-| 图 | 内容 | 数据 | 状态 |
+| 图 | 内容 | 数据 | 文件 |
 |---|---|---|---|
-| 1 | 结构图（深色） | — | ✅ `figs/m6_ane_dark.svg` |
-| 2 | 编译到执行流程（含 bonded / nonbonded、驱动、固件、CLPC） | hwx_h18g、scheduling | 待画 |
-| 3 | TD 格式（头部、包头、BAR） | hwx_h18g §9–11 | 待画 |
-| 4 | 一次调用的时间线 | d1b_kt、gov_kt | 待画 |
-| 5 | OCG 台阶 | data/05_compute/ocg_table.txt | 待画 |
-| 6 | 吞吐与深度（FP16 / INT8，M6 / M4） | compute_array B6 | 待画 |
-| 7 | Q15.16 累加器示意 | numerics | 待画 |
-| 8 | LUT 误差 | figs/lut_error_m6.png | ✅ 已有 |
-| 9 | L2 bank 冲突 | data/07_memory/l2bank_table.txt | 待画 |
-| 10 | 读权重带宽与大小 | memory C2 | 待画 |
-| 11 | 单 / 双 ANE 耗时与层数 | bonded_measure | 待画 |
-| 12 | 升频台阶（固件时间戳） | data/09_clock/freq_kt | 待画 |
-| 13 | CLPC 利用率目标 | data/10_clpc/gov_kt | 待画 |
-| 14 | CLPC 阶跃响应 | data/10_clpc/gov_step | 待画 |
-| 15 | 功耗拆分 | data/11_power/power_parts4 | 待画 |
-| 16 | 每次推理能耗与档位 | data/11_power/power_parts2 | 待画 |
-| 17 | 各代参数对照 | hal_analysis、socfreq | 待画 |
+| 4-1 | 硬件结构 | — | `figs/fig4-1_hardware.svg` |
+| 4-2 | 从软件调用到硬件执行 | — | `figs/fig4-2_software.svg` |
+| 5-1 | 权重的切分 | hwx_h18g、compute_array | `figs/fig5-1_weight_split.svg`（tools/figs/fig5_1_weight_split.py） |
+| 5-2 | TD 格式 | hwx_h18g §9–11 | `figs/fig5-2_td_format.svg`（tools/figs/fig5_2_td_format.py） |
+| 5-3 | 双 ANE 程序的切分与同步 | bonded_measure | `figs/fig5-3_bonded.svg`（tools/figs/fig5_3_bonded.py） |
+| 6-1 | 单次调用时间线 | d1b_stages | `figs/fig6-1_call_timeline.svg`（tools/figs/fig6_1_timeline.py） |
+| 7-1 | 输出通道数的台阶 | data/05_compute/b2b_run.txt | `figs/fig7-1_ocg_step.svg`（tools/figs/fig7_1_ocg_step.py） |
+| 7-2 | 吞吐与深度（FP16 / W8A8，M6 / M4） | chains_run2、b6_q8_run、b6x_sweep | `figs/fig7-2_depth_throughput.svg`（tools/figs/fig7_2_depth_throughput.py） |
+| 8-1 | Q15.16 累加器 | numerics | `figs/fig8-1_accumulator.svg`（tools/figs/fig8_1_accumulator.py） |
+| 8-2 | LUT 误差 | opv 测量 | `figs/fig8-2_lut_error.png`（tools/06_numerics/lut_plot.py） |
+| 8-3 | LUT 误差近景 | opv 测量 | `figs/fig8-3_lut_error_zoom.png`（tools/06_numerics/lut_plot.py） |
+| 9-1 | 中间张量的切块 | memory | `figs/fig9-1_tiling.svg`（tools/figs/fig9_1_tiling.py） |
+| 10-1 | 单 / 双 ANE 耗时与层数 | data/08_bonded/bond_ksweep_run.txt | `figs/fig10-1_bonded_scaling.svg`（tools/figs/fig10_1_bonded_scaling.py） |
+| 10-2 | 双 ANE 程序的切块分配 | 表 10-3、10-4 | `figs/fig10-2_split.svg`（tools/figs/fig10_2_split.py） |
+| 11-1 | 升频台阶 | data/09_clock/freq_kt | `figs/fig11-1_ramp_steps.svg`（tools/figs/fig11_1_ramp_steps.py） |
+| 12-1 | CLPC 利用率目标 | data/10_clpc/gov_kt | `figs/fig12-1_utilization_target.svg`（tools/figs/fig12_1_utilization_target.py） |
+| 12-2 | CLPC 阶跃响应 | data/10_clpc/gov_step | `figs/fig12-2_step_response.svg`（tools/figs/fig12_2_step_response.py） |
+| 13-1 | 功耗分解 | power_parts4、power_zero | `figs/fig13-1_power_breakdown.svg`（tools/figs/fig13_1_power_breakdown.py） |
+| 13-2 | 每次推理能耗与调用间隔 | power_parts、power_parts2、power_parts4 | `figs/fig13-2_energy_vs_level.svg`（tools/figs/fig13_2_energy_vs_level.py） |
 
-图统一深色风格，与结构图配色一致；每张图同时出 SVG 和 PNG。中文版和英文版各一套文字。
+全部 18 张图均已完成。数据图共用 `tools/figs/figplot.py`，示意图共用 `tools/figs/figlib.py`；SVG 用 `tools/figs/render.sh` 导出 2 倍分辨率的 PNG。
 
-## 五、写作顺序
+## 五、发布方式（2026-10-03 定）
 
-1. **先写第 2 章全景**（已完成初稿，2026-10-03）：它是全文的地图，结构图已经画好。
-2. 然后**按章节号顺序**写第 3–15 章，每章同时画对应的图。
-3. 最后写附录、第 0 章摘要和第 1 章方法（要引用全文定稿后的数字）。
-4. 中文定稿 → 英文版 → 网页（单页长文，含目录、图、可折叠的证据细节）。
+- 单篇发布；中文先写，英文版随后。
+- 本仓库公开，作为报告的源码；报告通过 GitHub Pages 发布为网页。
+- 公开范围：`tools/` 全部公开（含 `tools/re/` 脚本）；固件、kernelcache、编译器反汇编仍只保存在 `private/` 和 M6 上。`data/` 中体积较大的原始文件（HWX 产物、kdebug 原始追踪等）打包为 GitHub Release 附件，仓库保留汇总表和小样本，并在 README 中说明下载方式。
+- 发布前的工作：英文 README；大文件拆分与 Release 清单；Pages 构建（Markdown 转网页、链接改写）；检查仓库中不含个人信息和苹果二进制。
 
-## 六、篇幅预估
+## 六、篇幅
 
-正文约 2.5–3 万字（中文），16 张左右的图、30 多张表。每章 1500–2500 字；第 5、7、10、11 章可到 3000 字。
+正文约 3–3.5 万字（中文），18 张图、30 余张表。第 4–13 章每章 2000–3500 字，第 7、9、12、13 章可至 4000 字。

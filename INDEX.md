@@ -66,7 +66,7 @@
 | 小于 1 LSB 的乘积（x、w 指数和 ≤ −17）整个丢掉 | 【数值】 | `data/06_numerics/numerics5_m6.txt`、`data/06_numerics/numerics6_m6.txt` | `tools/06_numerics/numerics5.py`、`tools/06_numerics/numerics6.py` | | numerics H12 |
 | INT8 累加器为 32 位有符号整数，缩放在累加之后 | 【数值】 | `data/06_numerics/numerics_i8/` | `tools/06_numerics/numerics_i8.py` | | numerics H50 |
 | 输出远离零舍入；NaN 当作普通大数；PE 走浮点 | 【数值】 | `data/06_numerics/numerics2_m6.txt`–`numerics4_m6.txt` | `tools/06_numerics/numerics2.py`–`numerics4.py` | | numerics F2 |
-| 激活函数：33 点查找表（[−8, 8]，间距 0.5）+ 线性插值；可从编译产物直接读出 | 【数值】【HWX】 | `data/06_numerics/f3_lut_m6.txt`、`data/06_numerics/lut_m6/`、`data/06_numerics/opv_hwx/`；图 `figs/lut_error_*.png` | `tools/06_numerics/lut_err.py`、`tools/06_numerics/lut_plot.py`、`tools/06_numerics/opvariants.py` | | numerics F3 / F3b |
+| 激活函数：33 点查找表（[−8, 8]，间距 0.5）+ 线性插值；可从编译产物直接读出 | 【数值】【HWX】 | `data/06_numerics/f3_lut_m6.txt`、`data/06_numerics/lut_m6/`、`data/06_numerics/opv_hwx/`；图 `figs/fig8-3_lut_error_zoom.png` | `tools/06_numerics/lut_err.py`、`tools/06_numerics/lut_plot.py`、`tools/06_numerics/opvariants.py` | | numerics F3 / F3b |
 
 ## 07 存储与搬运
 

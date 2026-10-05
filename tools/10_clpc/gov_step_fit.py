@@ -34,23 +34,25 @@ st, en = np.array(st, dtype=float), np.array(en, dtype=float)
 lv = np.array([mhz((e - s) / 24.0) for s, e in zip(st, en)])
 
 
-# 若没有 phases 文件（gov_step.sh 首次运行时输出目录属 root，bondrun 写不进去），按任务间空闲间隙反推：
-# 每次调用前的睡眠 G 使"上一个任务结束 → 本任务开始"的间隙 ≈ 384 µs + G。相隔 > 2 s 分组为 A、B、C 三次运行。
+# 若没有 phases 文件（gov_step.sh 首次运行时输出目录属 root，bondrun 写不进去），按调用次数反推切换时刻：
+# 每次调用恰好对应一个任务；相隔 > 2 s 分为 A、B、C 三次运行，每次运行的任务数 = 预热次数 + gov_step.sh 中
+# BONDRUN_SLEEP_SEQ 的总次数，因此预热次数 = 任务数 − 总次数，此后按序列中的次数逐段切分。
+# （早先按"任务间隙 − 384 µs"逐个分类的做法在 G = 0 段会因主机空闲波动而把升频段切碎，已弃用。）
+SEQ = {"A": [(1000, 270), (0, 900)] * 6, "B": [(200, 440), (0, 900)] * 5,
+       "C": [(0, 300), (20000, 1), (0, 300), (50000, 1), (0, 300), (100000, 1), (0, 300), (200000, 1), (0, 300), (500000, 1)]}
+
+
 def infer_phases():
     gaps = np.r_[np.inf, (st[1:] - en[:-1]) / 24.0]
     runs = [k for k in range(len(st)) if gaps[k] > 2e6] + [len(st)]
     res = {}
     for name, (a, b) in zip("ABC", zip(runs[:-1], runs[1:])):
-        cls = []
-        for k in range(a, b):
-            g = gaps[k] - 384 if k > a else 0
-            cls.append(0 if g < 100 else (200 if g < 600 else (1000 if g < 5000 else int(round(g / 1000) * 1000))))
-        ph = []
-        for k in range(a, b):
-            c = cls[k - a]
-            if not ph or c != ph[-1][1]:
-                if c >= 5000 or not ph or all(x == c for x in cls[k - a:k - a + 3]):
-                    ph.append((int(st[k] * 1), c))
+        k = b - sum(n for _, n in SEQ[name])          # 预热结束处
+        ph = [(int(st[a]), 0)]
+        for g, n in SEQ[name]:
+            if k < b:
+                ph.append((int(st[k]), g))
+            k += n
         res[name] = ph
     return res
 
@@ -76,24 +78,28 @@ def traj(t0, t1):
 for name in "AB":
     ph = load_phases(name)
     print(f"== {name} 组")
-    for j in range(1, len(ph) - 1):
+    for j in range(1, len(ph)):
         t0, g = ph[j]
-        t1 = ph[j + 1][0]
+        t1 = ph[j + 1][0] if j + 1 < len(ph) else st[st >= t0][-1] + 1
         ms, f = traj(t0, t1)
         if len(f) < 10:
             continue
         ss = int(np.median(f[int(len(f) * 0.7):]))
-        # 首次进入稳态档 ±1 档并保持 5 个任务
-        idx = DT.index(min(DT, key=lambda x: abs(x - ss)))
-        band = set(DT[max(0, idx - 1): idx + 2])
-        reach = next((ms[k] for k in range(len(f) - 5) if all(x in band for x in f[k:k + 5])), float("nan"))
+
+        def first(cond, n=3):
+            return next((ms[k] for k in range(len(f) - n) if all(cond(x) for x in f[k:k + n])), float("nan"))
+        if g == 0:   # 升频：到达 ≥ 2448 MHz 与 2580 MHz（连续 3 个任务）
+            gp = np.median((st[(st >= t0) & (st < t1)][1:] - en[(st >= t0) & (st < t1)][:-1]) / 24.0)
+            extra = f"到达 ≥2448 {first(lambda x: x >= 2448):6.1f} ms，2580 {first(lambda x: x >= 2580):6.1f} ms，主机空闲中位数 {gp:.0f} us"
+        else:        # 降频：在 ≥ 2448 MHz 保持的时间，降到 852 MHz 的时间
+            extra = f"保持 ≥2448 {first(lambda x: x < 2448):6.1f} ms，降到 852 {first(lambda x: x <= 852):6.1f} ms"
         marks = [0, 5, 10, 20, 30, 50, 75, 100, 150, 200, 300, 500, 800, 1200]
         pts = []
         for m in marks:
             k = np.searchsorted(ms, m)
             if k < len(f):
                 pts.append(f"{m}:{f[k]}")
-        print(f"  → 间隔 {g:4d} us：起点 {f[0]} MHz，稳态 {ss} MHz，到达稳态 {reach:6.1f} ms；轨迹(ms:MHz) {' '.join(pts)}")
+        print(f"  → 间隔 {g:4d} us：起点 {f[0]} MHz，稳态 {ss} MHz，{extra}；轨迹(ms:MHz) {' '.join(pts)}")
 
 ph = load_phases("C")
 print("== C 组（长空闲后恢复）")
@@ -106,4 +112,4 @@ for j in range(len(ph) - 1):
     if len(f) == 0:
         continue
     full = next((ms[k] - ms[0] for k in range(len(f) - 3) if all(x >= 2448 for x in f[k:k + 3])), float("nan"))
-    print(f"  空闲 {g / 1000:5.0f} ms 后：第 1 个任务 {f[0]} MHz，前 8 个 {' '.join(map(str, f[:8]))}，回到 ≥2448 MHz 用时 {full:6.1f} ms")
+    print(f"  空闲 {g / 1000:5.0f} ms（设定值；实测间隙约多 10 ms）后：第 1 个任务 {f[0]} MHz，前 8 个 {' '.join(map(str, f[:8]))}，回到 ≥2448 MHz 用时 {full:6.1f} ms")

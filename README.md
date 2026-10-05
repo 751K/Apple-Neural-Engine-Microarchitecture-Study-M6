@@ -3,7 +3,7 @@
 研究 Apple M6（T8152，ANE 架构 h18g）神经网络引擎的硬件：结构、计算、存储、调度、时钟、功耗、数值。参照 maderix《Inside the M4 ANE》Part 1–4 与 Bryngelson 的论文，最终产出中英文技术报告（Markdown + 网页）。
 
 - 机器：M6（16 GB），macOS 27.0.1（26A434），ANE 编译器 `zin_ane_compiler v10.26.6`；对照机为 M4（h16g）。
-- 当前状态（2026-10-03）：实验基本完成；报告大纲 v2 已定，第 2 章全景有初稿。
+- 当前状态（2026-10-05）：中文报告全文已完成（[`m6_report/zh.md`](m6_report/zh.md)），正在审阅定稿；英文版与网页版尚未开始。
 
 ## 从哪里开始看
 
@@ -12,7 +12,8 @@
 | 全部结论，以及每条对应的数据、工具 | [`INDEX.md`](INDEX.md) |
 | 报告大纲、图表清单、写作顺序 | [`m6_report/outline.md`](m6_report/outline.md) |
 | 报告正文（中文） | [`m6_report/zh.md`](m6_report/zh.md) |
-| 结构图 | [`figs/m6_ane_dark.png`](figs/m6_ane_dark.png) |
+| 结构图 | [`figs/fig4-1_hardware.png`](figs/fig4-1_hardware.png)（硬件组成与数据通路）、[`figs/fig4-2_software.png`](figs/fig4-2_software.png)（从软件调用到硬件执行） |
+| 报告中的全部图及其生成脚本 | `figs/fig*`；生成脚本在 `tools/figs/`（SVG 用 `tools/figs/render.sh` 导出 PNG） |
 | 某个主题的详细实验记录 | `notes/` 下的分册（见下） |
 | 被推翻、更正过的结论 | `notes/experiments.md` §3，以及各分册中的删除线 |
 
@@ -23,7 +24,7 @@ INDEX.md          结论索引（按报告章节）
 README.md         本文件
 REORG_PLAN.md     2026-10-03 目录重组的记录（data/、tools/ 的移动清单与注意事项）
 m6_report/        报告：outline.md（大纲 v2）、outline_v1.md（旧大纲）、zh.md（正文）
-figs/             图（SVG + PNG）
+figs/             图（SVG + PNG）；报告用图为 fig*，由 tools/figs/ 生成
 notes/            实验记录分册
 data/             原始数据，按报告章节分目录
 tools/            工具，按用途和章节分目录
@@ -57,6 +58,7 @@ tools/            工具，按用途和章节分目录
 - `tools/common/`：通用运行器与采样器（`bondrun.m`、`anecc.m`、`anewho.c`、`smcpower.c`、`pclus.c`、`chain.py`、`runall.sh`、模型清单 `*.list` 等）。
 - `tools/lib/`：公共 Python 模块（`td_widths`、`tdwalk`、`tdpkt`、`hwx_bonded` 等）。
 - `tools/re/`：只读逆向工具（符号、字符串、交叉引用、反汇编、固件分析）。
+- `tools/figs/`：报告用图的生成脚本（配色采用 ggsci 的 NPG 配色）与 SVG 导出脚本 `render.sh`。
 - `tools/deploy_m6.sh`：把工具平铺同步到 M6。
 
 ## 两台机器的分工
@@ -89,8 +91,11 @@ tools/            工具，按用途和章节分目录
 
 - **只用公开路径执行**：模型由 Core ML 执行；编译用 `ANECCompile` 只编译、不执行；不直接加载或执行修改过的 HWX，不使用私有执行客户端。
 - **观测只读**：IOReport、SMC、ioreg、kdebug（只记录事件）。需要 `sudo` 的步骤由用户本人运行。
-- **固件和 kernelcache 只做只读分析，不分发**；它们和编译器的反汇编都只留在 M6 上，不入库。
-- **不修改系统安全设置**。唯一的例外是经用户同意、只作用于本项目 `anecc` 进程的 DYLD 插桩（`tools/common/anevariant.c`），用于导出编译器的性能模型 CSV。
+- **固件和 kernelcache 只做只读分析，不分发**；它们和编译器的反汇编、参数表原始导出只留在本地（M6 上或本仓库被忽略的 `private/` 目录），不入库。
+- **不修改系统安全设置**。只作用于本项目自己进程的几项做法，详见报告第 3.2 节：
+  - DYLD 插桩（`tools/common/anevariant.c`），用于导出编译器的性能模型 CSV；
+  - 以只分段模式运行 Espresso 的提前编译驱动，并用动态库截取分段器写入系统日志的估计（`tools/common/aotdrv.cpp`、`tools/common/oslogtap.c`）；为此在实验期间临时写入一个用户级 defaults 键，结束后删除；
+  - 用 lldb 调试本项目自己编译、带 `get-task-allow` 签名的 `anecc`（`*_lldb.py`）；排查性能模型 CSV 输出开关时曾在 M6 上以 `sudo lldb` 只读观察（`tools/05_compute/perfcsv_lldb.txt`）。
 - **测量习惯**：
   - 每个实验检查 IOReport 中断数，确认确实在 ANE 上执行；
   - 先连续预热 ≥ 1 s，中间不插入空闲（CLPC 会降频）；

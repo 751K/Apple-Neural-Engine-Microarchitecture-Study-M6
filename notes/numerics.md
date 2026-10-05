@@ -71,7 +71,7 @@
 ## F3：激活函数（查表 + 线性插值）的误差
 
 - 工具：`tools/06_numerics/lut_err.py`（采集）、`tools/06_numerics/lut_plot.py`（画图）。
-- 图：`figs/lut_error_m6.png`（12 个函数全貌）、`figs/lut_error_zoom_m6.png`（sigmoid / gelu / silu / tanh 近景）。
+- 图：`figs/fig8-2_lut_error.png`（12 个函数全貌）、`figs/fig8-3_lut_error_zoom.png`（sigmoid / gelu / silu / tanh 近景）。
 - 原始数据：`data/06_numerics/lut_m6/*.npz`、`data/06_numerics/f3_lut_m6.txt`。
 - 方法：输入是 [−R, R] 上 52 万个点的 fp16 网格（正值函数用对数网格）。ANE 输出减去 float64 精确值得到误差。陪跑支路保证在 ANE 上执行（两个 ANE 都有中断）。
 
