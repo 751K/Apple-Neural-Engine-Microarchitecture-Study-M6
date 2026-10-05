@@ -15,39 +15,51 @@ EX = {
     "silu": lambda x: x / (1 + np.exp(-x)), "exp": np.exp, "log": np.log, "sqrt": np.sqrt,
     "rsqrt": lambda x: 1 / np.sqrt(x), "inverse": lambda x: 1 / x, "erf": erf, "sin": np.sin,
 }
-names = list(EX)
-fig, axs = plt.subplots(4, 3, figsize=(15, 13))
-for ax, n in zip(axs.flat, names):
-    d = np.load(os.path.join(src, n + ".npz"))
-    x, a, c = d["x"], d["ane"], d["cpu"]
-    ux, i = np.unique(x, return_index=True)
-    e = EX[n](ux)
-    rel = n in ("exp", "inverse", "rsqrt", "sqrt", "log")
-    ea = (a[i] - e) / (np.abs(e) if rel else 1)
-    ec = (c[i] - e) / (np.abs(e) if rel else 1)
-    ax.plot(ux, ec, lw=0.4, color="0.7", label="CPU")
-    ax.plot(ux, ea, lw=0.5, color="C3", label="ANE")
-    ax.set_title(f"{n}（{'相对' if rel else '绝对'}误差）")
-    if rel or n in ("log",):
-        ax.set_xscale("log")
-    ax.axhline(0, color="k", lw=0.3)
-    ax.legend(fontsize=7)
-plt.rcParams["font.sans-serif"] = ["PingFang SC", "Arial Unicode MS"]
-plt.tight_layout()
-plt.savefig(os.path.join(dst, "fig8-2_lut_error.png"), dpi=110)
 
-# sigmoid / gelu / silu / tanh 的近景
-fig, axs = plt.subplots(2, 2, figsize=(14, 8))
-for ax, n, (lo, hi) in zip(axs.flat, ["sigmoid", "gelu", "silu", "tanh"], [(-8.5, 8.5), (-6, 4), (-10, 6), (-5, 5)]):
-    d = np.load(os.path.join(src, n + ".npz"))
-    ux, i = np.unique(d["x"], return_index=True)
-    m = (ux > lo) & (ux < hi)
-    ea = d["ane"][i] - EX[n](ux)
-    ax.plot(ux[m], ea[m], lw=0.6, color="C3")
-    for k in np.arange(np.ceil(lo * 2) / 2, hi, 0.5):
-        ax.axvline(k, color="C0", lw=0.3, alpha=0.5)
-    ax.set_title(f"{n}：ANE 误差（蓝线为 0.5 间隔）")
-    ax.axhline(0, color="k", lw=0.3)
-plt.tight_layout()
-plt.savefig(os.path.join(dst, "fig8-3_lut_error_zoom.png"), dpi=110)
+
+def draw(suffix, dark):
+    """浅色（suffix 为空）或深色（suffix 为 "_dark"，供网页的深色模式使用）。"""
+    names = list(EX)
+    fig, axs = plt.subplots(4, 3, figsize=(15, 13))
+    for ax, n in zip(axs.flat, names):
+        d = np.load(os.path.join(src, n + ".npz"))
+        x, a, c = d["x"], d["ane"], d["cpu"]
+        ux, i = np.unique(x, return_index=True)
+        e = EX[n](ux)
+        rel = n in ("exp", "inverse", "rsqrt", "sqrt", "log")
+        ea = (a[i] - e) / (np.abs(e) if rel else 1)
+        ec = (c[i] - e) / (np.abs(e) if rel else 1)
+        ax.plot(ux, ec, lw=0.4, color=("0.45" if dark else "0.7"), label="CPU")
+        ax.plot(ux, ea, lw=0.5, color="tab:red", label="ANE")
+        ax.set_title(f"{n}（{'相对' if rel else '绝对'}误差）")
+        if rel or n in ("log",):
+            ax.set_xscale("log")
+        ax.axhline(0, color=("0.8" if dark else "k"), lw=0.3)
+        ax.legend(fontsize=7)
+    plt.tight_layout()
+    plt.savefig(os.path.join(dst, f"fig8-2_lut_error{suffix}.png"), dpi=110, facecolor=fig.get_facecolor())
+
+    # sigmoid / gelu / silu / tanh 的近景
+    fig, axs = plt.subplots(2, 2, figsize=(14, 8))
+    for ax, n, (lo, hi) in zip(axs.flat, ["sigmoid", "gelu", "silu", "tanh"], [(-8.5, 8.5), (-6, 4), (-10, 6), (-5, 5)]):
+        d = np.load(os.path.join(src, n + ".npz"))
+        ux, i = np.unique(d["x"], return_index=True)
+        m = (ux > lo) & (ux < hi)
+        ea = d["ane"][i] - EX[n](ux)
+        ax.plot(ux[m], ea[m], lw=0.6, color="tab:red")
+        for k in np.arange(np.ceil(lo * 2) / 2, hi, 0.5):
+            ax.axvline(k, color="tab:blue", lw=0.3, alpha=(0.8 if dark else 0.5))
+        ax.set_title(f"{n}：ANE 误差（蓝线为 0.5 间隔）")
+        ax.axhline(0, color=("0.8" if dark else "k"), lw=0.3)
+    plt.tight_layout()
+    plt.savefig(os.path.join(dst, f"fig8-3_lut_error_zoom{suffix}.png"), dpi=110, facecolor=fig.get_facecolor())
+
+
+for suffix, dark in (("", False), ("_dark", True)):
+    with plt.style.context("dark_background" if dark else "default"):
+        if dark:
+            plt.rcParams.update({"figure.facecolor": "#161618", "axes.facecolor": "#161618", "savefig.facecolor": "#161618"})
+        plt.rcParams["font.sans-serif"] = ["PingFang SC", "Arial Unicode MS"]
+        draw(suffix, dark)
+        plt.close("all")
 print("ok")

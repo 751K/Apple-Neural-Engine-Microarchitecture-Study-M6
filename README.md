@@ -58,7 +58,7 @@ tools/            工具，按用途和章节分目录
 - `tools/common/`：通用运行器与采样器（`bondrun.m`、`anecc.m`、`anewho.c`、`smcpower.c`、`pclus.c`、`chain.py`、`runall.sh`、模型清单 `*.list` 等）。
 - `tools/lib/`：公共 Python 模块（`td_widths`、`tdwalk`、`tdpkt`、`hwx_bonded` 等）。
 - `tools/re/`：只读逆向工具（符号、字符串、交叉引用、反汇编、固件分析）。
-- `tools/figs/`：报告用图的生成脚本（配色采用 ggsci 的 NPG 配色）与 SVG 导出脚本 `render.sh`。
+- `tools/figs/`：报告用图的生成脚本（配色采用 ggsci 的 NPG 配色）、SVG 导出脚本 `render.sh`，以及由浅色版换算深色版（`*_dark.svg`，供网页深色模式使用）的 `darken.py`。
 - `tools/deploy_m6.sh`：把工具平铺同步到 M6。
 
 ## 两台机器的分工

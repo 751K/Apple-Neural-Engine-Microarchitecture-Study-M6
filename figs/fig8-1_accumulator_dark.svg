@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 640" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
+<rect x="0" y="0" width="1440" height="640" fill="#161618"/>
+<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .b{font-size:14.5px;fill:#c6c6c8} .c{font-size:13px;fill:#9c9ca0} .m{font-size:13px;font-family:Menlo,SF Mono,monospace;fill:#c6c6c8} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bbbbbd"/></marker></defs>
+<text class="h" x="40" y="30">FP16 卷积与矩阵乘的计算过程</text>
+<rect x="40" y="52" width="130" height="50" rx="10" fill="#1a1a1a" stroke="#818187" stroke-width="1.5"/>
+<text class="b mid" x="105" y="83">x（FP16）</text>
+<rect x="40" y="118" width="130" height="50" rx="10" fill="#1a1a1a" stroke="#818187" stroke-width="1.5"/>
+<text class="b mid" x="105" y="149">w（FP16）</text>
+<rect x="220" y="52" width="300" height="116" rx="10" fill="#22222a" stroke="#818187" stroke-width="1.5"/>
+<text class="h mid" x="370" y="80">输入解码</text>
+<text class="c mid" x="370" y="106">指数全 1 的值按普通数解码：</text>
+<text class="c mid" x="370" y="126">+inf → 2¹⁶，NaN 0x7E00 → 1.5 × 2¹⁶</text>
+<text class="c mid" x="370" y="148">因超出累加器范围而得到 inf</text>
+<path d="M170 77 H216" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<path d="M170 143 H216" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="570" y="52" width="260" height="116" rx="10" fill="#262f4c" stroke="#6b87c3" stroke-width="1.5"/>
+<text class="h mid" x="700" y="80">乘法</text>
+<text class="b mid" x="700" y="108">尾数之积 ∈ [1, 4)</text>
+<text class="b mid" x="700" y="130">指数之和 e</text>
+<text class="c mid" x="700" y="152">（推测的内部表示）</text>
+<path d="M520 110 H566" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="880" y="52" width="520" height="116" rx="10" fill="#262f4c" stroke="#6b87c3" stroke-width="1.5"/>
+<text class="h mid" x="1140" y="80">对齐到 2⁻¹⁶</text>
+<text class="b" x="900" y="110">e ≥ −16：</text>
+<text class="b" x="980" y="110">四舍五入（中间值远离零）后加入累加器</text>
+<text class="b" x="900" y="136">e ≤ −17：</text>
+<text class="b" x="980" y="136">整个乘积被丢弃，即使其值接近 2 LSB</text>
+<text class="c" x="900" y="158">非规格化数的指数按 −14 计</text>
+<path d="M830 110 H876" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<path d="M1000 168 V236" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="40" y="240" width="260" height="150" rx="10" fill="#22222a" stroke="#818187" stroke-width="1.5"/>
+<text class="h mid" x="170" y="268">偏置 b（FP16）</text>
+<text class="b mid" x="170" y="296">舍入到 2⁻¹⁶（远离零）</text>
+<text class="b mid" x="170" y="318">作为累加器的初值</text>
+<text class="c mid" x="170" y="346">负的大偏置可抵消正的乘积，</text>
+<text class="c mid" x="170" y="366">使中间值不溢出</text>
+<path d="M300 315 H346" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="350" y="240" width="760" height="150" rx="10" fill="#493725" stroke="#b79578" stroke-width="1.5"/>
+<text class="h" x="370" y="268">累加器：32 位定点 Q15.16</text>
+<rect x="390" y="286" width="21" height="30" fill="#642e26" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="411" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="432" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="453" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="474" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="495" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="516" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="537" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="558" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="579" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="600" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="621" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="642" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="663" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="684" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="705" y="286" width="21" height="30" fill="#323f61" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="726" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="747" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="768" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="789" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="810" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="831" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="852" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="873" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="894" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="915" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="936" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="957" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="978" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="999" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="1020" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<rect x="1041" y="286" width="21" height="30" fill="#276354" stroke="#1a1a1a" stroke-width="1.5"/>
+<text class="m mid" x="400.5" y="334">31</text>
+<text class="m mid" x="421.5" y="334">30</text>
+<text class="m mid" x="715.5" y="334">16</text>
+<text class="m mid" x="736.5" y="334">15</text>
+<text class="m mid" x="1051.5" y="334">0</text>
+<text class="c mid" x="400.5" y="356">符号</text>
+<text class="c mid" x="568.5" y="356">整数 15 位：|值| &lt; 2¹⁵ = 32768</text>
+<text class="c mid" x="904.5" y="356">小数 16 位：LSB = 2⁻¹⁶</text>
+<text class="c" x="370" y="380">任何时刻 |值| 达到 32768 即变为 inf，之后不再恢复；累加过程中没有 FP16 精度的部分和。</text>
+<path d="M1110 315 H1156" stroke="#bbbbbd" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="1160" y="240" width="240" height="150" rx="10" fill="#205347" stroke="#1dffdc" stroke-width="1.5"/>
+<text class="h mid" x="1280" y="268">转换为 FP16 输出</text>
+<text class="b mid" x="1280" y="298">四舍五入，中间值远离零</text>
+<text class="c mid" x="1280" y="320">（不是 IEEE 的取偶）</text>
+<text class="m mid" x="1280" y="346">2049 → 2050</text>
+<text class="m mid" x="1280" y="368">−0 → +0</text>
+<text class="h" x="40" y="446">三条运算路径的对比</text>
+<rect x="40" y="464" width="440" height="150" rx="10" fill="#262f4c" stroke="#6b87c3" stroke-width="1.5"/>
+<text class="h" x="60" y="496">FP16 卷积 / 矩阵乘</text>
+<text class="b" x="60" y="528">32 位定点 Q15.16（上图）</text>
+<text class="b" x="60" y="556">范围 |值| &lt; 32768，分辨率 2⁻¹⁶</text>
+<text class="b" x="60" y="584">溢出 → inf</text>
+<text class="c end" x="460" y="600">8.2 节</text>
+<rect x="500" y="464" width="440" height="150" rx="10" fill="#262f4c" stroke="#6b87c3" stroke-width="1.5"/>
+<text class="h" x="520" y="496">INT8 卷积（W8A8）</text>
+<text class="b" x="520" y="528">32 位整数累加，缩放在累加完成后进行</text>
+<text class="b" x="520" y="556">可超过 32768（如 64512）</text>
+<text class="b" x="520" y="584">S ≥ 2³¹ 时溢出 → inf</text>
+<text class="c end" x="920" y="600">8.3 节</text>
+<rect x="960" y="464" width="440" height="150" rx="10" fill="#22222a" stroke="#818187" stroke-width="1.5"/>
+<text class="h" x="980" y="496">逐元素运算（PE）</text>
+<text class="b" x="980" y="528">FP16 浮点运算</text>
+<text class="b" x="980" y="556">保留非规格化数（如 2⁻²⁴）</text>
+<text class="b" x="980" y="584">超出 FP16 最大值时 → inf</text>
+<text class="c end" x="1380" y="600">8.4 节</text>
+</svg>

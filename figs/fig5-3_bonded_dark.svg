@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 730" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
+<rect x="0" y="0" width="1440" height="730" fill="#161618"/>
+<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .h2{font-size:16px;font-weight:600} .b{font-size:14.5px;fill:#c6c6c8} .c{font-size:13px;fill:#9c9ca0} .m{font-size:12.5px;font-family:Menlo,SF Mono,monospace;fill:#c6c6c8} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bbbbbd"/></marker><marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b79578"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b79578" stroke-width="1.5"/></pattern></defs>
+<text class="h" x="40" y="32">① 按行切分（基准模型：1×1 卷积链，高 64）</text>
+<rect x="70" y="60" width="180" height="110" rx="2" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<rect x="70" y="170" width="180" height="110" rx="2" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<rect x="70" y="158" width="180" height="24" fill="url(#hatch)" opacity="0.55"/>
+<text class="b mid" x="160" y="112">行 0–31</text>
+<text class="b mid" x="160" y="232">行 32–63</text>
+<text class="c mid" x="160" y="302">激活张量</text>
+<rect x="320" y="82" width="130" height="64" rx="8" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="h2 mid" x="385" y="120">ANE0</text>
+<rect x="320" y="194" width="130" height="64" rx="8" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="h2 mid" x="385" y="232">ANE1</text>
+<path d="M250 114 H316" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M250 226 H316" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<rect x="540" y="128" width="130" height="84" rx="8" fill="#1f4753" stroke="#61c4dd" stroke-width="1.4"/>
+<text class="h2 mid" x="605" y="162">权重</text>
+<text class="c mid" x="605" y="186">（完整一份）</text>
+<path d="M540 170 H495" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
+<path d="M495 170 V114 H454" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M495 170 V226 H454" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<text class="c mid" x="605" y="236">两个 ANE 各读一份</text>
+<text class="c" x="70" y="330">两个 ANE 用同一份权重，各自用满 16 个 NE，最后合并结果。</text>
+<text class="c" x="70" y="350">纵向尺寸大于 1 的卷积核还要读相邻的重叠行（斜线），层数越多重叠越多。</text>
+<text class="c" x="70" y="370">TD 中：高度 64 → 32；ANE1 的地址包偏移 32 行；PublishBit 置 1。</text>
+<text class="h" x="760" y="32">② 按输出通道切分（例：8×32 的 5×5 卷积，每层 4 趟 × 64 通道）</text>
+<rect x="770" y="60" width="170" height="46" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="c mid" x="855" y="89">第 1 趟：64 个输出通道</text>
+<rect x="770" y="114" width="170" height="46" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="c mid" x="855" y="143">第 2 趟：64 个输出通道</text>
+<rect x="770" y="168" width="170" height="46" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="c mid" x="855" y="197">第 3 趟：64 个输出通道</text>
+<rect x="770" y="222" width="170" height="46" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="c mid" x="855" y="251">第 4 趟：64 个输出通道</text>
+<text class="c mid" x="855" y="302">权重的 4 趟</text>
+<rect x="1030" y="82" width="130" height="64" rx="8" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="h2 mid" x="1095" y="120">ANE0</text>
+<rect x="1030" y="194" width="130" height="64" rx="8" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="h2 mid" x="1095" y="232">ANE1</text>
+<path d="M940 83 H982 V114 H1026" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M940 137 H982 V114" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
+<path d="M940 191 H982 V226 H1026" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M940 245 H982 V226" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
+<rect x="1250" y="128" width="140" height="84" rx="8" fill="#1a1a1a" stroke="#818187" stroke-width="1.4"/>
+<text class="h2 mid" x="1320" y="162">输入</text>
+<text class="c mid" x="1320" y="186">（完整一份）</text>
+<path d="M1250 170 H1205" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
+<path d="M1205 170 V114 H1164" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M1205 170 V226 H1164" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<text class="c" x="760" y="330">把单 ANE 程序中已有的各趟平均分给两个 ANE，每个 ANE 只读一半权重，</text>
+<text class="c" x="760" y="350">不需要拷贝与合并。只在各趟大小相同时可用（如 3×3 的 32 + 224 通道就不行）。</text>
+<text class="h" x="40" y="420">③ 需要交换数据时：共享暂存区与同步记录（3 层 3×3 卷积，按行切分）</text>
+<text class="h2 end" x="92" y="476">ANE0</text>
+<text class="h2 end" x="92" y="616">ANE1</text>
+<rect x="110" y="450" width="190" height="40" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="b mid" x="205.0" y="476">第 1 层</text>
+<rect x="110" y="590" width="190" height="40" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="b mid" x="205.0" y="616">第 1 层</text>
+<rect x="370" y="450" width="190" height="40" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="b mid" x="465.0" y="476">第 2 层</text>
+<rect x="370" y="590" width="190" height="40" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="b mid" x="465.0" y="616">第 2 层</text>
+<rect x="630" y="450" width="190" height="40" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="b mid" x="725.0" y="476">第 3 层</text>
+<rect x="630" y="590" width="190" height="40" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
+<text class="b mid" x="725.0" y="616">第 3 层</text>
+<rect x="110" y="516" width="710" height="38" rx="6" fill="#493725" stroke="#b79578" stroke-width="1.4"/>
+<text class="c mid" x="465" y="541">共享暂存区：两个 ANE 都映射；推测经系统级缓存交换（DSID 标签）</text>
+<path d="M335 490 V590" stroke="#b79578" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
+<path d="M335 461 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
+<path d="M335 601 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
+<text class="c mid" x="335" y="654">同步 1</text>
+<path d="M595 490 V590" stroke="#b79578" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
+<path d="M595 461 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
+<path d="M595 601 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
+<text class="c mid" x="595" y="654">同步 2</text>
+<text class="c" x="110" y="680">◆ 同步记录 f0003281：第 2、3 层开始前各一次，获取对方计算的边界行；第 1 层直接从 DRAM 读取带重叠行的输入。</text>
+<text class="c" x="110" y="700">1×1 卷积链两半互不依赖，没有同步记录；softmax（沿宽度）1 次；reduce_sum（沿高度）以分阶段结束的方式等待。</text>
+<text class="h" x="900" y="420">④ 是否切分：编译器比较两种延迟估计</text>
+<text class="h2" x="900" y="464">单 ANE</text>
+<rect x="1000" y="446" width="240" height="28" rx="3" fill="#2e2e33" stroke="#818187" stroke-width="1.4"/>
+<text class="c mid" x="1120" y="465">Σ 切分前延迟</text>
+<text class="h2" x="900" y="518">双 ANE</text>
+<rect x="1000" y="500" width="260" height="28" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="c mid" x="1130" y="519">Σ 切分后各块的延迟</text>
+<rect x="1260" y="500" width="64" height="28" rx="3" fill="#493725" stroke="#b79578" stroke-width="1.4"/>
+<text class="c mid" x="1292" y="519">拷贝合并</text>
+<path d="M1162 530 V552" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<text class="b" x="1172" y="546">× 0.5</text>
+<rect x="1000" y="554" width="162" height="28" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
+<text class="c mid" x="1081" y="573">切分后的估计</text>
+<line x1="1240" y1="474" x2="1240" y2="610" stroke="#67676c" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="1162" y1="474" x2="1162" y2="610" stroke="#67676c" stroke-width="1.2" stroke-dasharray="3 3"/>
+<path d="M1166 602 H1236" stroke="#ed7060" stroke-width="1.6" fill="none" marker-end="url(#ar)" marker-start="url(#ar)"/>
+<text class="b" x="1250" y="607">切分后的估计更短 → 切分</text>
+<text class="c" x="900" y="636">0.5 意味着假设两个 ANE 完全并行、互不干扰。</text>
+<text class="c" x="900" y="660">模型没有考虑两个 ANE 对 DRAM 带宽的争用，读权重受限的层</text>
+<text class="c" x="900" y="680">因此被切分却不加速（缺陷 B9）。拷贝合并一项只在每块 ≤ 128</text>
+<text class="c" x="900" y="700">个像素时显著；每块过小、没有可用切法或输入只有一行时不切分。</text>
+</svg>

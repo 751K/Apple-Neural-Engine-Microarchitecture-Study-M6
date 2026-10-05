@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 图 5-2：TD 的结构（v24 布局）。生成浅色与深色两个 SVG；PNG 用 Chrome 无头模式导出（见 tools/figs/render.sh）。
+# 图 5-2：TD 的结构（v24 布局）。生成浅色 SVG（深色版见 darken.py）；PNG 用 Chrome 无头模式导出（见 tools/figs/render.sh）。
 # 示例字取自 data/03_compile/tdv/h18g/model.hwx（256 通道、8×32 输入、4 层的 1×9 卷积）。
 import os
 
@@ -168,6 +168,6 @@ def build(t):
 
 if __name__ == '__main__':
     out = os.path.join(os.path.dirname(__file__), '..', '..', 'figs')
-    for name, suffix in [('light', ''), ('dark', '_dark')]:
-        with open(os.path.join(out, f'fig5-2_td_format{suffix}.svg'), 'w') as f:
-            f.write(build(THEMES[name]))
+    # 深色版由 tools/figs/darken.py 统一从浅色版换算，这里只出浅色版
+    with open(os.path.join(out, 'fig5-2_td_format.svg'), 'w') as f:
+        f.write(build(THEMES['light']))
