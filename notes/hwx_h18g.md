@@ -415,3 +415,33 @@ v31 的布局相同，只是 0x274（Win）起整体比 v36 前移 0x7c，之后
 - **稀疏权重格式被编译器内部用来实现带零的改写核**：1×9 改写成核宽 10（§11.2，补零）、膨胀卷积展开成带零的大核、步长 2 的改写，都打开 `KernelSparseFmt`，用跳零硬件省掉补出来的零。这解释了 compute_array 中"改写核的耗时与权重元素数成正比"（wfmt 第 3 点）和"膨胀卷积按展开核计"（H10）。
 - `SetKernelDetectZeros` 只由 `HandleNEConfig` 调用；稀疏格式下关闭，与 §12 一致。
 - 全部 226 个方法的改动位、各模型参数与调用者见 `private/data/03_compile/tdtrace/setters.txt`、`regmap.txt`、`matrix.txt`；逐个字段的语义解读尚未完成。
+
+### 13.1 寄存器手册（自动合成 + 解读，2026-10-05）
+
+- 静态位掩码改用 `tools/re/tdstatic.py`：跟踪每个方法里"ldr 对象字 → and / orr / bfi / bfxil → str 回同一偏移"，把清零与置位的位都并进去（§12 只取了 bfi / bfxil，漏掉单个标志位）。v24 共 270 个方法、148 个寄存器。
+- `tools/03_compile/tdmanual.py` 把静态位掩码、动态跟踪（参数、调用者）和 35 个模型 HWX 的实际取值按"寄存器 → 位段"合并成手册（`private/data/03_compile/td24_manual.md`，编译器派生，不公开）：312 个位段，其中 104 个随模型取值不同、86 个恒定、122 个在这 35 个模型里没出现（纹理、gather、循环缓冲等未用到的功能）。不需要多 agent：多数字段名即含义，只有随模型变化的位段需要解读。
+- 随模型变化的位段的解读（括号内为取到该值的模型）：
+
+| 寄存器 位 | 方法 | 解读 |
+|---|---|---|
+| 0x0000 [2:0] / [5:3] / [8:6] | `SetCommonInFmt` / `Src2InFmt` / `OutFmt` | 数据格式；只在 W8A8（1 = int8、2 = FP16）和双输入 matmul（输出 5）里写出，其余为默认 |
+| 0x0001–0x0007 | `SetOrReturnWin/Hin/Cin/Wout/Hout/Cout` | 每个 TD 的输入 / 输出形状（bonded 时 Hin 为一半；转置卷积、pad 前后不同） |
+| 0x000a [28:29] / [30:31] | `SetCommonConvCfgOx` / `Oy` | **输出间隔**：转置卷积、上采样为 2（普通卷积 + 结果隔一个写一个）；1×9 为 Ox = 2，配合 Sx = 2（改写成步长 2 后两半交错拼回） |
+| 0x000a [17:26] | `PadLeft` / `PadTop` | 1×9 的 PadLeft = 4（改写后核宽 10） |
+| 0x000f [4:7] | `SetCommonTaskType` | 任务类型：卷积 0、池化 1、DMA / 拼接类 2、逐元素加乘 3、归约 4–6（layernorm、reduce_mean） |
+| 0x000f [27] | `Set1DWinogradMode` | **Winograd 开关**：只有普通 3×3、分组 3×3 为 1；深度卷积、5×5、膨胀、步长 2 都为 0（与 compute_array H10 一致） |
+| 0x000f [28] / [29] | `SetOutputTranspose` / `SetFillLowerNEFirst` | layernorm、linear、pad、transpose 的部分 TD |
+| 0x000f [3:2]、0x1242 [27] | `SetNESmallSourceMode` | linear、matmul、reduce_mean、步长 2 卷积 |
+| 0x0010 [2:0] | `SetNEOcgSize` | log₂(每轮输出通道数)：深度卷积 0、分组卷积 1、bonded 大卷积 4、W8A8 3（与 compute_array OCG 扫描一致） |
+| 0x0010 [6] | `SetNEHalfWUMode` | 只在 W8A8 为 1 |
+| 0x0011 | `SetPatchWidth` / `Height` | PE 运算的块尺寸（逐元素、池化、layernorm、softmax） |
+| 0x0013 [21:28] | `SetNID` | 1；纯 PE 运算（逐元素、池化）为 0，推测为"是否用 NE" |
+| 0x0014 [3:0] | `SetDPE` | softmax 1、W8A8 3 |
+| 0x1041–0x1057 | `SetL2Src1*` / `Src2*` / `Result*` | L2 源 / 结果的类型、格式、交错、基址和各级跨步；第二源只在逐元素、layernorm、softmax 用；`SetL2ResultType` = 2 出现在 BN、bonded、双输入 matmul；reduce_mean 用 FIFO 模式 |
+| 0x1140 | `SetPEOperationMode` / `First/SecondSource` | PE 运算：加 0、乘 1、layernorm 4 |
+| 0x1240 | 见 §12 | 另：`SetKernelAlignmentFormat`（[16]）在双输入 matmul 和 softmax 为 1——这时把一个激活张量当作权重 |
+| 0x1242 | NE 配置 | OpMode：卷积 0，concat / linear / pad / transpose / layernorm 4，softmax 3；NEBinaryPoint：FP16 −4（0x3c）、int8 0；NEPostScale、DoubleInt8Enable 只在 int8；NonLinearMode：无 0、ReLU 1、sigmoid / tanh / GELU 都为 2（查表，具体函数由查找表决定） |
+| 0x1340–0x1363 | Tile DMA 源 | CacheHint 默认 2，bonded 4，reduce_mean 0xc / 0xe；bonded 的 CropOffset = 0x20（ANE1 从第 32 行起读，与 §11.4 地址包一致） |
+| 0x1440–0x1457 | Tile DMA 目标 | 同上；转置卷积、上采样的 ChannelStride / CropOffset 加倍 |
+| 0x1540 [6] | `SetKernelDmaSrcEnable` | 有权重时为 1；逐元素、池化、layernorm 为 0 |
+| 0x1544 | `SetKernalDmaSrcBaseAddr` | 各 TD 的权重块偏移（§11.4） |
