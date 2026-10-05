@@ -62,4 +62,4 @@ rect(lx + 20, gy + 60, 110, 80, '#e7eaf3', '#3c5488', rx=4)
 t(lx + 75, gy + 96, '当前块的', 's', 'mid'); t(lx + 75, gy + 114, '中间结果', 's', 'mid')
 
 a('</svg>')
-open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'fig9-1_tiling.svg'), 'w').write('\n'.join(o))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'zh', 'light', 'fig9-1_tiling.svg'), 'w').write('\n'.join(o))

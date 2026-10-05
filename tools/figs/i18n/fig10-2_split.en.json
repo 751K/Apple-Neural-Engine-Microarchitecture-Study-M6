@@ -1,0 +1,13 @@
+{
+ "双 ANE 程序沿用单 ANE 的切块网格，按整块分配": "Dual-ANE program reuses single-ANE tile grid, assigns whole tiles",
+ "块数为奇数时，多出的一块总是分给 ANE1": "With an odd tile count, the extra tile always goes to ANE1",
+ "每层的切块与分配（256 通道 1×1 卷积链）": "Per-layer tiles and assignment (256-ch. 1×1 conv chain)",
+ "宽 8192": "Width 8192",
+ "1536 + 4 × 1664，5 块": "1536 + 4 × 1664, 5 tiles",
+ "宽 12288": "Width 12288",
+ "2 × 1664 + 5 × 1792，7 块": "2 × 1664 + 5 × 1792, 7 tiles",
+ "宽 14336": "Width 14336",
+ "8 × 1792，8 块": "8 × 1792, 8 tiles",
+ "方块中的数字为块宽（列）；块在张量中的先后位置为示意": "Numbers are tile widths (columns); tile order in tensor is illustrative",
+ "整条链的耗时由分到较多列的 ANE1 决定（缺陷 B8）。": "Chain time is set by ANE1, which gets more columns (defect B8)."
+}

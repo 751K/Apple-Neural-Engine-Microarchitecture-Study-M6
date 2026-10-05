@@ -1,0 +1,215 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1290" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
+<rect x="0" y="0" width="1600" height="1290" fill="#161618"/>
+<style>text{fill:#dbdbde} .t{font-size:24px;font-weight:600} .n{font-size:18px} .m{font-size:17px;font-family:Menlo,SF Mono,monospace} .ms{font-size:14px;font-family:Menlo,SF Mono,monospace;fill:#c6c6c8} .s{font-size:15px;fill:#bbbbbd} .xs{font-size:13px;fill:#9c9ca0}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#bbbbbd" stroke-width="1.6"/></marker></defs>
+<text x="60" y="40" class="t" text-anchor="start">TD 序列（每个 ANE 一段）</text>
+<rect x="60" y="60" width="150" height="62" fill="#22222a" stroke="#818187" stroke-width="1.6"/>
+<text x="135" y="86" class="s" text-anchor="middle">序列头（4 字）</text>
+<text x="135" y="108" class="ms" text-anchor="middle">1 0 0 0</text>
+<rect x="222" y="60" width="170" height="62" fill="#52261f" stroke="#f37866" stroke-width="1.6"/>
+<text x="307" y="98" class="n" text-anchor="middle">TD 0（展开见下）</text>
+<rect x="404" y="60" width="120" height="62" fill="#52261f" stroke="#f37866" stroke-width="1.6" opacity="0.75"/>
+<text x="464" y="98" class="n" text-anchor="middle">TD 1</text>
+<rect x="536" y="60" width="120" height="62" fill="#52261f" stroke="#f37866" stroke-width="1.6" opacity="0.75"/>
+<text x="596" y="98" class="n" text-anchor="middle">TD 2</text>
+<text x="690" y="98" class="n" text-anchor="middle" fill="#9c9ca0">⋯</text>
+<rect x="714" y="60" width="130" height="62" fill="#52261f" stroke="#f37866" stroke-width="1.6" opacity="0.75"/>
+<text x="779" y="98" class="n" text-anchor="middle">TD n − 1</text>
+<text x="874" y="78" class="s" text-anchor="start">每层对应一个或多个 TD。单 ANE 程序一段，</text>
+<text x="874" y="100" class="s" text-anchor="start">双 ANE 程序中 ANE0、ANE1 各一段（5.8 节）。</text>
+<text x="874" y="122" class="s" text-anchor="start">TD 内没有指令和分支，只有寄存器写入。</text>
+<line x1="307" y1="122" x2="307" y2="146" stroke="#bbbbbd" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<rect x="40" y="150" width="1520" height="1110" rx="16" fill="none" stroke="#818187" stroke-width="1.2"/>
+<text x="70" y="190" class="t" text-anchor="start">一个 TD（v24 布局）</text>
+<text x="70" y="226" class="s" text-anchor="start">TD 在内存中是一串 32 位字，依次为任务头、若干写入包和若干地址包；每个包由 1 个包头字和随后的 n 个值字组成。</text>
+<rect x="70" y="240" width="300" height="40" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6"/>
+<text x="220" y="266" class="s" text-anchor="middle">任务头（12 字）</text>
+<rect x="370" y="240" width="34" height="40" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="387" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="404" y="240" width="66" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="437" y="266" class="xs" text-anchor="middle">3 个值</text>
+<rect x="470" y="240" width="34" height="40" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="487" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="504" y="240" width="110" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="559" y="266" class="xs" text-anchor="middle">5 个值</text>
+<rect x="614" y="240" width="34" height="40" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="631" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="648" y="240" width="66" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="681" y="266" class="xs" text-anchor="middle">3 个值</text>
+<rect x="714" y="240" width="34" height="40" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="731" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="748" y="240" width="132" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="814" y="266" class="xs" text-anchor="middle">6 个值</text>
+<rect x="880" y="240" width="34" height="40" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="897" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="914" y="240" width="88" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="958" y="266" class="xs" text-anchor="middle">4 个值</text>
+<rect x="1002" y="240" width="90" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6" opacity="0.6"/>
+<text x="1047" y="266" class="n" text-anchor="middle">⋯</text>
+<rect x="1092" y="240" width="34" height="40" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="1109" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="1126" y="240" width="60" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<rect x="1186" y="240" width="34" height="40" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="1203" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="1220" y="240" width="30" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<rect x="1250" y="240" width="34" height="40" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="1267" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="1284" y="240" width="60" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<rect x="1344" y="240" width="34" height="40" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="1361" y="266" class="xs" text-anchor="middle">头</text>
+<rect x="1378" y="240" width="60" height="40" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<path d="M72 286 v6 H368 v-6" stroke="#818187" stroke-width="1.4" fill="none"/>
+<text x="220.0" y="312" class="s" text-anchor="middle">①</text>
+<path d="M372 286 v6 H1090 v-6" stroke="#818187" stroke-width="1.4" fill="none"/>
+<text x="731.0" y="312" class="s" text-anchor="middle">② 寄存器写入包</text>
+<path d="M1094 286 v6 H1436 v-6" stroke="#818187" stroke-width="1.4" fill="none"/>
+<text x="1265.0" y="312" class="s" text-anchor="middle">③ 地址包</text>
+<text x="70" y="350" class="n" text-anchor="start">① 任务头：12 个字（td_header0–11）</text>
+<rect x="70" y="364" width="200" height="58" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6"/>
+<text x="170.0" y="388" class="ms" text-anchor="middle">+0x0</text>
+<text x="170.0" y="412" class="s" text-anchor="middle">tid · TaskSize</text>
+<rect x="270" y="364" width="160" height="58" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6"/>
+<text x="350.0" y="388" class="ms" text-anchor="middle">+0x4</text>
+<text x="350.0" y="412" class="s" text-anchor="middle">exe_cycles</text>
+<rect x="430" y="364" width="560" height="58" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6"/>
+<text x="710.0" y="388" class="ms" text-anchor="middle">+0x8 … +0x1c</text>
+<text x="710.0" y="412" class="s" text-anchor="middle">事件掩码：log / exception / debug / dram（6 字）</text>
+<rect x="990" y="364" width="300" height="58" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6"/>
+<text x="1140.0" y="388" class="ms" text-anchor="middle">+0x20</text>
+<text x="1140.0" y="412" class="s" text-anchor="middle">标志字：Tsr · Tde · PublishBit</text>
+<rect x="1290" y="364" width="240" height="58" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6" opacity="0.6"/>
+<text x="1410.0" y="388" class="ms" text-anchor="middle">+0x24 … +0x2c</text>
+<text x="1410.0" y="412" class="s" text-anchor="middle">其余 3 字</text>
+<text x="70" y="446" class="xs" text-anchor="start">TaskSize 以字为单位给出本 TD 的长度；exe_cycles 是编译器性能模型的延迟估计（约 1 µs / 单位）；各字段见表 5-6。</text>
+<text x="70" y="490" class="n" text-anchor="start">② 寄存器写入包：包头字说明写哪些寄存器，值字依次写入</text>
+<text x="140" y="516" class="xs" text-anchor="middle">包头字</text>
+<text x="336" y="516" class="xs" text-anchor="middle">值字（下方小字为目标寄存器）</text>
+<rect x="70" y="526" width="140" height="50" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="140" y="557" class="m" text-anchor="middle">00010001</text>
+<rect x="210" y="526" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="252.0" y="548" class="n" text-anchor="middle">Win</text>
+<text x="252.0" y="568" class="xs" text-anchor="middle">寄存器 1</text>
+<rect x="294" y="526" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="336.0" y="548" class="n" text-anchor="middle">Hin</text>
+<text x="336.0" y="568" class="xs" text-anchor="middle">寄存器 2</text>
+<rect x="378" y="526" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="420.0" y="548" class="n" text-anchor="middle">Cin</text>
+<text x="420.0" y="568" class="xs" text-anchor="middle">寄存器 3</text>
+<text x="560" y="548" class="s" text-anchor="start">连续写：从寄存器 1 起</text>
+<text x="560" y="568" class="s" text-anchor="start">连续写 3 个值</text>
+<rect x="70" y="590" width="140" height="50" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="140" y="621" class="m" text-anchor="middle">80c11340</text>
+<rect x="210" y="590" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="252.0" y="612" class="n" text-anchor="middle">值</text>
+<text x="252.0" y="632" class="xs" text-anchor="middle">寄存器 1340</text>
+<rect x="294" y="590" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="336.0" y="612" class="n" text-anchor="middle">值</text>
+<text x="336.0" y="632" class="xs" text-anchor="middle">寄存器 1342</text>
+<rect x="378" y="590" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="420.0" y="612" class="n" text-anchor="middle">值</text>
+<text x="420.0" y="632" class="xs" text-anchor="middle">寄存器 1348</text>
+<rect x="462" y="590" width="84" height="50" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="504.0" y="612" class="n" text-anchor="middle">值</text>
+<text x="504.0" y="632" class="xs" text-anchor="middle">寄存器 1349</text>
+<text x="560" y="612" class="s" text-anchor="start">掩码写：写基址 0x1340，</text>
+<text x="560" y="632" class="s" text-anchor="start">以及掩码选中的 3 个寄存器</text>
+<text x="820" y="490" class="n" text-anchor="start">③ 地址包：值字是缓冲区内的偏移，BAR 编号指明是哪个缓冲区</text>
+<text x="890" y="516" class="xs" text-anchor="middle">包头字</text>
+<text x="1016" y="516" class="xs" text-anchor="middle">偏移（低 / 高 32 位）</text>
+<rect x="820" y="526" width="140" height="44" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="890" y="554" class="m" text-anchor="middle">20809544</text>
+<rect x="960" y="526" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="988" y="554" class="ms" text-anchor="middle">Lo</text>
+<rect x="1016" y="526" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="1044" y="554" class="ms" text-anchor="middle">Hi</text>
+<text x="1090" y="545" class="s" text-anchor="start">权重（寄存器 0x1544），BAR 4</text>
+<text x="1090" y="564" class="xs" text-anchor="start">加载时由静态重定位填入</text>
+<rect x="820" y="580" width="140" height="44" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="890" y="608" class="m" text-anchor="middle">22801344</text>
+<rect x="960" y="580" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="988" y="608" class="ms" text-anchor="middle">值</text>
+<text x="1090" y="599" class="s" text-anchor="start">DSID 参数（寄存器 0x1344），BAR 20</text>
+<text x="1090" y="618" class="xs" text-anchor="start">系统级缓存的数据流标签</text>
+<rect x="820" y="634" width="140" height="44" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="890" y="662" class="m" text-anchor="middle">23009444</text>
+<rect x="960" y="634" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="988" y="662" class="ms" text-anchor="middle">Lo</text>
+<rect x="1016" y="634" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="1044" y="662" class="ms" text-anchor="middle">Hi</text>
+<text x="1090" y="653" class="s" text-anchor="start">输出（寄存器 0x1444），BAR 24</text>
+<text x="1090" y="672" class="xs" text-anchor="start">每次调用时由运行时按 BAR 填入</text>
+<rect x="820" y="688" width="140" height="44" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="890" y="716" class="m" text-anchor="middle">23809346</text>
+<rect x="960" y="688" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="988" y="716" class="ms" text-anchor="middle">Lo</text>
+<rect x="1016" y="688" width="56" height="44" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="1044" y="716" class="ms" text-anchor="middle">Hi</text>
+<text x="1090" y="707" class="s" text-anchor="start">输入（寄存器 0x1346），BAR 28</text>
+<text x="1090" y="726" class="xs" text-anchor="start">24 起每个张量 4 个槽位，先输出后输入</text>
+<text x="70" y="790" class="s" text-anchor="start">② 中的写入包按以下寄存器组的顺序排列（字段偏移，表 5-8），这一顺序与硬件中的数据流向一致：</text>
+<rect x="70" y="804" width="198" height="64" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.6"/>
+<text x="169.0" y="832" class="n" text-anchor="middle">公共</text>
+<text x="169.0" y="854" class="xs" text-anchor="middle">形状 · 任务类型</text>
+<rect x="277" y="804" width="198" height="64" fill="#1f4753" stroke="#61c4dd" stroke-width="1.6"/>
+<text x="376.0" y="832" class="n" text-anchor="middle">输入</text>
+<text x="376.0" y="854" class="xs" text-anchor="middle">Tile DMA</text>
+<rect x="484" y="804" width="198" height="64" fill="#205347" stroke="#1dffdc" stroke-width="1.6"/>
+<text x="583.0" y="832" class="n" text-anchor="middle">纹理 / gather</text>
+<text x="583.0" y="854" class="xs" text-anchor="middle">重采样</text>
+<rect x="691" y="804" width="198" height="64" fill="#205347" stroke="#1dffdc" stroke-width="1.6"/>
+<text x="790.0" y="832" class="n" text-anchor="middle">L2 源</text>
+<text x="790.0" y="854" class="xs" text-anchor="middle">环形缓冲</text>
+<rect x="898" y="804" width="198" height="64" fill="#262f4c" stroke="#6b87c3" stroke-width="1.6"/>
+<text x="997.0" y="832" class="n" text-anchor="middle">PE</text>
+<text x="997.0" y="854" class="xs" text-anchor="middle">逐元素</text>
+<rect x="1105" y="804" width="198" height="64" fill="#262f4c" stroke="#6b87c3" stroke-width="1.6"/>
+<text x="1204.0" y="832" class="n" text-anchor="middle">NE</text>
+<text x="1204.0" y="854" class="xs" text-anchor="middle">卷积配置 · 移位</text>
+<rect x="1312" y="804" width="198" height="64" fill="#1f4753" stroke="#61c4dd" stroke-width="1.6"/>
+<text x="1411.0" y="832" class="n" text-anchor="middle">输出</text>
+<text x="1411.0" y="854" class="xs" text-anchor="middle">Tile DMA</text>
+<line x1="277" y1="890" x2="1520" y2="890" stroke="#bbbbbd" stroke-width="2" marker-end="url(#a)"/>
+<text x="860" y="914" class="xs" text-anchor="middle">DRAM → 输入 Tile DMA → L2 → NE / PE → 输出 Tile DMA → DRAM</text>
+<text x="70" y="960" class="n" text-anchor="start">④ 包头字的逐位解码：以 ②、③ 中的三个包头字为例（32 位，左为 bit 31）</text>
+<text x="289.0" y="990" class="ms" text-anchor="middle">31</text>
+<text x="327.0" y="990" class="ms" text-anchor="middle">30</text>
+<text x="365.0" y="990" class="ms" text-anchor="middle">29</text>
+<text x="403.0" y="990" class="ms" text-anchor="middle">28</text>
+<text x="669.0" y="990" class="ms" text-anchor="middle">21</text>
+<text x="707.0" y="990" class="ms" text-anchor="middle">20</text>
+<text x="897.0" y="990" class="ms" text-anchor="middle">15</text>
+<text x="935.0" y="990" class="ms" text-anchor="middle">14</text>
+<text x="1467.0" y="990" class="ms" text-anchor="middle">0</text>
+<text x="150" y="1032" class="n" text-anchor="end">连续写</text>
+<text x="255" y="1032" class="m" text-anchor="end">00010001</text>
+<rect x="270" y="1002" width="38" height="48" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="289.0" y="1032" class="n" text-anchor="middle">0</text>
+<rect x="308" y="1002" width="608" height="48" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="612.0" y="1032" class="n" text-anchor="middle">个数 − 1 = 2</text>
+<rect x="916" y="1002" width="570" height="48" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="1201.0" y="1032" class="n" text-anchor="middle">起始寄存器 = 0x0001</text>
+<text x="150" y="1094" class="n" text-anchor="end">掩码写</text>
+<text x="255" y="1094" class="m" text-anchor="end">80c11340</text>
+<rect x="270" y="1064" width="38" height="48" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="289.0" y="1094" class="n" text-anchor="middle">1</text>
+<rect x="308" y="1064" width="608" height="48" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="612.0" y="1094" class="n" text-anchor="middle">掩码 = 0x0182（bit 1、7、8）</text>
+<rect x="916" y="1064" width="570" height="48" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="1201.0" y="1094" class="n" text-anchor="middle">基址 = 0x1340</text>
+<text x="150" y="1156" class="n" text-anchor="end">地址包</text>
+<text x="255" y="1156" class="m" text-anchor="end">23809346</text>
+<rect x="270" y="1126" width="38" height="48" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="289.0" y="1156" class="n" text-anchor="middle">0</text>
+<rect x="308" y="1126" width="38" height="48" fill="#30303c" stroke="#a6a6a8" stroke-width="1.6"/>
+<text x="327.0" y="1156" class="n" text-anchor="middle">0</text>
+<rect x="346" y="1126" width="38" height="48" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="365.0" y="1156" class="n" text-anchor="middle">1</text>
+<rect x="384" y="1126" width="304" height="48" fill="#4e3c2a" stroke="#b79578" stroke-width="1.6"/>
+<text x="536.0" y="1156" class="n" text-anchor="middle">BAR = 28</text>
+<rect x="688" y="1126" width="228" height="48" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="802.0" y="1156" class="n" text-anchor="middle">个数 − 1 = 1</text>
+<rect x="916" y="1126" width="570" height="48" fill="#1a1a1a" stroke="#525867" stroke-width="1.6"/>
+<text x="1201.0" y="1156" class="n" text-anchor="middle">寄存器 = 0x1346</text>
+<text x="270" y="1198" class="xs" text-anchor="start">bit 31 区分连续写（0）与掩码写（1）；掩码第 i 位为 1 时另写寄存器"基址 + 1 + i"；地址包以 bit 29 为标记，所有 64 位地址包的 BAR 编号都是偶数（表 5-7、5.7.6 节）。</text>
+<text x="70" y="1244" class="xs" text-anchor="start">示例取自 256 通道、8×32 输入、4 层的 1×9 卷积在 h18g 上的产物（data/03_compile/tdv/h18g）。</text>
+</svg>

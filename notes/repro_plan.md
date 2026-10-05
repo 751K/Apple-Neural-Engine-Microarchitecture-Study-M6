@@ -105,7 +105,7 @@
 | # | 内容 | 状态 | 位置 |
 |---|---|---|---|
 | G1 | M6 与 M1 / M4 / M5（论文和 maderix 的数据）的对照表 | ✅ | comparison.md |
-| G2 | M6 ANE 硬件框图 | ✅ | figs/m6_ane_block.svg（.png） |
+| G2 | M6 ANE 硬件框图 | ✅ | figs/legacy/m6_ane_block.svg（.png） |
 
 ## H. 计划外的补充项
 

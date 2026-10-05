@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 640" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .b{font-size:14.5px;fill:#3a3a3c} .c{font-size:13px;fill:#6e6e73} .m{font-size:13px;font-family:Menlo,SF Mono,monospace;fill:#3a3a3c} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#48484a"/></marker></defs>
+<text class="h" x="40" y="30">FP16 conv and matmul datapath</text>
+<rect x="40" y="52" width="130" height="50" rx="10" fill="#ffffff" stroke="#8e8e93" stroke-width="1.5"/>
+<text class="b mid" x="105" y="83">x (FP16)</text>
+<rect x="40" y="118" width="130" height="50" rx="10" fill="#ffffff" stroke="#8e8e93" stroke-width="1.5"/>
+<text class="b mid" x="105" y="149">w (FP16)</text>
+<rect x="220" y="52" width="300" height="116" rx="10" fill="#f5f5f7" stroke="#8e8e93" stroke-width="1.5"/>
+<text class="h mid" x="370" y="80">Input decode</text>
+<text class="c mid" x="370" y="106">All-ones exponent decoded as normal:</text>
+<text class="c mid" x="370" y="126">+inf → 2¹⁶, NaN 0x7E00 → 1.5 × 2¹⁶</text>
+<text class="c mid" x="370" y="148">inf comes from accumulator overflow</text>
+<path d="M170 77 H216" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<path d="M170 143 H216" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="570" y="52" width="260" height="116" rx="10" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.5"/>
+<text class="h mid" x="700" y="80">Multiply</text>
+<text class="b mid" x="700" y="108">Mantissa product ∈ [1, 4)</text>
+<text class="b mid" x="700" y="130">Exponent sum e</text>
+<text class="c mid" x="700" y="152">(inferred internal form)</text>
+<path d="M520 110 H566" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="880" y="52" width="520" height="116" rx="10" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.5"/>
+<text class="h mid" x="1140" y="80">Align to 2⁻¹⁶</text>
+<text class="b" x="900" y="110">e ≥ −16:</text>
+<text class="b" x="980" y="110">round (ties away from 0), add to accumulator</text>
+<text class="b" x="900" y="136">e ≤ −17:</text>
+<text class="b" x="980" y="136">whole product dropped, even if ≈ 2 LSB</text>
+<text class="c" x="900" y="158">Subnormal exponent taken as −14</text>
+<path d="M830 110 H876" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<path d="M1000 168 V236" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="40" y="240" width="260" height="150" rx="10" fill="#f5f5f7" stroke="#8e8e93" stroke-width="1.5"/>
+<text class="h mid" x="170" y="268">Bias b (FP16)</text>
+<text class="b mid" x="170" y="296">Round to 2⁻¹⁶ (away from 0)</text>
+<text class="b mid" x="170" y="318">as accumulator init</text>
+<text class="c mid" x="170" y="346">Large negative bias offsets products,</text>
+<text class="c mid" x="170" y="366">avoiding overflow</text>
+<path d="M300 315 H346" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="350" y="240" width="760" height="150" rx="10" fill="#f5f0eb" stroke="#7e6148" stroke-width="1.5"/>
+<text class="h" x="370" y="268">Accumulator: 32-bit fixed-point Q15.16</text>
+<rect x="390" y="286" width="21" height="30" fill="#f6c3bb" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="411" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="432" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="453" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="474" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="495" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="516" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="537" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="558" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="579" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="600" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="621" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="642" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="663" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="684" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="705" y="286" width="21" height="30" fill="#c3cbe0" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="726" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="747" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="768" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="789" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="810" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="831" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="852" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="873" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="894" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="915" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="936" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="957" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="978" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="999" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="1020" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<rect x="1041" y="286" width="21" height="30" fill="#c8e9e1" stroke="#ffffff" stroke-width="1.5"/>
+<text class="m mid" x="400.5" y="334">31</text>
+<text class="m mid" x="421.5" y="334">30</text>
+<text class="m mid" x="715.5" y="334">16</text>
+<text class="m mid" x="736.5" y="334">15</text>
+<text class="m mid" x="1051.5" y="334">0</text>
+<text class="c mid" x="400.5" y="356">Sign</text>
+<text class="c mid" x="568.5" y="356">Integer 15 bits: |v| &lt; 2¹⁵ = 32768</text>
+<text class="c mid" x="904.5" y="356">Fraction 16 bits: LSB = 2⁻¹⁶</text>
+<text class="c" x="370" y="380">|v| reaching 32768 at any time → inf, never recovers; no FP16 partial sums during accumulation.</text>
+<path d="M1110 315 H1156" stroke="#48484a" stroke-width="1.6" fill="none" marker-end="url(#ar)"/>
+<rect x="1160" y="240" width="240" height="150" rx="10" fill="#e3f4f0" stroke="#00a087" stroke-width="1.5"/>
+<text class="h mid" x="1280" y="268">Convert to FP16</text>
+<text class="b mid" x="1280" y="298">Round, ties away from 0</text>
+<text class="c mid" x="1280" y="320">(not IEEE ties-to-even)</text>
+<text class="m mid" x="1280" y="346">2049 → 2050</text>
+<text class="m mid" x="1280" y="368">−0 → +0</text>
+<text class="h" x="40" y="446">Comparison of three datapaths</text>
+<rect x="40" y="464" width="440" height="150" rx="10" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.5"/>
+<text class="h" x="60" y="496">FP16 conv / matmul</text>
+<text class="b" x="60" y="528">32-bit fixed-point Q15.16 (above)</text>
+<text class="b" x="60" y="556">Range |v| &lt; 32768, resolution 2⁻¹⁶</text>
+<text class="b" x="60" y="584">Overflow → inf</text>
+<text class="c end" x="460" y="600">Sec. 8.2</text>
+<rect x="500" y="464" width="440" height="150" rx="10" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.5"/>
+<text class="h" x="520" y="496">INT8 conv (W8A8)</text>
+<text class="b" x="520" y="528">32-bit int accumulation, scaled afterwards</text>
+<text class="b" x="520" y="556">Can exceed 32768 (e.g. 64512)</text>
+<text class="b" x="520" y="584">S ≥ 2³¹: overflow → inf</text>
+<text class="c end" x="920" y="600">Sec. 8.3</text>
+<rect x="960" y="464" width="440" height="150" rx="10" fill="#f5f5f7" stroke="#8e8e93" stroke-width="1.5"/>
+<text class="h" x="980" y="496">Elementwise (PE)</text>
+<text class="b" x="980" y="528">FP16 floating point</text>
+<text class="b" x="980" y="556">Keeps subnormals (e.g. 2⁻²⁴)</text>
+<text class="b" x="980" y="584">Above FP16 max → inf</text>
+<text class="c end" x="1380" y="600">Sec. 8.4</text>
+</svg>

@@ -1,0 +1,23 @@
+{
+ "① 16 MB 的中间张量被切成 9 块，每块都小于 2 MiB": "① 16 MB intermediate tensor split into 9 tiles, each < 2 MiB",
+ "块 1": "Tile 1",
+ "块 2": "Tile 2",
+ "块 3": "Tile 3",
+ "块 4": "Tile 4",
+ "块 5": "Tile 5",
+ "块 6": "Tile 6",
+ "块 7": "Tile 7",
+ "块 8": "Tile 8",
+ "块 9": "Tile 9",
+ "宽 32768 列，256 通道，16 MB；每块约 1.78 MB，块宽为 128 列的整数倍": "Width 32768 cols, 256 ch., 16 MB; tile ≈ 1.78 MB, tile width a multiple of 128 cols",
+ "块数 = ⌊中间张量大小 ÷ 2 MiB⌋ + 1": "tiles = ⌊tensor size ÷ 2 MiB⌋ + 1",
+ "2 MB → 2 块，4 MB → 3 块，16 MB → 9 块": "2 MB → 2 tiles, 4 MB → 3 tiles, 16 MB → 9 tiles",
+ "② 每一块连续执行完整条链，再处理下一块；中间结果始终留在 L2": "② Each tile runs the whole chain before the next; intermediates stay in L2",
+ "第 1 层": "Layer 1",
+ "第 2 层": "Layer 2",
+ "第 n 层": "Layer n",
+ "每块只在第 1 层读入、在第 n 层写出 DRAM；层与层之间不经过 DRAM": "Each tile reads DRAM only at layer 1, writes only at layer n; no DRAM between layers",
+ "编译器按 2 MiB 使用": "Compiler uses 2 MiB",
+ "当前块的": "Current tile",
+ "中间结果": "intermediates"
+}

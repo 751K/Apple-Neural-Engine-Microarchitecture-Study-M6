@@ -1,6 +1,6 @@
 #!/bin/zsh
 # 用 Chrome 无头模式把 SVG 导出为 2 倍分辨率的 PNG。
-# 用法：tools/figs/render.sh figs/fig5-2_td_format.svg [...]
+# 用法：tools/figs/render.sh figs/zh/light/fig5-2_td_format.svg [...]
 CHROME="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 for svg in "$@"; do
   abs=$(cd "$(dirname "$svg")" && pwd)/$(basename "$svg")

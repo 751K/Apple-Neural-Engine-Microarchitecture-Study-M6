@@ -2,7 +2,7 @@
 # 图 13-1（第 13.2–13.3 节）：ANE 功耗的分解。
 #   (a) 各类负载的 ANE 净功耗（PP0b − PACC0 簇 − 断电时的同一差值），右侧浅灰为同时段内存电源轨（PP2b + PP4b）；
 #       FP16 卷积一行按"双 ANE 比单 ANE 两倍少出的部分 = 共用开销"拆成共用开销与每个 ANE 的计算部分；
-#       W8A8 一行拆成同速读权重负载的功耗与其余部分（第 13.3 节的扣除方法）。
+#       W8A8 一行拆成同速读权重负载的功耗（其中已含共用开销）与其余部分（第 13.3 节的扣除方法）。
 #   (b) 由差值推算的每次运算能耗（对数坐标）：实心点为 ANE 净功耗 / 有效速率，空心点为再扣除共用开销后的值。
 # 数据：data/11_power/power_parts4/（第 4 轮，扣除 CPU 簇），data/11_power/power_zero/（偏置为 0 的 1×1 卷积链，两轮平均）。
 # 处理：时间窗与功耗算法同 tools/11_power/power_parts_fit.py（稳态 = 开始后 4 s 至结束前 0.3 s；上电空闲 = 结束后
@@ -69,7 +69,7 @@ q8_rest = q8['st'] - wb['st']
 pj = lambda w, r: w / r * 1e12 + 1e-9  # +1e-9：0.795 等按四舍五入显示
 E = dict(
     f16=pj(f1['st'], r_f1), f16n=pj(per_eng, r_f1), f16d=pj(f2['st'], r_f2),
-    q8=pj(q8_rest, r_q8), q8n=pj(q8_rest - shared, r_q8),
+    q8=pj(q8['st'], r_q8), q8n=pj(q8_rest, r_q8),   # 读权重负载中已含共用开销，相减后不再扣
     zr=pj(zr['st'], r_z), zz=pj(zz['st'], r_z),
     pa=pj(pa['st'] - pa['on'], r_pa), pm=pj(pm['st'] - pm['on'], r_pm),
     dram=pj(wb['st'] + wb['mem'], r_wb), dram_mem=pj(wb['mem'], r_wb), dram_ane=pj(wb['st'], r_wb))
@@ -95,7 +95,7 @@ rows = [  # (标签, 副标签, [(起, 止, 颜色, 段内文字)], 内存电源
      f"{f1['st']:.2f} W"),
     ('双 ANE，FP16 卷积', '384 层，共享权重', [(0, shared, SHARED, '共用'), (shared, shared + per_eng, PUR, 'ANE0 计算'),
                                      (shared + per_eng, f2['st'], BLU, 'ANE1 计算')], f2['mem'], f"{f2['st']:.2f} W"),
-    ('单 ANE，W8A8 卷积', '每次读 100 MB 权重', [(0, wb['st'], ORA, '读权重'), (wb['st'], q8['st'], GRN, 'INT8 计算等')],
+    ('单 ANE，W8A8 卷积', '每次读 100 MB 权重', [(0, wb['st'], ORA, '读权重＋共用'), (wb['st'], q8['st'], GRN, 'INT8 计算')],
      q8['mem'], f"{q8['st']:.2f} W"),
     ('单 ANE，读权重受限', '每次 100 MB，96.6 GB/s', [(0, wb['st'], ORA, '')], wb['mem'], f"{wb['st']:.2f} W"),
     ('双 ANE，PE 逐元素加', '数据在 L2 内，随机输入', [(0, pa['st'], RED, '')], pa['mem'], f"{pa['st']:.2f} W"),
@@ -143,7 +143,7 @@ for v in [0.2, 0.5, 1, 2, 5, 10, 20, 50, 100, 200]:
 erows = [  # (标签, 单位, 实心值, 空心值, 颜色, 注)
     ('FP16 乘加（单 ANE / 双 ANE）', '每次乘加', E['f16'], E['f16n'], PUR,
      f"{E['f16']:.2f} / {E['f16d']:.2f}；扣除共用 {E['f16n']:.2f}"),
-    ('INT8 乘加（W8A8）', '每次乘加', E['q8'], E['q8n'], GRN, f"{E['q8']:.2f}；扣除共用 {E['q8n']:.2f}"),
+    ('INT8 乘加（W8A8）', '每次乘加', E['q8'], E['q8n'], GRN, f"{E['q8']:.2f}；扣除读权重负载 {E['q8n']:.2f}"),
     ('FP16 乘加，激活全为 0', '每次乘加（偏置为 0 的卷积链）', E['zr'], E['zz'], PUR,
      f"随机 {E['zr']:.2f} → 全 0 {E['zz']:.2f}"),
     ('读取 DRAM', '每字节', E['dram'], E['dram_ane'], ORA,

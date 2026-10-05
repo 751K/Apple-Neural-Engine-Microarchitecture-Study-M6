@@ -1,0 +1,127 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 690" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<rect x="0" y="0" width="1440" height="690" fill="#161618"/>
+<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .b{font-size:14px;fill:#c6c6c8} .c{font-size:12.5px;fill:#9c9ca0} .m{font-size:11px;font-family:Menlo,SF Mono,monospace;fill:#1a1a1a} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<text class="h" x="40" y="34">16 layers: task ≈ 49 µs, call 227 µs</text>
+<text class="b end" x="194" y="106">User thread</text>
+<line x1="210" y1="101" x2="1400" y2="101" stroke="#2e2e33" stroke-width="1"/>
+<text class="b end" x="194" y="146">Kernel driver</text>
+<line x1="210" y1="141" x2="1400" y2="141" stroke="#2e2e33" stroke-width="1"/>
+<text class="b end" x="194" y="186">ANE firmware</text>
+<line x1="210" y1="181" x2="1400" y2="181" stroke="#2e2e33" stroke-width="1"/>
+<text class="b end" x="194" y="226">ANE</text>
+<line x1="210" y1="221" x2="1400" y2="221" stroke="#2e2e33" stroke-width="1"/>
+<line x1="210.0" y1="80" x2="210.0" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="210.0" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="210.0" y="74">1</text>
+<rect x="210.0" y="128" width="80.1" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text class="c mid" x="250.0" y="146">Submit ≈ 31</text>
+<rect x="290.1" y="208" width="128.4" height="26" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
+<text class="c mid" x="354.3" y="226">ANE task 49 µs</text>
+<line x1="418.5" y1="80" x2="418.5" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="418.5" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="418.5" y="74">2</text>
+<rect x="418.5" y="168" width="19.2" height="26" rx="3" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.3"/>
+<text class="c mid" x="428.1" y="186">7</text>
+<line x1="437.8" y1="80" x2="437.8" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="437.8" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="437.8" y="74">3</text>
+<rect x="437.8" y="128" width="58.0" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="466.8" y="146">Intr. 22</text>
+<line x1="495.7" y1="80" x2="495.7" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="495.7" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="495.7" y="74">4</text>
+<rect x="495.7" y="128" width="19.5" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="505.5" y="146">8</text>
+<line x1="515.2" y1="80" x2="515.2" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="515.2" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="515.2" y="74">5</text>
+<rect x="515.2" y="128" width="54.3" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="542.4" y="146">21</text>
+<line x1="569.6" y1="80" x2="569.6" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="569.6" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="569.6" y="74">6</text>
+<rect x="569.6" y="88" width="211.1" height="26" rx="3" fill="#1f314b" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="675.1" y="106">User thread return 81 µs</text>
+<line x1="780.7" y1="80" x2="780.7" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="780.7" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="780.7" y="74">7</text>
+<rect x="780.7" y="88" width="18.2" height="26" rx="3" fill="#1f314b" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="789.8" y="106">7</text>
+<line x1="798.9" y1="80" x2="798.9" y2="240" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="798.9" cy="70" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="798.9" y="74">8</text>
+<path d="M418.5 250 v6 H798.9 v-6" stroke="#bbbbbd" stroke-width="1.2" fill="none"/>
+<text class="b mid" x="608.7" y="274">After task end 146 µs (driver completion 21 µs, user return 81 µs)</text>
+<text class="h" x="40" y="312">384 layers: task ≈ 1262 µs, call 1618 µs</text>
+<text class="b end" x="194" y="384">User thread</text>
+<line x1="210" y1="379" x2="1400" y2="379" stroke="#2e2e33" stroke-width="1"/>
+<text class="b end" x="194" y="424">Kernel driver</text>
+<line x1="210" y1="419" x2="1400" y2="419" stroke="#2e2e33" stroke-width="1"/>
+<text class="b end" x="194" y="464">ANE firmware</text>
+<line x1="210" y1="459" x2="1400" y2="459" stroke="#2e2e33" stroke-width="1"/>
+<text class="b end" x="194" y="504">ANE</text>
+<line x1="210" y1="499" x2="1400" y2="499" stroke="#2e2e33" stroke-width="1"/>
+<line x1="210.0" y1="358" x2="210.0" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="210.0" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="210.0" y="352">1</text>
+<rect x="210.0" y="406" width="80.1" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text class="c mid" x="250.0" y="424">Submit ≈ 31</text>
+<rect x="290.1" y="486" width="220.0" height="26" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
+<rect x="390.1" y="484" width="20" height="30" fill="#1a1a1a"/>
+<path d="M394.1 482 l6 34" stroke="#6b87c3" stroke-width="1.5"/>
+<path d="M404.1 482 l6 34" stroke="#6b87c3" stroke-width="1.5"/>
+<text class="c mid" x="345.1" y="504">ANE task</text>
+<text class="c mid" x="455.1" y="504">1262 µs</text>
+<line x1="510.1" y1="358" x2="510.1" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="510.1" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="510.1" y="352">2</text>
+<rect x="510.1" y="446" width="51.7" height="26" rx="3" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.3"/>
+<text class="c mid" x="535.9" y="464">20</text>
+<line x1="561.8" y1="358" x2="561.8" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="561.8" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="561.8" y="352">3</text>
+<rect x="561.8" y="406" width="45.8" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="584.7" y="424">18</text>
+<line x1="607.6" y1="358" x2="607.6" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="607.6" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="607.6" y="352">4</text>
+<rect x="607.6" y="406" width="29.6" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="622.4" y="424">11</text>
+<line x1="637.2" y1="358" x2="637.2" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="637.2" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="637.2" y="352">5</text>
+<rect x="637.2" y="406" width="274.3" height="26" rx="3" fill="#27354e" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="774.4" y="424">Driver completion 106 µs</text>
+<line x1="911.5" y1="358" x2="911.5" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="911.5" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="911.5" y="352">6</text>
+<rect x="911.5" y="366" width="408.2" height="26" rx="3" fill="#1f314b" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="1115.6" y="384">User thread return 157 µs</text>
+<line x1="1319.7" y1="358" x2="1319.7" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="1319.7" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="1319.7" y="352">7</text>
+<rect x="1319.7" y="366" width="20.3" height="26" rx="3" fill="#1f314b" stroke="#8a98b6" stroke-width="1.3"/>
+<text class="c mid" x="1329.9" y="384">8</text>
+<line x1="1340.0" y1="358" x2="1340.0" y2="518" stroke="#67676c" stroke-width="1" stroke-dasharray="2 3"/>
+<circle cx="1340.0" cy="348" r="9" fill="#bbbbbd"/>
+<text class="m mid" x="1340.0" y="352">8</text>
+<path d="M510.1 528 v6 H1340.0 v-6" stroke="#bbbbbd" stroke-width="1.2" fill="none"/>
+<text class="b mid" x="925.0" y="552">After task end 319 µs (driver completion 106 µs, user return 157 µs)</text>
+<text class="h" x="40" y="600">kdebug events (class 0x06, subclass 0x1b; Table 6-1)</text>
+<circle cx="52" cy="625" r="9" fill="#bbbbbd"/><text class="m mid" x="52" y="629">1</text>
+<text class="b" x="70" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b01a9</tspan> driver gets submit</text>
+<circle cx="392" cy="625" r="9" fill="#bbbbbd"/><text class="m mid" x="392" y="629">2</text>
+<text class="b" x="410" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b0126</tspan> ANE task end</text>
+<circle cx="732" cy="625" r="9" fill="#bbbbbd"/><text class="m mid" x="732" y="629">3</text>
+<text class="b" x="750" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b00b8</tspan> firmware message</text>
+<circle cx="1072" cy="625" r="9" fill="#bbbbbd"/><text class="m mid" x="1072" y="629">4</text>
+<text class="b" x="1090" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b0020</tspan> interrupt</text>
+<circle cx="52" cy="655" r="9" fill="#bbbbbd"/><text class="m mid" x="52" y="659">5</text>
+<text class="b" x="70" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b00a0</tspan> completion mark</text>
+<circle cx="392" cy="655" r="9" fill="#bbbbbd"/><text class="m mid" x="392" y="659">6</text>
+<text class="b" x="410" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b0170</tspan> driver completion end</text>
+<circle cx="732" cy="655" r="9" fill="#bbbbbd"/><text class="m mid" x="732" y="659">7</text>
+<text class="b" x="750" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b0024</tspan> user thread return</text>
+<circle cx="1072" cy="655" r="9" fill="#bbbbbd"/><text class="m mid" x="1072" y="659">8</text>
+<text class="b" x="1090" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b01a9</tspan> next submit</text>
+</svg>

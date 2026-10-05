@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 730" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .h2{font-size:16px;font-weight:600} .b{font-size:14.5px;fill:#3a3a3c} .c{font-size:13px;fill:#6e6e73} .m{font-size:12.5px;font-family:Menlo,SF Mono,monospace;fill:#3a3a3c} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#48484a"/></marker><marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7e6148"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#7e6148" stroke-width="1.5"/></pattern></defs>
+<text class="h" x="40" y="32">① Split by rows (baseline: 1×1 conv chain, height 64)</text>
+<rect x="70" y="60" width="180" height="110" rx="2" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<rect x="70" y="170" width="180" height="110" rx="2" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<rect x="70" y="158" width="180" height="24" fill="url(#hatch)" opacity="0.55"/>
+<text class="b mid" x="160" y="112">rows 0–31</text>
+<text class="b mid" x="160" y="232">rows 32–63</text>
+<text class="c mid" x="160" y="302">Activations</text>
+<rect x="320" y="82" width="130" height="64" rx="8" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="h2 mid" x="385" y="120">ANE0</text>
+<rect x="320" y="194" width="130" height="64" rx="8" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="h2 mid" x="385" y="232">ANE1</text>
+<path d="M250 114 H316" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M250 226 H316" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<rect x="540" y="128" width="130" height="84" rx="8" fill="#e1f3f8" stroke="#2f9ab5" stroke-width="1.4"/>
+<text class="h2 mid" x="605" y="162">Weights</text>
+<text class="c mid" x="605" y="186">(full copy)</text>
+<path d="M540 170 H495" stroke="#48484a" stroke-width="1.5" fill="none"/>
+<path d="M495 170 V114 H454" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M495 170 V226 H454" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<text class="c mid" x="605" y="236">read by each ANE</text>
+<text class="c" x="70" y="330">Both ANEs use the same weights, each on all 16 NEs; results merged at end.</text>
+<text class="c" x="70" y="350">Kernels taller than 1 also read overlap rows (hatched); more layers, more overlap.</text>
+<text class="c" x="70" y="370">In TDs: height 64 → 32; ANE1 address packets offset 32 rows; PublishBit = 1.</text>
+<text class="h" x="760" y="32">② Split by out ch. (e.g. 5×5 conv on 8×32, 4 passes × 64 ch. per layer)</text>
+<rect x="770" y="60" width="170" height="46" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="c mid" x="855" y="89">Pass 1: 64 out ch.</text>
+<rect x="770" y="114" width="170" height="46" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="c mid" x="855" y="143">Pass 2: 64 out ch.</text>
+<rect x="770" y="168" width="170" height="46" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="c mid" x="855" y="197">Pass 3: 64 out ch.</text>
+<rect x="770" y="222" width="170" height="46" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="c mid" x="855" y="251">Pass 4: 64 out ch.</text>
+<text class="c mid" x="855" y="302">4 weight passes</text>
+<rect x="1030" y="82" width="130" height="64" rx="8" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="h2 mid" x="1095" y="120">ANE0</text>
+<rect x="1030" y="194" width="130" height="64" rx="8" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="h2 mid" x="1095" y="232">ANE1</text>
+<path d="M940 83 H982 V114 H1026" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M940 137 H982 V114" stroke="#48484a" stroke-width="1.5" fill="none"/>
+<path d="M940 191 H982 V226 H1026" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M940 245 H982 V226" stroke="#48484a" stroke-width="1.5" fill="none"/>
+<rect x="1250" y="128" width="140" height="84" rx="8" fill="#ffffff" stroke="#8e8e93" stroke-width="1.4"/>
+<text class="h2 mid" x="1320" y="162">Input</text>
+<text class="c mid" x="1320" y="186">(full copy)</text>
+<path d="M1250 170 H1205" stroke="#48484a" stroke-width="1.5" fill="none"/>
+<path d="M1205 170 V114 H1164" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<path d="M1205 170 V226 H1164" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<text class="c" x="760" y="330">Passes of the single-ANE program split evenly; each ANE reads half the weights,</text>
+<text class="c" x="760" y="350">no copy or merge. Only for equal-size passes (not e.g. 3×3 with 32 + 224 ch.).</text>
+<text class="h" x="40" y="420">③ Data exchange: shared scratch buffer, sync records (3-layer 3×3 conv, row split)</text>
+<text class="h2 end" x="92" y="476">ANE0</text>
+<text class="h2 end" x="92" y="616">ANE1</text>
+<rect x="110" y="450" width="190" height="40" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="b mid" x="205.0" y="476">Layer 1</text>
+<rect x="110" y="590" width="190" height="40" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="b mid" x="205.0" y="616">Layer 1</text>
+<rect x="370" y="450" width="190" height="40" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="b mid" x="465.0" y="476">Layer 2</text>
+<rect x="370" y="590" width="190" height="40" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="b mid" x="465.0" y="616">Layer 2</text>
+<rect x="630" y="450" width="190" height="40" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="b mid" x="725.0" y="476">Layer 3</text>
+<rect x="630" y="590" width="190" height="40" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.4"/>
+<text class="b mid" x="725.0" y="616">Layer 3</text>
+<rect x="110" y="516" width="710" height="38" rx="6" fill="#f5f0eb" stroke="#7e6148" stroke-width="1.4"/>
+<text class="c mid" x="465" y="541">Shared scratch buffer: mapped by both ANEs; exchange via SLC inferred (DSID tag)</text>
+<path d="M335 490 V590" stroke="#7e6148" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
+<path d="M335 461 l9 9 l-9 9 l-9 -9 z" fill="#7e6148"/>
+<path d="M335 601 l9 9 l-9 9 l-9 -9 z" fill="#7e6148"/>
+<text class="c mid" x="335" y="654">Sync 1</text>
+<path d="M595 490 V590" stroke="#7e6148" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
+<path d="M595 461 l9 9 l-9 9 l-9 -9 z" fill="#7e6148"/>
+<path d="M595 601 l9 9 l-9 9 l-9 -9 z" fill="#7e6148"/>
+<text class="c mid" x="595" y="654">Sync 2</text>
+<text class="c" x="110" y="680">◆ Sync record f0003281 before layers 2, 3 fetches peer's boundary rows; layer 1 reads overlap rows from DRAM.</text>
+<text class="c" x="110" y="700">1×1 chain halves independent: no sync; softmax (width): 1; reduce_sum (height) waits via staged completion.</text>
+<text class="h" x="900" y="420">④ Split? Compiler compares two estimates</text>
+<text class="h2" x="900" y="464">Single</text>
+<rect x="1000" y="446" width="240" height="28" rx="3" fill="#ececee" stroke="#8e8e93" stroke-width="1.4"/>
+<text class="c mid" x="1120" y="465">Σ unsplit latency</text>
+<text class="h2" x="900" y="518">Dual</text>
+<rect x="1000" y="500" width="260" height="28" rx="3" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="c mid" x="1130" y="519">Σ split-block latency</text>
+<rect x="1260" y="500" width="64" height="28" rx="3" fill="#f5f0eb" stroke="#7e6148" stroke-width="1.4"/>
+<text class="c mid" x="1292" y="519">merge</text>
+<path d="M1162 530 V552" stroke="#48484a" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
+<text class="b" x="1172" y="546">× 0.5</text>
+<rect x="1000" y="554" width="162" height="28" rx="3" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.4"/>
+<text class="c mid" x="1081" y="573">split estimate</text>
+<line x1="1240" y1="474" x2="1240" y2="610" stroke="#aeaeb2" stroke-width="1.2" stroke-dasharray="3 3"/>
+<line x1="1162" y1="474" x2="1162" y2="610" stroke="#aeaeb2" stroke-width="1.2" stroke-dasharray="3 3"/>
+<path d="M1166 602 H1236" stroke="#dc3a26" stroke-width="1.6" fill="none" marker-end="url(#ar)" marker-start="url(#ar)"/>
+<text class="b" x="1250" y="607">shorter → split</text>
+<text class="c" x="900" y="636">0.5 assumes both ANEs run fully parallel, no interference.</text>
+<text class="c" x="900" y="660">Model ignores DRAM bandwidth contention between ANEs, so</text>
+<text class="c" x="900" y="680">weight-read-bound layers are split without speedup (defect B9).</text>
+<text class="c" x="900" y="700">Copy/merge matters only ≤ 128 px/block. No split: tiny blocks, no valid cut, 1-row input.</text>
+</svg>

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 第 5.7 节示意图：双 ANE 程序的两种切分方式、跨 ANE 的数据交换与同步、切分判据。
+# 第 5.8 节示意图：双 ANE 程序的两种切分方式、跨 ANE 的数据交换与同步、切分判据。
 import os
 o = []
 a = o.append
@@ -110,4 +110,4 @@ t(X, y0 + 240, '模型没有考虑两个 ANE 对 DRAM 带宽的争用，读权�
 t(X, y0 + 260, '因此被切分却不加速（缺陷 B9）。拷贝合并一项只在每块 ≤ 128', 'c')
 t(X, y0 + 280, '个像素时显著；每块过小、没有可用切法或输入只有一行时不切分。', 'c')
 a('</svg>')
-open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'fig5-3_bonded.svg'), 'w').write('\n'.join(o))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'zh', 'light', 'fig5-3_bonded.svg'), 'w').write('\n'.join(o))

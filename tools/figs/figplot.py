@@ -5,15 +5,15 @@
 #               xticks=[0, 100, 200], yticks=[0, 0.5, 1.0], xlog=False, ylog=False)
 #   ax.line(xs, ys, color=0, marker=True, label='单 ANE')
 #   ax.bars(xs, ys, color=1, width=10); ax.text(x, y, '…'); ax.vline(x, '…')
-#   c.legend(x, y); c.save('fig7-1_ocg_step')   # 写 figs/<name>.svg，再用 render.sh 导出 PNG
+#   c.legend(x, y); c.save('fig7-1_ocg_step')   # 写 figs/zh/light/<name>.svg，再用 render.sh 导出 PNG
 import math
 import os
 
 FG, FG2, FG3, GRID, AXIS = '#1d1d1f', '#3a3a3c', '#6e6e73', '#e5e5ea', '#8e8e93'
-# 系列颜色（描边, 浅填充）：紫（ANE0 / M6）、蓝（ANE1 / 对照）、橙（强调）、绿、红、灰
+# 系列颜色（描边, 浅填充），NPG 配色：深蓝（ANE0 / M6）、青绿（ANE1 / 对照）、棕（强调）、青、红、灰
 COLORS = [('#3c5488', '#e7eaf3'), ('#00a087', '#e3f4f0'), ('#7e6148', '#efe8e1'),
           ('#2f9ab5', '#e1f3f8'), ('#e64b35', '#fbe3df'), ('#6e6e73', '#ececee')]
-FIGS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs')
+FIGS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'zh', 'light')
 
 
 def fmt(v):

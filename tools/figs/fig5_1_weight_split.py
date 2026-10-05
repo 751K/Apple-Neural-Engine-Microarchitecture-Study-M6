@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 第 5.5 节示意图：权重按输出通道分给 16 个 NE；每 NE 超过 64 KiB 时拆成多个 TD。
+# 第 5.6 节示意图：权重按输出通道分给 16 个 NE；每 NE 超过 64 KiB 时拆成多个 TD。
 # 左：基准模型（64 → 64 通道，1×1）的 __KERN_0 切分；右：256 通道 1×9 卷积（16×32 输入）的 3 个 TD（64 + 96 + 96）。
 # 每 NE 权重按"权重段字节数 ÷ 输出通道数 × 每 NE 通道数"估算：256 × 19.27 × 2 B ≈ 9.6 KiB / 输出通道。
 import os
@@ -89,4 +89,4 @@ a(f'<rect x="{X}" y="482" width="{L}" height="70" rx="8" fill="#f5f5f7" stroke="
 t(X + 16, 508, '例外：输入较小时（4×32 的全部卷积核、8×32 的改写核）', 'b')
 t(X + 16, 534, '全部 256 个输出通道放在一个 TD 中，执行时连续读入权重', 'c')
 a('</svg>')
-open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'fig5-1_weight_split.svg'), 'w').write('\n'.join(o))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'zh', 'light', 'fig5-1_weight_split.svg'), 'w').write('\n'.join(o))

@@ -1,0 +1,16 @@
+{
+ "（a）FP16": "(a) FP16",
+ "链深度（层数，对数坐标）": "Chain depth (layers, log scale)",
+ "吞吐（TFLOPS）": "Throughput (TFLOPS)",
+ "Core ML 把最后一个 relu": "Core ML puts last relu",
+ "放到 CPU 上（第 7.7 节）": "on CPU (Sec. 7.7)",
+ "虚线：36–64 层调用耗时的直线拟合（390 µs + 每层 13.12 µs）": "Dashed: linear fit of call time, 36–64 layers (390 µs + 13.12 µs/layer)",
+ "在 16–64 层对应的吞吐": "as throughput over 16–64 layers",
+ "（b）W8A8": "(b) W8A8",
+ "吞吐（TOPS）": "Throughput (TOPS)",
+ "M6（本文）": "M6 (this work)",
+ "M4（maderix [4]）": "M4 (maderix [4])",
+ "M6 FP16 细扫（16–64 层）": "M6 FP16 fine sweep (16–64 layers)",
+ "M4 48 层：1024 通道、64×64（形状不同）": "M4 48 layers: 1024 ch., 64×64 (diff. shape)",
+ "M6：512 通道、32×32、各层权重不同，切分到两个 ANE；吞吐含每次调用的固定开销": "M6: 512 ch., 32×32, distinct weights per layer, split over two ANEs; throughput incl. fixed per-call cost"
+}

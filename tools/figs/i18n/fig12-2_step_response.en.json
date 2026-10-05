@@ -1,0 +1,12 @@
+{
+ "切换后的时间（ms）": "Time after switch (ms)",
+ "NE 时钟档位（MHz）": "NE clock level (MHz)",
+ "（a）升频：G 由 1000 µs 切换为 0（6 次）": "(a) Ramp up: G 1000 µs → 0 (6 runs)",
+ "（b）降频：G 由 0 切换为 1000 µs（6 次）": "(b) Ramp down: G 0 → 1000 µs (6 runs)",
+ "（c）升频：G 由 200 µs 切换为 0（5 次）": "(c) Ramp up: G 200 µs → 0 (5 runs)",
+ "（d）降频：G 由 0 切换为 200 µs（5 次）": "(d) Ramp down: G 0 → 200 µs (5 runs)",
+ "各次切换": "Switches",
+ "中位数（升频）": "Median (up)",
+ "中位数（降频）": "Median (down)",
+ "（a）中的第 1 次切换": "1st switch in (a)"
+}

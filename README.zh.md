@@ -17,7 +17,7 @@
 | 目录 | 内容 |
 |---|---|
 | [`final_report/`](final_report/) | 报告正文 [`zh.md`](final_report/zh.md)（中文） |
-| [`figs/`](figs/) | 报告用图（`fig<章>-<序号>_*`），每张图有 SVG 与 PNG，另有供网页深色模式使用的 `*_dark` 版本 |
+| [`figs/`](figs/) | 报告用图（`fig<章>-<序号>_*`，SVG 与 PNG），按 `figs/<语言>/<主题>/` 存放：语言为 `zh` 或 `en`，主题为 `light` 或 `dark`（深色版供网页深色模式使用）；`legacy/` 为报告未采用的早期总览图 |
 | [`data/`](data/) | 原始数据，按研究主题分目录；`_obsolete/` 为已作废、仅供备查的数据 |
 | [`tools/`](tools/) | 实验工具与分析脚本，目录划分与 `data/` 相同 |
 | [`notes/`](notes/) | 实验记录分册与参考文献整理 |
@@ -42,7 +42,7 @@
 - `common/`：运行器与采样器，例如 `bondrun.m`、`anecc.m`、`smcpower.c`、`pclus.c`；
 - `lib/`：编译产物的解析库；
 - `re/`：只读的逆向工具；
-- `figs/`：报告用图的生成脚本。图的配色采用 ggsci 的 NPG 配色；`render.sh` 把 SVG 导出为 PNG，`darken.py` 由浅色版生成深色版。
+- `figs/`：报告用图的生成脚本。图的配色采用 ggsci 的 NPG 配色。`build_all.sh` 一次重新生成全部图：各脚本先出中文浅色版，`translate.py` 按 `i18n/` 中的对照表生成英文版，`darken.py` 生成深色版，`render.sh` 把 SVG 导出为 PNG。
 
 报告附录 A 按章列出每个实验所用的工具、数据和是否需要 root，附录 B 是数据目录。
 

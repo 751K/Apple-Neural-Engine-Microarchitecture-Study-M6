@@ -1,0 +1,17 @@
+{
+ "（a）C = 192–1024": "(a) C = 192–1024",
+ "通道数 C": "Channels C",
+ "调用耗时（µs）": "Time per call (µs)",
+ "见（b）": "See (b)",
+ "512 → 528：+99.6 µs": "512 → 528: +99.6 µs",
+ "768 → 784：+81.6 µs": "768 → 784: +81.6 µs",
+ "◇ 处 L160 模型的唤醒状态发生切换，": "◇: L160 model's wake state switches;",
+ "　 其增量无法确认为真实的台阶": "   increment not confirmed as a real step",
+ "（b）C = 192–352（表 7-4 的范围）": "(b) C = 192–352 (range of Table 7-4)",
+ "每轮至多 256 个输出通道（16 NE × 16）": "≤ 256 out ch. per pass (16 NE × 16)",
+ "256 → 272：+57.0 µs": "256 → 272: +57.0 µs",
+ "每次调用约 3 次中断（≥ 2.9）": "≈ 3 interrupts/call (≥ 2.9)",
+ "约 2 次中断（≤ 2.05）": "≈ 2 interrupts (≤ 2.05)",
+ "介于两者之间（两种唤醒状态混合）": "In between (mixed wake states)",
+ "160 层，空间 1×128，单 ANE": "160 layers, spatial 1×128, single ANE"
+}

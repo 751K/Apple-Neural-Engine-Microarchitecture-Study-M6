@@ -54,7 +54,7 @@ def build(t):
     box('mem', x, y0, 130, h0, 0.75); txt(x + 65, y0 + 38, 'TD n − 1', 'n', 'middle')
     nx = x + 160
     txt(nx, y0 + 18, '每层对应一个或多个 TD。单 ANE 程序一段，', 's')
-    txt(nx, y0 + 40, '双 ANE 程序中 ANE0、ANE1 各一段（5.7 节）。', 's')
+    txt(nx, y0 + 40, '双 ANE 程序中 ANE0、ANE1 各一段（5.8 节）。', 's')
     txt(nx, y0 + 62, 'TD 内没有指令和分支，只有寄存器写入。', 's')
 
     # 展开连线与面板
@@ -93,7 +93,7 @@ def build(t):
     for off, lab, w in cells:
         box('ctl', x, y + 14, w, 58, 0.6 if lab == '其余 3 字' else 1.0)
         txt(x + w / 2, y + 38, off, 'ms', 'middle'); txt(x + w / 2, y + 62, lab, 's', 'middle'); x += w
-    txt(70, y + 96, 'TaskSize 以字为单位给出本 TD 的长度；exe_cycles 是编译器性能模型的延迟估计（约 1 µs / 单位）；各字段见表 5-4。', 'xs')
+    txt(70, y + 96, 'TaskSize 以字为单位给出本 TD 的长度；exe_cycles 是编译器性能模型的延迟估计（约 1 µs / 单位）；各字段见表 5-6。', 'xs')
 
     # ② 写入包（左）与 ③ 地址包（右）
     y = py + 340
@@ -130,7 +130,7 @@ def build(t):
 
     # 寄存器组色带
     y = py + 640
-    txt(70, y, '② 中的写入包按以下寄存器组的顺序排列（字段偏移，表 5-6），这一顺序与硬件中的数据流向一致：', 's')
+    txt(70, y, '② 中的写入包按以下寄存器组的顺序排列（字段偏移，表 5-8），这一顺序与硬件中的数据流向一致：', 's')
     groups = [('ctl', '公共', '形状 · 任务类型'), ('dma', '输入', 'Tile DMA'), ('buf', '纹理 / gather', '重采样'),
               ('buf', 'L2 源', '环形缓冲'), ('cmp', 'PE', '逐元素'), ('cmp', 'NE', '卷积配置 · 移位'), ('dma', '输出', 'Tile DMA')]
     gw, gap = 198, 9
@@ -160,14 +160,14 @@ def build(t):
             w = (hi - lo + 1) * bw
             box(cls, bx(hi), yy, w, 48); txt(bx(hi) + w / 2, yy + 30, lab, 'n', 'middle')
         yy += 62
-    txt(270, yy + 10, 'bit 31 区分连续写（0）与掩码写（1）；掩码第 i 位为 1 时另写寄存器"基址 + 1 + i"；地址包以 bit 29 为标记，所有 64 位地址包的 BAR 编号都是偶数（表 5-5、5.6.6 节）。', 'xs')
+    txt(270, yy + 10, 'bit 31 区分连续写（0）与掩码写（1）；掩码第 i 位为 1 时另写寄存器"基址 + 1 + i"；地址包以 bit 29 为标记，所有 64 位地址包的 BAR 编号都是偶数（表 5-7、5.7.6 节）。', 'xs')
     txt(70, py + ph - 16, '示例取自 256 通道、8×32 输入、4 层的 1×9 卷积在 h18g 上的产物（data/03_compile/tdv/h18g）。', 'xs')
     a('</svg>')
     return '\n'.join(o)
 
 
 if __name__ == '__main__':
-    out = os.path.join(os.path.dirname(__file__), '..', '..', 'figs')
+    out = os.path.join(os.path.dirname(__file__), '..', '..', 'figs', 'zh', 'light')
     # 深色版由 tools/figs/darken.py 统一从浅色版换算，这里只出浅色版
     with open(os.path.join(out, 'fig5-2_td_format.svg'), 'w') as f:
         f.write(build(THEMES['light']))

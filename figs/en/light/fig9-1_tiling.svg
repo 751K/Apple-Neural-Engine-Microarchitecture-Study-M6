@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1020 560" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .h2{font-size:16px;font-weight:600} .b{font-size:14.5px;fill:#3a3a3c} .c{font-size:13px;fill:#6e6e73} .s{font-size:12px;fill:#3a3a3c} .m{font-size:13px;font-family:Menlo,SF Mono,monospace;fill:#3a3a3c} .mid{text-anchor:middle} .end{text-anchor:end}</style>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#48484a"/></marker><marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7e6148"/></marker></defs>
+<text class="h" x="40" y="32">① 16 MB intermediate tensor split into 9 tiles, each &lt; 2 MiB</text>
+<rect x="60" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="102.0" y="84">Tile 1</text>
+<rect x="148" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="190.0" y="84">Tile 2</text>
+<rect x="236" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="278.0" y="84">Tile 3</text>
+<rect x="324" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="366.0" y="84">Tile 4</text>
+<rect x="412" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="454.0" y="84">Tile 5</text>
+<rect x="500" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="542.0" y="84">Tile 6</text>
+<rect x="588" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="630.0" y="84">Tile 7</text>
+<rect x="676" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="718.0" y="84">Tile 8</text>
+<rect x="764" y="56" width="84" height="44" rx="4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s mid" x="806.0" y="84">Tile 9</text>
+<path d="M60 108 v6 H848 v-6" stroke="#48484a" stroke-width="1.2" fill="none"/>
+<text class="c mid" x="456.0" y="134">Width 32768 cols, 256 ch., 16 MB; tile ≈ 1.78 MB, tile width a multiple of 128 cols</text>
+<text class="m" x="60" y="168">tiles = ⌊tensor size ÷ 2 MiB⌋ + 1</text>
+<text class="c" x="390" y="168">2 MB → 2 tiles, 4 MB → 3 tiles, 16 MB → 9 tiles</text>
+<text class="h" x="40" y="222">② Each tile runs the whole chain before the next; intermediates stay in L2</text>
+<text class="s mid" x="200" y="266">Tile 1</text>
+<text class="s mid" x="320" y="266">Tile 2</text>
+<text class="s mid" x="440" y="266">Tile 3</text>
+<text class="s mid" x="560" y="266">⋯</text>
+<text class="s mid" x="680" y="266">Tile 9</text>
+<text class="s end" x="134" y="304">Layer 1</text>
+<rect x="150" y="282" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<rect x="270" y="282" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<rect x="390" y="282" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="c mid" x="560" y="304">⋯</text>
+<rect x="630" y="282" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s end" x="134" y="346">Layer 2</text>
+<rect x="150" y="324" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<rect x="270" y="324" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<rect x="390" y="324" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="c mid" x="560" y="346">⋯</text>
+<rect x="630" y="324" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s end" x="134" y="388">⋮</text>
+<text class="c mid" x="200" y="388">⋮</text>
+<text class="c mid" x="320" y="388">⋮</text>
+<text class="c mid" x="440" y="388">⋮</text>
+<text class="c mid" x="560" y="388">⋮</text>
+<text class="c mid" x="680" y="388">⋮</text>
+<text class="s end" x="134" y="430">Layer n</text>
+<rect x="150" y="408" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<rect x="270" y="408" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<rect x="390" y="408" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="c mid" x="560" y="430">⋯</text>
+<rect x="630" y="408" width="100" height="30" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<path d="M200 312 V406" stroke="#7e6148" stroke-width="2" fill="none" marker-end="url(#ao)" opacity="0.9"/>
+<path d="M200 438 V450 H260 V276 H320 V280" stroke="#7e6148" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#ao)"/>
+<path d="M320 312 V406" stroke="#7e6148" stroke-width="2" fill="none" marker-end="url(#ao)" opacity="0.9"/>
+<path d="M320 438 V450 H380 V276 H440 V280" stroke="#7e6148" stroke-width="1.5" stroke-dasharray="4 3" fill="none" marker-end="url(#ao)"/>
+<path d="M440 312 V406" stroke="#7e6148" stroke-width="2" fill="none" marker-end="url(#ao)" opacity="0.9"/>
+<text class="c mid" x="450.0" y="510">Each tile reads DRAM only at layer 1, writes only at layer n; no DRAM between layers</text>
+<rect x="830" y="272" width="150" height="170" rx="8" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="h2 mid" x="905" y="298">L2</text>
+<text class="c mid" x="905" y="320">Compiler uses 2 MiB</text>
+<rect x="850" y="338" width="110" height="80" rx="4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s mid" x="905" y="374">Current tile</text>
+<text class="s mid" x="905" y="392">intermediates</text>
+</svg>

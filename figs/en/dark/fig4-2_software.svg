@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<rect x="0" y="0" width="1440" height="810" fill="#161618"/>
+  <style>
+    text { fill: #dbdbde; }
+    .h  { font-size: 18px; font-weight: 600; }
+    .lane { font-size: 16px; font-weight: 600; }
+    .b  { font-size: 15px; fill: #c6c6c8; }
+    .c  { font-size: 13px; fill: #9c9ca0; }
+    .mono { font-family: Menlo, SF Mono, monospace; font-size: 13px; fill: #c6c6c8; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+    .band { fill: #22222a; }
+    .host { fill: #1a1a1a; stroke: #8a98b6; stroke-width: 1.4; }
+    .svc  { fill: #1a1a1a; stroke: #818187; stroke-width: 1.4; }
+    .krn  { fill: #1f314b; stroke: #8a98b6; stroke-width: 1.5; }
+    .clk  { fill: #493725; stroke: #b79578; stroke-width: 1.5; }
+    .fw   { fill: #2e2e33; stroke: #9c9ca0; stroke-width: 1.4; }
+    .hw   { fill: #262f4c; stroke: #6b87c3; stroke-width: 1.5; }
+    .ln   { stroke: #bbbbbd; stroke-width: 1.6; fill: none; }
+    .ret  { stroke: #bbbbbd; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
+    .cl   { stroke: #b79578; stroke-width: 1.6; fill: none; stroke-dasharray: 6 4; }
+    .seg  { stroke: #1a1a1a; stroke-width: 2; }
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#bbbbbd"/>
+    </marker>
+    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#b79578"/>
+    </marker>
+  </defs>
+
+  <!-- 列标题 -->
+  <text class="h mid" x="390" y="32">Load (once per model)</text>
+  <text class="h mid" x="1000" y="32">Inference (every call)</text>
+
+  <!-- 泳道 -->
+  <rect class="band" x="40" y="48" width="1360" height="96" rx="10"/>
+  <rect class="band" x="40" y="156" width="1360" height="96" rx="10"/>
+  <rect class="band" x="40" y="264" width="1360" height="150" rx="10"/>
+  <rect class="band" x="40" y="426" width="1360" height="96" rx="10"/>
+  <rect class="band" x="40" y="534" width="1360" height="116" rx="10"/>
+  <text class="lane" x="60" y="92">App process</text><text class="c" x="60" y="114">Core ML · Espresso</text>
+  <text class="lane" x="60" y="200">System service</text><text class="c" x="60" y="222">aned · compiler</text>
+  <text class="lane" x="60" y="334">Host kernel</text><text class="c" x="60" y="356">driver · CLPC</text>
+  <text class="lane" x="60" y="470">ANE firmware</text><text class="c" x="60" y="492">one per ANE</text>
+  <text class="lane" x="60" y="578">ANE hardware</text><text class="c" x="60" y="600">ANE0 · ANE1</text>
+
+  <!-- 加载路径 -->
+  <rect class="host" x="200" y="64" width="380" height="64" rx="10"/>
+  <text class="h mid" x="390" y="92">Load model: E5 segmenter</text>
+  <text class="c mid" x="390" y="114">picks ANE / CPU per op; cached by process name</text>
+  <rect class="svc" x="200" y="172" width="380" height="64" rx="10"/>
+  <text class="h mid" x="390" y="200">Compile ANE segs: MIL → HWX</text>
+  <text class="c mid" x="390" y="222">emits both single- and dual-ANE programs</text>
+  <rect class="krn" x="200" y="290" width="380" height="64" rx="10"/>
+  <text class="h mid" x="390" y="318">Register program</text>
+  <text class="c mid" x="390" y="340">maps weights and TD sequence</text>
+  <path class="ln" d="M390 128 V168" marker-end="url(#ar)"/>
+  <path class="ln" d="M390 236 V286" marker-end="url(#ar)"/>
+
+  <!-- 分隔线 -->
+  <path d="M610 48 V650" stroke="#4f4f57" stroke-width="1.2"/>
+
+  <!-- 推理路径：应用 -->
+  <rect class="host" x="680" y="64" width="640" height="64" rx="10"/>
+  <text class="h mid" x="1000" y="92">Submit request (via Espresso, AppleNeuralEngine)</text>
+  <text class="c mid" x="1000" y="114">Sync: same-model threads serialize　·　Async: concurrent requests spread over 2 ANEs</text>
+  <path class="ln" d="M1000 128 V286" marker-end="url(#ar)"/>
+  <text class="c" x="1012" y="208">requests bypass aned</text>
+
+  <!-- 驱动与 CLPC -->
+  <rect class="krn" x="680" y="290" width="420" height="108" rx="10"/>
+  <text class="h" x="700" y="318">ANE driver</text>
+  <text class="b" x="700" y="344">Priority mapping (6 FW levels) · request deps</text>
+  <text class="b" x="700" y="366">Pick engine (ANE0 / ANE1), program (single / dual)</text>
+  <text class="b" x="700" y="388">Throttling · report work to CLPC</text>
+  <rect class="clk" x="1140" y="290" width="240" height="108" rx="10"/>
+  <text class="h" x="1160" y="318">CLPC</text>
+  <text class="b" x="1160" y="344">Sets NE level by utilization</text>
+  <text class="c" x="1160" y="366">busy ratio ≈ 77% at idle ≤ 1 ms</text>
+  <text class="c" x="1160" y="386">also sets shared-cluster clock</text>
+  <path class="ln" d="M1100 344 H1136" marker-end="url(#ar)"/>
+
+  <!-- 固件 -->
+  <rect class="fw" x="680" y="442" width="300" height="64" rx="10"/>
+  <text class="h mid" x="830" y="470">ANE0 firmware</text>
+  <text class="c mid" x="830" y="492">priority queues · feeds HW task queue</text>
+  <rect class="fw" x="1020" y="442" width="300" height="64" rx="10"/>
+  <text class="h mid" x="1170" y="470">ANE1 firmware</text>
+  <text class="c mid" x="1170" y="492">priority queues · feeds HW task queue</text>
+  <path class="ln" d="M830 398 V438" marker-end="url(#ar)"/>
+  <path class="ln" d="M1060 398 V420 H1170 V438" marker-end="url(#ar)"/>
+
+  <!-- 硬件 -->
+  <rect class="hw" x="680" y="550" width="300" height="64" rx="10"/>
+  <text class="h mid" x="830" y="578">ANE0</text>
+  <text class="c mid" x="830" y="600">runs TDs in order</text>
+  <rect class="hw" x="1020" y="550" width="300" height="64" rx="10"/>
+  <text class="h mid" x="1170" y="578">ANE1</text>
+  <text class="c mid" x="1170" y="600">runs TDs in order</text>
+  <path class="ln" d="M830 506 V546" marker-end="url(#ar)"/>
+  <path class="ln" d="M1170 506 V546" marker-end="url(#ar)"/>
+
+  <!-- CLPC 调频 -->
+  <path class="cl" d="M1380 344 H1392 V582 H1324" marker-end="url(#ac)"/>
+  <path class="cl" d="M1392 582 V636 H830 V618" marker-end="url(#ac)"/>
+  <text class="c end" x="1386" y="476" fill="#b58b68">Clock level</text>
+
+  <!-- 完成返回 -->
+  <path class="ret" d="M680 582 H648 V96 H676" marker-end="url(#ar)"/>
+  <text class="c" x="634" y="340" writing-mode="tb" style="letter-spacing:2px">IRQ, return to app</text>
+
+  <!-- 同步调用时间线 -->
+  <text class="h" x="40" y="700">Timeline of a synchronous call</text>
+  <rect x="40" y="716" width="110" height="40" fill="#30303c"/>
+  <rect x="150" y="716" width="490" height="40" fill="#262f4c"/>
+  <rect x="640" y="716" width="360" height="40" fill="#30303c"/>
+  <rect x="1000" y="716" width="110" height="40" fill="#30303c"/>
+  <rect x="1110" y="716" width="290" height="40" fill="#262f4c" opacity="0.55"/>
+  <line x1="1000" y1="716" x2="1000" y2="756" stroke="#1a1a1a" stroke-width="2"/>
+  <text class="b mid" x="95" y="742">Submit ≈ 30 µs</text>
+  <text class="b mid" x="395" y="742">ANE task (set by model and clock level)</text>
+  <text class="b mid" x="820" y="742">Completion 130–325 µs</text>
+  <text class="b mid" x="1055" y="742">Next submit</text>
+  <text class="b mid" x="1255" y="742">Next ANE task</text>
+  <path d="M640 764 V772 H1110 V764" stroke="#bbbbbd" stroke-width="1.3" fill="none"/>
+  <text class="c mid" x="875" y="792">Idle between consecutive ANE tasks ≈ 384 µs (median, back-to-back sync calls)</text>
+</svg>

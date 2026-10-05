@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# 由浅色 SVG 生成深色版本：figs/<名>.svg → figs/<名>_dark.svg（供网页的深色模式使用）。
+# 由浅色 SVG 生成深色版本：figs/<语言>/light/<名>.svg → figs/<语言>/dark/<名>.svg（供网页的深色模式使用）。
 # 规则（HLS 空间逐色换算）：
 #   中性色（饱和度 < 0.15）：亮度反转并压缩到 [0.10, 0.95]，文字变浅、底色变深；
 #   彩色的浅底色（亮度 > 0.75）：保持色相，变为同色相的深色底（亮度约 0.2，饱和度不超过 0.45）；
 #   彩色的描边与文字：保持色相，提高亮度，使其在深色背景上可读。
 # 另在最底层加一块背景（BG），使导出的 PNG 也是深色底。
-# 用法：python3 tools/figs/darken.py [figs/fig*.svg ...]（缺省为 figs/ 下全部浅色 fig*.svg）
+# 用法：python3 tools/figs/darken.py [figs/<语言>/light/<名>.svg ...]（缺省为 figs/zh/light 与 figs/en/light 下的全部 SVG）
 import colorsys
 import glob
 import os
@@ -36,11 +36,14 @@ def convert(path):
     tag_end = s.index('>', s.index('<svg')) + 1
     bg = f'\n<rect x="{vb[0]}" y="{vb[1]}" width="{vb[2]}" height="{vb[3]}" fill="{BG}"/>'
     s = s[:tag_end] + bg + s[tag_end:]
-    out = path[:-4] + '_dark.svg'
+    light_dir = os.path.dirname(os.path.abspath(path))
+    out_dir = os.path.join(os.path.dirname(light_dir), 'dark')
+    os.makedirs(out_dir, exist_ok=True)
+    out = os.path.join(out_dir, os.path.basename(path))
     open(out, 'w').write(s)
     print(out)
 
 
-files = sys.argv[1:] or sorted(f for f in glob.glob(os.path.join(ROOT, 'figs', 'fig*.svg')) if not f.endswith('_dark.svg'))
+files = sys.argv[1:] or sorted(glob.glob(os.path.join(ROOT, 'figs', '*', 'light', '*.svg')))
 for f in files:
     convert(f)

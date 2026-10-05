@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1290" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<style>text{fill:#1d1d1f} .t{font-size:24px;font-weight:600} .n{font-size:18px} .m{font-size:17px;font-family:Menlo,SF Mono,monospace} .ms{font-size:14px;font-family:Menlo,SF Mono,monospace;fill:#3a3a3c} .s{font-size:15px;fill:#48484a} .xs{font-size:13px;fill:#6e6e73}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#48484a" stroke-width="1.6"/></marker></defs>
+<text x="60" y="40" class="t" text-anchor="start">TD sequence (one per ANE)</text>
+<rect x="60" y="60" width="150" height="62" fill="#f5f5f7" stroke="#8e8e93" stroke-width="1.6"/>
+<text x="135" y="86" class="s" text-anchor="middle">Seq. header (4 w)</text>
+<text x="135" y="108" class="ms" text-anchor="middle">1 0 0 0</text>
+<rect x="222" y="60" width="170" height="62" fill="#fbe3df" stroke="#e64b35" stroke-width="1.6"/>
+<text x="307" y="98" class="n" text-anchor="middle">TD 0 (see below)</text>
+<rect x="404" y="60" width="120" height="62" fill="#fbe3df" stroke="#e64b35" stroke-width="1.6" opacity="0.75"/>
+<text x="464" y="98" class="n" text-anchor="middle">TD 1</text>
+<rect x="536" y="60" width="120" height="62" fill="#fbe3df" stroke="#e64b35" stroke-width="1.6" opacity="0.75"/>
+<text x="596" y="98" class="n" text-anchor="middle">TD 2</text>
+<text x="690" y="98" class="n" text-anchor="middle" fill="#6e6e73">⋯</text>
+<rect x="714" y="60" width="130" height="62" fill="#fbe3df" stroke="#e64b35" stroke-width="1.6" opacity="0.75"/>
+<text x="779" y="98" class="n" text-anchor="middle">TD n − 1</text>
+<text x="874" y="78" class="s" text-anchor="start">Each layer maps to ≥ 1 TD. Single-ANE program: one seq.;</text>
+<text x="874" y="100" class="s" text-anchor="start">dual-ANE program: one each for ANE0, ANE1 (Sec. 5.8).</text>
+<text x="874" y="122" class="s" text-anchor="start">TDs hold no instructions or branches, only register writes.</text>
+<line x1="307" y1="122" x2="307" y2="146" stroke="#48484a" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#a)"/>
+<rect x="40" y="150" width="1520" height="1110" rx="16" fill="none" stroke="#8e8e93" stroke-width="1.2"/>
+<text x="70" y="190" class="t" text-anchor="start">One TD (v24 layout)</text>
+<text x="70" y="226" class="s" text-anchor="start">A TD is a run of 32-bit words: task header, write packets, then address packets; each packet = 1 header word + n value words.</text>
+<rect x="70" y="240" width="300" height="40" fill="#ececee" stroke="#6e6e73" stroke-width="1.6"/>
+<text x="220" y="266" class="s" text-anchor="middle">Task header (12 words)</text>
+<rect x="370" y="240" width="34" height="40" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="387" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="404" y="240" width="66" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="437" y="266" class="xs" text-anchor="middle">3 values</text>
+<rect x="470" y="240" width="34" height="40" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="487" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="504" y="240" width="110" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="559" y="266" class="xs" text-anchor="middle">5 values</text>
+<rect x="614" y="240" width="34" height="40" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="631" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="648" y="240" width="66" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="681" y="266" class="xs" text-anchor="middle">3 values</text>
+<rect x="714" y="240" width="34" height="40" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="731" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="748" y="240" width="132" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="814" y="266" class="xs" text-anchor="middle">6 values</text>
+<rect x="880" y="240" width="34" height="40" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="897" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="914" y="240" width="88" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="958" y="266" class="xs" text-anchor="middle">4 values</text>
+<rect x="1002" y="240" width="90" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6" opacity="0.6"/>
+<text x="1047" y="266" class="n" text-anchor="middle">⋯</text>
+<rect x="1092" y="240" width="34" height="40" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="1109" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="1126" y="240" width="60" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<rect x="1186" y="240" width="34" height="40" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="1203" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="1220" y="240" width="30" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<rect x="1250" y="240" width="34" height="40" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="1267" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="1284" y="240" width="60" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<rect x="1344" y="240" width="34" height="40" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="1361" y="266" class="xs" text-anchor="middle">H</text>
+<rect x="1378" y="240" width="60" height="40" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<path d="M72 286 v6 H368 v-6" stroke="#8e8e93" stroke-width="1.4" fill="none"/>
+<text x="220.0" y="312" class="s" text-anchor="middle">①</text>
+<path d="M372 286 v6 H1090 v-6" stroke="#8e8e93" stroke-width="1.4" fill="none"/>
+<text x="731.0" y="312" class="s" text-anchor="middle">② Register write packets</text>
+<path d="M1094 286 v6 H1436 v-6" stroke="#8e8e93" stroke-width="1.4" fill="none"/>
+<text x="1265.0" y="312" class="s" text-anchor="middle">③ Address packets</text>
+<text x="70" y="350" class="n" text-anchor="start">① Task header: 12 words (td_header0–11)</text>
+<rect x="70" y="364" width="200" height="58" fill="#ececee" stroke="#6e6e73" stroke-width="1.6"/>
+<text x="170.0" y="388" class="ms" text-anchor="middle">+0x0</text>
+<text x="170.0" y="412" class="s" text-anchor="middle">tid · TaskSize</text>
+<rect x="270" y="364" width="160" height="58" fill="#ececee" stroke="#6e6e73" stroke-width="1.6"/>
+<text x="350.0" y="388" class="ms" text-anchor="middle">+0x4</text>
+<text x="350.0" y="412" class="s" text-anchor="middle">exe_cycles</text>
+<rect x="430" y="364" width="560" height="58" fill="#ececee" stroke="#6e6e73" stroke-width="1.6"/>
+<text x="710.0" y="388" class="ms" text-anchor="middle">+0x8 … +0x1c</text>
+<text x="710.0" y="412" class="s" text-anchor="middle">Event masks: log / exception / debug / dram (6 words)</text>
+<rect x="990" y="364" width="300" height="58" fill="#ececee" stroke="#6e6e73" stroke-width="1.6"/>
+<text x="1140.0" y="388" class="ms" text-anchor="middle">+0x20</text>
+<text x="1140.0" y="412" class="s" text-anchor="middle">Flags: Tsr · Tde · PublishBit</text>
+<rect x="1290" y="364" width="240" height="58" fill="#ececee" stroke="#6e6e73" stroke-width="1.6" opacity="0.6"/>
+<text x="1410.0" y="388" class="ms" text-anchor="middle">+0x24 … +0x2c</text>
+<text x="1410.0" y="412" class="s" text-anchor="middle">3 other words</text>
+<text x="70" y="446" class="xs" text-anchor="start">TaskSize = TD length in words; exe_cycles = compiler perf-model latency estimate (≈ 1 µs/unit); fields in Table 5-6.</text>
+<text x="70" y="490" class="n" text-anchor="start">② Write packet: header word selects registers, value words follow</text>
+<text x="140" y="516" class="xs" text-anchor="middle">Header</text>
+<text x="336" y="516" class="xs" text-anchor="middle">Value words (target register below)</text>
+<rect x="70" y="526" width="140" height="50" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="140" y="557" class="m" text-anchor="middle">00010001</text>
+<rect x="210" y="526" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="252.0" y="548" class="n" text-anchor="middle">Win</text>
+<text x="252.0" y="568" class="xs" text-anchor="middle">reg 1</text>
+<rect x="294" y="526" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="336.0" y="548" class="n" text-anchor="middle">Hin</text>
+<text x="336.0" y="568" class="xs" text-anchor="middle">reg 2</text>
+<rect x="378" y="526" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="420.0" y="548" class="n" text-anchor="middle">Cin</text>
+<text x="420.0" y="568" class="xs" text-anchor="middle">reg 3</text>
+<text x="560" y="548" class="s" text-anchor="start">Contiguous write: from reg 1,</text>
+<text x="560" y="568" class="s" text-anchor="start">3 values in a row</text>
+<rect x="70" y="590" width="140" height="50" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="140" y="621" class="m" text-anchor="middle">80c11340</text>
+<rect x="210" y="590" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="252.0" y="612" class="n" text-anchor="middle">val</text>
+<text x="252.0" y="632" class="xs" text-anchor="middle">reg 1340</text>
+<rect x="294" y="590" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="336.0" y="612" class="n" text-anchor="middle">val</text>
+<text x="336.0" y="632" class="xs" text-anchor="middle">reg 1342</text>
+<rect x="378" y="590" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="420.0" y="612" class="n" text-anchor="middle">val</text>
+<text x="420.0" y="632" class="xs" text-anchor="middle">reg 1348</text>
+<rect x="462" y="590" width="84" height="50" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="504.0" y="612" class="n" text-anchor="middle">val</text>
+<text x="504.0" y="632" class="xs" text-anchor="middle">reg 1349</text>
+<text x="560" y="612" class="s" text-anchor="start">Masked write: base 0x1340,</text>
+<text x="560" y="632" class="s" text-anchor="start">plus 3 mask-selected registers</text>
+<text x="820" y="490" class="n" text-anchor="start">③ Address packet: value = buffer offset; BAR no. selects buffer</text>
+<text x="890" y="516" class="xs" text-anchor="middle">Header</text>
+<text x="1016" y="516" class="xs" text-anchor="middle">Offset (lo / hi 32 bits)</text>
+<rect x="820" y="526" width="140" height="44" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="890" y="554" class="m" text-anchor="middle">20809544</text>
+<rect x="960" y="526" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="988" y="554" class="ms" text-anchor="middle">Lo</text>
+<rect x="1016" y="526" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="1044" y="554" class="ms" text-anchor="middle">Hi</text>
+<text x="1090" y="545" class="s" text-anchor="start">Weights (reg 0x1544), BAR 4</text>
+<text x="1090" y="564" class="xs" text-anchor="start">filled by static relocation at load</text>
+<rect x="820" y="580" width="140" height="44" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="890" y="608" class="m" text-anchor="middle">22801344</text>
+<rect x="960" y="580" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="988" y="608" class="ms" text-anchor="middle">val</text>
+<text x="1090" y="599" class="s" text-anchor="start">DSID param (reg 0x1344), BAR 20</text>
+<text x="1090" y="618" class="xs" text-anchor="start">SLC data-stream tag</text>
+<rect x="820" y="634" width="140" height="44" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="890" y="662" class="m" text-anchor="middle">23009444</text>
+<rect x="960" y="634" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="988" y="662" class="ms" text-anchor="middle">Lo</text>
+<rect x="1016" y="634" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="1044" y="662" class="ms" text-anchor="middle">Hi</text>
+<text x="1090" y="653" class="s" text-anchor="start">Output (reg 0x1444), BAR 24</text>
+<text x="1090" y="672" class="xs" text-anchor="start">filled per call by runtime, by BAR</text>
+<rect x="820" y="688" width="140" height="44" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="890" y="716" class="m" text-anchor="middle">23809346</text>
+<rect x="960" y="688" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="988" y="716" class="ms" text-anchor="middle">Lo</text>
+<rect x="1016" y="688" width="56" height="44" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="1044" y="716" class="ms" text-anchor="middle">Hi</text>
+<text x="1090" y="707" class="s" text-anchor="start">Input (reg 0x1346), BAR 28</text>
+<text x="1090" y="726" class="xs" text-anchor="start">from 24: 4 slots per tensor, outputs first</text>
+<text x="70" y="790" class="s" text-anchor="start">Write packets in ② follow these register groups in order (field offsets, Table 5-8), matching HW dataflow:</text>
+<rect x="70" y="804" width="198" height="64" fill="#ececee" stroke="#6e6e73" stroke-width="1.6"/>
+<text x="169.0" y="832" class="n" text-anchor="middle">Common</text>
+<text x="169.0" y="854" class="xs" text-anchor="middle">shape · task type</text>
+<rect x="277" y="804" width="198" height="64" fill="#e1f3f8" stroke="#2f9ab5" stroke-width="1.6"/>
+<text x="376.0" y="832" class="n" text-anchor="middle">Input</text>
+<text x="376.0" y="854" class="xs" text-anchor="middle">Tile DMA</text>
+<rect x="484" y="804" width="198" height="64" fill="#e3f4f0" stroke="#00a087" stroke-width="1.6"/>
+<text x="583.0" y="832" class="n" text-anchor="middle">Texture / gather</text>
+<text x="583.0" y="854" class="xs" text-anchor="middle">resample</text>
+<rect x="691" y="804" width="198" height="64" fill="#e3f4f0" stroke="#00a087" stroke-width="1.6"/>
+<text x="790.0" y="832" class="n" text-anchor="middle">L2 source</text>
+<text x="790.0" y="854" class="xs" text-anchor="middle">ring buffer</text>
+<rect x="898" y="804" width="198" height="64" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.6"/>
+<text x="997.0" y="832" class="n" text-anchor="middle">PE</text>
+<text x="997.0" y="854" class="xs" text-anchor="middle">elementwise</text>
+<rect x="1105" y="804" width="198" height="64" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.6"/>
+<text x="1204.0" y="832" class="n" text-anchor="middle">NE</text>
+<text x="1204.0" y="854" class="xs" text-anchor="middle">conv config · shift</text>
+<rect x="1312" y="804" width="198" height="64" fill="#e1f3f8" stroke="#2f9ab5" stroke-width="1.6"/>
+<text x="1411.0" y="832" class="n" text-anchor="middle">Output</text>
+<text x="1411.0" y="854" class="xs" text-anchor="middle">Tile DMA</text>
+<line x1="277" y1="890" x2="1520" y2="890" stroke="#48484a" stroke-width="2" marker-end="url(#a)"/>
+<text x="860" y="914" class="xs" text-anchor="middle">DRAM → input Tile DMA → L2 → NE / PE → output Tile DMA → DRAM</text>
+<text x="70" y="960" class="n" text-anchor="start">④ Header word bits: three headers from ②, ③ (32 bits, bit 31 at left)</text>
+<text x="289.0" y="990" class="ms" text-anchor="middle">31</text>
+<text x="327.0" y="990" class="ms" text-anchor="middle">30</text>
+<text x="365.0" y="990" class="ms" text-anchor="middle">29</text>
+<text x="403.0" y="990" class="ms" text-anchor="middle">28</text>
+<text x="669.0" y="990" class="ms" text-anchor="middle">21</text>
+<text x="707.0" y="990" class="ms" text-anchor="middle">20</text>
+<text x="897.0" y="990" class="ms" text-anchor="middle">15</text>
+<text x="935.0" y="990" class="ms" text-anchor="middle">14</text>
+<text x="1467.0" y="990" class="ms" text-anchor="middle">0</text>
+<text x="150" y="1032" class="n" text-anchor="end">Contig.</text>
+<text x="255" y="1032" class="m" text-anchor="end">00010001</text>
+<rect x="270" y="1002" width="38" height="48" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="289.0" y="1032" class="n" text-anchor="middle">0</text>
+<rect x="308" y="1002" width="608" height="48" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="612.0" y="1032" class="n" text-anchor="middle">count − 1 = 2</text>
+<rect x="916" y="1002" width="570" height="48" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="1201.0" y="1032" class="n" text-anchor="middle">start reg = 0x0001</text>
+<text x="150" y="1094" class="n" text-anchor="end">Masked</text>
+<text x="255" y="1094" class="m" text-anchor="end">80c11340</text>
+<rect x="270" y="1064" width="38" height="48" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="289.0" y="1094" class="n" text-anchor="middle">1</text>
+<rect x="308" y="1064" width="608" height="48" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="612.0" y="1094" class="n" text-anchor="middle">mask = 0x0182 (bits 1, 7, 8)</text>
+<rect x="916" y="1064" width="570" height="48" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="1201.0" y="1094" class="n" text-anchor="middle">base = 0x1340</text>
+<text x="150" y="1156" class="n" text-anchor="end">Address</text>
+<text x="255" y="1156" class="m" text-anchor="end">23809346</text>
+<rect x="270" y="1126" width="38" height="48" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="289.0" y="1156" class="n" text-anchor="middle">0</text>
+<rect x="308" y="1126" width="38" height="48" fill="#e5e5ea" stroke="#636366" stroke-width="1.6"/>
+<text x="327.0" y="1156" class="n" text-anchor="middle">0</text>
+<rect x="346" y="1126" width="38" height="48" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="365.0" y="1156" class="n" text-anchor="middle">1</text>
+<rect x="384" y="1126" width="304" height="48" fill="#efe8e1" stroke="#7e6148" stroke-width="1.6"/>
+<text x="536.0" y="1156" class="n" text-anchor="middle">BAR = 28</text>
+<rect x="688" y="1126" width="228" height="48" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="802.0" y="1156" class="n" text-anchor="middle">count − 1 = 1</text>
+<rect x="916" y="1126" width="570" height="48" fill="#ffffff" stroke="#b8bcc6" stroke-width="1.6"/>
+<text x="1201.0" y="1156" class="n" text-anchor="middle">reg = 0x1346</text>
+<text x="270" y="1198" class="xs" text-anchor="start">bit 31: contiguous (0) vs. masked (1); mask bit i set → also write reg "base + 1 + i"; address packets flagged by bit 29; all 64-bit ones use even BAR nos. (Table 5-7, Sec. 5.7.6).</text>
+<text x="70" y="1244" class="xs" text-anchor="start">Example: 256-ch., 8×32-input, 4-layer 1×9 conv compiled for h18g (data/03_compile/tdv/h18g).</text>
+</svg>

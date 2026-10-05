@@ -1,0 +1,13 @@
+{
+ "层数": "Number of layers",
+ "每次调用耗时（µs，中位数）": "Time per call (µs, median)",
+ "斜率拟合区间（256–384 层）": "Slope fit range (256–384 layers)",
+ "双 ANE：3.40 µs/层，39.5 TFLOPS": "Dual ANE: 3.40 µs/layer, 39.5 TFLOPS",
+ "单 ANE：3.26 µs/层，20.6 TFLOPS": "Single ANE: 3.26 µs/layer, 20.6 TFLOPS",
+ "加速比（边际吞吐之比）1.92": "Speedup (marginal throughput ratio) 1.92",
+ "扩展效率 96%（加速比 ÷ 2）": "Scaling efficiency 96% (speedup ÷ 2)",
+ "双 ANE 每层的计算量为单 ANE 的 2 倍": "Dual-ANE layer does 2× single-ANE work",
+ "双 ANE 程序（宽 256）": "Dual-ANE program (width 256)",
+ "单 ANE 程序（宽 128）": "Single-ANE program (width 128)",
+ "虚线：按 256 层与 384 层两点的斜率外推": "Dashed: extrapolated from 256- and 384-layer slope"
+}

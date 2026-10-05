@@ -1,0 +1,138 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 890" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<rect x="0" y="0" width="1440" height="890" fill="#161618"/>
+  <style>
+    text { fill: #dbdbde; }
+    .h  { font-size: 18px; font-weight: 600; }
+    .b  { font-size: 15px; fill: #c6c6c8; }
+    .c  { font-size: 13px; fill: #9c9ca0; }
+    .tag { font-size: 12px; font-weight: 500; fill: #b58b68; }
+    .mid { text-anchor: middle; }
+    .end { text-anchor: end; }
+    .card { fill: #1a1a1a; stroke: #818187; stroke-width: 1.4; }
+    .ghost { fill: #22222a; stroke: #4f4f57; stroke-width: 1.2; }
+    .ctl { fill: #2e2e33; stroke: #818187; stroke-width: 1.3; }
+    .cmp { fill: #262f4c; stroke: #6b87c3; stroke-width: 1.5; }
+    .sub { fill: #1a1a1a; stroke: #a0abc8; stroke-width: 1.2; }
+    .buf { fill: #205347; stroke: #1dffdc; stroke-width: 1.5; }
+    .dma { fill: #1f4753; stroke: #61c4dd; stroke-width: 1.5; }
+    .mem { fill: #52261f; stroke: #ed7060; stroke-width: 1.5; }
+    .shr { fill: #22222a; stroke: #67676c; stroke-width: 1.2; }
+    .ne  { fill: #1a1a1a; stroke: #6b87c3; stroke-width: 1.2; }
+    .ne0 { fill: #323f61; stroke: #6b87c3; stroke-width: 1.6; }
+    .mac { fill: #a8b3d2; }
+    .wbuf { fill: #205347; stroke: #1dffdc; stroke-width: 1.2; }
+    .acc { fill: #493725; stroke: #b79578; stroke-width: 1.2; }
+    .ln  { stroke: #bbbbbd; stroke-width: 1.5; fill: none; }
+    .zm  { stroke: #6b87c3; stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+    .bus { stroke: #ed7060; stroke-width: 2.2; fill: none; }
+    .pill { fill: #493725; stroke: #b79578; stroke-width: 1; }
+    .pilld { fill: #1a1a1a; stroke: #b79578; stroke-width: 1; stroke-dasharray: 3 2; }
+  </style>
+  <defs>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#bbbbbd"/></marker>
+    <marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#ed7060"/></marker>
+  </defs>
+
+  <!-- ANE1（背后一层）-->
+  <rect class="ghost" x="58" y="58" width="1360" height="630" rx="18"/>
+  <text class="c end" x="1412" y="710">Layer behind: ANE1, same structure; separate power gating, NE clock</text>
+
+  <!-- ANE0 -->
+  <rect class="card" x="40" y="40" width="1360" height="630" rx="18"/>
+  <text class="h" x="64" y="70">ANE0</text>
+
+  <!-- 任务控制 -->
+  <rect class="ctl" x="100" y="84" width="1260" height="34" rx="8"/>
+  <text class="b mid" x="730" y="106">Task control: fetch TDs in order, write register values to each unit (Sec. 5.7)</text>
+
+  <!-- DRAM 总线 -->
+  <path class="bus" d="M70 730 V140 H980 V176" marker-end="url(#arr)"/>
+  <path class="bus" d="M70 220 H96" marker-end="url(#arr)"/>
+  <path class="bus" d="M100 360 H70"/>
+
+  <!-- 左列：Tile DMA -->
+  <rect class="dma" x="100" y="180" width="190" height="80" rx="10"/>
+  <text class="h mid" x="195" y="212">Tile DMA in</text>
+  <text class="c mid" x="195" y="234">activations · ≤ 2 streams</text><text class="c mid" x="195" y="251">total ≈ 35–40 GB/s</text>
+  <rect class="dma" x="100" y="320" width="190" height="80" rx="10"/>
+  <text class="h mid" x="195" y="352">Tile DMA out</text>
+  <text class="c mid" x="195" y="376">activations · 1 stream</text>
+
+  <!-- 中列：纹理 / L2 / PE -->
+  <rect class="buf" x="340" y="180" width="200" height="80" rx="10" style="fill:#20493c"/>
+  <text class="h mid" x="440" y="212">Texture / gather</text>
+  <text class="c mid" x="440" y="236">resample, index fetch (inferred)</text>
+
+  <rect class="buf" x="340" y="298" width="200" height="164" rx="10"/>
+  <text class="h mid" x="440" y="330">L2</text>
+  <text class="b mid" x="440" y="358">compiler uses 2 MiB</text>
+  <text class="b mid" x="440" y="380">64 bank × 16 B</text>
+  <text class="c mid" x="440" y="406">layer outputs stay on chip</text>
+  <rect class="pilld" x="374" y="426" width="132" height="20" rx="10"/>
+  <text class="tag mid" x="440" y="440">shared clock (inf.)</text>
+
+  <rect class="cmp" x="340" y="506" width="200" height="148" rx="10"/>
+  <text class="h" x="356" y="534">PE</text>
+  <rect class="pilld" x="394" y="521" width="136" height="18" rx="9"/>
+  <text class="tag mid" x="462" y="534" style="font-size:11px">own clock (inf.)</text>
+  <rect class="sub" x="356" y="550" width="168" height="40" rx="6"/>
+  <text class="b mid" x="440" y="575">ALU: elementwise ops</text>
+  <rect class="sub" x="356" y="600" width="168" height="40" rx="6"/>
+  <text class="b mid" x="440" y="625">LUT: 33 pts + interp.</text>
+
+  <!-- 片内连线（左、中列）-->
+  <path class="ln" d="M290 220 H336" marker-end="url(#ar)"/>
+  <path class="ln" d="M440 260 V294" marker-end="url(#ar)"/>
+  <path class="ln" d="M340 360 H294" marker-end="url(#ar)"/>
+  <path class="ln" d="M420 462 V502" marker-end="url(#ar)"/>
+  <path class="ln" d="M460 506 V466" marker-end="url(#ar)"/>
+  <path class="ln" d="M540 310 H596" marker-end="url(#ar)"/>
+  <text class="c mid" x="568" y="302">activ.</text>
+  <path class="ln" d="M600 346 H544" marker-end="url(#ar)"/>
+  <text class="c mid" x="568" y="364">results</text>
+
+  <!-- 右列：Kernel DMA 与 NE -->
+  <rect class="dma" x="600" y="180" width="760" height="46" rx="10"/>
+  <text class="b mid" x="980" y="209">Kernel DMA: weight reads, 16 groups, one per NE</text>
+  <rect class="cmp" x="600" y="266" width="760" height="388" rx="10" style="fill:#222e44"/>
+  <rect class="ne" x="616" y="280" width="40" height="80" rx="4"/><rect class="ne" x="662" y="280" width="40" height="80" rx="4"/><rect class="ne" x="708" y="280" width="40" height="80" rx="4"/><rect class="ne" x="754" y="280" width="40" height="80" rx="4"/><rect class="ne" x="800" y="280" width="40" height="80" rx="4"/><rect class="ne" x="846" y="280" width="40" height="80" rx="4"/><rect class="ne" x="892" y="280" width="40" height="80" rx="4"/><rect class="ne" x="938" y="280" width="40" height="80" rx="4"/><rect class="ne" x="984" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1030" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1076" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1122" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1168" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1214" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1260" y="280" width="40" height="80" rx="4"/><rect class="ne" x="1306" y="280" width="40" height="80" rx="4"/><path class="ln" d="M636 226 V276" marker-end="url(#ar)"/><path class="ln" d="M682 226 V276" marker-end="url(#ar)"/><path class="ln" d="M728 226 V276" marker-end="url(#ar)"/><path class="ln" d="M774 226 V276" marker-end="url(#ar)"/><path class="ln" d="M820 226 V276" marker-end="url(#ar)"/><path class="ln" d="M866 226 V276" marker-end="url(#ar)"/><path class="ln" d="M912 226 V276" marker-end="url(#ar)"/><path class="ln" d="M958 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1004 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1050 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1096 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1142 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1188 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1234 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1280 226 V276" marker-end="url(#ar)"/><path class="ln" d="M1326 226 V276" marker-end="url(#ar)"/>
+  <rect class="ne0" x="616" y="280" width="40" height="80" rx="4"/>
+  <text class="c mid" x="636" y="326">NE0</text>
+  <text class="c mid" x="1326" y="326">NE15</text>
+  <text class="h end" x="1340" y="388">16 × NE</text>
+  <rect class="pill" x="1086" y="373" width="168" height="20" rx="10"/>
+  <text class="tag mid" x="1170" y="387">NE clock 852–2580 MHz</text>
+
+  <!-- 放大：一个 NE -->
+  <path class="zm" d="M616 360 L620 414"/>
+  <path class="zm" d="M656 360 L760 414"/>
+  <rect x="620" y="414" width="720" height="226" rx="8" fill="#1a1a1a" stroke="#6b87c3" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text class="c" x="640" y="432" style="fill:#6b87c3">One NE (zoomed)</text>
+  <rect class="mac" x="640" y="438" width="9" height="9"/><rect class="mac" x="651" y="438" width="9" height="9"/><rect class="mac" x="662" y="438" width="9" height="9"/><rect class="mac" x="673" y="438" width="9" height="9"/><rect class="mac" x="684" y="438" width="9" height="9"/><rect class="mac" x="695" y="438" width="9" height="9"/><rect class="mac" x="706" y="438" width="9" height="9"/><rect class="mac" x="717" y="438" width="9" height="9"/><rect class="mac" x="728" y="438" width="9" height="9"/><rect class="mac" x="739" y="438" width="9" height="9"/><rect class="mac" x="750" y="438" width="9" height="9"/><rect class="mac" x="761" y="438" width="9" height="9"/><rect class="mac" x="772" y="438" width="9" height="9"/><rect class="mac" x="783" y="438" width="9" height="9"/><rect class="mac" x="794" y="438" width="9" height="9"/><rect class="mac" x="805" y="438" width="9" height="9"/><rect class="mac" x="640" y="449" width="9" height="9"/><rect class="mac" x="651" y="449" width="9" height="9"/><rect class="mac" x="662" y="449" width="9" height="9"/><rect class="mac" x="673" y="449" width="9" height="9"/><rect class="mac" x="684" y="449" width="9" height="9"/><rect class="mac" x="695" y="449" width="9" height="9"/><rect class="mac" x="706" y="449" width="9" height="9"/><rect class="mac" x="717" y="449" width="9" height="9"/><rect class="mac" x="728" y="449" width="9" height="9"/><rect class="mac" x="739" y="449" width="9" height="9"/><rect class="mac" x="750" y="449" width="9" height="9"/><rect class="mac" x="761" y="449" width="9" height="9"/><rect class="mac" x="772" y="449" width="9" height="9"/><rect class="mac" x="783" y="449" width="9" height="9"/><rect class="mac" x="794" y="449" width="9" height="9"/><rect class="mac" x="805" y="449" width="9" height="9"/><rect class="mac" x="640" y="460" width="9" height="9"/><rect class="mac" x="651" y="460" width="9" height="9"/><rect class="mac" x="662" y="460" width="9" height="9"/><rect class="mac" x="673" y="460" width="9" height="9"/><rect class="mac" x="684" y="460" width="9" height="9"/><rect class="mac" x="695" y="460" width="9" height="9"/><rect class="mac" x="706" y="460" width="9" height="9"/><rect class="mac" x="717" y="460" width="9" height="9"/><rect class="mac" x="728" y="460" width="9" height="9"/><rect class="mac" x="739" y="460" width="9" height="9"/><rect class="mac" x="750" y="460" width="9" height="9"/><rect class="mac" x="761" y="460" width="9" height="9"/><rect class="mac" x="772" y="460" width="9" height="9"/><rect class="mac" x="783" y="460" width="9" height="9"/><rect class="mac" x="794" y="460" width="9" height="9"/><rect class="mac" x="805" y="460" width="9" height="9"/><rect class="mac" x="640" y="471" width="9" height="9"/><rect class="mac" x="651" y="471" width="9" height="9"/><rect class="mac" x="662" y="471" width="9" height="9"/><rect class="mac" x="673" y="471" width="9" height="9"/><rect class="mac" x="684" y="471" width="9" height="9"/><rect class="mac" x="695" y="471" width="9" height="9"/><rect class="mac" x="706" y="471" width="9" height="9"/><rect class="mac" x="717" y="471" width="9" height="9"/><rect class="mac" x="728" y="471" width="9" height="9"/><rect class="mac" x="739" y="471" width="9" height="9"/><rect class="mac" x="750" y="471" width="9" height="9"/><rect class="mac" x="761" y="471" width="9" height="9"/><rect class="mac" x="772" y="471" width="9" height="9"/><rect class="mac" x="783" y="471" width="9" height="9"/><rect class="mac" x="794" y="471" width="9" height="9"/><rect class="mac" x="805" y="471" width="9" height="9"/><rect class="mac" x="640" y="482" width="9" height="9"/><rect class="mac" x="651" y="482" width="9" height="9"/><rect class="mac" x="662" y="482" width="9" height="9"/><rect class="mac" x="673" y="482" width="9" height="9"/><rect class="mac" x="684" y="482" width="9" height="9"/><rect class="mac" x="695" y="482" width="9" height="9"/><rect class="mac" x="706" y="482" width="9" height="9"/><rect class="mac" x="717" y="482" width="9" height="9"/><rect class="mac" x="728" y="482" width="9" height="9"/><rect class="mac" x="739" y="482" width="9" height="9"/><rect class="mac" x="750" y="482" width="9" height="9"/><rect class="mac" x="761" y="482" width="9" height="9"/><rect class="mac" x="772" y="482" width="9" height="9"/><rect class="mac" x="783" y="482" width="9" height="9"/><rect class="mac" x="794" y="482" width="9" height="9"/><rect class="mac" x="805" y="482" width="9" height="9"/><rect class="mac" x="640" y="493" width="9" height="9"/><rect class="mac" x="651" y="493" width="9" height="9"/><rect class="mac" x="662" y="493" width="9" height="9"/><rect class="mac" x="673" y="493" width="9" height="9"/><rect class="mac" x="684" y="493" width="9" height="9"/><rect class="mac" x="695" y="493" width="9" height="9"/><rect class="mac" x="706" y="493" width="9" height="9"/><rect class="mac" x="717" y="493" width="9" height="9"/><rect class="mac" x="728" y="493" width="9" height="9"/><rect class="mac" x="739" y="493" width="9" height="9"/><rect class="mac" x="750" y="493" width="9" height="9"/><rect class="mac" x="761" y="493" width="9" height="9"/><rect class="mac" x="772" y="493" width="9" height="9"/><rect class="mac" x="783" y="493" width="9" height="9"/><rect class="mac" x="794" y="493" width="9" height="9"/><rect class="mac" x="805" y="493" width="9" height="9"/><rect class="mac" x="640" y="504" width="9" height="9"/><rect class="mac" x="651" y="504" width="9" height="9"/><rect class="mac" x="662" y="504" width="9" height="9"/><rect class="mac" x="673" y="504" width="9" height="9"/><rect class="mac" x="684" y="504" width="9" height="9"/><rect class="mac" x="695" y="504" width="9" height="9"/><rect class="mac" x="706" y="504" width="9" height="9"/><rect class="mac" x="717" y="504" width="9" height="9"/><rect class="mac" x="728" y="504" width="9" height="9"/><rect class="mac" x="739" y="504" width="9" height="9"/><rect class="mac" x="750" y="504" width="9" height="9"/><rect class="mac" x="761" y="504" width="9" height="9"/><rect class="mac" x="772" y="504" width="9" height="9"/><rect class="mac" x="783" y="504" width="9" height="9"/><rect class="mac" x="794" y="504" width="9" height="9"/><rect class="mac" x="805" y="504" width="9" height="9"/><rect class="mac" x="640" y="515" width="9" height="9"/><rect class="mac" x="651" y="515" width="9" height="9"/><rect class="mac" x="662" y="515" width="9" height="9"/><rect class="mac" x="673" y="515" width="9" height="9"/><rect class="mac" x="684" y="515" width="9" height="9"/><rect class="mac" x="695" y="515" width="9" height="9"/><rect class="mac" x="706" y="515" width="9" height="9"/><rect class="mac" x="717" y="515" width="9" height="9"/><rect class="mac" x="728" y="515" width="9" height="9"/><rect class="mac" x="739" y="515" width="9" height="9"/><rect class="mac" x="750" y="515" width="9" height="9"/><rect class="mac" x="761" y="515" width="9" height="9"/><rect class="mac" x="772" y="515" width="9" height="9"/><rect class="mac" x="783" y="515" width="9" height="9"/><rect class="mac" x="794" y="515" width="9" height="9"/><rect class="mac" x="805" y="515" width="9" height="9"/><rect class="mac" x="640" y="526" width="9" height="9"/><rect class="mac" x="651" y="526" width="9" height="9"/><rect class="mac" x="662" y="526" width="9" height="9"/><rect class="mac" x="673" y="526" width="9" height="9"/><rect class="mac" x="684" y="526" width="9" height="9"/><rect class="mac" x="695" y="526" width="9" height="9"/><rect class="mac" x="706" y="526" width="9" height="9"/><rect class="mac" x="717" y="526" width="9" height="9"/><rect class="mac" x="728" y="526" width="9" height="9"/><rect class="mac" x="739" y="526" width="9" height="9"/><rect class="mac" x="750" y="526" width="9" height="9"/><rect class="mac" x="761" y="526" width="9" height="9"/><rect class="mac" x="772" y="526" width="9" height="9"/><rect class="mac" x="783" y="526" width="9" height="9"/><rect class="mac" x="794" y="526" width="9" height="9"/><rect class="mac" x="805" y="526" width="9" height="9"/><rect class="mac" x="640" y="537" width="9" height="9"/><rect class="mac" x="651" y="537" width="9" height="9"/><rect class="mac" x="662" y="537" width="9" height="9"/><rect class="mac" x="673" y="537" width="9" height="9"/><rect class="mac" x="684" y="537" width="9" height="9"/><rect class="mac" x="695" y="537" width="9" height="9"/><rect class="mac" x="706" y="537" width="9" height="9"/><rect class="mac" x="717" y="537" width="9" height="9"/><rect class="mac" x="728" y="537" width="9" height="9"/><rect class="mac" x="739" y="537" width="9" height="9"/><rect class="mac" x="750" y="537" width="9" height="9"/><rect class="mac" x="761" y="537" width="9" height="9"/><rect class="mac" x="772" y="537" width="9" height="9"/><rect class="mac" x="783" y="537" width="9" height="9"/><rect class="mac" x="794" y="537" width="9" height="9"/><rect class="mac" x="805" y="537" width="9" height="9"/><rect class="mac" x="640" y="548" width="9" height="9"/><rect class="mac" x="651" y="548" width="9" height="9"/><rect class="mac" x="662" y="548" width="9" height="9"/><rect class="mac" x="673" y="548" width="9" height="9"/><rect class="mac" x="684" y="548" width="9" height="9"/><rect class="mac" x="695" y="548" width="9" height="9"/><rect class="mac" x="706" y="548" width="9" height="9"/><rect class="mac" x="717" y="548" width="9" height="9"/><rect class="mac" x="728" y="548" width="9" height="9"/><rect class="mac" x="739" y="548" width="9" height="9"/><rect class="mac" x="750" y="548" width="9" height="9"/><rect class="mac" x="761" y="548" width="9" height="9"/><rect class="mac" x="772" y="548" width="9" height="9"/><rect class="mac" x="783" y="548" width="9" height="9"/><rect class="mac" x="794" y="548" width="9" height="9"/><rect class="mac" x="805" y="548" width="9" height="9"/><rect class="mac" x="640" y="559" width="9" height="9"/><rect class="mac" x="651" y="559" width="9" height="9"/><rect class="mac" x="662" y="559" width="9" height="9"/><rect class="mac" x="673" y="559" width="9" height="9"/><rect class="mac" x="684" y="559" width="9" height="9"/><rect class="mac" x="695" y="559" width="9" height="9"/><rect class="mac" x="706" y="559" width="9" height="9"/><rect class="mac" x="717" y="559" width="9" height="9"/><rect class="mac" x="728" y="559" width="9" height="9"/><rect class="mac" x="739" y="559" width="9" height="9"/><rect class="mac" x="750" y="559" width="9" height="9"/><rect class="mac" x="761" y="559" width="9" height="9"/><rect class="mac" x="772" y="559" width="9" height="9"/><rect class="mac" x="783" y="559" width="9" height="9"/><rect class="mac" x="794" y="559" width="9" height="9"/><rect class="mac" x="805" y="559" width="9" height="9"/><rect class="mac" x="640" y="570" width="9" height="9"/><rect class="mac" x="651" y="570" width="9" height="9"/><rect class="mac" x="662" y="570" width="9" height="9"/><rect class="mac" x="673" y="570" width="9" height="9"/><rect class="mac" x="684" y="570" width="9" height="9"/><rect class="mac" x="695" y="570" width="9" height="9"/><rect class="mac" x="706" y="570" width="9" height="9"/><rect class="mac" x="717" y="570" width="9" height="9"/><rect class="mac" x="728" y="570" width="9" height="9"/><rect class="mac" x="739" y="570" width="9" height="9"/><rect class="mac" x="750" y="570" width="9" height="9"/><rect class="mac" x="761" y="570" width="9" height="9"/><rect class="mac" x="772" y="570" width="9" height="9"/><rect class="mac" x="783" y="570" width="9" height="9"/><rect class="mac" x="794" y="570" width="9" height="9"/><rect class="mac" x="805" y="570" width="9" height="9"/><rect class="mac" x="640" y="581" width="9" height="9"/><rect class="mac" x="651" y="581" width="9" height="9"/><rect class="mac" x="662" y="581" width="9" height="9"/><rect class="mac" x="673" y="581" width="9" height="9"/><rect class="mac" x="684" y="581" width="9" height="9"/><rect class="mac" x="695" y="581" width="9" height="9"/><rect class="mac" x="706" y="581" width="9" height="9"/><rect class="mac" x="717" y="581" width="9" height="9"/><rect class="mac" x="728" y="581" width="9" height="9"/><rect class="mac" x="739" y="581" width="9" height="9"/><rect class="mac" x="750" y="581" width="9" height="9"/><rect class="mac" x="761" y="581" width="9" height="9"/><rect class="mac" x="772" y="581" width="9" height="9"/><rect class="mac" x="783" y="581" width="9" height="9"/><rect class="mac" x="794" y="581" width="9" height="9"/><rect class="mac" x="805" y="581" width="9" height="9"/><rect class="mac" x="640" y="592" width="9" height="9"/><rect class="mac" x="651" y="592" width="9" height="9"/><rect class="mac" x="662" y="592" width="9" height="9"/><rect class="mac" x="673" y="592" width="9" height="9"/><rect class="mac" x="684" y="592" width="9" height="9"/><rect class="mac" x="695" y="592" width="9" height="9"/><rect class="mac" x="706" y="592" width="9" height="9"/><rect class="mac" x="717" y="592" width="9" height="9"/><rect class="mac" x="728" y="592" width="9" height="9"/><rect class="mac" x="739" y="592" width="9" height="9"/><rect class="mac" x="750" y="592" width="9" height="9"/><rect class="mac" x="761" y="592" width="9" height="9"/><rect class="mac" x="772" y="592" width="9" height="9"/><rect class="mac" x="783" y="592" width="9" height="9"/><rect class="mac" x="794" y="592" width="9" height="9"/><rect class="mac" x="805" y="592" width="9" height="9"/><rect class="mac" x="640" y="603" width="9" height="9"/><rect class="mac" x="651" y="603" width="9" height="9"/><rect class="mac" x="662" y="603" width="9" height="9"/><rect class="mac" x="673" y="603" width="9" height="9"/><rect class="mac" x="684" y="603" width="9" height="9"/><rect class="mac" x="695" y="603" width="9" height="9"/><rect class="mac" x="706" y="603" width="9" height="9"/><rect class="mac" x="717" y="603" width="9" height="9"/><rect class="mac" x="728" y="603" width="9" height="9"/><rect class="mac" x="739" y="603" width="9" height="9"/><rect class="mac" x="750" y="603" width="9" height="9"/><rect class="mac" x="761" y="603" width="9" height="9"/><rect class="mac" x="772" y="603" width="9" height="9"/><rect class="mac" x="783" y="603" width="9" height="9"/><rect class="mac" x="794" y="603" width="9" height="9"/><rect class="mac" x="805" y="603" width="9" height="9"/>
+  <text class="c mid" x="728" y="633">16 × 16 = 256 MAC units</text>
+
+  <rect class="wbuf" x="900" y="438" width="420" height="56" rx="6"/>
+  <text class="b" x="916" y="462">Weight buffer ≤ 64 KiB (compiler limit)</text>
+  <text class="c" x="916" y="482">FP16: ≤ 16 output channels per pass</text>
+  <path class="ln" d="M900 466 H824" marker-end="url(#ar)"/>
+
+  <text class="b" x="846" y="530">Per cycle</text>
+  <text class="c" x="846" y="550">FP16: 256</text>
+  <text class="c" x="846" y="568">INT8: 512</text>
+
+  <rect class="acc" x="960" y="562" width="360" height="56" rx="6"/>
+  <text class="b" x="976" y="586">Accumulator: 32-bit fixed Q15.16</text>
+  <text class="c" x="976" y="606">init = bias; inf when |sum| ≥ 32768</text>
+  <path class="ln" d="M824 590 H956" marker-end="url(#ar)"/>
+  <text class="c" x="960" y="544">3×3, 1×3 conv run as HW Winograd</text>
+
+  <!-- 共享：DRAM 与 SLC -->
+  <rect class="mem" x="40" y="730" width="1360" height="60" rx="10"/>
+  <text class="h" x="64" y="766">DRAM</text>
+  <text class="b" x="134" y="766">8 ch. · 10656 MT/s · 170.5 GB/s peak; shared by both ANEs, weight reads total ≈ 150 GB/s</text>
+  <rect class="shr" x="40" y="806" width="1360" height="44" rx="10"/>
+  <text class="b" x="64" y="834">System-level cache (SLC): compiler parameter 16 MiB; weights bypass SLC on default path</text>
+  <rect class="pill" x="1060" y="866" width="16" height="12" rx="6"/><text class="c" x="1082" y="877">Clock</text>
+  <rect class="pilld" x="1140" y="866" width="16" height="12" rx="6"/><text class="c" x="1162" y="877">Inferred</text>
+  <path class="bus" d="M1220 872 H1240"/><text class="c" x="1246" y="877">DRAM path</text>
+</svg>

@@ -19,7 +19,7 @@ The report is currently written in Chinese. An English version is planned.
 | Directory                        | Contents                                                                                                          |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | [`final_report/`](final_report/) | The report, [`zh.md`](final_report/zh.md) (Chinese)                                                               |
-| [`figs/`](figs/)                 | Report figures (`fig<chapter>-<n>_*`). Each has an SVG and a PNG, plus a `*_dark` version for dark-mode web pages |
+| [`figs/`](figs/)                 | Report figures (`fig<chapter>-<n>_*`, SVG and PNG) in `figs/<language>/<theme>/`: `zh` or `en`, `light` or `dark` (dark for dark-mode web pages). `legacy/` holds early overview diagrams not used in the report |
 | [`data/`](data/)                 | Raw data, one subdirectory per topic. `_obsolete/` holds superseded data kept for reference                       |
 | [`tools/`](tools/)               | Experiment tools and analysis scripts, organized like `data/`                                                     |
 | [`notes/`](notes/)               | Lab notes and summaries of prior work                                                                             |
@@ -44,7 +44,7 @@ The subdirectory numbers in `data/` and `tools/` differ from the report's chapte
 - `common/`: runners and samplers, e.g. `bondrun.m`, `anecc.m`, `smcpower.c`, `pclus.c`;
 - `lib/`: parsers for compiled artifacts;
 - `re/`: read-only reverse-engineering tools;
-- `figs/`: scripts that generate the report figures. The figures use the NPG palette from ggsci; `render.sh` exports SVGs to PNG, and `darken.py` derives the dark versions from the light ones.
+- `figs/`: scripts that generate the report figures, in the NPG palette from ggsci. `build_all.sh` regenerates every figure: the scripts produce the Chinese light versions, `translate.py` builds the English versions from the tables in `i18n/`, `darken.py` derives the dark versions, and `render.sh` exports SVGs to PNG.
 
 Appendix A of the report lists the tools, data and root requirement of every experiment, chapter by chapter. Appendix B is the data index.
 

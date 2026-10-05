@@ -98,5 +98,5 @@ for i, (eid, name) in enumerate(EVENTS):
     a(f'<text class="b" x="{cx + 18}" y="{cy}"><tspan font-family="Menlo, SF Mono, monospace">61b{eid}</tspan>　{name}</text>')
 a('</svg>')
 
-out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'fig6-1_call_timeline.svg')
+out = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'zh', 'light', 'fig6-1_call_timeline.svg')
 open(out, 'w').write('\n'.join(o))

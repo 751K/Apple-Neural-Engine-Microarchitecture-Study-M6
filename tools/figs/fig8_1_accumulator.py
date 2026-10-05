@@ -94,4 +94,4 @@ for i, (title, col, lines) in enumerate(cards):
         t(x + 20, 528 + j * 28, s, 'b')
     t(x + 420, 600, lines[-1], 'c', 'end')
 a('</svg>')
-open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'fig8-1_accumulator.svg'), 'w').write('\n'.join(o))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'figs', 'zh', 'light', 'fig8-1_accumulator.svg'), 'w').write('\n'.join(o))

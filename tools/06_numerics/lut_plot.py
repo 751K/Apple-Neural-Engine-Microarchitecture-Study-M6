@@ -1,5 +1,6 @@
 """画激活函数的误差曲线（ANE 输出 − 精确值），并用"误差拱形"的端点估计采样点。
-用法：python lut_plot.py <npz 目录> <图片输出目录>"""
+用法：python lut_plot.py <npz 目录> <figs 目录>
+输出 figs/<语言>/<主题>/fig8-2_lut_error.png 与 fig8-3_lut_error_zoom.png（语言 zh、en，主题 light、dark）。"""
 import sys, os
 import numpy as np
 import matplotlib
@@ -17,8 +18,17 @@ EX = {
 }
 
 
-def draw(suffix, dark):
-    """浅色（suffix 为空）或深色（suffix 为 "_dark"，供网页的深色模式使用）。"""
+TXT = {
+    "zh": dict(rel="相对误差", abs="绝对误差", zoom="{n}：ANE 误差（蓝线为 0.5 间隔）"),
+    "en": dict(rel="relative error", abs="absolute error", zoom="{n}: ANE error (blue lines every 0.5)"),
+}
+
+
+def draw(lang, dark):
+    """lang 为 zh 或 en；dark 为 True 时出深色版（供网页的深色模式使用）。"""
+    T = TXT[lang]
+    out = os.path.join(dst, lang, "dark" if dark else "light")
+    os.makedirs(out, exist_ok=True)
     names = list(EX)
     fig, axs = plt.subplots(4, 3, figsize=(15, 13))
     for ax, n in zip(axs.flat, names):
@@ -31,13 +41,13 @@ def draw(suffix, dark):
         ec = (c[i] - e) / (np.abs(e) if rel else 1)
         ax.plot(ux, ec, lw=0.4, color=("0.45" if dark else "0.7"), label="CPU")
         ax.plot(ux, ea, lw=0.5, color="tab:red", label="ANE")
-        ax.set_title(f"{n}（{'相对' if rel else '绝对'}误差）")
+        ax.set_title(f"{n}（{T['rel'] if rel else T['abs']}）" if lang == "zh" else f"{n} ({T['rel'] if rel else T['abs']})")
         if rel or n in ("log",):
             ax.set_xscale("log")
         ax.axhline(0, color=("0.8" if dark else "k"), lw=0.3)
         ax.legend(fontsize=7)
     plt.tight_layout()
-    plt.savefig(os.path.join(dst, f"fig8-2_lut_error{suffix}.png"), dpi=110, facecolor=fig.get_facecolor())
+    plt.savefig(os.path.join(out, "fig8-2_lut_error.png"), dpi=110, facecolor=fig.get_facecolor())
 
     # sigmoid / gelu / silu / tanh 的近景
     fig, axs = plt.subplots(2, 2, figsize=(14, 8))
@@ -49,17 +59,17 @@ def draw(suffix, dark):
         ax.plot(ux[m], ea[m], lw=0.6, color="tab:red")
         for k in np.arange(np.ceil(lo * 2) / 2, hi, 0.5):
             ax.axvline(k, color="tab:blue", lw=0.3, alpha=(0.8 if dark else 0.5))
-        ax.set_title(f"{n}：ANE 误差（蓝线为 0.5 间隔）")
+        ax.set_title(T["zoom"].format(n=n))
         ax.axhline(0, color=("0.8" if dark else "k"), lw=0.3)
     plt.tight_layout()
-    plt.savefig(os.path.join(dst, f"fig8-3_lut_error_zoom{suffix}.png"), dpi=110, facecolor=fig.get_facecolor())
+    plt.savefig(os.path.join(out, "fig8-3_lut_error_zoom.png"), dpi=110, facecolor=fig.get_facecolor())
 
 
-for suffix, dark in (("", False), ("_dark", True)):
+for lang, dark in ((l, d) for l in ("zh", "en") for d in (False, True)):
     with plt.style.context("dark_background" if dark else "default"):
         if dark:
             plt.rcParams.update({"figure.facecolor": "#161618", "axes.facecolor": "#161618", "savefig.facecolor": "#161618"})
         plt.rcParams["font.sans-serif"] = ["PingFang SC", "Arial Unicode MS"]
-        draw(suffix, dark)
+        draw(lang, dark)
         plt.close("all")
 print("ok")

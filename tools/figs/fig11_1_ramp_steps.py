@@ -108,5 +108,5 @@ for i, f in enumerate(PATH):
     c.a(f'<path d="M{xr} {ys[i]:.1f} L{xr + 8} {ys[i]:.1f} L{xr + 22} {pos[i]:.1f} L{xr + 26} {pos[i]:.1f}" fill="none" stroke="{AXIS}" stroke-width="1"/>')
     c.t(xr + 30, pos[i] + 4.5, f'{f}', 'tk')
 c.a(f'<text class="s" x="{xr + 88}" y="{30 + 215}" text-anchor="middle" transform="rotate(90 {xr + 88} {30 + 215})">对应的 NE 时钟档位（MHz）</text>')
-c.t(90, H - 14, f'6 轮共 {len(dur)} 个任务（紫点）；橙线为第 1 轮的路径；虚线为 T = C / f + D 换算的档位，C = {C / 1e6:.3f} × 10⁶ 周期，D = {D:.0f} µs', 'c')
+c.t(90, H - 14, f'6 轮共 {len(dur)} 个任务（蓝点）；棕线为第 1 轮的路径；虚线为 T = C / f + D 换算的档位，C = {C / 1e6:.3f} × 10⁶ 周期，D = {D:.0f} µs', 'c')
 c.save('fig11-1_ramp_steps')
