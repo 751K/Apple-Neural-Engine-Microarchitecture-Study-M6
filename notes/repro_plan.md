@@ -140,7 +140,7 @@
 | H25 | 两种张量操作的带宽差别 | 转置约 60 GB/s、逐元素约 40 GB/s，都远低于读权重 | memory.md C3 |
 | H26 | 满载时偶尔更快的调用 | 约 1.8% 的调用快约 12%，成串出现，推测是 CPU / 内存频率档位变化 | power.md §4 |
 | H27 | 编译器内置的 SoC 参数（`ZinIrSocVariantParams`） | 每代一组：NE / DRAM / DMA 频率表、DRAM 通道数、MCache 大小、DRAM 池上限；可用只读调用读出 | power.md §6.1–6.2、data/09_clock/socfreq*.txt |
-| H28 | 哪个编译目标用哪组 SoC 参数 | 扫描 BL 指令：**TargetH18g（M6）用 `Soc2026BaseLine`**，TargetH18（手机款，用户指出为 A20）用 `H18`；编译器里没有 `H18g()` | power.md §6.1 |
+| H28 | 哪个编译目标用哪组 SoC 参数 | 扫描 BL 指令：**TargetH18g（M6）用 `Soc2026BaseLine`**，TargetH18（单引擎，对应芯片未知；A20 是 TargetH19，2026-10-07 更正）用 `H18`；编译器里没有 `H18g()` | power.md §6.1 |
 | H29 | M6 的 SoC 参数 | NE 32 档 804 MHz – 2.508 GHz；DRAM 8 通道、最高 5.328 GHz（×2 ≈ 10656 MT/s，理论约 170 GB/s，实测读权重 152 GB/s ≈ 89%）；MCache 16 MiB；DMA / L2 最高 1.308 GHz | power.md §6.2 |
 | H30 | 每个 NE 的乘加宽度 | 每 NE 每周期 256 次 FP16 乘加（每引擎 4096）；按实测 2.58 GHz 与固件任务周期数算，1×1 链为 256 的 96.7%；3×3 超过此值是硬件 Winograd，不矛盾（H10） | power.md §6.0 |
 | H31 | 时钟机制 | 每个 ANE 两个 PLL；爬升期 PLL 已开、在频率表内逐档升频；ANE 没有自己的调压域，通过 SOC Floor（5 档）请求电压；固件有 `System Clock`、`pstate` 处理 | power.md §6.4 |
