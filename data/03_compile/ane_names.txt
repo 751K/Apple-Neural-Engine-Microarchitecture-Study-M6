@@ -1,0 +1,33 @@
+# ANE 身份：各设备自己报告的名字（_ANEDeviceInfo；M5 来自 IORegistry）
+# 工具：tools/common/anedevinfo.m（Mac）、tools/common/aneinfo-ios/（iPhone，真机）
+
+## M4（Mac16,x，macOS 27.0.1，2026-10-07，anedevinfo）
+aneArchitectureType  h16g
+aneSubType           h16
+aneSubTypeVariant    g
+numANECores          16
+numANEs              1
+hasANE               1
+aneBoardType         256
+productName          macOS
+buildVersion         26A434
+
+## iPhone 16 Pro / A18 Pro（iPhone17,1，iOS 24B5099f，2026-10-07，aneinfo-ios）
+hw.machine = iPhone17,1
+aneArchitectureType = h17
+aneSubType = h17
+aneSubTypeVariant = 
+numANECores = 16
+numANEs = 1
+hasANE = true
+aneBoardType = 512
+productName = iPhone OS
+buildVersion = 24B5099f
+
+## M5（Mac17,x，macOS 27.0.0，2026-10-03，anemon diagnose 的 IORegistry 读数）
+chip                 Apple M5
+ane_architecture     h17   （IORegistry H11ANEIn / ANEDevicePropertyTypeANEArchitectureTypeStr）
+ane_cores            16
+
+## M6（Mac18,5，macOS 27.0.1，ioreg）
+ANEDevicePropertyTypeANEArchitectureTypeStr = h18g，ANECPUSubType = 11，2 个引擎 × 16 核

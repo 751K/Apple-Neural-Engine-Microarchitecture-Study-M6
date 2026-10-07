@@ -29,7 +29,7 @@ CoreML / Espresso(e5rt) → AppleNeuralEngine.framework + aned（编译、签名
 
 - 核数有两种口径：
   - **营销口径 / ioreg 的 "number of cores"**：M1 是 16。
-  - **架构口径 num_nes（HAL+0x238）**：后缀决定，base=4，g=8，s=16，c=32，d=64。M1 是 4，M5（H17s）是 16。
+  - **架构口径 num_nes（HAL+0x238）**：后缀决定，base=4，g=8，s=16，c=32，d=64。M1 是 4，M5（H17s）是 16。（实测不符：M4 h16g、A18 Pro 与 M5 的 h17 都是 16 核，M5 不是 H17s，见 ane_naming.md。）
   - maderix 在 M4 上读到 8（h16g）。书中预测 M4 base 是 4，两者不矛盾：maderix 的 M4 报告的是 h16g，不是 base。
 - **每核每周期出 4 个输出通道（fp16），int8 打包时出 8 个**；窄模式出 2 或 1 个。【反编译】
 - **归约树**【实测 M1】：
