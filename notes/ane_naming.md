@@ -17,6 +17,7 @@ Apple 自己把名字拆成两部分：**`aneArchitectureType` = `aneSubType` + 
 
 | 设备 | 发布 | aneArchitectureType | aneSubType | aneSubTypeVariant | 核数 | 引擎数 | aneBoardType |
 |---|---|---|---|---|---|---|---|
+| M2（iPad Pro 11 英寸第 4 代，iPad14,3） | 2022 | h14g | h14 | g | 16 | 1 | 128 |
 | M4（Mac） | 2024 | h16g | h16 | g | 16 | 1 | 256 |
 | A18 Pro（iPhone 16 Pro，iPhone17,1） | 2024 | **h17** | h17 | （空） | 16 | 1 | 512 |
 | M5（Mac17,x） | 2025 | **h17** | – | – | 16 | – | – |
@@ -41,15 +42,16 @@ H18 以后能编译的只有 h18（subtype 10，TD v20）、h18g 与 h19（都�
 
 1. 同一年的 A 系列和 M 系列不是同一个编号：2024 年 A18 Pro 是 h17、M4 是 h16g；2026 年 A20 是 h19、M6 是 h18g。
 2. A18 Pro 与 M5 的名字完全相同（h17，无变体，16 核）。
-3. 变体字母不表示核数：M4（g）与 A18 Pro（无变体）都是 16 核。Bryngelson 书中"后缀决定 num_nes：无 = 4，g = 8，s = 16，c = 32，d = 64"与此不符（bryngelson_summary.md 第 32 行）。
-4. h17s 不是任何已知设备的名字。之前用 h17s 代表"H17 一代"做编译对比（compile_cost.md、hwx_h18g.md §1），真实设备 A18 Pro 和 M5 用的都是 h17。
+3. M2 是 h14g（在 iPad 上读到），与 M4 的 h16g 一样是 `g` 变体：M2、M4、M6 都带 `g`，只有 M5 不带。
+4. 变体字母不表示核数：M4（g）与 A18 Pro（无变体）都是 16 核。Bryngelson 书中"后缀决定 num_nes：无 = 4，g = 8，s = 16，c = 32，d = 64"与此不符（bryngelson_summary.md 第 32 行）。
+5. h17s 不是任何已知设备的名字。之前用 h17s 代表"H17 一代"做编译对比（compile_cost.md、hwx_h18g.md §1），真实设备 A18 Pro 和 M5 用的都是 h17。
 
 ## 5. 推测（未证实）
 
 - **数字是 ANE 设计的编号，新设计先用在 A 系列上**；M 系列或直接沿用手机的设计（M5 = A18 Pro 的 h17），或出一个 `g` 变体（M4 = h16g）。M6 名义上是 h18 的 g 变体，但参数表 `2026BaseLine` 与 h19 相同，即实际是 A20 一代的 ANE。
 - `g` 可能表示 Mac 专用配置：h16g 有 8 个 DRAM 通道（单引擎 h18 为 4 个），h18g 有双引擎。证据只有这两条。
 - `c`、`d`、`s`、`a` 可能是同一设计的其他芯片规格（如 Pro/Max），没有设备读数。
-- `aneBoardType`：M4 为 256，A18 Pro 为 512，含义不明。
+- `aneBoardType`：M2 为 128，M4 为 256，A18 Pro 为 512，按设备变新翻倍，含义不明。
 - `m`、`t`、`u` 开头的目标（M12 = subtype 17，U1–U4 = 15、18–20，都比 h19 新）与 Apple 的 M 系列协处理器、T2、U1 超宽带芯片同名，是否有关无证据。
 
 ## 6. 被推翻的说法
@@ -62,4 +64,4 @@ H18 以后能编译的只有 h18（subtype 10，TD v20）、h18g 与 h19（都�
 
 - M5 的 `aneSubTypeVariant`、`aneBoardType`；M6 的 `_ANEDeviceInfo` 全部字段（`anedevinfo` 一次即可）。
 - Pro/Max（M4 Pro、M5 Pro 等）的名字，用来检验 `c` / `d` 是否对应它们。ANEForge #295 的维护者有 M5 Pro。
-- M1–M3 是否为 h13g–h15g。
+- M1、M3 是否为 h13g、h15g（M2 已确认为 h14g）。

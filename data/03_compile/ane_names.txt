@@ -24,6 +24,18 @@ aneBoardType = 512
 productName = iPhone OS
 buildVersion = 24B5099f
 
+## iPad Pro 11 英寸第 4 代 / M2（iPad14,3，iPadOS 24A446，2026-10-07，aneinfo-ios）
+hw.machine = iPad14,3
+aneArchitectureType = h14g
+aneSubType = h14
+aneSubTypeVariant = g
+numANECores = 16
+numANEs = 1
+hasANE = true
+aneBoardType = 128
+productName = iPhone OS
+buildVersion = 24A446
+
 ## M5（Mac17,x，macOS 27.0.0，2026-10-03，anemon diagnose 的 IORegistry 读数）
 chip                 Apple M5
 ane_architecture     h17   （IORegistry H11ANEIn / ANEDevicePropertyTypeANEArchitectureTypeStr）
