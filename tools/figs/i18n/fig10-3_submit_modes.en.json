@@ -1,0 +1,20 @@
+{
+ "(a) 权重常驻：1×1 卷积，512 通道，384 层": "(a) Weights resident: 1×1 conv, 512 ch, 384 layers",
+ "吞吐（相对同步调用）": "Throughput (relative to synchronous)",
+ "同步": "Synchronous",
+ "忙碌 77% / 0%": "busy 77% / 0%",
+ "异步，1 个在途": "Async, 1 in flight",
+ "异步，2 个在途": "Async, 2 in flight",
+ "忙碌 72% / 72%": "busy 72% / 72%",
+ "异步，4 个在途": "Async, 4 in flight",
+ "忙碌 100% / 100%": "busy 100% / 100%",
+ "批量，每批 2 个": "Batch of 2",
+ "忙碌 60% / 59%": "busy 60% / 59%",
+ "批量，每批 8 个": "Batch of 8",
+ "忙碌 76% / 78%": "busy 76% / 78%",
+ "两个进程，各异步 2 个": "Two processes, async 2 each",
+ "(b) 读权重受限：1×9 改写核，256 通道，80 层": "(b) Weight-read bound: rewritten 1×9, 256 ch, 80 layers",
+ "忙碌 78% / 0%": "busy 78% / 0%",
+ "忙碌 79% / 79%": "busy 79% / 79%",
+ "忙碌 84% / 84%": "busy 84% / 84%"
+}

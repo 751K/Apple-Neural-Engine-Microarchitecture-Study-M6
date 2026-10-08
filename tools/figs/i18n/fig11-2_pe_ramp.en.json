@@ -1,0 +1,12 @@
+{
+ "(a) 冷启动后的提速：NE（卷积）与 PE（逐元素运算）": "(a) Ramp-up after a cold start: NE (convolution) vs PE (elementwise)",
+ "相对最低档的速度": "Speed relative to the lowest state",
+ "(b) PE 任务时长：单独运行与 GPU 同时工作": "(b) PE task time: alone vs with the GPU active",
+ "PE 任务时长（µs）": "PE task time (µs)",
+ "满载约 466 µs": "Full speed ≈ 466 µs",
+ "(c) SoC 电压域的实际档位": "(c) Actual SoC voltage state",
+ "时间（ms，自该轮第一个任务开始）": "Time (ms, from the first task of the run)",
+ "NE（卷积模型）": "NE (convolution model)",
+ "PE 单独运行": "PE alone",
+ "PE，GPU 先读内存 1.5 s 后启动": "PE, started after 1.5 s of GPU memory reads"
+}

@@ -1,0 +1,18 @@
+{
+ "(a) 每次空闲的长度与忙碌比例": "(a) Idle length per call vs busy fraction",
+ "ANE 忙碌比例（%）": "ANE busy fraction (%)",
+ "77%（第 12.2 节，空闲不超过约 1 ms）": "77% (§12.2, idle ≤ ≈1 ms)",
+ "模型：τ = 6.5 ms，目标 80%": "Model: τ = 6.5 ms, target 80%",
+ "双 ANE、满频约 1.4 ms 的模型：跳到约 2540 MHz": "Dual-ANE model, ≈1.4 ms at full clock: jumps to ≈2540 MHz",
+ "(b) 模型残差（均方根 2.9%）": "(b) Model residuals (RMS 2.9%)",
+ "每次空闲（ms，含主机开销）": "Idle per call (ms, incl. host overhead)",
+ "r − 目标（百分点）": "r − target (pp)",
+ "单 ANE，满频约 1.3 ms": "Single ANE, ≈1.3 ms at full clock",
+ "单 ANE，约 2.7 ms": "Single ANE, ≈2.7 ms",
+ "单 ANE，约 5.3 ms": "Single ANE, ≈5.3 ms",
+ "档位已到上下限，不参与拟合": "At clock limit, not fitted",
+ "双 ANE，约 1.4 ms": "Dual ANE, ≈1.4 ms",
+ "双 ANE，约 2.6 ms": "Dual ANE, ≈2.6 ms",
+ "双 ANE，约 5.2 ms": "Dual ANE, ≈5.2 ms",
+ "双 ANE，约 1.4 ms，跳变": "Dual ANE, ≈1.4 ms, jump"
+}

@@ -38,6 +38,7 @@ The subdirectory numbers in `data/` and `tools/` differ from the report's chapte
 | `09_clock`    | Ch. 11 Clock domains                     |
 | `10_clpc`     | Ch. 12 Dynamic frequency scaling         |
 | `11_power`    | Ch. 13 Power and energy efficiency       |
+| `12_apps`     | Ch. 14 Application tests (ANE resource curves only) |
 
 `tools/` also has a few directories shared across chapters:
 
@@ -51,7 +52,7 @@ Appendix A of the report lists the tools, data and root requirement of every exp
 ## Not in this repository
 
 - **ANE firmware, the kernelcache, compiler disassembly and raw dumps of the hardware parameter tables.** These are derived from Apple binaries. They were analyzed locally, read-only, and are not redistributed. The report provides the tools to regenerate them on your own machine.
-- **Raw records of the real-application tests in Chapter 14.** This data has not yet been organized into the repository, as noted in Appendix B of the report.
+- **Most raw records of the real-application tests in Chapter 14.** Only the ANE resource curves are in the repository (`data/12_apps/`); see Appendix B.3 of the report for the rest.
 
 ## Reproducing the results
 

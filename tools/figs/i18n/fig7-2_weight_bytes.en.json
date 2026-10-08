@@ -1,0 +1,20 @@
+{
+ "(a) 读权重受限的 1×1 卷积（2048 通道）": "(a) Weight-read-bound 1×1 conv (2048 ch)",
+ "每层权重（MB，编译产物中压缩后的大小，对数坐标）": "Weights per layer (MB, compressed size in the binary, log scale)",
+ "每层耗时（µs，对数坐标）": "Time per layer (µs, log scale)",
+ "6 位": "6-bit",
+ "4 位": "4-bit",
+ "3 位": "3-bit",
+ "2 位": "2-bit",
+ "50%+4 位": "50%+4-bit",
+ "(b) 1×9 改写核（256 通道）": "(b) Rewritten 1×9 kernel (256 ch)",
+ "每层权重（MB）": "Weights per layer (MB)",
+ "按 150 GB/s 应为 8.8 µs": "8.8 µs expected at 150 GB/s",
+ "M6，量化与调色板": "M6, quantized/palettized",
+ "M6，两个 ANE 各存一份": "M6, one copy per ANE",
+ "M6，剪枝": "M6, pruned",
+ "M4，FP16": "M4, FP16",
+ "M4，剪枝": "M4, pruned",
+ "改写核": "Rewritten kernel",
+ "W8：实测 17.8 µs": "W8: measured 17.8 µs"
+}

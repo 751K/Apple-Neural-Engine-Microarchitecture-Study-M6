@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# 图 7-2（第 7.7 节，表 7-12）：M6 与 M4 的整体吞吐（含每次调用的固定开销）随链深度的变化，左 FP16、右 W8A8。
+# 图 7-4（第 7.7 节，表 7-12）：M6 与 M4 的整体吞吐（含每次调用的固定开销）随链深度的变化，左 FP16、右 W8A8。
 # 形状：1×1 卷积链，512 通道，32×32，各层权重不同（模型名后缀 _u）；每层 2 × 512 × 512 × 32 × 32 FLOP。
 # 数据：
 #   M6 FP16  data/05_compute/chains_run2.txt  中的 k1_c512_h32w32_L{1,4,8,16,32,48}_u（调用耗时取第 1 个数值列，与表 7-12 相同）
@@ -101,5 +101,5 @@ c.t(456, ly + 1, 'M6 FP16 细扫（16–64 层）', 's')
 c.a(f'<rect x="{680}" y="{ly - 8.5}" width="9" height="9" fill="#ffffff" stroke="{B}" stroke-width="1.8"/>')
 c.t(698, ly + 1, 'M4 48 层：1024 通道、64×64（形状不同）', 's')
 c.t(90, ly + 26, 'M6：512 通道、32×32、各层权重不同，切分到两个 ANE；吞吐含每次调用的固定开销', 'c')
-c.save('fig7-2_depth_throughput')
+c.save('fig7-4_depth_throughput')
 print(f'fit: {a:.1f} + {b:.3f} L  -> {FLOP / b / 1e6:.1f} TFLOPS', file=sys.stderr)

@@ -1,0 +1,11 @@
+{
+ "层数（对数坐标）": "Layers (log scale)",
+ "编译时间（s，对数坐标）": "Compile time (s, log scale)",
+ "双对数斜率约 3.5–3.8": "Log-log slope ≈ 3.5–3.8",
+ "双对数斜率约 0.9": "Log-log slope ≈ 0.9",
+ "458 倍": "458×",
+ "179 s 对 0.39 s": "179 s vs 0.39 s",
+ "h18（单引擎），逐元素运算链": "h18 (single engine), elementwise chain",
+ "h18g（双引擎），逐元素运算链": "h18g (dual engine), elementwise chain",
+ "1×1 卷积链 256 层（对照，h18 / h18g）": "1×1 conv chain, 256 layers (control, h18 / h18g)"
+}

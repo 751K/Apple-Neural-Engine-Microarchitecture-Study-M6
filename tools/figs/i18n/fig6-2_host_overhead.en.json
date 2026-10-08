@@ -1,0 +1,13 @@
+{
+ "驱动提交 → 任务结束（µs，约为任务时长加 30 µs）": "Driver submit → task end (µs, ≈ task time + 30 µs)",
+ "任务结束 → 下次提交（µs）": "Task end → next submit (µs)",
+ "约 350 µs": "≈ 350 µs",
+ "约 660 µs": "≈ 660 µs",
+ "16 层 / 4 层": "16 / 4 layers",
+ "96 层 / 24 层": "96 / 24 layers",
+ "384 层 / 96 层": "384 / 96 layers",
+ "384 层，空转进程": "384 layers, with spinners",
+ "A 组：512 通道，16–384 层": "Group A: 512 ch, 16–384 layers",
+ "B 组：1024 通道，4–96 层": "Group B: 1024 ch, 4–96 layers",
+ "A 组，后台 12 个空转进程": "Group A, 12 background spinners"
+}

@@ -7,3 +7,6 @@ private/
 
 # 本地生成的预览
 *_preview.pdf
+
+# 网页构建产物
+/site/

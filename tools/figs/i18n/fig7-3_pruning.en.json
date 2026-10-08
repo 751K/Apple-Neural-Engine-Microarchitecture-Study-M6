@@ -1,0 +1,10 @@
+{
+ "(a) 1×1 卷积（512 通道，1×128）": "(a) 1×1 conv (512 ch, 1×128)",
+ "剪枝率": "Pruning ratio",
+ "每层耗时（相对稠密）": "Time per layer (relative to dense)",
+ "按非零比例": "Non-zero fraction",
+ "(b) 3×3 卷积（512 通道，16×16）": "(b) 3×3 conv (512 ch, 16×16)",
+ "M6 剪枝后不再使用 Winograd": "M6 drops Winograd once pruned",
+ "结构化剪枝（2:4、1:4）": "Structured (2:4, 1:4)",
+ "耗时按非零比例缩短（理想）": "Time ∝ non-zero fraction (ideal)"
+}

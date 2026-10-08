@@ -1,0 +1,15 @@
+{
+ "M6 ÷ M4（ANE 上的速度之比）": "M6 ÷ M4 (ANE speed ratio)",
+ "单引擎峰值之比约 1.1（参照）": "Single-engine peak ratio ≈1.1 (reference)",
+ "双引擎峰值之比约 2.2（参照）": "Dual-engine peak ratio ≈2.2 (reference)",
+ "文字检测（CRAFT）": "Text detection (CRAFT)",
+ "ResNet-50，一次 16 张": "ResNet-50, batch of 16",
+ "大语言模型解码（标准模型）": "LLM decode (standard model)",
+ "大语言模型预填充（标准模型）": "LLM prefill (standard model)",
+ "文字识别（含 CPU 上的 LSTM）": "Text recognition (LSTM on CPU)",
+ "ResNet-50，一次 1 张": "ResNet-50, one image",
+ "预期一：计算密集": "Expectation 1: compute-dense",
+ "预期二：每次调用工作量小": "Expectation 2: small work per call",
+ "预期三：解码受读权重与调用次数限制": "Expectation 3: decode bound by weight reads and calls",
+ "预期四：部分运算在 CPU 上": "Expectation 4: some ops on CPU"
+}

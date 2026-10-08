@@ -1,0 +1,12 @@
+{
+ "标准模型（每词元 9 次调用）": "Standard model (9 calls per token)",
+ "ANE 忙碌比例（%）": "ANE busy fraction (%)",
+ "时间（s，自预填充开始）": "Time (s, from start of prefill)",
+ "读内存速率（GB/s）": "Memory read rate (GB/s)",
+ "M4 读权重上限约 67 GB/s": "M4 weight-read bound ≈ 67 GB/s",
+ "M6 读权重上限约 150 GB/s": "M6 weight-read bound ≈ 150 GB/s",
+ "定制模型，关闭 MTP（每词元 5 次调用）": "Custom model, MTP off (5 calls per token)",
+ "读数为下限（直方图最高档截顶）": "Lower bound (top histogram bin clipped)",
+ "预填充": "Prefill",
+ "解码": "Decode"
+}

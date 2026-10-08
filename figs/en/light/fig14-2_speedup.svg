@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
+<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .h2{font-size:15.5px;font-weight:600} .b{font-size:14.5px;fill:#3a3a3c} .c{font-size:13px;fill:#6e6e73} .s{font-size:12.5px;fill:#3a3a3c} .tk{font-size:12.5px;fill:#6e6e73;font-family:Helvetica Neue,Arial,sans-serif}</style>
+<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#3a3a3c" stroke-width="1.6"/></marker></defs>
+<line x1="300.0" y1="316" x2="300.0" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="300.0" y="336.0" text-anchor="middle">0</text>
+<line x1="393.3" y1="316" x2="393.3" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="393.3" y="336.0" text-anchor="middle">0.5</text>
+<line x1="486.7" y1="316" x2="486.7" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="486.7" y="336.0" text-anchor="middle">1</text>
+<line x1="580.0" y1="316" x2="580.0" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="580.0" y="336.0" text-anchor="middle">1.5</text>
+<line x1="673.3" y1="316" x2="673.3" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="673.3" y="336.0" text-anchor="middle">2</text>
+<line x1="766.7" y1="316" x2="766.7" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="766.7" y="336.0" text-anchor="middle">2.5</text>
+<line x1="860.0" y1="316" x2="860.0" y2="321" stroke="#8e8e93" stroke-width="1"/>
+<text class="tk" x="860.0" y="336.0" text-anchor="middle">3</text>
+<line x1="300" y1="316" x2="860" y2="316" stroke="#8e8e93" stroke-width="1.2"/>
+<line x1="300" y1="40" x2="300" y2="316" stroke="#8e8e93" stroke-width="1.2"/>
+<text class="s" x="580.0" y="360.0" text-anchor="middle">M6 ÷ M4 (ANE speed ratio)</text>
+<line x1="505.3" y1="32" x2="505.3" y2="316" stroke="#3a3a3c" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text class="c" x="499.3" y="26.0" text-anchor="end">Single-engine peak ratio ≈1.1 (reference)</text>
+<line x1="710.7" y1="32" x2="710.7" y2="316" stroke="#3a3a3c" stroke-width="1.2" stroke-dasharray="5 4"/>
+<text class="c" x="716.7" y="26.0" text-anchor="start">Dual-engine peak ratio ≈2.2 (reference)</text>
+<text class="b" x="286.0" y="68.0" text-anchor="end">Text detection (CRAFT)</text>
+<rect x="300.0" y="52.0" width="502.1" height="22" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s" x="810.1" y="68.0" text-anchor="start">2.69</text>
+<text class="b" x="286.0" y="114.0" text-anchor="end">ResNet-50, batch of 16</text>
+<rect x="300.0" y="98.0" width="434.9" height="22" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s" x="742.9" y="114.0" text-anchor="start">2.33</text>
+<text class="b" x="286.0" y="160.0" text-anchor="end">LLM decode (standard model)</text>
+<rect x="300.0" y="144.0" width="347.2" height="22" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s" x="655.2" y="160.0" text-anchor="start">1.86</text>
+<text class="b" x="286.0" y="206.0" text-anchor="end">LLM prefill (standard model)</text>
+<rect x="300.0" y="190.0" width="341.6" height="22" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s" x="649.6" y="206.0" text-anchor="start">1.83</text>
+<text class="b" x="286.0" y="252.0" text-anchor="end">ResNet-50, one image</text>
+<rect x="300.0" y="236.0" width="265.1" height="22" fill="#efe8e1" stroke="#7e6148" stroke-width="1.3"/>
+<text class="s" x="573.1" y="252.0" text-anchor="start">1.42</text>
+<text class="b" x="286.0" y="298.0" text-anchor="end">Text recognition (LSTM on CPU)</text>
+<rect x="300.0" y="282.0" width="263.2" height="22" fill="#ececee" stroke="#6e6e73" stroke-width="1.3"/>
+<text class="s" x="571.2" y="298.0" text-anchor="start">1.41</text>
+<rect x="60" y="389" width="16" height="14" rx="2" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
+<text class="s" x="84.0" y="401.0" text-anchor="start">Expectation 1: compute-dense</text>
+<rect x="420" y="389" width="16" height="14" rx="2" fill="#efe8e1" stroke="#7e6148" stroke-width="1.3"/>
+<text class="s" x="444.0" y="401.0" text-anchor="start">Expectation 2: small work per call</text>
+<rect x="60" y="415" width="16" height="14" rx="2" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
+<text class="s" x="84.0" y="427.0" text-anchor="start">Expectation 3: decode bound by weight reads and calls</text>
+<rect x="420" y="415" width="16" height="14" rx="2" fill="#ececee" stroke="#6e6e73" stroke-width="1.3"/>
+<text class="s" x="444.0" y="427.0" text-anchor="start">Expectation 4: some ops on CPU</text>
+</svg>
