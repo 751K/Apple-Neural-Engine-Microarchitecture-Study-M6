@@ -10,3 +10,6 @@ private/
 
 # 网页构建产物
 /site/
+
+# 本地编辑器配置
+.claude/
