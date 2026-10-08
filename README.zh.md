@@ -8,6 +8,8 @@
 
 报告以中文写成，英文版由中文版翻译而来；两者不一致时以中文版为准。
 
+在线阅读：[中文](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/) | [English](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/en/)
+
 ## 仓库的定位
 
 - **报告是结论的唯一出处。** 报告中的每条结论都带有证据类别标注，并直接链接到对应的数据文件和工具，读者可以从报告出发核对任何一个数字。

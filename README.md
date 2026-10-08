@@ -8,6 +8,8 @@ The report studies the Neural Engine (ANE) of the Apple M6 (T8152, ANE compile t
 
 The report was written in Chinese. The English edition is a translation of it; where the two differ, the Chinese text is authoritative.
 
+Read the report online: [English](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/en/) | [中文](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/)
+
 ## What this repository is
 
 - **The report is the single source of conclusions.** Every conclusion in the report carries an evidence tag and links directly to the data files and tools behind it, so any number can be traced back from the report.
