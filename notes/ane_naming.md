@@ -1,6 +1,6 @@
 # ANE 架构名与芯片的对应
 
-- 日期：2026-10-07
+- 日期：2026-10-07，2026-10-08 补充第 4 节第 6–8 条与第 5 节的时间线
 - 数据：`data/03_compile/ane_names.txt`（各设备自报的名字）、`data/03_compile/tdv/*.log`（各编译目标能否编译）
 - 工具：`tools/common/anedevinfo.m`（Mac）、`tools/common/aneinfo-ios/`（iPhone / iPad，真机）
 
@@ -45,6 +45,9 @@ H18 以后能编译的只有 h18（subtype 10，TD v20）、h18g 与 h19（都�
 3. M2 是 h14g（在 iPad 上读到），与 M4 的 h16g 一样是 `g` 变体：M2、M4、M6 都带 `g`，只有 M5 不带。
 4. 变体字母不表示核数：M4（g）与 A18 Pro（无变体）都是 16 核。Bryngelson 书中"后缀决定 num_nes：无 = 4，g = 8，s = 16，c = 32，d = 64"与此不符（bryngelson_summary.md 第 32 行）。
 5. h17s 不是任何已知设备的名字。之前用 h17s 代表"H17 一代"做编译对比（compile_cost.md、hwx_h18g.md §1），真实设备 A18 Pro 和 M5 用的都是 h17。
+6. 文中的 "CPU subtype" 指 ANE 的代号，不是 Arm CPU：HWX 是 Mach-O 格式，文件头的 `cputype = 0x80` 表示 ANE 程序，`cpusubtype` 表示 ANE 的一代（H13 = 4、H16 = 7、H17 = 9、H18 = 10、H19 = 11）；ioreg 的 `ANECPUSubType` 同义（M6 为 11）。所以 M5 与 A19 的 Arm CPU 可以是同一代，ANE 却不同。
+7. subtype 10 不是空号：h18 有自己的 HAL（`ZinIrHalH18`）、SoC 参数和 TD v20，能正常编译；寄存器布局从 h17 到 h18 改了 L2 块，从 h18 到 h18g / h19 改了 NE 块（hwx_h18g.md §11.3）。它是一代完整实现的架构，只是还没有已知设备。
+8. 在编译器里 h19 与 h18g 一样生成双 ANE 程序：两者的 HWX 都带 bonded 段、编译时间相同且都比单引擎目标长、指令流几乎逐字相同（hwx_h18g.md §1、§11.2，compile_cost.md）。所以"双引擎是 M6 独有"不能由编译器证明；A20 有几个引擎要在设备上读 `numANEs`。
 
 ## 5. 推测（未证实）
 
@@ -53,6 +56,21 @@ H18 以后能编译的只有 h18（subtype 10，TD v20）、h18g 与 h19（都�
 - `c`、`d`、`s`、`a` 可能是同一设计的其他芯片规格（如 Pro/Max），没有设备读数。
 - `aneBoardType`：M2 为 128，M4 为 256，A18 Pro 为 512，按设备变新翻倍，含义不明。
 - `m`、`t`、`u` 开头的目标（M12 = subtype 17，U1–U4 = 15、18–20，都比 h19 新）与 Apple 的 M 系列协处理器、T2、U1 超宽带芯片同名，是否有关无证据。
+
+### 时间线：Mac 一贯沿用上一年手机的 ANE，M6 第一次追上同年
+
+把 M 系列与前一年的 A 系列对齐，已有读数都能对上（? 为未在设备上读过）：
+
+| 年份 | A 系列 | ANE（subtype） | 同年的 M 系列 | ANE（subtype） | M 系列的 ANE 来自 |
+|---|---|---|---|---|---|
+| 2023 | A17 Pro | h16？（7） | – | – | – |
+| 2024 | A18 Pro | h17（9） | M4 | h16g（7） | 前一年 A17 Pro 一代的 g 变体 |
+| 2025 | A19 | h18？（10） | M5 | h17（9） | 前一年 A18 Pro，名字完全相同 |
+| 2026 | A20 | h19？（11） | M6 | h18g（11） | 名字按惯例对应前一年 A19（h18），参数却是同年 A20 的 H19 |
+
+- M5 与 A19 同年发布，但 ANE 不同代：M5 用的是 2024 年 A18 Pro 的 h17。
+- M6 的名字 h18g 符合"晚一代"的惯例，内容却是同年的 H19 设计，且 SoC 参数比 H19 宽裕：NE 最高 2.508 GHz（H19 为 2.13 GHz），DRAM 8 通道（H19 为 4 个），见 power.md §6.1。一种解释：M6 原计划基于 H18 做 g 变体（故名 h18g），后改用 H19 的设计，名字未改，参数表改用年份命名的 `2026BaseLine`。
+- 检验：A19 Pro 若报 h18（subtype 10），时间线成立；若报 h17，则 h18 没有已知设备，"原计划基于 H18、后放弃"的说法更有分量；若报 h19，A 系列与编号的对应要重排。A17 Pro 是否为 h16 也待读。
 
 ## 6. 被推翻的说法
 
@@ -65,3 +83,4 @@ H18 以后能编译的只有 h18（subtype 10，TD v20）、h18g 与 h19（都�
 - M5 的 `aneSubTypeVariant`、`aneBoardType`；M6 的 `_ANEDeviceInfo` 全部字段（`anedevinfo` 一次即可）。
 - Pro/Max（M4 Pro、M5 Pro 等）的名字，用来检验 `c` / `d` 是否对应它们。ANEForge #295 的维护者有 M5 Pro。
 - M1、M3 是否为 h13g、h15g（M2 已确认为 h14g）。
+- A19 / A19 Pro、A17 Pro、A20 的名字与 `numANEs`（第 5 节时间线的检验）。
