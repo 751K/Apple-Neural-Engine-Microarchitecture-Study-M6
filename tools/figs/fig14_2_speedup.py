@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # 图 14-2（第 14.6 节）：各项实际任务在 ANE 上的 M6 ÷ M4 加速比。
-#   数值取自表 14-1、表 14-4（标准模型；ResNet-50 一次 1 张为复测范围），颜色对应第 14.2 节的预期。
+#   数值取自表 14-1、表 14-4（标准模型），颜色对应第 14.2 节的预期。
 #   两条竖线为参照值：单引擎 FP16 峰值之比约 1.1（21.1 ÷ 约 19 TFLOPS），双引擎峰值之比约 2.2（42.3 ÷ 约 19）。
 # 数据：第 14 章的整机测评记录（表 14-1、表 14-4）。
 import os
@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from figplot import Chart, COLORS, FG2  # noqa: E402
 
 E1, E2, E3, E4 = COLORS[0], COLORS[2], COLORS[1], COLORS[5]
-ROWS = [  # (任务, 加速比或 (下限, 上限), 颜色)
+ROWS = [  # (任务, 加速比, 颜色)
     ('文字检测（CRAFT）', 2.69, E1),
     ('ResNet-50，一次 16 张', 2.33, E1),
     ('大语言模型解码（标准模型）', 1.86, E3),
