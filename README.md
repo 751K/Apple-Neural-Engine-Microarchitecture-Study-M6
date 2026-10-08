@@ -58,6 +58,10 @@ Appendix A of the report lists the tools, data and root requirement of every exp
 - **ANE firmware, the kernelcache, compiler disassembly and raw dumps of the hardware parameter tables.** These are derived from Apple binaries. They were analyzed locally, read-only, and are not redistributed. The report provides the tools to regenerate them on your own machine.
 - **Most raw records of the real-application tests in Chapter 14.** Only the ANE resource curves are in the repository (`data/12_apps/`); see Appendix B.3 of the report for the rest.
 
+## Related project
+
+[anemon](https://github.com/751K/apple-neural-engine-monitor) is the ANE monitor we built during this study. It shows, live in the terminal, how busy the ANE is, which processes use it, its memory read bandwidth and its power, on the M4, M5 and M6. Chapter 14 of the report uses it to record the ANE resource curves of real applications (reference [27]). Its power reading (the SMC rail minus the CPU cluster that shares it) and its busy percentage (from the ANE firmware's kdebug events) both come from the analysis in this report. It is also needed to reproduce the first round of fixed-overhead measurements in Chapter 6 with [d1_trace.sh](tools/04_schedule/d1_trace.sh); see Appendix A of the report.
+
 ## Reproducing the results
 
 Requirements:
