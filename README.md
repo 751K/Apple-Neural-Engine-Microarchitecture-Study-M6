@@ -6,7 +6,7 @@ This repository accompanies the technical report *Microarchitecture of the Apple
 
 The report studies the Neural Engine (ANE) of the Apple M6 (T8152, ANE compile target h18g). It covers the program format and compiler, scheduling, the compute array, numerical behavior, the memory hierarchy, dual-engine cooperation, clocks, frequency scaling and power, and uses the M4 as a point of comparison. All models were executed only through public interfaces. The compiler, driver and firmware were analyzed read-only.
 
-The report is currently written in Chinese. An English version is planned.
+The report was written in Chinese. The English edition is a translation of it; where the two differ, the Chinese text is authoritative.
 
 ## What this repository is
 
@@ -18,7 +18,7 @@ The report is currently written in Chinese. An English version is planned.
 
 | Directory                        | Contents                                                                                                          |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| [`final_report/`](final_report/) | The report, [`zh.md`](final_report/zh.md) (Chinese)                                                               |
+| [`final_report/`](final_report/) | The report: [`zh.md`](final_report/zh.md) (Chinese original) and [`en.md`](final_report/en.md) (English translation). [`glossary.md`](final_report/glossary.md) is the terminology table used for the translation |
 | [`figs/`](figs/)                 | Report figures (`fig<chapter>-<n>_*`, SVG and PNG) in `figs/<language>/<theme>/`: `zh` or `en`, `light` or `dark` (dark for dark-mode web pages). `legacy/` holds early overview diagrams not used in the report |
 | [`data/`](data/)                 | Raw data, one subdirectory per topic. `_obsolete/` holds superseded data kept for reference                       |
 | [`tools/`](tools/)               | Experiment tools and analysis scripts, organized like `data/`                                                     |
@@ -45,7 +45,9 @@ The subdirectory numbers in `data/` and `tools/` differ from the report's chapte
 - `common/`: runners and samplers, e.g. `bondrun.m`, `anecc.m`, `smcpower.c`, `pclus.c`;
 - `lib/`: parsers for compiled artifacts;
 - `re/`: read-only reverse-engineering tools;
-- `figs/`: scripts that generate the report figures, in the NPG palette from ggsci. `build_all.sh` regenerates every figure: the scripts produce the Chinese light versions, `translate.py` builds the English versions from the tables in `i18n/`, `darken.py` derives the dark versions, and `render.sh` exports SVGs to PNG.
+- `figs/`: scripts that generate the report figures, in the NPG palette from ggsci. `build_all.sh` regenerates every figure: the scripts produce the Chinese light versions, `translate.py` builds the English versions from the tables in `i18n/`, `darken.py` derives the dark versions, and `render.sh` exports SVGs to PNG;
+- `site/`: `build.py` builds the report as a single web page (`--lang zh` writes `site/`, `--lang en` writes `site/en/`);
+- `check_en.py`: compares the English translation with the Chinese original section by section (numbers, cross-references, citations, evidence tags, tables, figures).
 
 Appendix A of the report lists the tools, data and root requirement of every experiment, chapter by chapter. Appendix B is the data index.
 
@@ -79,6 +81,6 @@ Appendix A.3 of the report walks through three complete examples, from model gen
 
 ## Acknowledgments and license
 
-Anthropic's Claude Opus 5.5 played an important role in this work; see the acknowledgments in the report.
+Anthropic's Claude Opus 5.5 played an important role in this work; see the acknowledgments in the report. The English edition was translated by Claude Haiku 5.5 and reviewed by Claude Opus 5.5.
 
 This repository is released under the [MIT License](LICENSE).

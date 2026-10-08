@@ -30,8 +30,8 @@
 <text class="tk" x="815.7" y="440.0" text-anchor="middle">1000</text>
 <line x1="110" y1="420" x2="870" y2="420" stroke="#818187" stroke-width="1.2"/>
 <line x1="110" y1="40" x2="110" y2="420" stroke="#818187" stroke-width="1.2"/>
-<text class="s" x="56" y="230.0" text-anchor="middle" transform="rotate(-90 56 230.0)">NE clock level (MHz)</text>
-<text class="h2" x="110.0" y="28.0" text-anchor="start">(a) Level distribution vs. sleep time</text>
+<text class="s" x="56" y="230.0" text-anchor="middle" transform="rotate(-90 56 230.0)">NE DVFS state (MHz)</text>
+<text class="h2" x="110.0" y="28.0" text-anchor="start">(a) DVFS state distribution vs. sleep time</text>
 <line x1="110" y1="62.8" x2="870" y2="62.8" stroke="#818187" stroke-width="1.2" stroke-dasharray="4 4"/>
 <text class="c" x="864.0" y="56.8" text-anchor="end">Max 2580 MHz</text>
 <line x1="110" y1="391.1" x2="870" y2="391.1" stroke="#818187" stroke-width="1.2" stroke-dasharray="4 4"/>
@@ -136,8 +136,8 @@
 <line x1="110" y1="680" x2="870" y2="680" stroke="#818187" stroke-width="1.2"/>
 <line x1="110" y1="500" x2="110" y2="680" stroke="#818187" stroke-width="1.2"/>
 <text class="s" x="490.0" y="724.0" text-anchor="middle">Sleep before call G (µs)</text>
-<text class="s" x="56" y="590.0" text-anchor="middle" transform="rotate(-90 56 590.0)">ANE busy ratio (%)</text>
-<text class="h2" x="110.0" y="488.0" text-anchor="start">(b) ANE busy ratio</text>
+<text class="s" x="56" y="590.0" text-anchor="middle" transform="rotate(-90 56 590.0)">ANE busy fraction (%)</text>
+<text class="h2" x="110.0" y="488.0" text-anchor="start">(b) ANE busy fraction</text>
 <rect x="110" y="554.0" width="760" height="9.0" fill="#4e3c2a"/>
 <line x1="110" y1="558.5" x2="870" y2="558.5" stroke="#b79578" stroke-width="1.2" stroke-dasharray="4 4"/>
 <text class="c" x="864.0" y="552.5" text-anchor="end">≈77%</text>
@@ -156,9 +156,9 @@
 <text class="tk" x="598.6" y="548.2" text-anchor="middle">77</text>
 <text class="tk" x="707.1" y="552.9" text-anchor="middle">76</text>
 <text class="tk" x="815.7" y="642.6" text-anchor="middle">62</text>
-<text class="c" x="218.6" y="513.5" text-anchor="middle" fill="#1dffdc">Level at max</text>
-<text class="c" x="544.3" y="513.5" text-anchor="middle" fill="#6b87c3">Level falls with G, busy ratio stays ≈77%</text>
-<text class="c" x="815.7" y="513.5" text-anchor="middle" fill="#1dffdc">Level at min</text>
+<text class="c" x="218.6" y="513.5" text-anchor="middle" fill="#1dffdc">State at max</text>
+<text class="c" x="544.3" y="513.5" text-anchor="middle" fill="#6b87c3">State falls with G, busy fraction stays ≈77%</text>
+<text class="c" x="815.7" y="513.5" text-anchor="middle" fill="#1dffdc">State at min</text>
 <line x1="327.1" y1="40" x2="327.1" y2="420" stroke="#818187" stroke-width="1.2" stroke-dasharray="4 4"/>
 <line x1="327.1" y1="500" x2="327.1" y2="680" stroke="#818187" stroke-width="1.2" stroke-dasharray="4 4"/>
 <line x1="761.4" y1="40" x2="761.4" y2="420" stroke="#818187" stroke-width="1.2" stroke-dasharray="4 4"/>

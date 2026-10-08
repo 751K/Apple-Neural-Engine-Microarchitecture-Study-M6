@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-# 把报告生成为单页网页：final_report/zh.md → site/index.html（另复制所需的图）。
+# 把报告生成为单页网页：final_report/zh.md → site/index.html，final_report/en.md → site/en/index.html（另复制所需的图）。
 #   - 左侧章节目录，滚动时高亮当前章节；深浅色跟随系统，也可手动切换；
 #   - 图按主题在 figs/zh/light 与 figs/zh/dark 之间切换；
 #   - 正文中的 ../tools/…、../data/… 链接改写为 GitHub 上的地址；
-#   - "第 N.M 节""表 N-M""图 N-M""[n]"自动链接到对应的锚点。
-# 用法：python3 tools/site/build.py [--repo URL] [--out DIR]
+#   - "第 N.M 节""表 N-M""图 N-M""[n]"（英文版为 Section、Table、Figure 等）自动链接到对应的锚点；
+#   - 顶栏有中英文切换链接（中文版在 site/，英文版在 site/en/）。
+# 用法：python3 tools/site/build.py [--lang zh|en] [--repo URL] [--out DIR]
 # 依赖：markdown-it-py（pip install markdown-it-py）
 import argparse
 import html
@@ -20,9 +21,22 @@ REPO = 'https://github.com/751K/Apple-Neural-Engine-Microarchitecture-Study-M6'
 
 ap = argparse.ArgumentParser()
 ap.add_argument('--repo', default=REPO)
-ap.add_argument('--out', default=os.path.join(ROOT, 'site'))
-ap.add_argument('--lang', default='zh')
+ap.add_argument('--out')
+ap.add_argument('--lang', default='zh', choices=('zh', 'en'))
 args = ap.parse_args()
+EN = args.lang == 'en'
+if not args.out:
+    args.out = os.path.join(ROOT, 'site', 'en') if EN else os.path.join(ROOT, 'site')
+UI = {
+    'zh': dict(menu='目录', theme_dark='深色', theme_light='浅色', theme_label='切换深浅色', code='代码与数据：',
+               other='English', other_href='en/',
+               desc='Apple M6 神经网络引擎的微体系结构研究：编译产物、执行追踪与功耗测量。'),
+    'en': dict(menu='Contents', theme_dark='Dark', theme_light='Light', theme_label='Toggle dark mode', code='Code and data: ',
+               other='中文', other_href='../',
+               desc='A microarchitecture study of the Apple M6 Neural Engine based on compiled artifacts, execution traces, and power measurements.'),
+}[args.lang]
+FIG = 'Figure' if EN else '图'
+TAB = 'Table' if EN else '表'
 
 src = open(os.path.join(ROOT, 'final_report', f'{args.lang}.md')).read()
 md = MarkdownIt('commonmark', {'html': True}).enable('table')
@@ -35,13 +49,14 @@ def heading_id(text):
     m = re.match(r'(\d+(?:\.\d+)*)\.?\s', t)
     if m:
         return 's' + m.group(1).replace('.', '-')
-    m = re.match(r'附录\s*([A-E])', t)
+    m = re.match(r'(?:附录\s*|Appendix\s+)([A-E])\b', t)
     if m:
         return 'app' + m.group(1)
     m = re.match(r'([A-E])\.(\d+)', t)
     if m:
         return m.group(1).lower() + '-' + m.group(2)
-    return {'摘要': 'abstract', '致谢': 'ack', '参考文献': 'refs'}.get(t, None)
+    return {'摘要': 'abstract', '致谢': 'ack', '参考文献': 'refs',
+            'Abstract': 'abstract', 'Acknowledgments': 'ack', 'References': 'refs'}.get(t, None)
 
 
 toc = []
@@ -73,7 +88,7 @@ def figure(m):
     alt = re.search(r'alt="([^"]*)"', img)
     alt = alt.group(1) if alt else ''
     name = os.path.basename(srcp)
-    fid = re.match(r'图 (\d+-\d+)', cap)
+    fid = re.match(FIG + r' (\d+-\d+)', cap)
     fid = f' id="f{fid.group(1)}"' if fid else ''
     light = f'figs/{args.lang}/light/{name}'
     dark = f'figs/{args.lang}/dark/{name}'
@@ -85,18 +100,18 @@ def figure(m):
             f'<figcaption>{cap}</figcaption></figure>')
 
 
-body = re.sub(r'<p>(<img [^>]+>)</p>\s*<p><em>(图 .*?)</em></p>', figure, body, flags=re.S)
+body = re.sub(r'<p>(<img [^>]+>)</p>\s*<p><em>(' + FIG + r' .*?)</em></p>', figure, body, flags=re.S)
 
 
 # ---------- 表：标题锚点，横向滚动 ----------
 def table_cap(m):
     cap = m.group(1)
-    tid = re.match(r'表 ([0-9A-Z]+-\d+)', cap)
+    tid = re.match(TAB + r' ([0-9A-Z]+-\d+)', cap)
     tid = f' id="t{tid.group(1)}"' if tid else ''
     return f'<p class="tcap"{tid}>{cap}</p>'
 
 
-body = re.sub(r'<p><em>(表 [0-9A-Z]+-\d+.*?)</em></p>', table_cap, body)
+body = re.sub(r'<p><em>(' + TAB + r' [0-9A-Z]+-\d+.*?)</em></p>', table_cap, body)
 body = body.replace('<table>', '<div class="table-wrap"><table>').replace('</table>', '</table></div>')
 
 
@@ -147,6 +162,8 @@ def link_text(t):
         hid = f'{letter.lower()}-{num}' if num else f'app{letter}'
         return f'<a class="xref" href="#{hid}">{m.group(0)}</a>' if hid in ids else m.group(0)
     t = re.sub(r'附录 ([A-E])(?:\.(\d+))?', app, t)
+    if EN:
+        t = link_en(t)
 
     def cite(m):
         inner = m.group(1)
@@ -155,6 +172,38 @@ def link_text(t):
         return f'[{out}]'
     t = re.sub(r'\[(\d+(?:\s*[,，–-]\s*\d+)*)\]', cite, t)
     t = re.sub(r'〔([^〔〕]{1,40})〕', r'<span class="ev">〔\1〕</span>', t)
+    return t
+
+
+def link_en(t):
+    """英文版：Section(s) / Chapter(s) / Table(s) / Figure(s) / Appendix(-ces) 后的编号逐个链接，含 "5.7 and 10.4"、"5–6" 等列举。"""
+    def one(hid, text):
+        return f'<a class="xref" href="#{hid}">{text}</a>' if hid in ids else text
+
+    def secs(m):
+        word, lst = m.group(1), m.group(2)
+        return word + ' ' + re.sub(r'\d+(?:\.\d+)*', lambda d: one('s' + d.group(0).replace('.', '-'), d.group(0)), lst)
+    t = re.sub(r'\b(Sections?|Chapters?) (\d+(?:\.\d+)*(?:(?:–|, | and |, and | to )\d+(?:\.\d+)*)*)', secs, t)
+
+    def tfs(m):
+        word, lst = m.group(1), m.group(2)
+        k = 't' if word.startswith('T') else 'f'
+        pre = [None]
+
+        def num(d):
+            n = d.group(0)
+            if '-' in n:
+                pre[0] = n.split('-')[0]
+                return one(k + n, n)
+            return one(f'{k}{pre[0]}-{n}', n) if pre[0] else n
+        return word + ' ' + re.sub(r'(?:[0-9A-Z]+-)?\d+', num, lst)
+    t = re.sub(r'\b(Tables?|Figures?) ([0-9A-Z]+-\d+(?:(?:–|, | and |, and | to )(?:[0-9A-Z]+-)?\d+)*)', tfs, t)
+
+    def apps(m):
+        word, lst = m.group(1), m.group(2)
+        return word + ' ' + re.sub(r'\b([A-E])(?:\.(\d+))?\b',
+                                   lambda d: one(f'{d.group(1).lower()}-{d.group(2)}' if d.group(2) else f'app{d.group(1)}', d.group(0)), lst)
+    t = re.sub(r'\b(Appendix|Appendices) ([A-E](?:\.\d+)?(?:(?:, | and |, and )[A-E](?:\.\d+)?)*)\b', apps, t)
     return t
 
 
@@ -273,7 +322,7 @@ JS = r'''
 (function(){
  var root=document.documentElement,btn=document.getElementById('theme');
  function cur(){return root.getAttribute('data-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
- function label(){btn.textContent=cur()==='dark'?'浅色':'深色'}
+ function label(){btn.textContent=cur()==='dark'?'__LIGHT__':'__DARK__'}
  btn.onclick=function(){var t=cur()==='dark'?'light':'dark';root.setAttribute('data-theme',t);
   try{localStorage.setItem('theme',t)}catch(e){}label()};
  label();
@@ -307,27 +356,28 @@ page = f'''<!doctype html>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=Noto+Serif+SC:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<meta name="description" content="Apple M6 神经网络引擎的微体系结构研究：编译产物、执行追踪与功耗测量。">
+<meta name="description" content="{UI['desc']}">
 <script>try{{var t=localStorage.getItem('theme');if(t)document.documentElement.setAttribute('data-theme',t)}}catch(e){{}}</script>
 <style>{CSS}</style>
 </head>
 <body>
 <header class="top">
-<button id="menu" aria-label="目录">目录</button>
+<button id="menu" aria-label="{UI['menu']}">{UI['menu']}</button>
 <div class="t">{title}</div>
-<button id="theme" aria-label="切换深浅色">深色</button>
+<button id="theme" aria-label="{UI['theme_label']}">{UI['theme_dark']}</button>
+<a class="btn" href="{UI['other_href']}" hreflang="{'zh' if EN else 'en'}">{UI['other']}</a>
 <a class="btn" href="{args.repo}" target="_blank" rel="noopener">GitHub</a>
 </header>
 <div class="layout">
-<nav class="toc" aria-label="目录">{toc_html()}</nav>
+<nav class="toc" aria-label="{UI['menu']}">{toc_html()}</nav>
 <main><article>
 <h1 class="title">{title}</h1>
-<div class="meta">代码与数据：<a href="{args.repo}" target="_blank" rel="noopener">{args.repo.replace("https://", "")}</a></div>
+<div class="meta">{UI['code']}<a href="{args.repo}" target="_blank" rel="noopener">{args.repo.replace("https://", "")}</a></div>
 {body}
 </article>
 </main>
 </div>
-<script>{JS}</script>
+<script>{JS.replace('__LIGHT__', UI['theme_light']).replace('__DARK__', UI['theme_dark'])}</script>
 </body>
 </html>
 '''

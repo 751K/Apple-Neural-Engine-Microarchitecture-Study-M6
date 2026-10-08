@@ -9,6 +9,6 @@
  "1326 µs（约 2448 MHz）：约每 300 个": "1326 µs (≈2448 MHz): every ≈300",
  "任务出现一段约 15 个任务的回落": "tasks, a dip lasting ≈15 tasks",
  "稳定段 1267.5 µs（2580 MHz）": "Plateau 1267.5 µs (2580 MHz)",
- "对应的 NE 时钟档位（MHz）": "NE clock level (MHz)",
- "6 轮共 4920 个任务（蓝点）；棕线为第 1 轮的路径；虚线为 T = C / f + D 换算的档位，C = 3.244 × 10⁶ 周期，D = 12 µs": "4920 tasks over 6 runs (blue); brown: path of run 1; dashed: levels from T = C / f + D, C = 3.244 × 10⁶ cycles, D = 12 µs"
+ "对应的 NE 时钟档位（MHz）": "NE DVFS state (MHz)",
+ "6 轮共 4920 个任务（蓝点）；棕线为第 1 轮的路径；虚线为 T = C / f + D 换算的档位，C = 3.244 × 10⁶ 周期，D = 12 µs": "4920 tasks over 6 runs (blue); brown: path of run 1; dashed: states from T = C / f + D, C = 3.244 × 10⁶ cycles, D = 12 µs"
 }

@@ -6,6 +6,8 @@
 
 报告研究 Apple M6（T8152，ANE 编译目标 h18g）的神经网络引擎（ANE），涵盖程序格式与编译器、调度、计算阵列、数值行为、存储层次、双引擎协同、时钟、调频和功耗，并以 M4 为对照。全部实验只通过公开接口执行模型，对编译器、驱动和固件只做只读分析。
 
+报告以中文写成，英文版由中文版翻译而来；两者不一致时以中文版为准。
+
 ## 仓库的定位
 
 - **报告是结论的唯一出处。** 报告中的每条结论都带有证据类别标注，并直接链接到对应的数据文件和工具，读者可以从报告出发核对任何一个数字。
@@ -16,7 +18,7 @@
 
 | 目录 | 内容 |
 |---|---|
-| [`final_report/`](final_report/) | 报告正文 [`zh.md`](final_report/zh.md)（中文） |
+| [`final_report/`](final_report/) | 报告正文：[`zh.md`](final_report/zh.md)（中文原文）和 [`en.md`](final_report/en.md)（英文译本）；[`glossary.md`](final_report/glossary.md) 是翻译所用的术语表 |
 | [`figs/`](figs/) | 报告用图（`fig<章>-<序号>_*`，SVG 与 PNG），按 `figs/<语言>/<主题>/` 存放：语言为 `zh` 或 `en`，主题为 `light` 或 `dark`（深色版供网页深色模式使用）；`legacy/` 为报告未采用的早期总览图 |
 | [`data/`](data/) | 原始数据，按研究主题分目录；`_obsolete/` 为已作废、仅供备查的数据 |
 | [`tools/`](tools/) | 实验工具与分析脚本，目录划分与 `data/` 相同 |
@@ -43,7 +45,9 @@
 - `common/`：运行器与采样器，例如 `bondrun.m`、`anecc.m`、`smcpower.c`、`pclus.c`；
 - `lib/`：编译产物的解析库；
 - `re/`：只读的逆向工具；
-- `figs/`：报告用图的生成脚本。图的配色采用 ggsci 的 NPG 配色。`build_all.sh` 一次重新生成全部图：各脚本先出中文浅色版，`translate.py` 按 `i18n/` 中的对照表生成英文版，`darken.py` 生成深色版，`render.sh` 把 SVG 导出为 PNG。
+- `figs/`：报告用图的生成脚本。图的配色采用 ggsci 的 NPG 配色。`build_all.sh` 一次重新生成全部图：各脚本先出中文浅色版，`translate.py` 按 `i18n/` 中的对照表生成英文版，`darken.py` 生成深色版，`render.sh` 把 SVG 导出为 PNG；
+- `site/`：`build.py` 把报告生成单页网页（`--lang zh` 输出到 `site/`，`--lang en` 输出到 `site/en/`）；
+- `check_en.py`：逐节比对英文译本与中文原文（数字、交叉引用、文献引用、证据标注、表格和图）。
 
 报告附录 A 按章列出每个实验所用的工具、数据和是否需要 root，附录 B 是数据目录。
 
@@ -76,6 +80,6 @@
 
 ## 致谢与许可
 
-Anthropic 的 Claude Opus 5.5 在本研究中发挥了重要作用，见报告的致谢部分。
+Anthropic 的 Claude Opus 5.5 在本研究中发挥了重要作用，见报告的致谢部分。英文版由 Claude Haiku 5.5 翻译，Claude Opus 5.5 审校。
 
 本仓库以 [MIT 许可证](LICENSE) 发布。

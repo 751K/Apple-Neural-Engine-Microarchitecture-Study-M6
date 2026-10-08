@@ -5005,6 +5005,6 @@
 <text class="tk" x="680.0" y="431.5" text-anchor="start">2448</text>
 <path d="M650 442.0 L658 442.0 L672 442.0 L676 442.0" fill="none" stroke="#8e8e93" stroke-width="1"/>
 <text class="tk" x="680.0" y="446.5" text-anchor="start">2580</text>
-<text class="s" x="738" y="245" text-anchor="middle" transform="rotate(90 738 245)">NE clock level (MHz)</text>
-<text class="c" x="90.0" y="546.0" text-anchor="start">4920 tasks over 6 runs (blue); brown: path of run 1; dashed: levels from T = C / f + D, C = 3.244 × 10⁶ cycles, D = 12 µs</text>
+<text class="s" x="738" y="245" text-anchor="middle" transform="rotate(90 738 245)">NE DVFS state (MHz)</text>
+<text class="c" x="90.0" y="546.0" text-anchor="start">4920 tasks over 6 runs (blue); brown: path of run 1; dashed: states from T = C / f + D, C = 3.244 × 10⁶ cycles, D = 12 µs</text>
 </svg>

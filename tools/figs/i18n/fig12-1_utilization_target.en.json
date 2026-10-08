@@ -1,16 +1,16 @@
 {
- "NE 时钟档位（MHz）": "NE clock level (MHz)",
- "（a）各睡眠时间下的档位分布": "(a) Level distribution vs. sleep time",
+ "NE 时钟档位（MHz）": "NE DVFS state (MHz)",
+ "（a）各睡眠时间下的档位分布": "(a) DVFS state distribution vs. sleep time",
  "上限 2580 MHz": "Max 2580 MHz",
  "下限 852 MHz": "Min 852 MHz",
  "圆面积：该档位": "Area: share",
  "所占任务比例": "of tasks",
  "档位中位数": "Median",
  "调用前睡眠时间 G（µs）": "Sleep before call G (µs)",
- "ANE 忙碌比例（%）": "ANE busy ratio (%)",
- "（b）ANE 忙碌比例": "(b) ANE busy ratio",
+ "ANE 忙碌比例（%）": "ANE busy fraction (%)",
+ "（b）ANE 忙碌比例": "(b) ANE busy fraction",
  "约 77%": "≈77%",
- "档位已到上限": "Level at max",
- "档位随 G 下降，忙碌比例保持约 77%": "Level falls with G, busy ratio stays ≈77%",
- "档位已到下限": "Level at min"
+ "档位已到上限": "State at max",
+ "档位随 G 下降，忙碌比例保持约 77%": "State falls with G, busy fraction stays ≈77%",
+ "档位已到下限": "State at min"
 }

@@ -3,12 +3,12 @@
  "每次推理的 ANE 能耗（mJ）": "ANE energy per inference (mJ)",
  "扣除 CPU 簇的第 4 轮复测": "Run-4 retest, CPU cluster excluded",
  "0.43 W，3.3 mJ": "0.43 W, 3.3 mJ",
- "睡眠 ≥ 300 µs：能耗降至最高档的 1/2.6 至 1/3.1": "Sleep ≥ 300 µs: energy 1/2.6 to 1/3.1 of top level",
+ "睡眠 ≥ 300 µs：能耗降至最高档的 1/2.6 至 1/3.1": "Sleep ≥ 300 µs: energy 1/2.6 to 1/3.1 of top state",
  "柱底数字为 ANE 功耗": "Bar-base numbers: ANE power",
- "(b) 每次调用的耗时与 NE 时钟档位": "(b) Per-call time and NE clock level",
+ "(b) 每次调用的耗时与 NE 时钟档位": "(b) Per-call time and NE DVFS state",
  "每次调用前的睡眠时间（µs）": "Sleep before each call (µs)",
  "每次调用的耗时（µs）": "Time per call (µs)",
- "最高档（2580 MHz）": "Top level (2580 MHz)",
+ "最高档（2580 MHz）": "Top state (2580 MHz)",
  "约 1032 MHz": "≈1032 MHz",
  "下限 852 MHz": "Min 852 MHz"
 }

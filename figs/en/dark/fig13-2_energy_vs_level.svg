@@ -45,9 +45,9 @@
 <line x1="791.8" y1="251.4" x2="791.8" y2="202.5" stroke="#b79578" stroke-width="1"/>
 <text class="c" x="791.8" y="180.5" text-anchor="middle">Run-4 retest, CPU cluster excluded</text>
 <text class="c" x="791.8" y="196.5" text-anchor="middle">0.43 W, 3.3 mJ</text>
-<text class="b" x="918.6" y="69.3" text-anchor="end">Sleep ≥ 300 µs: energy 1/2.6 to 1/3.1 of top level</text>
+<text class="b" x="918.6" y="69.3" text-anchor="end">Sleep ≥ 300 µs: energy 1/2.6 to 1/3.1 of top state</text>
 <text class="c" x="918.6" y="95.9" text-anchor="end">Bar-base numbers: ANE power</text>
-<text class="h2" x="110.0" y="428.0" text-anchor="start">(b) Per-call time and NE clock level</text>
+<text class="h2" x="110.0" y="428.0" text-anchor="start">(b) Per-call time and NE DVFS state</text>
 <line x1="110" y1="690.0" x2="930" y2="690.0" stroke="#30303c" stroke-width="1"/>
 <text class="tk" x="102.0" y="694.5" text-anchor="end">0</text>
 <line x1="110" y1="648.3" x2="930" y2="648.3" stroke="#30303c" stroke-width="1"/>
@@ -81,7 +81,7 @@
 <text class="s" x="520.0" y="734.0" text-anchor="middle">Sleep before each call (µs)</text>
 <text class="s" x="56" y="565.0" text-anchor="middle" transform="rotate(-90 56 565.0)">Time per call (µs)</text>
 <rect x="123.4" y="442" width="223.8" height="26" rx="3" fill="#262f4c"/>
-<text class="s" x="235.3" y="460.0" text-anchor="middle">Top level (2580 MHz)</text>
+<text class="s" x="235.3" y="460.0" text-anchor="middle">Top state (2580 MHz)</text>
 <rect x="351.2" y="442" width="109.9" height="26" rx="3" fill="#205347"/>
 <text class="s" x="406.1" y="460.0" text-anchor="middle">≈1032 MHz</text>
 <rect x="465.1" y="442" width="451.6" height="26" rx="3" fill="#205347"/>
