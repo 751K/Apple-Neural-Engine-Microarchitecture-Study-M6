@@ -18,7 +18,7 @@
 
 | 目录 | 内容 |
 |---|---|
-| [`final_report/`](final_report/) | 报告正文：[`zh.md`](final_report/zh.md)（中文原文）和 [`en.md`](final_report/en.md)（英文译本）；[`glossary.md`](final_report/glossary.md) 是翻译所用的术语表 |
+| [`final_report/`](final_report/) | 报告正文：[`zh.md`](final_report/zh.md)（中文原文）和 [`en.md`](final_report/en.md)（英文译本） |
 | [`figs/`](figs/) | 报告用图（`fig<章>-<序号>_*`，SVG 与 PNG），按 `figs/<语言>/<主题>/` 存放：语言为 `zh` 或 `en`，主题为 `light` 或 `dark`（深色版供网页深色模式使用）；`legacy/` 为报告未采用的早期总览图 |
 | [`data/`](data/) | 原始数据，按研究主题分目录；`_obsolete/` 为已作废、仅供备查的数据 |
 | [`tools/`](tools/) | 实验工具与分析脚本，目录划分与 `data/` 相同 |

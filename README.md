@@ -18,7 +18,7 @@ The report was written in Chinese. The English edition is a translation of it; w
 
 | Directory                        | Contents                                                                                                          |
 | -------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| [`final_report/`](final_report/) | The report: [`zh.md`](final_report/zh.md) (Chinese original) and [`en.md`](final_report/en.md) (English translation). [`glossary.md`](final_report/glossary.md) is the terminology table used for the translation |
+| [`final_report/`](final_report/) | The report: [`zh.md`](final_report/zh.md) (Chinese original) and [`en.md`](final_report/en.md) (English translation) |
 | [`figs/`](figs/)                 | Report figures (`fig<chapter>-<n>_*`, SVG and PNG) in `figs/<language>/<theme>/`: `zh` or `en`, `light` or `dark` (dark for dark-mode web pages). `legacy/` holds early overview diagrams not used in the report |
 | [`data/`](data/)                 | Raw data, one subdirectory per topic. `_obsolete/` holds superseded data kept for reference                       |
 | [`tools/`](tools/)               | Experiment tools and analysis scripts, organized like `data/`                                                     |
