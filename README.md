@@ -10,6 +10,8 @@ The report was written in Chinese. The English edition is a translation of it; w
 
 Read the report online: [English](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/en/) | [中文](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/)
 
+Video: [YouTube](https://youtu.be/NFLkGopYjs4) | [Bilibili](https://www.bilibili.com/video/BV113JD6iEaE/)
+
 ## What this repository is
 
 - **The report is the single source of conclusions.** Every conclusion in the report carries an evidence tag and links directly to the data files and tools behind it, so any number can be traced back from the report.

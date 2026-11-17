@@ -10,6 +10,8 @@
 
 在线阅读：[中文](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/) | [English](https://751k.github.io/Apple-Neural-Engine-Microarchitecture-Study-M6/en/)
 
+视频：[Bilibili](https://www.bilibili.com/video/BV113JD6iEaE/) | [YouTube](https://youtu.be/NFLkGopYjs4)
+
 ## 仓库的定位
 
 - **报告是结论的唯一出处。** 报告中的每条结论都带有证据类别标注，并直接链接到对应的数据文件和工具，读者可以从报告出发核对任何一个数字。
