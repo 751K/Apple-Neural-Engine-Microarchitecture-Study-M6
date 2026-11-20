@@ -1,129 +1,83 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 810" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
-<rect x="0" y="0" width="1440" height="810" fill="#161618"/>
-  <style>
-    text { fill: #dbdbde; }
-    .h  { font-size: 18px; font-weight: 600; }
-    .lane { font-size: 16px; font-weight: 600; }
-    .b  { font-size: 15px; fill: #c6c6c8; }
-    .c  { font-size: 13px; fill: #9c9ca0; }
-    .mono { font-family: Menlo, SF Mono, monospace; font-size: 13px; fill: #c6c6c8; }
-    .mid { text-anchor: middle; }
-    .end { text-anchor: end; }
-    .band { fill: #22222a; }
-    .host { fill: #1a1a1a; stroke: #8a98b6; stroke-width: 1.4; }
-    .svc  { fill: #1a1a1a; stroke: #818187; stroke-width: 1.4; }
-    .krn  { fill: #1f314b; stroke: #8a98b6; stroke-width: 1.5; }
-    .clk  { fill: #493725; stroke: #b79578; stroke-width: 1.5; }
-    .fw   { fill: #2e2e33; stroke: #9c9ca0; stroke-width: 1.4; }
-    .hw   { fill: #262f4c; stroke: #6b87c3; stroke-width: 1.5; }
-    .ln   { stroke: #bbbbbd; stroke-width: 1.6; fill: none; }
-    .ret  { stroke: #bbbbbd; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
-    .cl   { stroke: #b79578; stroke-width: 1.6; fill: none; stroke-dasharray: 6 4; }
-    .seg  { stroke: #1a1a1a; stroke-width: 2; }
-  </style>
-  <defs>
-    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#bbbbbd"/>
-    </marker>
-    <marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
-      <path d="M0,0 L10,5 L0,10 z" fill="#b79578"/>
-    </marker>
-  </defs>
-
-  <!-- 列标题 -->
-  <text class="h mid" x="390" y="32">加载（每个模型一次）</text>
-  <text class="h mid" x="1000" y="32">推理（每次调用）</text>
-
-  <!-- 泳道 -->
-  <rect class="band" x="40" y="48" width="1360" height="96" rx="10"/>
-  <rect class="band" x="40" y="156" width="1360" height="96" rx="10"/>
-  <rect class="band" x="40" y="264" width="1360" height="150" rx="10"/>
-  <rect class="band" x="40" y="426" width="1360" height="96" rx="10"/>
-  <rect class="band" x="40" y="534" width="1360" height="116" rx="10"/>
-  <text class="lane" x="60" y="92">应用进程</text><text class="c" x="60" y="114">Core ML · Espresso</text>
-  <text class="lane" x="60" y="200">系统服务</text><text class="c" x="60" y="222">aned · 编译服务</text>
-  <text class="lane" x="60" y="334">主机内核</text><text class="c" x="60" y="356">驱动 · CLPC</text>
-  <text class="lane" x="60" y="470">ANE 固件</text><text class="c" x="60" y="492">每个 ANE 一个</text>
-  <text class="lane" x="60" y="578">ANE 硬件</text><text class="c" x="60" y="600">ANE0 · ANE1</text>
-
-  <!-- 加载路径 -->
-  <rect class="host" x="200" y="64" width="380" height="64" rx="10"/>
-  <text class="h mid" x="390" y="92">加载模型：E5 分段</text>
-  <text class="c mid" x="390" y="114">为每个运算选 ANE / CPU；结果按进程名缓存</text>
-  <rect class="svc" x="200" y="172" width="380" height="64" rx="10"/>
-  <text class="h mid" x="390" y="200">编译 ANE 段：MIL → HWX</text>
-  <text class="c mid" x="390" y="222">同时生成单 ANE 与双 ANE 两套程序</text>
-  <rect class="krn" x="200" y="290" width="380" height="64" rx="10"/>
-  <text class="h mid" x="390" y="318">登记程序</text>
-  <text class="c mid" x="390" y="340">映射权重与 TD 序列</text>
-  <path class="ln" d="M390 128 V168" marker-end="url(#ar)"/>
-  <path class="ln" d="M390 236 V286" marker-end="url(#ar)"/>
-
-  <!-- 分隔线 -->
-  <path d="M610 48 V650" stroke="#4f4f57" stroke-width="1.2"/>
-
-  <!-- 推理路径：应用 -->
-  <rect class="host" x="680" y="64" width="640" height="64" rx="10"/>
-  <text class="h mid" x="1000" y="92">提交推理请求（经 Espresso 与 AppleNeuralEngine 框架）</text>
-  <text class="c mid" x="1000" y="114">同步：多线程调用同一模型时串行　·　异步：多个请求在途时分到两个 ANE</text>
-  <path class="ln" d="M1000 128 V286" marker-end="url(#ar)"/>
-  <text class="c" x="1012" y="208">执行请求不经过 aned</text>
-
-  <!-- 驱动与 CLPC -->
-  <rect class="krn" x="680" y="290" width="420" height="108" rx="10"/>
-  <text class="h" x="700" y="318">ANE 驱动</text>
-  <text class="b" x="700" y="344">优先级映射（固件 6 级）· 请求依赖</text>
-  <text class="b" x="700" y="366">选择引擎（ANE0 / ANE1）与程序（单 / 双 ANE）</text>
-  <text class="b" x="700" y="388">节流 · 向 CLPC 报告作业</text>
-  <rect class="clk" x="1140" y="290" width="240" height="108" rx="10"/>
-  <text class="h" x="1160" y="318">CLPC</text>
-  <text class="b" x="1160" y="344">按利用率选择 NE 档位</text>
-  <text class="c" x="1160" y="366">空闲 ≤ 1 ms 时忙碌比例 ≈ 77%</text>
-  <text class="c" x="1160" y="386">也管理共享簇时钟</text>
-  <path class="ln" d="M1100 344 H1136" marker-end="url(#ar)"/>
-
-  <!-- 固件 -->
-  <rect class="fw" x="680" y="442" width="300" height="64" rx="10"/>
-  <text class="h mid" x="830" y="470">ANE0 固件</text>
-  <text class="c mid" x="830" y="492">按优先级排队 · 下发硬件任务队列</text>
-  <rect class="fw" x="1020" y="442" width="300" height="64" rx="10"/>
-  <text class="h mid" x="1170" y="470">ANE1 固件</text>
-  <text class="c mid" x="1170" y="492">按优先级排队 · 下发硬件任务队列</text>
-  <path class="ln" d="M830 398 V438" marker-end="url(#ar)"/>
-  <path class="ln" d="M1060 398 V420 H1170 V438" marker-end="url(#ar)"/>
-
-  <!-- 硬件 -->
-  <rect class="hw" x="680" y="550" width="300" height="64" rx="10"/>
-  <text class="h mid" x="830" y="578">ANE0</text>
-  <text class="c mid" x="830" y="600">按顺序执行 TD</text>
-  <rect class="hw" x="1020" y="550" width="300" height="64" rx="10"/>
-  <text class="h mid" x="1170" y="578">ANE1</text>
-  <text class="c mid" x="1170" y="600">按顺序执行 TD</text>
-  <path class="ln" d="M830 506 V546" marker-end="url(#ar)"/>
-  <path class="ln" d="M1170 506 V546" marker-end="url(#ar)"/>
-
-  <!-- CLPC 调频 -->
-  <path class="cl" d="M1380 344 H1392 V582 H1324" marker-end="url(#ac)"/>
-  <path class="cl" d="M1392 582 V636 H830 V618" marker-end="url(#ac)"/>
-  <text class="c end" x="1386" y="476" fill="#b58b68">时钟档位</text>
-
-  <!-- 完成返回 -->
-  <path class="ret" d="M680 582 H648 V96 H676" marker-end="url(#ar)"/>
-  <text class="c" x="634" y="340" writing-mode="tb" style="letter-spacing:2px">完成中断，返回应用</text>
-
-  <!-- 同步调用时间线 -->
-  <text class="h" x="40" y="700">同步调用的时间构成</text>
-  <rect x="40" y="716" width="110" height="40" fill="#30303c"/>
-  <rect x="150" y="716" width="490" height="40" fill="#262f4c"/>
-  <rect x="640" y="716" width="360" height="40" fill="#30303c"/>
-  <rect x="1000" y="716" width="110" height="40" fill="#30303c"/>
-  <rect x="1110" y="716" width="290" height="40" fill="#262f4c" opacity="0.55"/>
-  <line x1="1000" y1="716" x2="1000" y2="756" stroke="#1a1a1a" stroke-width="2"/>
-  <text class="b mid" x="95" y="742">提交 ≈ 30 µs</text>
-  <text class="b mid" x="395" y="742">ANE 任务（由模型和时钟档位决定）</text>
-  <text class="b mid" x="820" y="742">完成 130–325 µs</text>
-  <text class="b mid" x="1055" y="742">下次提交</text>
-  <text class="b mid" x="1255" y="742">下一个 ANE 任务</text>
-  <path d="M640 764 V772 H1110 V764" stroke="#bbbbbd" stroke-width="1.3" fill="none"/>
-  <text class="c mid" x="875" y="792">相邻两个 ANE 任务之间的空闲 ≈ 384 µs（连续同步调用的中位数）</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400" width="800" height="400">
+<rect x="0" y="0" width="800" height="400" fill="#161618"/><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><defs><marker id="m0" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5c93d4"/></marker><marker id="m1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e6e6e6"/></marker><marker id="m2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#a47ec6"/></marker></defs><rect width="800" height="400" fill="#1a1a1a"/>
+<rect x="4" y="8" width="232" height="346" rx="10" fill="#2e2e2e"/>
+<rect x="252" y="8" width="224" height="346" rx="10" fill="#2e2e2e"/>
+<rect x="502" y="2" width="290" height="346" rx="10" fill="#3c3c3c"/>
+<rect x="492" y="8" width="290" height="346" rx="10" fill="#2e2e2e"/>
+<text x="18" y="34" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">用户空间</text>
+<text x="266" y="34" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">内核</text>
+<text x="506" y="34" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">ANE × 2</text>
+<rect x="40" y="54.0" width="160" height="48" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="120.0" y="83.95" text-anchor="middle" style="font-size:17px;fill:#e6e6e6;font-weight:600">aned</text>
+<rect x="40" y="180.0" width="160" height="48" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="120.0" y="209.95" text-anchor="middle" style="font-size:17px;fill:#e6e6e6;font-weight:600">Core ML</text>
+<polyline points="120,180.0 120,103.0" fill="none" stroke="#5c93d4" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m0)"/>
+<rect x="282" y="180.0" width="164" height="48" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="364.0" y="209.95" text-anchor="middle" style="font-size:17px;fill:#e6e6e6;font-weight:600">ANE 驱动</text>
+<rect x="282" y="280.0" width="164" height="48" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="364.0" y="309.95" text-anchor="middle" style="font-size:17px;fill:#e6e6e6;font-weight:600">CLPC</text>
+<polyline points="200,204 281,204" fill="none" stroke="#e6e6e6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<polyline points="364,228.0 364,279.0" fill="none" stroke="#e6e6e6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<rect x="518" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="553" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="588" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="623" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="658" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="693" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="728" y="60" width="30" height="36" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<polyline points="200,78 517,78" fill="none" stroke="#5c93d4" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m0)"/>
+<rect x="518" y="155.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="537" y="155.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="556" y="155.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="575" y="155.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="594" y="155.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="613" y="155.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="518" y="172.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="537" y="172.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="556" y="172.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="575" y="172.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="594" y="172.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="613" y="172.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="518" y="189.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="537" y="189.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="556" y="189.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="575" y="189.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="594" y="189.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="613" y="189.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="518" y="206.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="537" y="206.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="556" y="206.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="575" y="206.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="594" y="206.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="613" y="206.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="518" y="223.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="537" y="223.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="556" y="223.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="575" y="223.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="594" y="223.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="613" y="223.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="518" y="240.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="537" y="240.0" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="556" y="240.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="575" y="240.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="594" y="240.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="613" y="240.0" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<polyline points="446,204 517,204" fill="none" stroke="#e6e6e6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<line x1="632" y1="161.5" x2="642" y2="161.5" stroke="#e6e6e6" stroke-width="1.2"/>
+<line x1="632" y1="178.5" x2="642" y2="178.5" stroke="#e6e6e6" stroke-width="1.2"/>
+<line x1="632" y1="195.5" x2="642" y2="195.5" stroke="#e6e6e6" stroke-width="1.2"/>
+<line x1="632" y1="212.5" x2="642" y2="212.5" stroke="#e6e6e6" stroke-width="1.2"/>
+<line x1="632" y1="229.5" x2="642" y2="229.5" stroke="#e6e6e6" stroke-width="1.2"/>
+<line x1="632" y1="246.5" x2="642" y2="246.5" stroke="#e6e6e6" stroke-width="1.2"/>
+<path d="M642 149.0 L666 186.0 L666 222.0 L642 259.0 Z" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="688" y="197.5" width="19" height="13" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.6"/>
+<rect x="707" y="197.5" width="19" height="13" rx="0" fill="#969696" stroke="#d3d3d3" stroke-width="0.6"/>
+<polyline points="666,204 687,204" fill="none" stroke="#e6e6e6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<rect x="518" y="280.0" width="244" height="48" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="640.0" y="309.95" text-anchor="middle" style="font-size:17px;fill:#e6e6e6;font-weight:600">硬件</text>
+<polyline points="716.5,210.5 716.5,279.0" fill="none" stroke="#e6e6e6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<polyline points="743.0,96 743.0,279.0" fill="none" stroke="#e6e6e6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<polyline points="446,304 517,304" fill="none" stroke="#a47ec6" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m2)"/>
+<polyline points="558,328.0 558,340 120,340 120,229.0" fill="none" stroke="#e6e6e6" stroke-width="1.8" stroke-linejoin="miter" stroke-dasharray="6 4" marker-end="url(#m1)"/>
+<foreignObject x="0" y="374.0" width="800" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;justify-content:space-between;align-items:center;height:28px;padding:0 6px;font-family:Arial,'Helvetica Neue','PingFang SC',sans-serif;font-size:16px;color:#e6e6e6"><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#e6e6e6" stroke-width="2.4"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#e6e6e6"/></svg><span>推理</span></span><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#5c93d4" stroke-width="2.4"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#5c93d4"/></svg><span>加载</span></span><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#e6e6e6" stroke-width="1.8" stroke-dasharray="6 4"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#e6e6e6"/></svg><span>完成中断</span></span><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#a47ec6" stroke-width="2.4"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#a47ec6"/></svg><span>时钟档位</span></span><span style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:26px;height:18px;box-sizing:border-box;background:#576c2b;border:0.8px solid #d3d3d3"></span><span>硬件</span></span><span style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:26px;height:18px;box-sizing:border-box;background:#29446d;border:0.8px solid #d3d3d3"></span><span>TD 序列</span></span></div></foreignObject>
 </svg>

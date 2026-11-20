@@ -1,6 +1,6 @@
 #!/bin/zsh
 # 重新生成报告的全部图：figs/<语言>/<主题>/，语言为 zh、en，主题为 light、dark。
-#   1. 各生成脚本输出中文浅色 SVG（figs/zh/light/）；图 4-1、图 4-2 为手写 SVG，直接放在该目录。
+#   1. 各生成脚本输出中文浅色 SVG（figs/zh/light/）。
 #   2. translate.py 按 tools/figs/i18n/*.en.json 生成英文浅色 SVG（figs/en/light/）。
 #   3. darken.py 由两种语言的浅色版生成深色版（figs/*/dark/）。
 #   4. render.sh 把全部 SVG 导出为 PNG。
