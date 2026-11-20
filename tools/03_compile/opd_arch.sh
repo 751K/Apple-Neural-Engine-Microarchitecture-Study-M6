@@ -3,7 +3,7 @@
 # 每个模型一个进程、串行，带看门狗（anecc 的 RSS 超过 LIMIT_MB 杀掉，记 OOM；超时 TMO 秒记 TIMEOUT）。
 # 输出 arch.tsv：模型 目标 结果(ok/fail/OOM/TIMEOUT) 秒 峰值MB 产物大小
 cd ~/opdispatch
-PY=/opt/miniconda3/envs/mps/bin/python
+PY=/Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python
 LIMIT_MB=${LIMIT_MB:-8000}; TMO=${TMO:-600}
 mkdir -p mlc archout
 ls iso | sed 's/.mlpackage//' | grep -E '^sw_(conv_k|maxpool|avgpool_k1[34]|matmul_k)' | grep -v '^sw_conv_k16$' > arch_list.txt

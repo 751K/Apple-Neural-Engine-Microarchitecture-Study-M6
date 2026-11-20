@@ -64,6 +64,7 @@ if __name__ == "__main__":
                        skip_model_load=True)  # 生成时不加载：加载会触发一次 ANE 编译，大模型要十几分钟
         pkg = os.path.join(out, name + ".mlpackage")
         m.save(pkg)
-        subprocess.run(["xcrun", "coremlcompiler", "compile", pkg, out], check=True, capture_output=True)
+        if subprocess.run(["xcrun", "coremlcompiler", "compile", pkg, out], capture_output=True).returncode:
+            subprocess.run([os.path.abspath("mlcompile"), pkg, out], check=True, capture_output=True)   # 没有 Xcode：tools/common/mlcompile.m
         subprocess.run(["rm", "-rf", pkg])
         print("built", name, flush=True)

@@ -50,7 +50,7 @@ The subdirectory numbers in `data/` and `tools/` differ from the report's chapte
 - `lib/`: parsers for compiled artifacts;
 - `re/`: read-only reverse-engineering tools;
 - `figs/`: scripts that generate the report figures, in the NPG palette from ggsci. `build_all.sh` regenerates every figure: the scripts produce the Chinese light versions, `translate.py` builds the English versions from the tables in `i18n/`, `darken.py` derives the dark versions, and `render.sh` exports SVGs to PNG;
-- `site/`: `build.py` builds the report as a single web page (`--lang zh` writes `site/`, `--lang en` writes `site/en/`);
+- `site/`: `build.py` builds the report as a single web page (`--lang zh` writes `site/`, `--lang en` writes `site/en/`), and `pdf.py` exports the report as an A4 PDF with the local Chrome (`final_report/<lang>_preview.pdf`, not tracked);
 - `check_en.py`: compares the English translation with the Chinese original section by section (numbers, cross-references, citations, evidence tags, tables, figures).
 
 Appendix A of the report lists the tools, data and root requirement of every experiment, chapter by chapter. Appendix B is the data index.

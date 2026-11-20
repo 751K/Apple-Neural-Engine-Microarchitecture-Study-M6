@@ -1,0 +1,8 @@
+availability: available
+round 0 start 1791573183.790 ttft 1.597 s gen 11.62 s chars 2597 words 371 tokens 486 tok/s 41.8
+round 1 start 1791573197.043 ttft 0.337 s gen 11.72 s chars 2597 words 371 tokens 486 tok/s 41.5
+round 2 start 1791573209.135 ttft 0.337 s gen 11.69 s chars 2597 words 371 tokens 486 tok/s 41.6
+round 3 start 1791573221.194 ttft 0.331 s gen 11.69 s chars 2597 words 371 tokens 486 tok/s 41.6
+round 4 start 1791573233.250 ttft 0.334 s gen 11.66 s chars 2597 words 371 tokens 486 tok/s 41.7
+round 5 start 1791573245.282 ttft 0.344 s gen 11.72 s chars 2597 words 371 tokens 486 tok/s 41.5
+round 6 start 1791573257.384 ttft 0.330 s gen 11.68 s chars 2597 words 371 tokens 486 tok/s 41.6

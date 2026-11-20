@@ -1,7 +1,7 @@
 """NE 的 OCG（每轮输出通道数）与工作单元形状：编译器在 TD 里的选择。
 
 用法（M6）：
-  /opt/miniconda3/envs/mps/bin/python ocg.py build <目录>   生成单层卷积（FP16 / W8A8），用 anecc 编成 h18g
+  /Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python ocg.py build <目录>   生成单层卷积（FP16 / W8A8），用 anecc 编成 h18g
   python3 ocg.py table <目录>                               逐个卷积 TD 输出：Cin、Cout、核、OCG、HalfWU、patch 宽 / 高、SmallSourceMode
 寄存器（hwx_h18g.md §12）：0xf 任务信息（SmallSourceMode bits 2–3）；0x10 = NE 配置：OcgSize（log2）[2:0]、HalfWU [6]；
 0x11 = PatchWidth [3:0]、PatchHeight [8:4]。TD 只写与上一个 TD 不同的寄存器，解析时沿流累积状态。

@@ -1,7 +1,7 @@
 #!/bin/zsh
 # 第二轮边界扫描：逐个模型跑（独立缓存目录），记录 ANECompilerService（root 进程，所有进程合计）的峰值 RSS
 cd ~/opdispatch
-PY=/opt/miniconda3/envs/mps/bin/python
+PY=/Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python
 N=(${(f)"$($PY -c 'import sys;sys.path.insert(0,".");import opdispatch_gen as g;print("\n".join(n for n in g.CASES if n.startswith("sw_")))' 2>/dev/null | grep '^sw_')"})
 $PY opdispatch_gen.py iso $N > gen_sw2.log 2>&1
 : > sw2_mem.tsv

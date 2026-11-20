@@ -1,7 +1,7 @@
 """Tile DMA 输入 / 输出路数。
 
 用法（M6）：
-  /opt/miniconda3/envs/mps/bin/python tdma.py build <目录>    生成 mlmodelc，并用 anecc 编成 h18g HWX（<目录>/<名字>/hwx）
+  /Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python tdma.py build <目录>    生成 mlmodelc，并用 anecc 编成 h18g HWX（<目录>/<名字>/hwx）
   python3 tdma.py td <目录> [过滤]                            每个 TD 用到的 Tile DMA 地址包：Src1(0x1346)、Src2(0x134c)、Dst(0x1444)
 模型（输入 / 输出都是 [1, C, H, W] fp16；C = 256，H = W 决定大小：128 → 8 MB、192 → 18 MB、256 → 32 MB（181 的行宽不是 64 的倍数，计时极不稳定，已弃用））：
   第 1 步（结构）：addN_s{H}（N = 2–4 个输入相加）、two_s{H}（o1 = a + b、o2 = a − b）、fan_s{H}（o1 = a + b，o2 = relu(a + b)）

@@ -50,7 +50,7 @@
 - `lib/`：编译产物的解析库；
 - `re/`：只读的逆向工具；
 - `figs/`：报告用图的生成脚本。图的配色采用 ggsci 的 NPG 配色。`build_all.sh` 一次重新生成全部图：各脚本先出中文浅色版，`translate.py` 按 `i18n/` 中的对照表生成英文版，`darken.py` 生成深色版，`render.sh` 把 SVG 导出为 PNG；
-- `site/`：`build.py` 把报告生成单页网页（`--lang zh` 输出到 `site/`，`--lang en` 输出到 `site/en/`）；
+- `site/`：`build.py` 把报告生成单页网页（`--lang zh` 输出到 `site/`，`--lang en` 输出到 `site/en/`），`pdf.py` 用本机 Chrome 把报告导出为 A4 的 PDF（`final_report/<语言>_preview.pdf`，不进仓库）；
 - `check_en.py`：逐节比对英文译本与中文原文（数字、交叉引用、文献引用、证据标注、表格和图）。
 
 报告附录 A 按章列出每个实验所用的工具、数据和是否需要 root，附录 B 是数据目录。

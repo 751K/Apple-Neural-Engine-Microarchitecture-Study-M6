@@ -1,0 +1,64 @@
+options {
+    InputNetworks =     (
+                {
+            NetworkSourceFileName = "model.mil";
+            NetworkSourcePath = "models/m2048_p4v2_L16.mlmodelc/";
+        }
+    );
+    OutputFileName = "model.hwx";
+    OutputFilePath = "/tmp/h_p4v2/";
+}
+flags {
+    TargetArchitecture = h18g;
+}
+OSLOGTAP	0	Start of compilation of network from file: models/m2048_p4v2_L16.mlmodelc/model.mil
+OSLOGTAP	1	Multi-Threading: Configuration changed (compiler_multithreading=true multithreading_count=8)
+OSLOGTAP	1	Multi-Flavor: Configuration starting for target 'h18g'
+OSLOGTAP	1	Multi-Flavor: Architecture 'h18g' supports_bonded_networks=true
+OSLOGTAP	1	Multi-Flavor: Initial state - generate_bonded=not set, generate_nonbonded=not set, use_extended_macho_format=not set, spatial_split=disabled
+OSLOGTAP	1	Multi-Flavor: DetermineConfiguration() decided - bonded=true, nonbonded=true, rtgraph=true, spatial_split=generic-dag, procedure_family=true
+OSLOGTAP	1	Multi-Flavor: Applied generate_bonded_procedures=true
+OSLOGTAP	1	Multi-Flavor: Applied generate_nonbonded_procedures=true
+OSLOGTAP	1	Multi-Flavor: Applied use_extended_macho_format=true
+OSLOGTAP	1	Multi-Flavor: Applied spatial_split_mode=generic-dag
+OSLOGTAP	1	Multi-Flavor: Procedure family formation ENABLED
+OSLOGTAP	1	Multi-Flavor: Final state - bonded=true, nonbonded=true, rtgraph=true, spatial_split=generic-dag, procedure_family=true
+OSLOGTAP	1	Multi-Flavor: Configuration complete (parameters_changed=true)
+OSLOGTAP	1	Multi-Flavor: Validation passed
+OSLOGTAP	0	Target Architecture: Requested(h18g) Selected(h18g) 
+OSLOGTAP	0	Compiling with QoS class 0x33, relative priority 0
+OSLOGTAP	0	MMapped models/m2048_p4v2_L16.mlmodelc/model.mil to base address 4378099712 with size 22744ProgramHashUtils::HashOperation: null argument found for parameter '
+OSLOGTAP	16	MIL validation failed for function "main": MIL validation report: 16/129 invalid operations:
+In Function "main", Invalid operation #7:
+tensor<fp16, [1, 2048, 1, 32]> conv_0 = ios18.conv(bias = const_0, dilations = conv_0_dilations_0, groups = conv_0_groups_0, pad = conv_0_pad_0, pad_type = conv_0_pad_type_0, strides = conv_0_strides_0, weight = constexpr_lut_to_dense_0, x = x)[milId = uint64(7), name = string("conv_0")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #15:
+tensor<fp16, [1, 2048, 1, 32]> conv_1 = ios18.conv(bias = const_0, dilations = conv_1_dilations_0, groups = conv_1_groups_0, pad = conv_1_pad_0, pad_type = conv_1_pad_type_0, strides = conv_1_strides_0, weight = constexpr_lut_to_dense_1, x = relu_0)[milId = uint64(15), name = string("conv_1")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #23:
+tensor<fp16, [1, 2048, 1, 32]> conv_2 = ios18.conv(bias = const_0, dilations = conv_2_dilations_0, groups = conv_2_groups_0, pad = conv_2_pad_0, pad_type = conv_2_pad_type_0, strides = conv_2_strides_0, weight = constexpr_lut_to_dense_2, x = relu_1)[milId = uint64(23), name = string("conv_2")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #31:
+tensor<fp16, [1, 2048, 1, 32]> conv_3 = ios18.conv(bias = const_0, dilations = conv_3_dilations_0, groups = conv_3_groups_0, pad = conv_3_pad_0, pad_type = conv_3_pad_type_0, strides = conv_3_strides_0, weight = constexpr_lut_to_dense_3, x = relu_2)[milId = uint64(31), name = string("conv_3")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #39:
+tensor<fp16, [1, 2048, 1, 32]> conv_4 = ios18.conv(bias = const_0, dilations = conv_4_dilations_0, groups = conv_4_groups_0, pad = conv_4_pad_0, pad_type = conv_4_pad_type_0, strides = conv_4_strides_0, weight = constexpr_lut_to_dense_4, x = relu_3)[milId = uint64(39), name = string("conv_4")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #47:
+tensor<fp16, [1, 2048, 1, 32]> conv_5 = ios18.conv(bias = const_0, dilations = conv_5_dilations_0, groups = conv_5_groups_0, pad = conv_5_pad_0, pad_type = conv_5_pad_type_0, strides = conv_5_strides_0, weight = constexpr_lut_to_dense_5, x = relu_4)[milId = uint64(47), name = string("conv_5")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #55:
+tensor<fp16, [1, 2048, 1, 32]> conv_6 = ios18.conv(bias = const_0, dilations = conv_6_dilations_0, groups = conv_6_groups_0, pad = conv_6_pad_0, pad_type = conv_6_pad_type_0, strides = conv_6_strides_0, weight = constexpr_lut_to_dense_6, x = relu_5)[milId = uint64(55), name = string("conv_6")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #63:
+tensor<fp16, [1, 2048, 1, 32]> conv_7 = ios18.conv(bias = const_0, dilations = conv_7_dilations_0, groups = conv_7_groups_0, pad = conv_7_pad_0, pad_type = conv_7_pad_type_0, strides = conv_7_strides_0, weight = constexpr_lut_to_dense_7, x = relu_6)[milId = uint64(63), name = string("conv_7")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #71:
+tensor<fp16, [1, 2048, 1, 32]> conv_8 = ios18.conv(bias = const_0, dilations = conv_8_dilations_0, groups = conv_8_groups_0, pad = conv_8_pad_0, pad_type = conv_8_pad_type_0, strides = conv_8_strides_0, weight = constexpr_lut_to_dense_8, x = relu_7)[milId = uint64(71), name = string("conv_8")];
+Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"
+In Function "main", Invalid operation #79:
+tensor<fp16, [1, 2048, 1, 32]> conv_9 = ios18.conv(bias = const_0, dilations = conv_9
+OSLOGTAP	16	Error: Could not convert input MIL program.
+OSLOGTAP	16	InvalidMILProgram
+
+ANECCompile returned 1

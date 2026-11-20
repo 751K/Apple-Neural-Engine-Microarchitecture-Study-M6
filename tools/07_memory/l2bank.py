@@ -2,7 +2,7 @@
 比较编译器估计的 exe_cycles 与 L2 相关寄存器，看关掉优化后哪些宽度（行步长）会被估计变慢。
 
 用法（M6）：
-  /opt/miniconda3/envs/mps/bin/python l2bank.py build <目录>
+  /Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python l2bank.py build <目录>
   python3 l2bank.py table <目录>
 模型：k3_c{C}_h16w{W}_L4（共享权重），C = 64 / 128，W = 8–136 步长 8。
 """

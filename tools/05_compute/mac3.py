@@ -1,6 +1,6 @@
 """INT8 MAC 宽度（第 3 步）：只受乘加限制的卷积链，FP16 与 W8A8 的每层耗时（斜率）。
 
-用法（M6）：/opt/miniconda3/envs/mps/bin/python mac3.py <输出目录> [d,k,C,H,W ...]（另可用环境变量 MAC3_LAYERS=4,16）
+用法（M6）：/Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python mac3.py <输出目录> [d,k,C,H,W ...]（另可用环境变量 MAC3_LAYERS=4,16）
 生成 d{膨胀}_k{核}_c{C}_h{H}w{W}_L{层数}_{f16|q8}.mlmodelc。共享权重、He 初始化、relu。
 形状选择：
   - 1×1 且 C ≥ 1024：每字节激活对应 C 次乘加，W8A8 链中激活经过 DRAM（H10）时所需带宽 ≤ 20 GB/s；

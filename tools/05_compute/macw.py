@@ -1,7 +1,7 @@
 """INT8 MAC 宽度（第 1 步）：同一单层卷积分别编成 FP16、W8（只量化权重）、W8A8，比较编译器估计的 exe_cycles。
 
 用法（M6）：
-  /opt/miniconda3/envs/mps/bin/python macw.py build <目录>     生成 mlmodelc 并用 anecc 编成 h18g HWX
+  /Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python macw.py build <目录>     生成 mlmodelc 并用 anecc 编成 h18g HWX
   python3 macw.py table <目录>                                  输出每种形状三种精度的 TD 数与 exe_cycles 之和
 单层（L1），共享权重，输入直接从 DRAM 读，避免链式读入的层 exe_cycles 记为 0。
 """

@@ -1,0 +1,2 @@
+   9 Validation error: "ANE only support per-cout/per-tensor quantization"
+  18 Validation error: "MIL conversion error: vector palettization is only supported at Cout for ANE"

@@ -1,6 +1,6 @@
 """PE（平面引擎）吞吐：逐元素运算链，数据留在 L2，用层数斜率求每层耗时。
 
-用法（M6）：/opt/miniconda3/envs/mps/bin/python pe.py <目录>
+用法（M6）：/Volumes/MacoutDsik/Code/ANEReport/.venv/bin/python pe.py <目录>
 生成 pe_{op}_c{C}_h{H}w{W}_L{L}.mlmodelc，输入 x、y 均为 [1, C, H, W] fp16：
   add：x ← x + y；mul：x ← x × y；am：加、乘交替（防止相邻同类运算被合并）。
 """

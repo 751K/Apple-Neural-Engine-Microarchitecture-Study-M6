@@ -1,6 +1,6 @@
 """权重格式实验（wfmt）的模型：同一份 FP16 基准权重，用 MIL 的 constexpr 运算直接构造各种压缩格式。
 
-用法（M6，coremltools 环境，不需要 torch）：python wfmt_gen.py <输出目录> [名字 ...]（不给名字则生成全部）
+用法（M6，coremltools 环境，不需要 torch；没有 Xcode 时需在当前目录放编译好的 mlcompile）：python wfmt_gen.py <输出目录> [名字 ...]（不给名字则生成全部）
 名字：<形状>_<格式>_L<层数>
   形状  m2048：1×1 卷积，2048 → 2048 通道，输入 1×2048×1×32，各层权重不同（每层 FP16 8 MB）
         k1x9：1×9 卷积，256 通道，输入 1×256×4×32，各层共享一份权重（d2_wbound 的主测模型）
@@ -10,7 +10,9 @@
         p6/p4/p3/p2  整个张量一张调色板，2^n 个值（constexpr_lut_to_dense），值取均匀分布的分位点
         p4g16     每 16 个输出通道一张 16 值调色板（分组调色板）
         p4v2      16 个二维向量的调色板，沿输入通道两个一组（向量调色板，每个权重 2 位）
-        p4v4      16 个四维向量的调色板（每个权重 1 位）
+        p4v4      16 个四维向量的调色板（每个权重 1 位）；p4v2/p4v4 沿输入通道，ANE 编译器拒绝
+        w4c/w4t   int4，每输出通道 / 整个张量一个缩放（ANE 只接受这两种）
+        p4o2/p4o4 沿输出通道的向量调色板（2 维每权重 2 位，4 维每权重 1 位），码字由 k-means 得到
 每个模型另存 <名字>.ref.npz：同一随机输入下 FP16 计算（numpy）的输出不在这里算，误差由 wfmt_err.py 用 Core ML 比较。
 """
 import os
@@ -26,7 +28,7 @@ SHAPES = {
     "m2048": dict(C=2048, H=1, W=32, k=(1, 1), shared=False),
     "k1x9": dict(C=256, H=4, W=32, k=(1, 9), shared=True),
 }
-FORMATS = ["fp16", "w8", "w4", "p6", "p4", "p3", "p2", "p4g16", "p4v2", "p4v4"]
+FORMATS = ["fp16", "w8", "w4", "p6", "p4", "p3", "p2", "p4g16", "p4v2", "p4v4", "w4c", "w4t", "p4o2", "p4o4"]
 ALL = [f"m2048_{f}_L{L}" for f in FORMATS for L in (16, 32)] + [f"k1x9_{f}_L{L}" for f in ("fp16", "w8") for L in (40, 80)]
 IDX = {1: types.np_uint1_dtype, 2: types.np_uint2_dtype, 3: types.np_uint3_dtype, 4: types.np_uint4_dtype,
        6: types.np_uint6_dtype, 8: np.uint8}
@@ -34,6 +36,20 @@ IDX = {1: types.np_uint1_dtype, 2: types.np_uint2_dtype, 3: types.np_uint3_dtype
 
 def base_weight(rng, C, k):
     return (rng.standard_normal((C, C, *k)) * np.sqrt(2.0 / (C * k[0] * k[1]))).astype(np.float16)
+
+
+def kmeans16(vec, iters=12):
+    """16 个码字的 k-means（随机初始化，固定种子）。返回 (码字 [16, V], 每个向量的索引)。"""
+    rng = np.random.default_rng(1)
+    code = vec[rng.choice(len(vec), 16, replace=False)].copy()
+    for _ in range(iters):
+        d = (vec ** 2).sum(1, keepdims=True) - 2 * vec @ code.T + (code ** 2).sum(1)
+        best = d.argmin(1).astype(np.uint8)
+        for c in range(16):
+            m = best == c
+            if m.any():
+                code[c] = vec[m].mean(0)
+    return code, best
 
 
 def lut_tensor(w, n):
@@ -75,6 +91,23 @@ def weight_op(w, fmt):
             idx[g * G:(g + 1) * G] = i
             luts[g] = l[0]
         return mb.constexpr_lut_to_dense(indices=idx.astype(types.np_uint4_dtype), lut=luts)
+    if fmt in ("w4c", "w4t"):
+        # 编译器只接受每输出通道或整个张量一个缩放（"ANE only support per-cout/per-tensor quantization"）
+        if fmt == "w4c":
+            s = np.abs(w32).reshape(Co, -1).max(1) / 7 + 1e-12
+            sc = s.reshape(Co, 1, 1, 1)
+        else:
+            sc = np.array(np.abs(w32).max() / 7 + 1e-12).reshape(1, 1, 1, 1)
+        q = np.clip(np.round(w32 / sc), -7, 7).astype(np.int8)
+        return mb.constexpr_blockwise_shift_scale(data=q.astype(types.np_int4_dtype), scale=sc.astype(np.float16))
+    if fmt in ("p4o2", "p4o4"):
+        # 向量调色板沿输出通道（轴 0）组成向量（"vector palettization is only supported at Cout for ANE"）
+        V = int(fmt[-1])
+        vec = np.moveaxis(w32.reshape(Co // V, V, *w.shape[1:]), 1, -1).reshape(-1, V)   # [Co/V*Ci*kh*kw, V]
+        code, best = kmeans16(vec)
+        idx = best.reshape(Co // V, *w.shape[1:])                         # [Co/V, Ci, kh, kw]
+        return mb.constexpr_lut_to_dense(indices=idx.astype(types.np_uint4_dtype),
+                                         lut=code.astype(np.float16).reshape(1, 1, 1, 1, 16, V), vector_axis=0)
     if fmt in ("p4v2", "p4v4"):
         V = int(fmt[-1])
         # 沿输入通道（轴 1）V 个一组成向量；16 个码字取自数据中随机的 16 个向量，按最近距离分配
@@ -112,6 +145,13 @@ def program(name):
     return p
 
 
+def compile_pkg(pkg, out):
+    """有 Xcode 时用 coremlcompiler；否则用公开接口 MLModel compileModelAtURL（tools/common/mlcompile.m，放在当前目录）。"""
+    r = subprocess.run(["xcrun", "coremlcompiler", "compile", pkg, out], capture_output=True)
+    if r.returncode != 0:
+        subprocess.run([os.path.abspath("mlcompile"), pkg, out], check=True, capture_output=True)
+
+
 if __name__ == "__main__":
     out = sys.argv[1]
     os.makedirs(out, exist_ok=True)
@@ -123,7 +163,7 @@ if __name__ == "__main__":
                            compute_units=ct.ComputeUnit.CPU_AND_NE)
             pkg = os.path.join(out, name + ".mlpackage")
             m.save(pkg)
-            subprocess.run(["xcrun", "coremlcompiler", "compile", pkg, out], check=True, capture_output=True)
+            compile_pkg(pkg, out)
             print("built", name, flush=True)
         except Exception as e:  # 记录失败本身也是结果
             print("FAILED", name, type(e).__name__, str(e)[:300], flush=True)
