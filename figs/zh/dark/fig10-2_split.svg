@@ -1,59 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 470" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
-<rect x="0" y="0" width="1000" height="470" fill="#161618"/>
-<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .h2{font-size:15.5px;font-weight:600} .b{font-size:14.5px;fill:#c6c6c8} .c{font-size:13px;fill:#9c9ca0} .s{font-size:12px;fill:#c6c6c8} .mid{text-anchor:middle} .end{text-anchor:end}</style>
-<text class="h" x="40" y="32">双 ANE 程序沿用单 ANE 的切块网格，按整块分配</text>
-<text class="c" x="40" y="54">块数为奇数时，多出的一块总是分给 ANE1</text>
-<text class="c" x="240" y="80">每层的切块与分配（256 通道 1×1 卷积链）</text>
-<text class="h2" x="40" y="126">宽 8192</text>
-<text class="c" x="40" y="146">1536 + 4 × 1664，5 块</text>
-<rect x="240.0" y="108" width="73.5" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="276.772" y="130">1664</text>
-<rect x="316.5" y="108" width="73.5" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="353.316" y="130">1664</text>
-<rect x="403.1" y="108" width="67.7" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="436.91599999999994" y="130">1536</text>
-<rect x="473.7" y="108" width="73.5" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="510.51599999999996" y="130">1664</text>
-<rect x="550.3" y="108" width="73.5" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="587.0600000000001" y="130">1664</text>
-<text class="h2" x="40" y="216">宽 12288</text>
-<text class="c" x="40" y="236">2 × 1664 + 5 × 1792，7 块</text>
-<rect x="240.0" y="198" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="279.716" y="220">1792</text>
-<rect x="322.4" y="198" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="362.148" y="220">1792</text>
-<rect x="404.9" y="198" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="444.58000000000004" y="220">1792</text>
-<rect x="497.3" y="198" width="73.5" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="534.0680000000001" y="220">1664</text>
-<rect x="573.8" y="198" width="73.5" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="610.6120000000001" y="220">1664</text>
-<rect x="650.4" y="198" width="79.4" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="690.1" y="220">1792</text>
-<rect x="732.8" y="198" width="79.4" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="772.532" y="220">1792</text>
-<text class="h2" x="40" y="306">宽 14336</text>
-<text class="c" x="40" y="326">8 × 1792，8 块</text>
-<rect x="240.0" y="288" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="279.716" y="310">1792</text>
-<rect x="322.4" y="288" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="362.148" y="310">1792</text>
-<rect x="404.9" y="288" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="444.58000000000004" y="310">1792</text>
-<rect x="487.3" y="288" width="79.4" height="34" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s mid" x="527.0120000000001" y="310">1792</text>
-<rect x="579.7" y="288" width="79.4" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="619.4440000000001" y="310">1792</text>
-<rect x="662.2" y="288" width="79.4" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="701.8760000000001" y="310">1792</text>
-<rect x="744.6" y="288" width="79.4" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="784.3080000000001" y="310">1792</text>
-<rect x="827.0" y="288" width="79.4" height="34" rx="3" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s mid" x="866.7400000000001" y="310">1792</text>
-<rect x="240" y="384" width="14" height="14" rx="2" fill="#262f4c" stroke="#6b87c3"/>
-<text class="s" x="262" y="396">ANE0</text>
-<rect x="320" y="384" width="14" height="14" rx="2" fill="#205347" stroke="#1dffdc"/>
-<text class="s" x="342" y="396">ANE1</text>
-<text class="c" x="400" y="396">方块中的数字为块宽（列）；块在张量中的先后位置为示意</text>
-<text class="c" x="40" y="432">整条链的耗时由分到较多列的 ANE1 决定（缺陷 B8）。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 232" width="800" height="232">
+<rect x="0" y="0" width="800" height="232" fill="#161618"/><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><defs></defs><rect width="800" height="232" fill="#1a1a1a"/>
+<rect x="330" y="14" width="16" height="14" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="396" y="26" text-anchor="end" style="font-size:15px;fill:#e6e6e6;font-weight:600">ANE0</text>
+<text x="424" y="26" text-anchor="start" style="font-size:15px;fill:#e6e6e6;font-weight:600">ANE1</text>
+<rect x="474" y="14" width="16" height="14" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="784" y="26" text-anchor="end" style="font-size:12.5px;fill:#b3b3b3;font-weight:600">ANE0 / ANE1</text>
+<line x1="12" y1="38" x2="788" y2="38" stroke="#4f4f56" stroke-width="1"/>
+<line x1="410" y1="38" x2="410" y2="218" stroke="#a6a6a6" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="102" y="67" text-anchor="end" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">宽 8192</text>
+<text x="102" y="84" text-anchor="end" style="font-size:12.5px;fill:#b3b3b3;font-weight:400">5 块</text>
+<rect x="337.7857142857143" y="52" width="62.214285714285715" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="368.8928571428571" y="73.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1664</text>
+<rect x="271.57142857142856" y="52" width="62.214285714285715" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="302.6785714285714" y="73.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1664</text>
+<rect x="420" y="52" width="57.42857142857143" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="448.7142857142857" y="73.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1536</text>
+<rect x="481.42857142857144" y="52" width="62.214285714285715" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="512.5357142857143" y="73.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1664</text>
+<rect x="547.6428571428571" y="52" width="62.214285714285715" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="578.75" y="73.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1664</text>
+<text x="784" y="74" text-anchor="end" style="font-size:13.5px;fill:#d95f5d;font-weight:600">41% / 59%</text>
+<line x1="12" y1="97" x2="788" y2="97" stroke="#35353e" stroke-width="0.8"/>
+<text x="102" y="123" text-anchor="end" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">宽 12288</text>
+<text x="102" y="140" text-anchor="end" style="font-size:12.5px;fill:#b3b3b3;font-weight:400">7 块</text>
+<rect x="333.0" y="108" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="366.5" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="262.0" y="108" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="295.5" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="191.0" y="108" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="224.5" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="420" y="108" width="62.214285714285715" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="451.10714285714283" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1664</text>
+<rect x="486.2142857142857" y="108" width="62.214285714285715" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="517.3214285714286" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1664</text>
+<rect x="552.4285714285714" y="108" width="67.0" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="585.9285714285714" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="623.4285714285714" y="108" width="67.0" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="656.9285714285714" y="129.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<text x="784" y="130" text-anchor="end" style="font-size:13.5px;fill:#d95f5d;font-weight:600">44% / 56%</text>
+<line x1="12" y1="153" x2="788" y2="153" stroke="#35353e" stroke-width="0.8"/>
+<text x="102" y="179" text-anchor="end" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">宽 14336</text>
+<text x="102" y="196" text-anchor="end" style="font-size:12.5px;fill:#b3b3b3;font-weight:400">8 块</text>
+<rect x="333.0" y="164" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="366.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="262.0" y="164" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="295.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="191.0" y="164" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="224.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="120.0" y="164" width="67.0" height="34" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="153.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="420" y="164" width="67.0" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="453.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="491.0" y="164" width="67.0" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="524.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="562.0" y="164" width="67.0" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="595.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<rect x="633.0" y="164" width="67.0" height="34" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="666.5" y="185.55" text-anchor="middle" style="font-size:13px;fill:#e6e6e6;font-weight:600">1792</text>
+<text x="784" y="186" text-anchor="end" style="font-size:13.5px;fill:#b3b3b3;font-weight:600">50% / 50%</text>
 </svg>

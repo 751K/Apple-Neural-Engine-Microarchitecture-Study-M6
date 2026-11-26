@@ -1,126 +1,86 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 690" font-family="Helvetica Neue, PingFang SC, Arial, sans-serif">
-<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .b{font-size:14px;fill:#3a3a3c} .c{font-size:12.5px;fill:#6e6e73} .m{font-size:11px;font-family:Menlo,SF Mono,monospace;fill:#ffffff} .mid{text-anchor:middle} .end{text-anchor:end}</style>
-<text class="h" x="40" y="34">16 layers: task ≈ 49 µs, call 227 µs</text>
-<text class="b end" x="194" y="106">User thread</text>
-<line x1="210" y1="101" x2="1400" y2="101" stroke="#ececee" stroke-width="1"/>
-<text class="b end" x="194" y="146">Kernel driver</text>
-<line x1="210" y1="141" x2="1400" y2="141" stroke="#ececee" stroke-width="1"/>
-<text class="b end" x="194" y="186">ANE firmware</text>
-<line x1="210" y1="181" x2="1400" y2="181" stroke="#ececee" stroke-width="1"/>
-<text class="b end" x="194" y="226">ANE</text>
-<line x1="210" y1="221" x2="1400" y2="221" stroke="#ececee" stroke-width="1"/>
-<line x1="210.0" y1="80" x2="210.0" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="210.0" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="210.0" y="74">1</text>
-<rect x="210.0" y="128" width="80.1" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3" stroke-dasharray="4 3"/>
-<text class="c mid" x="250.0" y="146">Submit ≈ 31</text>
-<rect x="290.1" y="208" width="128.4" height="26" rx="3" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
-<text class="c mid" x="354.3" y="226">ANE task 49 µs</text>
-<line x1="418.5" y1="80" x2="418.5" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="418.5" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="418.5" y="74">2</text>
-<rect x="418.5" y="168" width="19.2" height="26" rx="3" fill="#ececee" stroke="#6e6e73" stroke-width="1.3"/>
-<text class="c mid" x="428.1" y="186">7</text>
-<line x1="437.8" y1="80" x2="437.8" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="437.8" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="437.8" y="74">3</text>
-<rect x="437.8" y="128" width="58.0" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="466.8" y="146">Intr. 22</text>
-<line x1="495.7" y1="80" x2="495.7" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="495.7" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="495.7" y="74">4</text>
-<rect x="495.7" y="128" width="19.5" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="505.5" y="146">8</text>
-<line x1="515.2" y1="80" x2="515.2" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="515.2" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="515.2" y="74">5</text>
-<rect x="515.2" y="128" width="54.3" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="542.4" y="146">21</text>
-<line x1="569.6" y1="80" x2="569.6" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="569.6" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="569.6" y="74">6</text>
-<rect x="569.6" y="88" width="211.1" height="26" rx="3" fill="#eef2f8" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="675.1" y="106">User thread return 81 µs</text>
-<line x1="780.7" y1="80" x2="780.7" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="780.7" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="780.7" y="74">7</text>
-<rect x="780.7" y="88" width="18.2" height="26" rx="3" fill="#eef2f8" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="789.8" y="106">7</text>
-<line x1="798.9" y1="80" x2="798.9" y2="240" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="798.9" cy="70" r="9" fill="#48484a"/>
-<text class="m mid" x="798.9" y="74">8</text>
-<path d="M418.5 250 v6 H798.9 v-6" stroke="#48484a" stroke-width="1.2" fill="none"/>
-<text class="b mid" x="608.7" y="274">After task end 146 µs (driver completion 21 µs, user return 81 µs)</text>
-<text class="h" x="40" y="312">384 layers: task ≈ 1262 µs, call 1618 µs</text>
-<text class="b end" x="194" y="384">User thread</text>
-<line x1="210" y1="379" x2="1400" y2="379" stroke="#ececee" stroke-width="1"/>
-<text class="b end" x="194" y="424">Kernel driver</text>
-<line x1="210" y1="419" x2="1400" y2="419" stroke="#ececee" stroke-width="1"/>
-<text class="b end" x="194" y="464">ANE firmware</text>
-<line x1="210" y1="459" x2="1400" y2="459" stroke="#ececee" stroke-width="1"/>
-<text class="b end" x="194" y="504">ANE</text>
-<line x1="210" y1="499" x2="1400" y2="499" stroke="#ececee" stroke-width="1"/>
-<line x1="210.0" y1="358" x2="210.0" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="210.0" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="210.0" y="352">1</text>
-<rect x="210.0" y="406" width="80.1" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3" stroke-dasharray="4 3"/>
-<text class="c mid" x="250.0" y="424">Submit ≈ 31</text>
-<rect x="290.1" y="486" width="220.0" height="26" rx="3" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
-<rect x="390.1" y="484" width="20" height="30" fill="#ffffff"/>
-<path d="M394.1 482 l6 34" stroke="#3c5488" stroke-width="1.5"/>
-<path d="M404.1 482 l6 34" stroke="#3c5488" stroke-width="1.5"/>
-<text class="c mid" x="345.1" y="504">ANE task</text>
-<text class="c mid" x="455.1" y="504">1262 µs</text>
-<line x1="510.1" y1="358" x2="510.1" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="510.1" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="510.1" y="352">2</text>
-<rect x="510.1" y="446" width="51.7" height="26" rx="3" fill="#ececee" stroke="#6e6e73" stroke-width="1.3"/>
-<text class="c mid" x="535.9" y="464">20</text>
-<line x1="561.8" y1="358" x2="561.8" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="561.8" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="561.8" y="352">3</text>
-<rect x="561.8" y="406" width="45.8" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="584.7" y="424">18</text>
-<line x1="607.6" y1="358" x2="607.6" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="607.6" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="607.6" y="352">4</text>
-<rect x="607.6" y="406" width="29.6" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="622.4" y="424">11</text>
-<line x1="637.2" y1="358" x2="637.2" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="637.2" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="637.2" y="352">5</text>
-<rect x="637.2" y="406" width="274.3" height="26" rx="3" fill="#e3e8f1" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="774.4" y="424">Driver completion 106 µs</text>
-<line x1="911.5" y1="358" x2="911.5" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="911.5" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="911.5" y="352">6</text>
-<rect x="911.5" y="366" width="408.2" height="26" rx="3" fill="#eef2f8" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="1115.6" y="384">User thread return 157 µs</text>
-<line x1="1319.7" y1="358" x2="1319.7" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="1319.7" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="1319.7" y="352">7</text>
-<rect x="1319.7" y="366" width="20.3" height="26" rx="3" fill="#eef2f8" stroke="#5b6b8c" stroke-width="1.3"/>
-<text class="c mid" x="1329.9" y="384">8</text>
-<line x1="1340.0" y1="358" x2="1340.0" y2="518" stroke="#aeaeb2" stroke-width="1" stroke-dasharray="2 3"/>
-<circle cx="1340.0" cy="348" r="9" fill="#48484a"/>
-<text class="m mid" x="1340.0" y="352">8</text>
-<path d="M510.1 528 v6 H1340.0 v-6" stroke="#48484a" stroke-width="1.2" fill="none"/>
-<text class="b mid" x="925.0" y="552">After task end 319 µs (driver completion 106 µs, user return 157 µs)</text>
-<text class="h" x="40" y="600">kdebug events (class 0x06, subclass 0x1b; Table 6-1)</text>
-<circle cx="52" cy="625" r="9" fill="#48484a"/><text class="m mid" x="52" y="629">1</text>
-<text class="b" x="70" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b01a9</tspan> driver gets submit</text>
-<circle cx="392" cy="625" r="9" fill="#48484a"/><text class="m mid" x="392" y="629">2</text>
-<text class="b" x="410" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b0126</tspan> ANE task end</text>
-<circle cx="732" cy="625" r="9" fill="#48484a"/><text class="m mid" x="732" y="629">3</text>
-<text class="b" x="750" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b00b8</tspan> firmware message</text>
-<circle cx="1072" cy="625" r="9" fill="#48484a"/><text class="m mid" x="1072" y="629">4</text>
-<text class="b" x="1090" y="630"><tspan font-family="Menlo, SF Mono, monospace">61b0020</tspan> interrupt</text>
-<circle cx="52" cy="655" r="9" fill="#48484a"/><text class="m mid" x="52" y="659">5</text>
-<text class="b" x="70" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b00a0</tspan> completion mark</text>
-<circle cx="392" cy="655" r="9" fill="#48484a"/><text class="m mid" x="392" y="659">6</text>
-<text class="b" x="410" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b0170</tspan> driver completion end</text>
-<circle cx="732" cy="655" r="9" fill="#48484a"/><text class="m mid" x="732" y="659">7</text>
-<text class="b" x="750" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b0024</tspan> user thread return</text>
-<circle cx="1072" cy="655" r="9" fill="#48484a"/><text class="m mid" x="1072" y="659">8</text>
-<text class="b" x="1090" y="660"><tspan font-family="Menlo, SF Mono, monospace">61b01a9</tspan> next submit</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 404" width="800" height="404"><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><defs></defs><rect width="800" height="404" fill="#ffffff"/>
+<line x1="349.0" y1="34" x2="349.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="349.0" y1="198" x2="349.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="420.0" y1="34" x2="420.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="420.0" y1="198" x2="420.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="491.0" y1="34" x2="491.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="491.0" y1="198" x2="491.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="562.0" y1="34" x2="562.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="562.0" y1="198" x2="562.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="633.0" y1="34" x2="633.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="633.0" y1="198" x2="633.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="704.0" y1="34" x2="704.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="704.0" y1="198" x2="704.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="775.0" y1="34" x2="775.0" y2="152" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="775.0" y1="198" x2="775.0" y2="324" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="12" y1="164" x2="775.0" y2="164" stroke="#dcdce0" stroke-width="1"/>
+<line x1="278" y1="30" x2="278" y2="324" stroke="#555555" stroke-width="1.2" stroke-dasharray="4 3"/>
+<text x="278" y="22" text-anchor="middle" style="font-size:13.5px;fill:#555555;font-weight:600">t = 0</text>
+<text x="12" y="23" text-anchor="start" style="font-size:15px;fill:#111111;font-weight:600">(a) 16 layers</text>
+<text x="94" y="56.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">User thread</text>
+<line x1="104" y1="52.0" x2="775.0" y2="52.0" stroke="#efefef" stroke-width="1"/>
+<text x="94" y="84.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">Driver</text>
+<line x1="104" y1="80.0" x2="775.0" y2="80.0" stroke="#efefef" stroke-width="1"/>
+<text x="94" y="112.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">Firmware</text>
+<line x1="104" y1="108.0" x2="775.0" y2="108.0" stroke="#efefef" stroke-width="1"/>
+<text x="94" y="140.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">ANE</text>
+<line x1="104" y1="136.0" x2="775.0" y2="136.0" stroke="#efefef" stroke-width="1"/>
+<rect x="164.116" y="70.0" width="43.736" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85" stroke-dasharray="4 3"/>
+<text x="185.984" y="84.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">≈31</text>
+<rect x="207.852" y="126.0" width="70.148" height="20" rx="0" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="242.926" y="140.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">49</text>
+<rect x="278.0" y="98.0" width="10.508" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="288.508" y="70.0" width="31.666" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="320.174" y="70.0" width="10.649999999999999" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="330.82399999999996" y="70.0" width="29.677999999999997" height="20" rx="0" fill="#e7d9b8" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="345.66299999999995" y="84.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">21</text>
+<rect x="360.50199999999995" y="42.0" width="115.304" height="20" rx="0" fill="#e7d9b8" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="418.15399999999994" y="56.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">81</text>
+<rect x="475.8059999999999" y="42.0" width="9.94" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="493.7459999999999" y="56.5" text-anchor="start" style="font-size:13.5px;fill:#a5302e;font-weight:600">+146 µs</text>
+<text x="12" y="187" text-anchor="start" style="font-size:15px;fill:#111111;font-weight:600">(b) 384 layers</text>
+<text x="94" y="220.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">User thread</text>
+<line x1="104" y1="216.0" x2="775.0" y2="216.0" stroke="#efefef" stroke-width="1"/>
+<text x="94" y="248.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">Driver</text>
+<line x1="104" y1="244.0" x2="775.0" y2="244.0" stroke="#efefef" stroke-width="1"/>
+<text x="94" y="276.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">Firmware</text>
+<line x1="104" y1="272.0" x2="775.0" y2="272.0" stroke="#efefef" stroke-width="1"/>
+<text x="94" y="304.5" text-anchor="end" style="font-size:13.5px;fill:#111111;font-weight:400">ANE</text>
+<line x1="104" y1="300.0" x2="775.0" y2="300.0" stroke="#efefef" stroke-width="1"/>
+<rect x="112.26400000000001" y="234.0" width="43.736" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85" stroke-dasharray="4 3"/>
+<text x="134.132" y="248.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">≈31</text>
+<rect x="156.0" y="290.0" width="122.0" height="20" rx="0" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="178.0" y="289.0" width="8" height="22" fill="#ffffff"/>
+<line x1="176.0" y1="312.0" x2="181.0" y2="288.0" stroke="#2b2b2b" stroke-width="1.2"/>
+<line x1="182.5" y1="312.0" x2="187.5" y2="288.0" stroke="#2b2b2b" stroke-width="1.2"/>
+<text x="233.5" y="304.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">1262</text>
+<rect x="278.0" y="262.0" width="28.257999999999996" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="306.258" y="234.0" width="24.992" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="331.25" y="234.0" width="16.188" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<rect x="347.438" y="234.0" width="149.81" height="20" rx="0" fill="#e7d9b8" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="422.34299999999996" y="248.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">106</text>
+<rect x="497.248" y="206.0" width="222.94" height="20" rx="0" fill="#e7d9b8" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="608.718" y="220.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">157</text>
+<rect x="720.188" y="206.0" width="11.075999999999999" height="20" rx="0" fill="#ffffff" stroke="#2b2b2b" stroke-width="0.85"/>
+<text x="739.264" y="220.5" text-anchor="start" style="font-size:13.5px;fill:#a5302e;font-weight:600">+319 µs</text>
+<line x1="104" y1="324" x2="278" y2="324" stroke="#d0d0d4" stroke-width="1"/>
+<line x1="278" y1="324" x2="775.0" y2="324" stroke="#555555" stroke-width="1.2"/>
+<line x1="278.0" y1="324" x2="278.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="278.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">0</text>
+<line x1="349.0" y1="324" x2="349.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="349.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">50</text>
+<line x1="420.0" y1="324" x2="420.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="420.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">100</text>
+<line x1="491.0" y1="324" x2="491.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="491.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">150</text>
+<line x1="562.0" y1="324" x2="562.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="562.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">200</text>
+<line x1="633.0" y1="324" x2="633.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="633.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">250</text>
+<line x1="704.0" y1="324" x2="704.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="704.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">300</text>
+<line x1="775.0" y1="324" x2="775.0" y2="329" stroke="#555555" stroke-width="1.1"/>
+<text x="775.0" y="343" text-anchor="middle" style="font-size:12.5px;fill:#555555;font-weight:400">350</text>
+<text x="526.5" y="362" text-anchor="middle" style="font-size:13.5px;fill:#111111;font-weight:600">Time after task end (µs)</text>
+<foreignObject x="0" y="376" width="800" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;justify-content:center;gap:48px;align-items:center;height:28px;font-family:Arial,'Helvetica Neue','PingFang SC',sans-serif;font-size:14px;color:#111111"><span style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:24px;height:14px;box-sizing:border-box;background:#ffffff;border:1.1px dashed #2b2b2b"></span><span>Submit</span></span><span style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:24px;height:14px;box-sizing:border-box;background:#d5e3b8;border:0.85px solid #2b2b2b"></span><span>ANE task</span></span><span style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:24px;height:14px;box-sizing:border-box;background:#e7d9b8;border:0.85px solid #2b2b2b"></span><span>Completion / return</span></span><span style="display:flex;align-items:center;gap:8px"><span style="display:inline-block;width:24px;height:14px;box-sizing:border-box;background:#ffffff;border:0.85px solid #2b2b2b"></span><span>Other</span></span></div></foreignObject>
 </svg>

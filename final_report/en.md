@@ -595,7 +595,7 @@ maderix [1] observed that the compiled artifacts store configuration parameters 
 
 ![TD format](../figs/en/light/fig5-2_td_format.png)
 
-*Figure 5-2. Structure of a TD (v24 layout). At the top is the TD sequence of one ANE. Below it, one TD is expanded: ① the task header, ② the write packets arranged by register group, and ③ the address packets at the end. The register groups of the write packets are arranged in the direction of data flow. ④ gives the bit format of the packet header words, illustrated by three header words from ② and ③. The example is taken from the artifact of a 1×9 convolution with 256 channels, an 8×32 input, and four layers on h18g.*
+*Figure 5-2. Structure of a TD (v24 layout). At the top is the TD sequence of one ANE (the gray block at left is the 4-word sequence header). In the middle, one TD is expanded into 32-bit words: the 12-word task header, common registers, per-unit write packets ordered along the hardware dataflow (dark cells mark packet headers), and address packets at the end. At the bottom are the hardware units configured by each group of write packets (colored as in Figure 4-1). See Table 5-6 through Table 5-8 for packet-header bit formats and fields.*
 
 #### 5.7.1 Task Header
 
@@ -749,7 +749,7 @@ Figure 5-3 summarizes the main content of this section.
 
 ![Dual-ANE programs](../figs/en/light/fig5-3_bonded.png)
 
-*Figure 5-3. Splitting, synchronization, and the split decision for dual-ANE programs. ① Split by rows: the two ANEs each process half of the rows and each read a complete copy of the weights (Section 5.8.1). ② Split by output channel: the passes already present in the single-ANE program are divided evenly between the two ANEs (Section 5.8.3). ③ When data must be exchanged, the two ANEs map the same shared scratch buffer, and sync records are inserted before the corresponding layers (Section 5.8.2). ④ The compiler compares latency estimates before and after splitting to decide whether to split; the factor × 0.5 assumes that the two ANEs do not interfere with each other (Section 5.8.3).*
+*Figure 5-3. Splitting, synchronization, and the split decision for dual-ANE programs. (a) Split by rows: the two ANEs each process half of the rows (plus the hatched overlap rows when kernel height exceeds 1) and each read a complete copy of the weights (Section 5.8.1). (b) Split by output channel: the output-channel passes of the single-ANE program are divided evenly between the two ANEs, so each reads half the weights (Section 5.8.3). (c) Cross-engine synchronization: when data must be exchanged, the two ANEs map the same shared scratchpad, and sync records are inserted before the corresponding layers (Section 5.8.2). (d) Split criterion: the compiler compares latency estimates before and after splitting to decide whether to split; the factor × 0.5 assumes that the two ANEs do not interfere with each other (Section 5.8.3).*
 
 #### 5.8.1 Differences at the TD Level
 
@@ -1124,7 +1124,7 @@ This overhead has a direct effect on ANE utilization. For the model used in Chap
 
 ![Timeline of a single synchronous call](../figs/en/light/fig6-1_call_timeline.png)
 
-*Figure 6-1. Timeline of one synchronous call (single ANE, 1×1 convolution, 512 channels, 1×128; data: [d1b_stages.txt](../data/04_schedule/d1b_stages.txt)). The upper panel shows 16 layers and the lower panel shows 384 layers. Circled numbers mark kdebug events, and horizontal lengths are drawn to scale in time (the task segment of the 384-layer case is truncated). The submission segment is drawn using the intercept of the linear fit of "submission to task end" against task duration (dashed box, about 31 µs). The overhead after task end increases from 146 µs to 319 µs. The increase is concentrated in the driver completion handling and user-thread return segments, that is, on the host side.*
+*Figure 6-1. Timeline of one synchronous call (single ANE, 1×1 convolution, 512 channels, 1×128; data: [d1b_stages.txt](../data/04_schedule/d1b_stages.txt)). Panel (a) shows 16 layers (227 µs total) and panel (b) shows 384 layers (1618 µs total). Both panels are aligned at ANE task end (t = 0) and drawn to scale in time (the ANE task segment for 384 layers is truncated). The submission segment is drawn using the intercept of the linear fit of "submission to task end" against task duration (dashed box, about 31 µs). The overhead after task end increases from 146 µs to 319 µs; the increase is concentrated in the two host-side segments highlighted in tan: driver completion handling (21 → 106 µs) and user-thread return (81 → 157 µs).*
 
 ![Host overhead versus task duration](../figs/en/light/fig6-2_host_overhead.png)
 
@@ -1672,7 +1672,7 @@ We also examined whether partial sums in FP16 occur during accumulation. Bryngel
 
 ![Q15.16 accumulator](../figs/en/light/fig8-1_accumulator.png)
 
-*Figure 8-1. Data formats of the FP16 multiply-accumulate path. The upper two rows show the computation of FP16 convolutions and matrix multiplications: input decoding, multiplication, alignment of the products to 2⁻¹⁶ according to the sum of exponents, Q15.16 fixed-point accumulation with the bias as the initial value, and rounding of the output. The "mantissa product and exponent sum" is an internal representation speculated from measurements. The next row compares the numerical formats of three paths: FP16 multiply-accumulate, INT8 multiply-accumulate, and elementwise operations.*
+*Figure 8-1. Data formats of the FP16 multiply-accumulate path. (a) Datapath of FP16 convolutions and matrix multiplications: input decoding, multiplication, alignment to 2⁻¹⁶ according to the sum of exponents, Q15.16 fixed-point accumulation initialized with the bias (with its 32-bit layout expanded below), and output rounding away from zero. "Mantissa · exp. e" is an internal representation inferred from measurements. (b) Comparison of numerical formats and overflow behavior across the FP16 multiply-accumulate, INT8 multiply-accumulate, and elementwise paths.*
 
 #### 8.2.2 Alignment of Tiny Products
 
@@ -1803,7 +1803,7 @@ The distribution of errors corroborates the structure of Table 8-6, and Figure 8
 
 ![Close-up of the absolute errors of four activation functions](../figs/en/light/fig8-3_lut_error_zoom.png)
 
-*Figure 8-3. Close-up of the absolute errors of sigmoid, gelu, silu and tanh on the ANE (ANE output minus the exact float64 value). The light blue vertical lines mark intervals of 0.5, corresponding to the grids of the sigmoid and silu lookup tables; the grids of tanh and gelu are 0.125 and 0.25, respectively (tool: [lut_plot.py](../tools/06_numerics/lut_plot.py); data: [lut_m6/](../data/06_numerics/lut_m6/)).*
+*Figure 8-3. Close-up of the absolute errors of sigmoid, gelu, silu and tanh on the ANE (ANE output minus the exact float64 value). The light orange vertical lines mark intervals of 0.5, corresponding to the grids of the sigmoid and silu lookup tables; the grids of tanh and gelu are 0.125 and 0.25, respectively (tool: [lut_plot.py](../tools/06_numerics/lut_plot.py); data: [lut_m6/](../data/06_numerics/lut_m6/)).*
 
 ### 8.6 Comparison with the M4 and the Literature
 
@@ -1884,7 +1884,7 @@ That is, every tile must be strictly smaller than 2 MiB: a 2 MB tensor is split 
 
 ![Tiling of intermediate tensors](../figs/en/light/fig9-1_tiling.png)
 
-*Figure 9-1. Tiling of intermediate tensors. (1) A 16 MB intermediate tensor (256 channels, width 32768 columns) is split into 9 tiles of about 1.78 MB each. (2) Each tile executes the complete chain in succession, intermediate results remain in L2, and data is read from DRAM only at the first layer and written to DRAM only at the last layer.*
+*Figure 9-1. Tiling of intermediate tensors and execution order. (a) A 16 MB intermediate tensor (256 channels, width 32768 columns) is split into 9 tiles of about 1.78 MB each (below the 2 MiB limit). (b) Each tile executes the complete chain in succession with intermediate results resident in L2, reading from DRAM only at layer 1 and writing back to DRAM only at layer n.*
 
 In a dual-ANE program, the compiler retains the tiling grid used for the single ANE and then assigns the list of whole tiles to the two ANEs. When the number of tiles is odd, the workloads of the two ANEs cannot be divided equally, and the extra tile is always assigned to ANE1. This causes the execution time of the dual-ANE program to be determined by ANE1. Across the widths measured, the execution time is at most about 19% longer than an even split, which corresponds to a throughput reduction of about 16%. This problem is discussed in detail in Chapter 10.
 
@@ -2053,7 +2053,7 @@ In the range of 256 to 384 layers, where the chain is longest and most linear, t
 
 ![Latency of single-ANE and dual-ANE programs](../figs/en/light/fig10-1_bonded_scaling.png)
 
-*Figure 10-1. Time per call as a function of the number of layers for a single-ANE program (width 128) and a dual-ANE program (width 256), each a 512-channel 1×1 convolution chain with shared weights. The dashed line is the extrapolation from the slope between the 256- and 384-layer points. The dual-ANE layer performs twice the computation of the single-ANE layer, yet the latency increases by only 0.14 µs per layer; the speedup computed from the ratio of marginal throughputs is 1.92 (data: [bond_ksweep_run.txt](../data/08_bonded/bond_ksweep_run.txt)).*
+*Figure 10-1. Single-ANE (width 128) and dual-ANE (width 256) 512-channel 1×1 convolution chains with shared weights. (a) Time per call as a function of the number of layers; (b) marginal throughput computed from the slope between 256 and 384 layers. The dual-ANE layer performs twice the computation of the single-ANE layer, yet the latency increases by only 0.14 µs per layer; marginal throughput rises from 20.6 to 39.5 TFLOPS, a speedup of 1.92 (data: [bond_ksweep_run.txt](../data/08_bonded/bond_ksweep_run.txt)).*
 
 At small layer counts, the latency differences between the two groups of models in Table 10-1 cannot be directly attributed to cooperation overhead. For example, at 16 layers the latencies of the dual ANE and the single ANE are nearly identical, whereas at 48 layers the dual ANE is 58 µs slower. In this range, each call takes only a few hundred microseconds, and the host wake-up overhead described in Section 6.5 is in a regime that varies with task duration. Because the task durations of the two groups differ, this overhead is mixed into the latency differences. Therefore, this section relies only on the slopes above 256 layers as the basis for the scaling efficiency.
 
@@ -2099,7 +2099,7 @@ The distribution of tile widths within each engine further reveals the source of
 
 ![Tile assignment of the dual-ANE program](../figs/en/light/fig10-2_split.png)
 
-*Figure 10-2. Tile assignment of the dual-ANE program (256-channel 1×1 convolution chain). The dual-ANE program reuses the tiling grid of the single-ANE program and assigns whole tiles to the two ANEs; when the number of tiles is odd, the extra tile always goes to ANE1. The numbers in the boxes are tile widths (columns); the positions of the tiles in the tensor are schematic.*
+*Figure 10-2. Tile assignment of the dual-ANE program (256-channel 1×1 convolution chain). Rows are aligned on the dashed boundary between ANE0 and ANE1, with box widths proportional to column counts and column shares shown on the right. The dual-ANE program reuses the single-ANE tiling grid and assigns whole tiles to the two ANEs; when the number of tiles is odd, the extra tile always goes to ANE1. Tile positions in the tensor are schematic.*
 
 *Table 10-4. Tiling of each layer and assignment to the two ANEs*
 
@@ -2150,11 +2150,11 @@ Because the gain stems from eliminating host idle time, keeping multiple request
 | | Batched, 8 per batch | 2.46 | 76–78% / 78% | about 1330 µs |
 | | Two processes, 2 asynchronous calls in flight each | 2.82 | 100% / 100% | 1330–1342 µs |
 
-Figure 10-3 plots the throughput of the two models under seven submission modes together with the busy fractions of the two engines.
+Figure 10-3 plots the relative throughput of the two models under seven submission modes.
 
 ![Throughput of different submission modes within a single process](../figs/en/light/fig10-3_submit_modes.png)
 
-*Figure 10-3. Throughput of different submission modes within a single process (relative to synchronous calls; the average of two rounds, which differ by no more than 0.05×). (a) Weight-resident 1×1 convolution chain; (b) weight-read-bound rewritten 1×9 kernel. The second line beside each bar gives the busy fractions of ANE0 / ANE1. With synchronous calls, only ANE0 works, and it waits for the host for about 23% of the time. Once two or more requests are kept in flight, both engines begin to work. For weight-resident models, throughput reaches about 2.8× that of synchronous calls; for weight-read-bound models, it reaches only about 1.4×, and both engines are already 100% busy, so the gain comes almost entirely from eliminating host-side idle time (data: [d2_async.txt](../data/04_schedule/d2_async.txt)).*
+*Figure 10-3. Throughput of different submission modes within a single process (relative to synchronous calls; the average of two rounds, which differ by no more than 0.05×; see Table 10-6 for the ANE0 / ANE1 busy fractions). (a) Weight-resident 1×1 convolution chain; (b) weight-read-bound rewritten 1×9 kernel. With synchronous calls, only ANE0 works, and it waits for the host for about 23% of the time. Once two or more requests are kept in flight, both engines begin to work. For weight-resident models, throughput reaches about 2.8× that of synchronous calls; for weight-read-bound models, it reaches only about 1.4×, and both engines are already 100% busy, so the gain comes almost entirely from eliminating host-side idle time (data: [d2_async.txt](../data/04_schedule/d2_async.txt)).*
 
 Table 10-6 raises three points. First, under asynchronous calls, the requests for the same `MLModel` object in the same process are assigned to both engines. As long as two or more requests are in flight, both engines have tasks. This differs from the result of Section 6.7.2, in which requests from multiple threads that synchronously call the same model are serialized. This indicates that the serialization there occurs on the synchronous-call path (defect B3). Second, for weight-read-bound models, the saturated throughput of single-process asynchronous calls is identical to that of two processes (about 742 calls per second, or about 150 GB/s when converted from FP16 weight bytes), so adding a second process does not make it faster. At saturation, both engines are 100% busy, and each receives only about half of the rate (about 76 GB/s). The duration of each single task therefore increases from 1.40 ms to 2.66 ms. Compared with about 145 GB/s for a single engine running alone, the two engines together add only about 4% (3–8% in the two-process experiment of Table 10-5). If one engine ran alone with no host idle time, the throughput would be about 1.37× that of synchronous calls, and the measured value is 1.41×. Therefore, the gain of about 1.4× comes almost entirely from eliminating host idle time 〔kdebug, inferred〕. The synchronous baseline of this group (521–526 calls/s) is about 5% slower than in the experiment of Table 10-5, and synchronous throughput fluctuates by 5–8% across time periods, whereas the absolute saturated throughput is identical each time. The 1.41× here is therefore not inconsistent with the 1.36× of Table 10-5.
 

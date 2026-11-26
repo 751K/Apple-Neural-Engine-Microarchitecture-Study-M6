@@ -1,102 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 730" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
-<rect x="0" y="0" width="1440" height="730" fill="#161618"/>
-<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .h2{font-size:16px;font-weight:600} .b{font-size:14.5px;fill:#c6c6c8} .c{font-size:13px;fill:#9c9ca0} .m{font-size:12.5px;font-family:Menlo,SF Mono,monospace;fill:#c6c6c8} .mid{text-anchor:middle} .end{text-anchor:end}</style>
-<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#bbbbbd"/></marker><marker id="ac" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b79578"/></marker><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#b79578" stroke-width="1.5"/></pattern></defs>
-<text class="h" x="40" y="32">① 按行切分（基准模型：1×1 卷积链，高 64）</text>
-<rect x="70" y="60" width="180" height="110" rx="2" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<rect x="70" y="170" width="180" height="110" rx="2" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<rect x="70" y="158" width="180" height="24" fill="url(#hatch)" opacity="0.55"/>
-<text class="b mid" x="160" y="112">行 0–31</text>
-<text class="b mid" x="160" y="232">行 32–63</text>
-<text class="c mid" x="160" y="302">激活张量</text>
-<rect x="320" y="82" width="130" height="64" rx="8" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="h2 mid" x="385" y="120">ANE0</text>
-<rect x="320" y="194" width="130" height="64" rx="8" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="h2 mid" x="385" y="232">ANE1</text>
-<path d="M250 114 H316" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<path d="M250 226 H316" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<rect x="540" y="128" width="130" height="84" rx="8" fill="#1f4753" stroke="#61c4dd" stroke-width="1.4"/>
-<text class="h2 mid" x="605" y="162">权重</text>
-<text class="c mid" x="605" y="186">（完整一份）</text>
-<path d="M540 170 H495" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
-<path d="M495 170 V114 H454" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<path d="M495 170 V226 H454" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<text class="c mid" x="605" y="236">两个 ANE 各读一份</text>
-<text class="c" x="70" y="330">两个 ANE 用同一份权重，各自用满 16 个 NE，最后合并结果。</text>
-<text class="c" x="70" y="350">纵向尺寸大于 1 的卷积核还要读相邻的重叠行（斜线），层数越多重叠越多。</text>
-<text class="c" x="70" y="370">TD 中：高度 64 → 32；ANE1 的地址包偏移 32 行；PublishBit 置 1。</text>
-<text class="h" x="760" y="32">② 按输出通道切分（例：8×32 的 5×5 卷积，每层 4 趟 × 64 通道）</text>
-<rect x="770" y="60" width="170" height="46" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="c mid" x="855" y="89">第 1 趟：64 个输出通道</text>
-<rect x="770" y="114" width="170" height="46" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="c mid" x="855" y="143">第 2 趟：64 个输出通道</text>
-<rect x="770" y="168" width="170" height="46" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="c mid" x="855" y="197">第 3 趟：64 个输出通道</text>
-<rect x="770" y="222" width="170" height="46" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="c mid" x="855" y="251">第 4 趟：64 个输出通道</text>
-<text class="c mid" x="855" y="302">权重的 4 趟</text>
-<rect x="1030" y="82" width="130" height="64" rx="8" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="h2 mid" x="1095" y="120">ANE0</text>
-<rect x="1030" y="194" width="130" height="64" rx="8" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="h2 mid" x="1095" y="232">ANE1</text>
-<path d="M940 83 H982 V114 H1026" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<path d="M940 137 H982 V114" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
-<path d="M940 191 H982 V226 H1026" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<path d="M940 245 H982 V226" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
-<rect x="1250" y="128" width="140" height="84" rx="8" fill="#1a1a1a" stroke="#818187" stroke-width="1.4"/>
-<text class="h2 mid" x="1320" y="162">输入</text>
-<text class="c mid" x="1320" y="186">（完整一份）</text>
-<path d="M1250 170 H1205" stroke="#bbbbbd" stroke-width="1.5" fill="none"/>
-<path d="M1205 170 V114 H1164" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<path d="M1205 170 V226 H1164" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<text class="c" x="760" y="330">把单 ANE 程序中已有的各趟平均分给两个 ANE，每个 ANE 只读一半权重，</text>
-<text class="c" x="760" y="350">不需要拷贝与合并。只在各趟大小相同时可用（如 3×3 的 32 + 224 通道就不行）。</text>
-<text class="h" x="40" y="420">③ 需要交换数据时：共享暂存区与同步记录（3 层 3×3 卷积，按行切分）</text>
-<text class="h2 end" x="92" y="476">ANE0</text>
-<text class="h2 end" x="92" y="616">ANE1</text>
-<rect x="110" y="450" width="190" height="40" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="b mid" x="205.0" y="476">第 1 层</text>
-<rect x="110" y="590" width="190" height="40" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="b mid" x="205.0" y="616">第 1 层</text>
-<rect x="370" y="450" width="190" height="40" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="b mid" x="465.0" y="476">第 2 层</text>
-<rect x="370" y="590" width="190" height="40" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="b mid" x="465.0" y="616">第 2 层</text>
-<rect x="630" y="450" width="190" height="40" rx="4" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="b mid" x="725.0" y="476">第 3 层</text>
-<rect x="630" y="590" width="190" height="40" rx="4" fill="#205347" stroke="#1dffdc" stroke-width="1.4"/>
-<text class="b mid" x="725.0" y="616">第 3 层</text>
-<rect x="110" y="516" width="710" height="38" rx="6" fill="#493725" stroke="#b79578" stroke-width="1.4"/>
-<text class="c mid" x="465" y="541">共享暂存区：两个 ANE 都映射；推测经系统级缓存交换（DSID 标签）</text>
-<path d="M335 490 V590" stroke="#b79578" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
-<path d="M335 461 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
-<path d="M335 601 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
-<text class="c mid" x="335" y="654">同步 1</text>
-<path d="M595 490 V590" stroke="#b79578" stroke-width="1.6" stroke-dasharray="4 3" fill="none"/>
-<path d="M595 461 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
-<path d="M595 601 l9 9 l-9 9 l-9 -9 z" fill="#b79578"/>
-<text class="c mid" x="595" y="654">同步 2</text>
-<text class="c" x="110" y="680">◆ 同步记录 f0003281：第 2、3 层开始前各一次，获取对方计算的边界行；第 1 层直接从 DRAM 读取带重叠行的输入。</text>
-<text class="c" x="110" y="700">1×1 卷积链两半互不依赖，没有同步记录；softmax（沿宽度）1 次；reduce_sum（沿高度）以分阶段结束的方式等待。</text>
-<text class="h" x="900" y="420">④ 是否切分：编译器比较两种延迟估计</text>
-<text class="h2" x="900" y="464">单 ANE</text>
-<rect x="1000" y="446" width="240" height="28" rx="3" fill="#2e2e33" stroke="#818187" stroke-width="1.4"/>
-<text class="c mid" x="1120" y="465">Σ 切分前延迟</text>
-<text class="h2" x="900" y="518">双 ANE</text>
-<rect x="1000" y="500" width="260" height="28" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="c mid" x="1130" y="519">Σ 切分后各块的延迟</text>
-<rect x="1260" y="500" width="64" height="28" rx="3" fill="#493725" stroke="#b79578" stroke-width="1.4"/>
-<text class="c mid" x="1292" y="519">拷贝合并</text>
-<path d="M1162 530 V552" stroke="#bbbbbd" stroke-width="1.5" fill="none" marker-end="url(#ar)"/>
-<text class="b" x="1172" y="546">× 0.5</text>
-<rect x="1000" y="554" width="162" height="28" rx="3" fill="#262f4c" stroke="#6b87c3" stroke-width="1.4"/>
-<text class="c mid" x="1081" y="573">切分后的估计</text>
-<line x1="1240" y1="474" x2="1240" y2="610" stroke="#67676c" stroke-width="1.2" stroke-dasharray="3 3"/>
-<line x1="1162" y1="474" x2="1162" y2="610" stroke="#67676c" stroke-width="1.2" stroke-dasharray="3 3"/>
-<path d="M1166 602 H1236" stroke="#ed7060" stroke-width="1.6" fill="none" marker-end="url(#ar)" marker-start="url(#ar)"/>
-<text class="b" x="1250" y="607">切分后的估计更短 → 切分</text>
-<text class="c" x="900" y="636">0.5 意味着假设两个 ANE 完全并行、互不干扰。</text>
-<text class="c" x="900" y="660">模型没有考虑两个 ANE 对 DRAM 带宽的争用，读权重受限的层</text>
-<text class="c" x="900" y="680">因此被切分却不加速（缺陷 B9）。拷贝合并一项只在每块 ≤ 128</text>
-<text class="c" x="900" y="700">个像素时显著；每块过小、没有可用切法或输入只有一行时不切分。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560" width="800" height="560">
+<rect x="0" y="0" width="800" height="560" fill="#161618"/><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><defs><marker id="m0" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#f0a25d"/></marker><marker id="m1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#d95f5d"/></marker><marker id="m2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="4.5" markerHeight="4.5" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#e6e6e6"/></marker></defs><rect width="800" height="560" fill="#1a1a1a"/>
+<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" stroke="#f0a25d" stroke-width="1.6"/></pattern></defs>
+<rect x="4" y="8" width="390" height="240" rx="10" fill="#2e2e2e"/>
+<text x="18" y="32" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">(a) 按行切分</text>
+<rect x="18" y="52" width="98" height="78" rx="0" fill="#243c5f" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="18" y="130" width="98" height="78" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<rect x="18" y="121" width="98" height="18" fill="url(#hatch)" opacity="0.55"/>
+<line x1="18" y1="130" x2="116" y2="130" stroke="#d3d3d3" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="67" y="94" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">行 0–31</text>
+<text x="67" y="174" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">行 32–63</text>
+<text x="67" y="232" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">激活</text>
+<rect x="156" y="66" width="88" height="50" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="200.0" y="96.6" text-anchor="middle" style="font-size:16px;fill:#e6e6e6;font-weight:600">ANE0</text>
+<rect x="156" y="144" width="88" height="50" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="200.0" y="174.6" text-anchor="middle" style="font-size:16px;fill:#e6e6e6;font-weight:600">ANE1</text>
+<polyline points="116,91 155,91" fill="none" stroke="#f0a25d" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m0)"/>
+<polyline points="116,169 155,169" fill="none" stroke="#f0a25d" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m0)"/>
+<rect x="286" y="90" width="94" height="80" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="333" y="124" text-anchor="middle" style="font-size:16px;fill:#e6e6e6;font-weight:600">权重</text>
+<text x="333" y="148" text-anchor="middle" style="font-size:14px;fill:#c6c6c8;font-weight:400">完整一份</text>
+<polyline points="286,130 266,130" fill="none" stroke="#d95f5d" stroke-width="2.8" stroke-linejoin="miter"/>
+<polyline points="266,130 266,91 245,91" fill="none" stroke="#d95f5d" stroke-width="2.8" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<polyline points="266,130 266,169 245,169" fill="none" stroke="#d95f5d" stroke-width="2.8" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<circle cx="266" cy="130" r="3" fill="#d95f5d"/>
+<rect x="406" y="8" width="390" height="240" rx="10" fill="#2e2e2e"/>
+<text x="420" y="32" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">(b) 按输出通道切分</text>
+<rect x="418" y="52" width="104" height="32" rx="0" fill="#243c5f" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="470.0" y="72.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">通道 0–63</text>
+<rect x="418" y="92" width="104" height="32" rx="0" fill="#243c5f" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="470.0" y="112.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">通道 64–127</text>
+<rect x="418" y="132" width="104" height="32" rx="0" fill="#2e4c7a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="470.0" y="152.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">通道 128–191</text>
+<rect x="418" y="172" width="104" height="32" rx="0" fill="#2e4c7a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="470.0" y="192.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">通道 192–255</text>
+<text x="470" y="232" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">权重</text>
+<rect x="558" y="66" width="84" height="50" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="600.0" y="96.6" text-anchor="middle" style="font-size:16px;fill:#e6e6e6;font-weight:600">ANE0</text>
+<rect x="558" y="144" width="84" height="50" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="600.0" y="174.6" text-anchor="middle" style="font-size:16px;fill:#e6e6e6;font-weight:600">ANE1</text>
+<polyline points="522,68 538,68 538,108 522,108" fill="none" stroke="#d95f5d" stroke-width="2.4" stroke-linejoin="miter"/>
+<polyline points="538,91 557,91" fill="none" stroke="#d95f5d" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<circle cx="538" cy="91" r="3" fill="#d95f5d"/>
+<polyline points="522,148 538,148 538,188 522,188" fill="none" stroke="#d95f5d" stroke-width="2.4" stroke-linejoin="miter"/>
+<polyline points="538,169 557,169" fill="none" stroke="#d95f5d" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m1)"/>
+<circle cx="538" cy="169" r="3" fill="#d95f5d"/>
+<rect x="686" y="90" width="96" height="80" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="734" y="124" text-anchor="middle" style="font-size:16px;fill:#e6e6e6;font-weight:600">激活</text>
+<text x="734" y="148" text-anchor="middle" style="font-size:14px;fill:#c6c6c8;font-weight:400">完整一份</text>
+<polyline points="686,130 664,130" fill="none" stroke="#f0a25d" stroke-width="2.4" stroke-linejoin="miter"/>
+<polyline points="664,130 664,91 643,91" fill="none" stroke="#f0a25d" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m0)"/>
+<polyline points="664,130 664,169 643,169" fill="none" stroke="#f0a25d" stroke-width="2.4" stroke-linejoin="miter" marker-end="url(#m0)"/>
+<circle cx="664" cy="130" r="3" fill="#f0a25d"/>
+<rect x="4" y="260" width="440" height="252" rx="10" fill="#2e2e2e"/>
+<text x="18" y="284" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">(c) 跨引擎同步</text>
+<text x="20" y="335" text-anchor="start" style="font-size:15px;fill:#e6e6e6;font-weight:600">ANE0</text>
+<text x="20" y="459" text-anchor="start" style="font-size:15px;fill:#e6e6e6;font-weight:600">ANE1</text>
+<line x1="192" y1="329.0" x2="192" y2="453.0" stroke="#e6e6e6" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="192" y="496" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">同步 1</text>
+<line x1="316" y1="329.0" x2="316" y2="453.0" stroke="#e6e6e6" stroke-width="1.6" stroke-dasharray="4 3"/>
+<text x="316" y="496" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">同步 2</text>
+<rect x="82" y="372" width="344" height="38" rx="0" fill="#29446d" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="254.0" y="396.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">共享暂存区</text>
+<rect x="82" y="310" width="96" height="38" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="130.0" y="334.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">层 1</text>
+<rect x="82" y="434" width="96" height="38" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="130.0" y="458.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">层 1</text>
+<polyline points="178,329.0 205,329.0" fill="none" stroke="#e6e6e6" stroke-width="1.8" stroke-linejoin="miter" marker-end="url(#m2)"/>
+<polyline points="178,453.0 205,453.0" fill="none" stroke="#e6e6e6" stroke-width="1.8" stroke-linejoin="miter" marker-end="url(#m2)"/>
+<path d="M192 322.0 L199 329.0 L192 336.0 L185 329.0 Z" fill="#e6e6e6"/>
+<path d="M192 446.0 L199 453.0 L192 460.0 L185 453.0 Z" fill="#e6e6e6"/>
+<rect x="206" y="310" width="96" height="38" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="254.0" y="334.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">层 2</text>
+<rect x="206" y="434" width="96" height="38" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="254.0" y="458.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">层 2</text>
+<polyline points="302,329.0 329,329.0" fill="none" stroke="#e6e6e6" stroke-width="1.8" stroke-linejoin="miter" marker-end="url(#m2)"/>
+<polyline points="302,453.0 329,453.0" fill="none" stroke="#e6e6e6" stroke-width="1.8" stroke-linejoin="miter" marker-end="url(#m2)"/>
+<path d="M316 322.0 L323 329.0 L316 336.0 L309 329.0 Z" fill="#e6e6e6"/>
+<path d="M316 446.0 L323 453.0 L316 460.0 L309 453.0 Z" fill="#e6e6e6"/>
+<rect x="330" y="310" width="96" height="38" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="378.0" y="334.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">层 3</text>
+<rect x="330" y="434" width="96" height="38" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="378.0" y="458.25" text-anchor="middle" style="font-size:15px;fill:#e6e6e6;font-weight:600">层 3</text>
+<rect x="456" y="260" width="340" height="252" rx="10" fill="#2e2e2e"/>
+<text x="470" y="284" text-anchor="start" style="font-size:16px;fill:#e6e6e6;font-weight:600">(d) 切分判据</text>
+<text x="508" y="336" text-anchor="end" style="font-size:15px;fill:#e6e6e6;font-weight:600">双 ANE</text>
+<rect x="516" y="314" width="152" height="32" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="592.0" y="334.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">各块延迟</text>
+<rect x="668" y="314" width="56" height="32" rx="0" fill="#6c5829" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="696.0" y="334.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">合并</text>
+<polyline points="568,346 568,391" fill="none" stroke="#e6e6e6" stroke-width="1.8" stroke-linejoin="miter" marker-end="url(#m2)"/>
+<text x="580" y="374" text-anchor="start" style="font-size:15px;fill:#e6e6e6;font-weight:600">× 0.5</text>
+<rect x="516" y="392" width="104" height="32" rx="0" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="568.0" y="412.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">切分估计</text>
+<text x="508" y="468" text-anchor="end" style="font-size:15px;fill:#e6e6e6;font-weight:600">单 ANE</text>
+<rect x="516" y="446" width="156" height="32" rx="0" fill="#1a1a1a" stroke="#d3d3d3" stroke-width="0.8"/>
+<text x="594.0" y="466.9" text-anchor="middle" style="font-size:14px;fill:#e6e6e6;font-weight:600">切分前延迟</text>
+<line x1="672" y1="396" x2="672" y2="446" stroke="#969696" stroke-width="1.2" stroke-dasharray="3 3"/>
+<polyline points="622,408 670,408" fill="none" stroke="#d95f5d" stroke-width="2.0" stroke-linejoin="miter" marker-end="url(#m1)" marker-start="url(#m1)"/>
+<text x="680" y="413" text-anchor="start" style="font-size:14px;fill:#d95f5d;font-weight:600">更短 → 切分</text>
+<foreignObject x="0" y="524.0" width="800" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;justify-content:space-between;gap:0;align-items:center;height:28px;padding:0 6px;font-family:Arial,'Helvetica Neue','PingFang SC',sans-serif;font-size:16px;color:#e6e6e6"><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#f0a25d" stroke-width="2.4"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#f0a25d"/></svg><span>激活</span></span><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#d95f5d" stroke-width="2.4"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#d95f5d"/></svg><span>权重</span></span><span style="display:flex;align-items:center;gap:10px"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="12" viewBox="0 0 36 12"><line x1="0" y1="6" x2="27" y2="6" stroke="#e6e6e6" stroke-width="1.8" stroke-dasharray="4 3"/><path d="M26,1.5 L35,6 L26,10.5 z" fill="#e6e6e6"/></svg><span>同步</span></span><span style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:26px;height:18px;box-sizing:border-box;background:#576c2b;border:0.8px solid #d3d3d3"></span><span>计算</span></span><span style="display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:26px;height:18px;box-sizing:border-box;background:#29446d;border:0.8px solid #d3d3d3"></span><span>存储</span></span></div></foreignObject>
 </svg>

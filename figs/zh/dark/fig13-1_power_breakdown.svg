@@ -1,169 +1,139 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 1060" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
-<rect x="0" y="0" width="1100" height="1060" fill="#161618"/>
-<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .h2{font-size:15.5px;font-weight:600} .b{font-size:14.5px;fill:#c6c6c8} .c{font-size:13px;fill:#9c9ca0} .s{font-size:12.5px;fill:#c6c6c8} .tk{font-size:12.5px;fill:#9c9ca0;font-family:Helvetica Neue,Arial,sans-serif}</style>
-<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#c6c6c8" stroke-width="1.6"/></marker></defs>
-<text class="h2" x="330.0" y="46.0" text-anchor="start">(a) 各类负载的 ANE 净功耗</text>
-<line x1="330.0" y1="578" x2="330.0" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="330.0" y="598.0" text-anchor="middle">0</text>
-<line x1="415.7" y1="578" x2="415.7" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="415.7" y="598.0" text-anchor="middle">2</text>
-<line x1="501.4" y1="578" x2="501.4" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="501.4" y="598.0" text-anchor="middle">4</text>
-<line x1="587.1" y1="578" x2="587.1" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="587.1" y="598.0" text-anchor="middle">6</text>
-<line x1="672.9" y1="578" x2="672.9" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="672.9" y="598.0" text-anchor="middle">8</text>
-<line x1="758.6" y1="578" x2="758.6" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="758.6" y="598.0" text-anchor="middle">10</text>
-<line x1="844.3" y1="578" x2="844.3" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="844.3" y="598.0" text-anchor="middle">12</text>
-<line x1="930.0" y1="578" x2="930.0" y2="583" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="930.0" y="598.0" text-anchor="middle">14</text>
-<line x1="330" y1="578" x2="930" y2="578" stroke="#818187" stroke-width="1.2"/>
-<line x1="330" y1="58" x2="330" y2="578" stroke="#818187" stroke-width="1.2"/>
-<text class="s" x="630.0" y="622.0" text-anchor="middle">功耗（W）</text>
-<line x1="415.7" y1="58" x2="415.7" y2="578" stroke="#30303c" stroke-width="1"/>
-<line x1="501.4" y1="58" x2="501.4" y2="578" stroke="#30303c" stroke-width="1"/>
-<line x1="587.1" y1="58" x2="587.1" y2="578" stroke="#30303c" stroke-width="1"/>
-<line x1="672.9" y1="58" x2="672.9" y2="578" stroke="#30303c" stroke-width="1"/>
-<line x1="758.6" y1="58" x2="758.6" y2="578" stroke="#30303c" stroke-width="1"/>
-<line x1="844.3" y1="58" x2="844.3" y2="578" stroke="#30303c" stroke-width="1"/>
-<line x1="930.0" y1="58" x2="930.0" y2="578" stroke="#30303c" stroke-width="1"/>
-<text class="b" x="316.0" y="91.0" text-anchor="end">单 ANE，FP16 卷积</text>
-<text class="c" x="316.0" y="108.0" text-anchor="end">384 层，共享权重</text>
-<rect x="330.0" y="80.0" width="70.3" height="26" fill="#35353e" stroke="#9c9ca0" stroke-width="1.3"/>
-<text class="s" x="365.1" y="97.5" text-anchor="middle">共用</text>
-<rect x="400.3" y="80.0" width="195.7" height="26" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="498.1" y="97.5" text-anchor="middle">ANE0 计算</text>
-<rect x="596.0" y="84.0" width="3.1" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="607.1" y="97.5" text-anchor="start">6.21 W</text>
-<text class="b" x="316.0" y="147.0" text-anchor="end">双 ANE，FP16 卷积</text>
-<text class="c" x="316.0" y="164.0" text-anchor="end">384 层，共享权重</text>
-<rect x="330.0" y="136.0" width="70.3" height="26" fill="#35353e" stroke="#9c9ca0" stroke-width="1.3"/>
-<text class="s" x="365.1" y="153.5" text-anchor="middle">共用</text>
-<rect x="400.3" y="136.0" width="195.7" height="26" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="498.1" y="153.5" text-anchor="middle">ANE0 计算</text>
-<rect x="596.0" y="136.0" width="195.7" height="26" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s" x="693.9" y="153.5" text-anchor="middle">ANE1 计算</text>
-<rect x="791.7" y="140.0" width="6.8" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="806.5" y="153.5" text-anchor="start">10.77 W</text>
-<text class="b" x="316.0" y="203.0" text-anchor="end">单 ANE，W8A8 卷积</text>
-<text class="c" x="316.0" y="220.0" text-anchor="end">每次读 100 MB 权重</text>
-<rect x="330.0" y="192.0" width="93.9" height="26" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<text class="s" x="376.9" y="209.5" text-anchor="middle">读权重＋共用</text>
-<rect x="423.9" y="192.0" width="219.6" height="26" fill="#1f4753" stroke="#61c4dd" stroke-width="1.3"/>
-<text class="s" x="533.7" y="209.5" text-anchor="middle">INT8 计算</text>
-<rect x="643.5" y="196.0" width="93.7" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="745.2" y="209.5" text-anchor="start">7.31 W</text>
-<text class="b" x="316.0" y="259.0" text-anchor="end">单 ANE，读权重受限</text>
-<text class="c" x="316.0" y="276.0" text-anchor="end">每次 100 MB，96.6 GB/s</text>
-<rect x="330.0" y="248.0" width="93.9" height="26" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<rect x="423.9" y="252.0" width="78.4" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="510.3" y="265.5" text-anchor="start">2.19 W</text>
-<text class="b" x="316.0" y="315.0" text-anchor="end">双 ANE，PE 逐元素加</text>
-<text class="c" x="316.0" y="332.0" text-anchor="end">数据在 L2 内，随机输入</text>
-<rect x="330.0" y="304.0" width="105.7" height="26" fill="#52261f" stroke="#f37866" stroke-width="1.3"/>
-<rect x="435.7" y="308.0" width="48.8" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="492.6" y="321.5" text-anchor="start">2.47 W</text>
-<text class="b" x="316.0" y="378.0" text-anchor="end">　同上，输入全为 0</text>
-<rect x="330.0" y="360.0" width="87.3" height="26" fill="#52261f" stroke="#f37866" stroke-width="1.3"/>
-<rect x="417.3" y="364.0" width="28.9" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="454.2" y="377.5" text-anchor="start">2.04 W（−17%）</text>
-<text class="b" x="316.0" y="434.0" text-anchor="end">双 ANE，PE 逐元素乘</text>
-<rect x="330.0" y="416.0" width="113.5" height="26" fill="#52261f" stroke="#f37866" stroke-width="1.3"/>
-<rect x="443.5" y="420.0" width="47.7" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="499.2" y="433.5" text-anchor="start">2.65 W</text>
-<text class="b" x="316.0" y="483.0" text-anchor="end">单 ANE，1×1 卷积链</text>
-<text class="c" x="316.0" y="500.0" text-anchor="end">偏置为 0，128 层，随机输入</text>
-<rect x="330.0" y="472.0" width="219.2" height="26" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<rect x="549.2" y="476.0" width="5.6" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="562.7" y="489.5" text-anchor="start">5.11 W</text>
-<text class="b" x="316.0" y="539.0" text-anchor="end">　同上，输入全为 0</text>
-<text class="c" x="316.0" y="556.0" text-anchor="end">每一层的输入都为 0</text>
-<rect x="330.0" y="528.0" width="92.8" height="26" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<rect x="422.8" y="532.0" width="4.6" height="18" fill="#23232b" stroke="#5d5d64" stroke-width="1" stroke-dasharray="3 2"/>
-<text class="s" x="435.4" y="545.5" text-anchor="start">2.16 W（−58%）</text>
-<text class="c" x="806.5" y="171.0" text-anchor="start">共用开销 = 2 × 6.21 − 10.77 ≈ 1.6 W</text>
-<rect x="130" y="643" width="16" height="14" rx="2" fill="#35353e" stroke="#9c9ca0" stroke-width="1.3"/>
-<text class="s" x="152.0" y="655.0" text-anchor="start">两个 ANE 共用的开销</text>
-<rect x="290" y="643" width="16" height="14" rx="2" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="312.0" y="655.0" text-anchor="start">ANE0</text>
-<rect x="360" y="643" width="16" height="14" rx="2" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s" x="382.0" y="655.0" text-anchor="start">ANE1</text>
-<rect x="430" y="643" width="16" height="14" rx="2" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<text class="s" x="452.0" y="655.0" text-anchor="start">读取 DRAM 权重</text>
-<rect x="560" y="643" width="16" height="14" rx="2" fill="#52261f" stroke="#f37866" stroke-width="1.3"/>
-<text class="s" x="582.0" y="655.0" text-anchor="start">PE 逐元素运算</text>
-<rect x="700" y="643" width="16" height="14" rx="2" fill="#23232b" stroke="#5d5d64" stroke-width="1.3" stroke-dasharray="3 2"/>
-<text class="s" x="722.0" y="655.0" text-anchor="start">内存电源轨（另一路，不计入 ANE）</text>
-<text class="h2" x="330.0" y="728.0" text-anchor="start">(b) 由差值推算的每次运算能耗</text>
-<line x1="330.0" y1="990" x2="330.0" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="330.0" y="1010.0" text-anchor="middle">0.1</text>
-<line x1="384.7" y1="990" x2="384.7" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="384.7" y="1010.0" text-anchor="middle">0.2</text>
-<line x1="457.0" y1="990" x2="457.0" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="457.0" y="1010.0" text-anchor="middle">0.5</text>
-<line x1="511.8" y1="990" x2="511.8" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="511.8" y="1010.0" text-anchor="middle">1</text>
-<line x1="566.5" y1="990" x2="566.5" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="566.5" y="1010.0" text-anchor="middle">2</text>
-<line x1="638.8" y1="990" x2="638.8" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="638.8" y="1010.0" text-anchor="middle">5</text>
-<line x1="693.5" y1="990" x2="693.5" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="693.5" y="1010.0" text-anchor="middle">10</text>
-<line x1="748.2" y1="990" x2="748.2" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="748.2" y="1010.0" text-anchor="middle">20</text>
-<line x1="820.6" y1="990" x2="820.6" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="820.6" y="1010.0" text-anchor="middle">50</text>
-<line x1="875.3" y1="990" x2="875.3" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="875.3" y="1010.0" text-anchor="middle">100</text>
-<line x1="930.0" y1="990" x2="930.0" y2="995" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="930.0" y="1010.0" text-anchor="middle">200</text>
-<line x1="330" y1="990" x2="930" y2="990" stroke="#818187" stroke-width="1.2"/>
-<line x1="330" y1="740" x2="330" y2="990" stroke="#818187" stroke-width="1.2"/>
-<text class="s" x="630.0" y="1034.0" text-anchor="middle">每次运算的能耗（pJ，对数坐标）</text>
-<line x1="384.7" y1="740" x2="384.7" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="457.0" y1="740" x2="457.0" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="511.8" y1="740" x2="511.8" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="566.5" y1="740" x2="566.5" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="638.8" y1="740" x2="638.8" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="693.5" y1="740" x2="693.5" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="748.2" y1="740" x2="748.2" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="820.6" y1="740" x2="820.6" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="875.3" y1="740" x2="875.3" y2="990" stroke="#30303c" stroke-width="1"/>
-<line x1="930.0" y1="740" x2="930.0" y2="990" stroke="#30303c" stroke-width="1"/>
-<text class="b" x="316.0" y="767.0" text-anchor="end">FP16 乘加（单 ANE / 双 ANE）</text>
-<text class="c" x="316.0" y="784.0" text-anchor="end">每次乘加</text>
-<line x1="469.4" y1="768.0" x2="493.6" y2="768.0" stroke="#6b87c3" stroke-width="2"/>
-<circle cx="469.4" cy="768.0" r="5.5" fill="#1a1a1a" stroke="#6b87c3" stroke-width="2"/>
-<circle cx="493.6" cy="768.0" r="5.5" fill="#6b87c3"/>
-<text class="s" x="505.6" y="772.5" text-anchor="start">0.79 / 0.72；扣除共用 0.58</text>
-<text class="b" x="316.0" y="815.0" text-anchor="end">INT8 乘加（W8A8）</text>
-<text class="c" x="316.0" y="832.0" text-anchor="end">每次乘加</text>
-<line x1="442.4" y1="816.0" x2="470.5" y2="816.0" stroke="#61c4dd" stroke-width="2"/>
-<circle cx="442.4" cy="816.0" r="5.5" fill="#1a1a1a" stroke="#61c4dd" stroke-width="2"/>
-<circle cx="470.5" cy="816.0" r="5.5" fill="#61c4dd"/>
-<text class="s" x="482.5" y="820.5" text-anchor="start">0.59；扣除读权重负载 0.42</text>
-<text class="b" x="316.0" y="863.0" text-anchor="end">FP16 乘加，激活全为 0</text>
-<text class="c" x="316.0" y="880.0" text-anchor="end">每次乘加（偏置为 0 的卷积链）</text>
-<line x1="428.5" y1="864.0" x2="496.4" y2="864.0" stroke="#6b87c3" stroke-width="2"/>
-<circle cx="428.5" cy="864.0" r="5.5" fill="#1a1a1a" stroke="#6b87c3" stroke-width="2"/>
-<circle cx="496.4" cy="864.0" r="5.5" fill="#6b87c3"/>
-<text class="s" x="508.4" y="868.5" text-anchor="start">随机 0.82 → 全 0 0.35</text>
-<text class="b" x="316.0" y="911.0" text-anchor="end">读取 DRAM</text>
-<text class="c" x="316.0" y="928.0" text-anchor="end">每字节</text>
-<line x1="758.1" y1="912.0" x2="806.0" y2="912.0" stroke="#b79578" stroke-width="2"/>
-<circle cx="758.1" cy="912.0" r="5.5" fill="#1a1a1a" stroke="#b79578" stroke-width="2"/>
-<circle cx="806.0" cy="912.0" r="5.5" fill="#b79578"/>
-<text class="s" x="818.0" y="916.5" text-anchor="start">42（内存轨 19 + ANE ≤23）</text>
-<text class="b" x="316.0" y="959.0" text-anchor="end">PE 逐元素加 / 乘</text>
-<text class="c" x="316.0" y="976.0" text-anchor="end">每个元素</text>
-<line x1="824.9" y1="960.0" x2="836.2" y2="960.0" stroke="#f37866" stroke-width="2"/>
-<circle cx="824.9" cy="960.0" r="5.5" fill="#f37866"/>
-<circle cx="836.2" cy="960.0" r="5.5" fill="#f37866"/>
-<text class="s" x="848.2" y="964.5" text-anchor="start">53 / 61</text>
-<circle cx="338" cy="1048" r="5" fill="#c6c6c8"/>
-<text class="s" x="350.0" y="1053.0" text-anchor="start">ANE 净功耗（或总能耗）/ 有效速率</text>
-<circle cx="628" cy="1048" r="5" fill="#1a1a1a" stroke="#c6c6c8" stroke-width="2"/>
-<text class="s" x="640.0" y="1053.0" text-anchor="start">扣除共用开销、全 0 激活或仅计 ANE 部分</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 722" width="800" height="722">
+<rect x="0" y="0" width="800" height="722" fill="#161618"/><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><rect width="800" height="722" fill="#1a1a1a"/>
+<rect x="4" y="8" width="792" height="388" rx="10" fill="#2e2e2e"/>
+<rect x="4" y="434" width="792" height="246" rx="10" fill="#2e2e2e"/>
+<text x="18.0" y="32.0" text-anchor="start" style="font-size:15.5px;fill:#e6e6e6;font-weight:600">(a) 各类负载的 ANE 净功耗</text>
+<rect x="196" y="46" width="580" height="288" fill="#1a1a1a"/>
+<line x1="196.0" y1="46" x2="196.0" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="278.9" y1="46" x2="278.9" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="361.7" y1="46" x2="361.7" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="444.6" y1="46" x2="444.6" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="527.4" y1="46" x2="527.4" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="610.3" y1="46" x2="610.3" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="693.1" y1="46" x2="693.1" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="776.0" y1="46" x2="776.0" y2="334" stroke="#31313a" stroke-width="0.9"/>
+<line x1="196.0" y1="334" x2="196.0" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="196.0" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">0</text>
+<line x1="278.9" y1="334" x2="278.9" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="278.9" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">2</text>
+<line x1="361.7" y1="334" x2="361.7" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="361.7" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">4</text>
+<line x1="444.6" y1="334" x2="444.6" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="444.6" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">6</text>
+<line x1="527.4" y1="334" x2="527.4" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="527.4" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">8</text>
+<line x1="610.3" y1="334" x2="610.3" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="610.3" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">10</text>
+<line x1="693.1" y1="334" x2="693.1" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="693.1" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">12</text>
+<line x1="776.0" y1="334" x2="776.0" y2="339" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="776.0" y="355.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">14</text>
+<line x1="196" y1="334" x2="776" y2="334" stroke="#d3d3d3" stroke-width="1.3"/>
+<line x1="196" y1="46" x2="196" y2="334" stroke="#d3d3d3" stroke-width="1.3"/>
+<text x="486.0" y="379.0" text-anchor="middle" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">功耗 (W)</text>
+<text x="184.0" y="66.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">单 ANE · FP16 卷积</text>
+<rect x="196.0" y="53.0" width="67.9" height="18" fill="#444444" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="263.9" y="53.0" width="189.2" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="453.1" y="56.0" width="3.0" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="464.2" y="66.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">6.21 W</text>
+<text x="184.0" y="98.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">双 ANE · FP16 卷积</text>
+<rect x="196.0" y="85.0" width="67.9" height="18" fill="#444444" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="263.9" y="85.0" width="189.2" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="453.1" y="85.0" width="189.2" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="642.3" y="88.0" width="6.6" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="656.9" y="98.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">10.77 W</text>
+<text x="184.0" y="130.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">单 ANE · W8A8 卷积</text>
+<rect x="196.0" y="117.0" width="90.7" height="18" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="286.7" y="117.0" width="212.3" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="499.0" y="120.0" width="90.6" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="597.6" y="130.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">7.31 W</text>
+<text x="184.0" y="162.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">单 ANE · 读权重受限</text>
+<rect x="196.0" y="149.0" width="90.7" height="18" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="286.7" y="152.0" width="75.8" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="370.5" y="162.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">2.19 W</text>
+<text x="184.0" y="194.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">双 ANE · PE 加（随机）</text>
+<rect x="196.0" y="181.0" width="102.2" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="298.2" y="184.0" width="47.2" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="353.4" y="194.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">2.47 W</text>
+<text x="184.0" y="226.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">双 ANE · PE 加（全 0）</text>
+<rect x="196.0" y="213.0" width="84.4" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="280.4" y="216.0" width="28.0" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="316.4" y="226.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">2.04 W (−17%)</text>
+<text x="184.0" y="258.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">双 ANE · PE 乘</text>
+<rect x="196.0" y="245.0" width="109.7" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="305.7" y="248.0" width="46.1" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="359.8" y="258.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">2.65 W</text>
+<text x="184.0" y="290.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">单 ANE · 卷积（随机）</text>
+<rect x="196.0" y="277.0" width="211.9" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="407.9" y="280.0" width="5.4" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="421.3" y="290.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">5.11 W</text>
+<text x="184.0" y="322.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">单 ANE · 卷积（全 0）</text>
+<rect x="196.0" y="309.0" width="89.7" height="18" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<rect x="285.7" y="312.0" width="4.4" height="12" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/>
+<text x="298.1" y="322.5" text-anchor="start" style="font-size:13px;fill:#e6e6e6;font-weight:600">2.16 W (−58%)</text>
+<foreignObject x="0" y="401" width="800" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;justify-content:center;gap:32px;align-items:center;height:28px;font-family:Arial,'Helvetica Neue','PingFang SC',sans-serif;font-size:13px;color:#e6e6e6"><span style="display:flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#444444" stroke="#d3d3d3" stroke-width="1"/></svg><span>共用开销</span></span><span style="display:flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#29446d" stroke="#d3d3d3" stroke-width="1"/></svg><span>计算（NE / PE）</span></span><span style="display:flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#576c2b" stroke="#d3d3d3" stroke-width="1"/></svg><span>读权重（含共用）</span></span><span style="display:flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#24242e" stroke="#7d7d7d" stroke-width="1" stroke-dasharray="3 2"/></svg><span>内存电源轨</span></span></div></foreignObject>
+<text x="18.0" y="458.0" text-anchor="start" style="font-size:15.5px;fill:#e6e6e6;font-weight:600">(b) 每次运算能耗</text>
+<rect x="196" y="472" width="580" height="145" fill="#1a1a1a"/>
+<line x1="196.0" y1="472" x2="196.0" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="246.2" y1="472" x2="246.2" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="312.6" y1="472" x2="312.6" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="362.8" y1="472" x2="362.8" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="413.0" y1="472" x2="413.0" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="479.4" y1="472" x2="479.4" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="529.6" y1="472" x2="529.6" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="579.8" y1="472" x2="579.8" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="646.2" y1="472" x2="646.2" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="696.4" y1="472" x2="696.4" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="746.6" y1="472" x2="746.6" y2="617" stroke="#31313a" stroke-width="0.9"/>
+<line x1="196.0" y1="617" x2="196.0" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="196.0" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">0.1</text>
+<line x1="246.2" y1="617" x2="246.2" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="246.2" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">0.2</text>
+<line x1="312.6" y1="617" x2="312.6" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="312.6" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">0.5</text>
+<line x1="362.8" y1="617" x2="362.8" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="362.8" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">1</text>
+<line x1="413.0" y1="617" x2="413.0" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="413.0" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">2</text>
+<line x1="479.4" y1="617" x2="479.4" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="479.4" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">5</text>
+<line x1="529.6" y1="617" x2="529.6" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="529.6" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">10</text>
+<line x1="579.8" y1="617" x2="579.8" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="579.8" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">20</text>
+<line x1="646.2" y1="617" x2="646.2" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="646.2" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">50</text>
+<line x1="696.4" y1="617" x2="696.4" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="696.4" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">100</text>
+<line x1="746.6" y1="617" x2="746.6" y2="622" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="746.6" y="638.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">200</text>
+<line x1="196" y1="617" x2="776" y2="617" stroke="#d3d3d3" stroke-width="1.3"/>
+<line x1="196" y1="472" x2="196" y2="617" stroke="#d3d3d3" stroke-width="1.3"/>
+<text x="486.0" y="662.0" text-anchor="middle" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">每次运算能耗 (pJ)</text>
+<text x="184.0" y="491.0" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">FP16 乘加</text>
+<line x1="323.9" y1="486.5" x2="346.2" y2="486.5" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="323.9" cy="486.5" r="4.8" fill="#1a1a1a" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="346.2" cy="486.5" r="4.8" fill="#5c93d4"/>
+<text x="356.2" y="491.0" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">0.58 / 0.79</text>
+<text x="184.0" y="520.0" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">INT8 乘加（W8A8）</text>
+<line x1="299.2" y1="515.5" x2="324.9" y2="515.5" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="299.2" cy="515.5" r="4.8" fill="#1a1a1a" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="324.9" cy="515.5" r="4.8" fill="#5c93d4"/>
+<text x="334.9" y="520.0" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">0.42 / 0.59</text>
+<text x="184.0" y="549.0" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">FP16 乘加（全 0 / 随机）</text>
+<line x1="286.4" y1="544.5" x2="348.7" y2="544.5" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="286.4" cy="544.5" r="4.8" fill="#1a1a1a" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="348.7" cy="544.5" r="4.8" fill="#5c93d4"/>
+<text x="358.7" y="549.0" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">0.35 / 0.82</text>
+<text x="184.0" y="578.0" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">读取 DRAM（每字节）</text>
+<line x1="588.9" y1="573.5" x2="632.9" y2="573.5" stroke="#a0ca57" stroke-width="2"/>
+<circle cx="588.9" cy="573.5" r="4.8" fill="#1a1a1a" stroke="#a0ca57" stroke-width="2"/>
+<circle cx="632.9" cy="573.5" r="4.8" fill="#a0ca57"/>
+<text x="642.9" y="578.0" text-anchor="start" style="font-size:13px;fill:#a0ca57;font-weight:600">23 / 42</text>
+<text x="184.0" y="607.0" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">PE 逐元素加 / 乘</text>
+<line x1="650.2" y1="602.5" x2="660.6" y2="602.5" stroke="#5c93d4" stroke-width="2"/>
+<circle cx="650.2" cy="602.5" r="4.8" fill="#5c93d4"/>
+<circle cx="660.6" cy="602.5" r="4.8" fill="#5c93d4"/>
+<text x="670.6" y="607.0" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">53 / 61</text>
+<foreignObject x="0" y="688" width="800" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;justify-content:center;gap:36px;align-items:center;height:28px;font-family:Arial,'Helvetica Neue','PingFang SC',sans-serif;font-size:13px;color:#e6e6e6"><span style="display:flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="4.5" fill="#c0c0c0"/></svg><span>实测总能耗 / 速率</span></span><span style="display:flex;align-items:center;gap:6px"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14"><circle cx="7" cy="7" r="4.5" fill="#1a1a1a" stroke="#c0c0c0" stroke-width="2"/></svg><span>扣除共用 / 全 0 / ANE 部分</span></span></div></foreignObject>
 </svg>

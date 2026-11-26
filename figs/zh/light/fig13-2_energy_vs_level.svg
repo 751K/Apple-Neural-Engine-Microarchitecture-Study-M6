@@ -1,108 +1,102 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 760" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
-<style>text{fill:#1d1d1f} .h{font-size:18px;font-weight:600} .h2{font-size:15.5px;font-weight:600} .b{font-size:14.5px;fill:#3a3a3c} .c{font-size:13px;fill:#6e6e73} .s{font-size:12.5px;fill:#3a3a3c} .tk{font-size:12.5px;fill:#6e6e73;font-family:Helvetica Neue,Arial,sans-serif}</style>
-<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#3a3a3c" stroke-width="1.6"/></marker></defs>
-<text class="h2" x="110.0" y="38.0" text-anchor="start">(a) 每次推理的 ANE 能耗</text>
-<line x1="110" y1="340.0" x2="930" y2="340.0" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="344.5" text-anchor="end">0</text>
-<line x1="110" y1="291.7" x2="930" y2="291.7" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="296.2" text-anchor="end">2</text>
-<line x1="110" y1="243.3" x2="930" y2="243.3" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="247.8" text-anchor="end">4</text>
-<line x1="110" y1="195.0" x2="930" y2="195.0" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="199.5" text-anchor="end">6</text>
-<line x1="110" y1="146.7" x2="930" y2="146.7" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="151.2" text-anchor="end">8</text>
-<line x1="110" y1="98.3" x2="930" y2="98.3" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="102.8" text-anchor="end">10</text>
-<line x1="110" y1="50.0" x2="930" y2="50.0" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="54.5" text-anchor="end">12</text>
-<line x1="110" y1="340" x2="930" y2="340" stroke="#8e8e93" stroke-width="1.2"/>
-<line x1="110" y1="50" x2="110" y2="340" stroke="#8e8e93" stroke-width="1.2"/>
-<text class="s" x="56" y="195.0" text-anchor="middle" transform="rotate(-90 56 195.0)">每次推理的 ANE 能耗（mJ）</text>
-<rect x="149.3" y="89.6" width="58" height="250.4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
-<text class="s" x="178.3" y="81.6" text-anchor="middle">10.4</text>
-<text class="c" x="178.3" y="330.0" text-anchor="middle">6.29 W</text>
-<rect x="263.2" y="95.6" width="58" height="244.4" fill="#e7eaf3" stroke="#3c5488" stroke-width="1.3"/>
-<text class="s" x="292.2" y="87.6" text-anchor="middle">10.1</text>
-<text class="c" x="292.2" y="330.0" text-anchor="middle">6.17 W</text>
-<rect x="377.1" y="243.6" width="58" height="96.4" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
-<text class="s" x="406.1" y="235.6" text-anchor="middle">4.0</text>
-<text class="c" x="406.1" y="330.0" text-anchor="middle">1.00 W</text>
-<rect x="491.0" y="244.5" width="58" height="95.5" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
-<text class="s" x="520.0" y="236.5" text-anchor="middle">4.0</text>
-<text class="c" x="520.0" y="330.0" text-anchor="middle">0.71 W</text>
-<rect x="604.9" y="249.7" width="58" height="90.3" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
-<text class="s" x="633.9" y="241.7" text-anchor="middle">3.7</text>
-<text class="c" x="633.9" y="330.0" text-anchor="middle">0.61 W</text>
-<rect x="718.8" y="254.5" width="58" height="85.5" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
-<text class="s" x="747.8" y="246.5" text-anchor="middle">3.5</text>
-<text class="c" x="747.8" y="330.0" text-anchor="middle">0.46 W</text>
-<rect x="832.7" y="258.5" width="58" height="81.5" fill="#e3f4f0" stroke="#00a087" stroke-width="1.3"/>
-<text class="s" x="861.7" y="250.5" text-anchor="middle">3.4</text>
-<text class="c" x="861.7" y="330.0" text-anchor="middle">0.31 W</text>
-<path d="M791.8 253.4 L797.8 259.4 L791.8 265.4 L785.8 259.4 Z" fill="#ffffff" stroke="#7e6148" stroke-width="1.8"/>
-<line x1="791.8" y1="251.4" x2="791.8" y2="202.5" stroke="#7e6148" stroke-width="1"/>
-<text class="c" x="791.8" y="180.5" text-anchor="middle">扣除 CPU 簇的第 4 轮复测</text>
-<text class="c" x="791.8" y="196.5" text-anchor="middle">0.43 W，3.3 mJ</text>
-<text class="b" x="918.6" y="69.3" text-anchor="end">睡眠 ≥ 300 µs：能耗降至最高档的 1/2.6 至 1/3.1</text>
-<text class="c" x="918.6" y="95.9" text-anchor="end">柱底数字为 ANE 功耗</text>
-<text class="h2" x="110.0" y="428.0" text-anchor="start">(b) 每次调用的耗时与 NE 时钟档位</text>
-<line x1="110" y1="690.0" x2="930" y2="690.0" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="694.5" text-anchor="end">0</text>
-<line x1="110" y1="648.3" x2="930" y2="648.3" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="652.8" text-anchor="end">1000</text>
-<line x1="110" y1="606.7" x2="930" y2="606.7" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="611.2" text-anchor="end">2000</text>
-<line x1="110" y1="565.0" x2="930" y2="565.0" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="569.5" text-anchor="end">3000</text>
-<line x1="110" y1="523.3" x2="930" y2="523.3" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="527.8" text-anchor="end">4000</text>
-<line x1="110" y1="481.7" x2="930" y2="481.7" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="486.2" text-anchor="end">5000</text>
-<line x1="110" y1="440.0" x2="930" y2="440.0" stroke="#e5e5ea" stroke-width="1"/>
-<text class="tk" x="102.0" y="444.5" text-anchor="end">6000</text>
-<line x1="178.3" y1="690" x2="178.3" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="178.3" y="710.0" text-anchor="middle">0</text>
-<line x1="292.2" y1="690" x2="292.2" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="292.2" y="710.0" text-anchor="middle">100</text>
-<line x1="406.1" y1="690" x2="406.1" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="406.1" y="710.0" text-anchor="middle">300</text>
-<line x1="520.0" y1="690" x2="520.0" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="520.0" y="710.0" text-anchor="middle">800</text>
-<line x1="633.9" y1="690" x2="633.9" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="633.9" y="710.0" text-anchor="middle">1600</text>
-<line x1="747.8" y1="690" x2="747.8" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="747.8" y="710.0" text-anchor="middle">3200</text>
-<line x1="861.7" y1="690" x2="861.7" y2="695" stroke="#8e8e93" stroke-width="1"/>
-<text class="tk" x="861.7" y="710.0" text-anchor="middle">6400</text>
-<line x1="110" y1="690" x2="930" y2="690" stroke="#8e8e93" stroke-width="1.2"/>
-<line x1="110" y1="440" x2="110" y2="690" stroke="#8e8e93" stroke-width="1.2"/>
-<text class="s" x="520.0" y="734.0" text-anchor="middle">每次调用前的睡眠时间（µs）</text>
-<text class="s" x="56" y="565.0" text-anchor="middle" transform="rotate(-90 56 565.0)">每次调用的耗时（µs）</text>
-<rect x="123.4" y="442" width="223.8" height="26" rx="3" fill="#e7eaf3"/>
-<text class="s" x="235.3" y="460.0" text-anchor="middle">最高档（2580 MHz）</text>
-<rect x="351.2" y="442" width="109.9" height="26" rx="3" fill="#e3f4f0"/>
-<text class="s" x="406.1" y="460.0" text-anchor="middle">约 1032 MHz</text>
-<rect x="465.1" y="442" width="451.6" height="26" rx="3" fill="#e3f4f0"/>
-<text class="s" x="690.8" y="460.0" text-anchor="middle">下限 852 MHz</text>
-<path d="M178.3 621.4 L292.2 625.9 L406.1 536.0 L520.0 490.4 L633.9 499.9 L747.8 499.3 L861.7 497.7" fill="none" stroke="#3c5488" stroke-width="2.2" stroke-linejoin="round"/>
-<circle cx="178.3" cy="621.4" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<circle cx="292.2" cy="625.9" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<circle cx="406.1" cy="536.0" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<circle cx="520.0" cy="490.4" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<circle cx="633.9" cy="499.9" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<circle cx="747.8" cy="499.3" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<circle cx="861.7" cy="497.7" r="4" fill="#ffffff" stroke="#3c5488" stroke-width="1.8"/>
-<text class="s" x="178.3" y="609.4" text-anchor="middle">1647</text>
-<text class="s" x="292.2" y="647.9" text-anchor="middle">1539</text>
-<text class="s" x="406.1" y="524.0" text-anchor="middle">3696</text>
-<text class="c" x="406.1" y="560.0" text-anchor="middle">×2.2</text>
-<text class="s" x="520.0" y="478.4" text-anchor="middle">4790</text>
-<text class="c" x="520.0" y="514.4" text-anchor="middle">×2.9</text>
-<text class="s" x="633.9" y="487.9" text-anchor="middle">4562</text>
-<text class="c" x="633.9" y="523.9" text-anchor="middle">×2.8</text>
-<text class="s" x="747.8" y="487.3" text-anchor="middle">4577</text>
-<text class="c" x="747.8" y="523.3" text-anchor="middle">×2.8</text>
-<text class="s" x="861.7" y="485.7" text-anchor="middle">4615</text>
-<text class="c" x="861.7" y="521.7" text-anchor="middle">×2.8</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 588" width="800" height="588"><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><rect width="800" height="588" fill="#ffffff"/>
+<rect x="4" y="8" width="792" height="272" rx="10" fill="#efefef"/>
+<rect x="4" y="290" width="792" height="256" rx="10" fill="#efefef"/>
+<text x="18.0" y="32.0" text-anchor="start" style="font-size:15.5px;fill:#111111;font-weight:600">(a) 每次推理的 ANE 能耗</text>
+<rect x="86" y="46" width="686" height="198" fill="#ffffff"/>
+<line x1="86" y1="244.0" x2="772" y2="244.0" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="194.5" x2="772" y2="194.5" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="145.0" x2="772" y2="145.0" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="95.5" x2="772" y2="95.5" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="46.0" x2="772" y2="46.0" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="81" y1="244.0" x2="86" y2="244.0" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="248.5" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">0</text>
+<line x1="81" y1="194.5" x2="86" y2="194.5" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="199.0" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">3</text>
+<line x1="81" y1="145.0" x2="86" y2="145.0" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="149.5" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">6</text>
+<line x1="81" y1="95.5" x2="86" y2="95.5" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="100.0" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">9</text>
+<line x1="81" y1="46.0" x2="86" y2="46.0" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="50.5" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">12</text>
+<line x1="143.2" y1="244" x2="143.2" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="143.2" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">0</text>
+<line x1="238.4" y1="244" x2="238.4" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="238.4" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">100</text>
+<line x1="333.7" y1="244" x2="333.7" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="333.7" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">300</text>
+<line x1="429.0" y1="244" x2="429.0" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="429.0" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">800</text>
+<line x1="524.3" y1="244" x2="524.3" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="524.3" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">1600</text>
+<line x1="619.6" y1="244" x2="619.6" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="619.6" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">3200</text>
+<line x1="714.8" y1="244" x2="714.8" y2="249" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="714.8" y="265.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">6400</text>
+<line x1="86" y1="244" x2="772" y2="244" stroke="#2b2b2b" stroke-width="1.3"/>
+<line x1="86" y1="46" x2="86" y2="244" stroke="#2b2b2b" stroke-width="1.3"/>
+<text x="32" y="145.0" text-anchor="middle" transform="rotate(-90 32 145.0)" style="font-size:14.5px;fill:#111111;font-weight:600">每次推理能耗 (mJ)</text>
+<rect x="119.2" y="73.0" width="48.0" height="171.0" fill="#b6c9e6" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="143.2" y="66.0" text-anchor="middle" style="font-size:13.5px;fill:#2f5f98;font-weight:700">10.4</text>
+<rect x="214.4" y="77.1" width="48.0" height="166.9" fill="#b6c9e6" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="238.4" y="70.1" text-anchor="middle" style="font-size:13.5px;fill:#2f5f98;font-weight:700">10.1</text>
+<rect x="309.7" y="178.2" width="48.0" height="65.8" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="333.7" y="171.2" text-anchor="middle" style="font-size:13.5px;fill:#607e2d;font-weight:700">4.0</text>
+<rect x="405.0" y="178.8" width="48.0" height="65.2" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="429.0" y="171.8" text-anchor="middle" style="font-size:13.5px;fill:#607e2d;font-weight:700">4.0</text>
+<rect x="500.3" y="182.3" width="48.0" height="61.7" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="524.3" y="175.3" text-anchor="middle" style="font-size:13.5px;fill:#607e2d;font-weight:700">3.7</text>
+<rect x="595.6" y="185.6" width="48.0" height="58.4" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="619.6" y="178.6" text-anchor="middle" style="font-size:13.5px;fill:#607e2d;font-weight:700">3.5</text>
+<rect x="690.8" y="188.4" width="48.0" height="55.6" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="0.9"/>
+<text x="714.8" y="181.4" text-anchor="middle" style="font-size:13.5px;fill:#607e2d;font-weight:700">3.4</text>
+<path d="M659.6 183.0 L665.6 189.0 L659.6 195.0 L653.6 189.0 Z" fill="#ffffff" stroke="#e07b22" stroke-width="1.9"/>
+<text x="757.7" y="69.1" text-anchor="end" style="font-size:14px;fill:#a5302e;font-weight:600">能耗降至 1/2.6–1/3.1</text>
+<text x="18.0" y="314.0" text-anchor="start" style="font-size:15.5px;fill:#111111;font-weight:600">(b) 每次调用耗时与时钟档位</text>
+<rect x="86" y="328" width="686" height="156" fill="#ffffff"/>
+<line x1="86" y1="484.0" x2="772" y2="484.0" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="433.7" x2="772" y2="433.7" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="383.4" x2="772" y2="383.4" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="86" y1="333.0" x2="772" y2="333.0" stroke="#e6e6ea" stroke-width="0.9"/>
+<line x1="81" y1="484.0" x2="86" y2="484.0" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="488.5" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">0</text>
+<line x1="81" y1="433.7" x2="86" y2="433.7" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="438.2" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">2000</text>
+<line x1="81" y1="383.4" x2="86" y2="383.4" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="387.9" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">4000</text>
+<line x1="81" y1="333.0" x2="86" y2="333.0" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="76.0" y="337.5" text-anchor="end" style="font-size:13px;fill:#333333;font-weight:400">6000</text>
+<line x1="143.2" y1="484" x2="143.2" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="143.2" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">0</text>
+<line x1="238.4" y1="484" x2="238.4" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="238.4" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">100</text>
+<line x1="333.7" y1="484" x2="333.7" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="333.7" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">300</text>
+<line x1="429.0" y1="484" x2="429.0" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="429.0" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">800</text>
+<line x1="524.3" y1="484" x2="524.3" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="524.3" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">1600</text>
+<line x1="619.6" y1="484" x2="619.6" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="619.6" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">3200</text>
+<line x1="714.8" y1="484" x2="714.8" y2="489" stroke="#2b2b2b" stroke-width="1.1"/>
+<text x="714.8" y="505.0" text-anchor="middle" style="font-size:13px;fill:#333333;font-weight:400">6400</text>
+<line x1="86" y1="484" x2="772" y2="484" stroke="#2b2b2b" stroke-width="1.3"/>
+<line x1="86" y1="328" x2="86" y2="484" stroke="#2b2b2b" stroke-width="1.3"/>
+<text x="429.0" y="529.0" text-anchor="middle" style="font-size:14.5px;fill:#111111;font-weight:600">调用前睡眠时间 (µs)</text>
+<text x="32" y="406.0" text-anchor="middle" transform="rotate(-90 32 406.0)" style="font-size:14.5px;fill:#111111;font-weight:600">调用耗时 (µs)</text>
+<rect x="98.5" y="332" width="184.6" height="24" rx="4" fill="#b6c9e6"/>
+<text x="190.8" y="348.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">2580 MHz</text>
+<rect x="289.1" y="332" width="89.3" height="24" rx="4" fill="#d5e3b8"/>
+<text x="333.7" y="348.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">≈ 1032 MHz</text>
+<rect x="384.4" y="332" width="375.1" height="24" rx="4" fill="#d5e3b8"/>
+<text x="571.9" y="348.5" text-anchor="middle" style="font-size:13px;fill:#111111;font-weight:600">852 MHz</text>
+<path d="M143.2 442.6 L238.4 445.3 L333.7 391.0 L429.0 363.5 L524.3 369.2 L619.6 368.8 L714.8 367.9" fill="none" stroke="#2f5f98" stroke-width="2.4" stroke-linejoin="round"/>
+<circle cx="143.2" cy="442.6" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<circle cx="238.4" cy="445.3" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<circle cx="333.7" cy="391.0" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<circle cx="429.0" cy="363.5" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<circle cx="524.3" cy="369.2" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<circle cx="619.6" cy="368.8" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<circle cx="714.8" cy="367.9" r="4.4" fill="#ffffff" stroke="#2f5f98" stroke-width="2"/>
+<text x="571.9" y="392.2" text-anchor="middle" style="font-size:14px;fill:#a5302e;font-weight:600">耗时 ≈ 2.8×</text>
+<foreignObject x="0" y="554" width="800" height="28"><div xmlns="http://www.w3.org/1999/xhtml" style="display:flex;justify-content:center;gap:34px;align-items:center;height:28px;font-family:Arial,'Helvetica Neue','PingFang SC',sans-serif;font-size:13px;color:#111111"><span style="display:flex;align-items:center;gap:7px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#b6c9e6" stroke="#2b2b2b" stroke-width="1"/></svg><span>最高档 (2580 MHz)</span></span><span style="display:flex;align-items:center;gap:7px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14"><rect x="1" y="2" width="14" height="10" rx="1.5" fill="#d5e3b8" stroke="#2b2b2b" stroke-width="1"/></svg><span>低频档 (≤ 1032 MHz)</span></span><span style="display:flex;align-items:center;gap:7px"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path d="M8 2 L14 8 L8 14 L2 8 Z" fill="#ffffff" stroke="#e07b22" stroke-width="1.9"/></svg><span>第 4 轮复测 (3.3 mJ)</span></span></div></foreignObject>
 </svg>

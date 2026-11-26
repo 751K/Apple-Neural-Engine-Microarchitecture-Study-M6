@@ -1,84 +1,76 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 460" font-family="PingFang SC, Helvetica Neue, Arial, sans-serif">
-<rect x="0" y="0" width="1180" height="460" fill="#161618"/>
-<style>text{fill:#dbdbde} .h{font-size:18px;font-weight:600} .h2{font-size:15.5px;font-weight:600} .b{font-size:14.5px;fill:#c6c6c8} .c{font-size:13px;fill:#9c9ca0} .s{font-size:12.5px;fill:#c6c6c8} .tk{font-size:12.5px;fill:#9c9ca0;font-family:Helvetica Neue,Arial,sans-serif}</style>
-<defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0,1 L9,5 L0,9" fill="none" stroke="#c6c6c8" stroke-width="1.6"/></marker></defs>
-<text class="h2" x="240.0" y="58.0" text-anchor="start">(a) 权重常驻：1×1 卷积，512 通道，384 层</text>
-<line x1="240.0" y1="392" x2="240.0" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="240.0" y="412.0" text-anchor="middle">0</text>
-<line x1="353.3" y1="392" x2="353.3" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="353.3" y="412.0" text-anchor="middle">1×</text>
-<line x1="466.7" y1="392" x2="466.7" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="466.7" y="412.0" text-anchor="middle">2×</text>
-<line x1="580.0" y1="392" x2="580.0" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="580.0" y="412.0" text-anchor="middle">3×</text>
-<line x1="240" y1="392" x2="580" y2="392" stroke="#818187" stroke-width="1.2"/>
-<line x1="240" y1="70" x2="240" y2="392" stroke="#818187" stroke-width="1.2"/>
-<text class="s" x="410.0" y="436.0" text-anchor="middle">吞吐（相对同步调用）</text>
-<line x1="353.3" y1="70" x2="353.3" y2="392" stroke="#30303c" stroke-width="1"/>
-<line x1="466.7" y1="70" x2="466.7" y2="392" stroke="#30303c" stroke-width="1"/>
-<line x1="580.0" y1="70" x2="580.0" y2="392" stroke="#30303c" stroke-width="1"/>
-<text class="b" x="226.0" y="98.0" text-anchor="end">同步</text>
-<rect x="240.0" y="82.0" width="113.3" height="22" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.3"/>
-<text class="s" x="361.3" y="92.0" text-anchor="start">1.00×</text>
-<text class="c" x="361.3" y="107.0" text-anchor="start">忙碌 77% / 0%</text>
-<text class="b" x="226.0" y="144.0" text-anchor="end">异步，1 个在途</text>
-<rect x="240.0" y="128.0" width="113.3" height="22" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="361.3" y="138.0" text-anchor="start">1.00×</text>
-<text class="c" x="361.3" y="153.0" text-anchor="start">忙碌 77% / 0%</text>
-<text class="b" x="226.0" y="190.0" text-anchor="end">异步，2 个在途</text>
-<rect x="240.0" y="174.0" width="232.9" height="22" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="480.9" y="184.0" text-anchor="start">2.05×</text>
-<text class="c" x="480.9" y="199.0" text-anchor="start">忙碌 72% / 72%</text>
-<text class="b" x="226.0" y="236.0" text-anchor="end">异步，4 个在途</text>
-<rect x="240.0" y="220.0" width="320.2" height="22" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="568.2" y="230.0" text-anchor="start">2.83×</text>
-<text class="c" x="568.2" y="245.0" text-anchor="start">忙碌 100% / 100%</text>
-<text class="b" x="226.0" y="282.0" text-anchor="end">批量，每批 2 个</text>
-<rect x="240.0" y="266.0" width="193.2" height="22" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<text class="s" x="441.2" y="276.0" text-anchor="start">1.71×</text>
-<text class="c" x="441.2" y="291.0" text-anchor="start">忙碌 60% / 59%</text>
-<text class="b" x="226.0" y="328.0" text-anchor="end">批量，每批 8 个</text>
-<rect x="240.0" y="312.0" width="278.8" height="22" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<text class="s" x="526.8" y="322.0" text-anchor="start">2.46×</text>
-<text class="c" x="526.8" y="337.0" text-anchor="start">忙碌 76% / 78%</text>
-<text class="b" x="226.0" y="374.0" text-anchor="end">两个进程，各异步 2 个</text>
-<rect x="240.0" y="358.0" width="319.6" height="22" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s" x="567.6" y="368.0" text-anchor="start">2.82×</text>
-<text class="c" x="567.6" y="383.0" text-anchor="start">忙碌 100% / 100%</text>
-<text class="h2" x="740.0" y="58.0" text-anchor="start">(b) 读权重受限：1×9 改写核，256 通道，80 层</text>
-<line x1="740.0" y1="392" x2="740.0" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="740.0" y="412.0" text-anchor="middle">0</text>
-<line x1="853.3" y1="392" x2="853.3" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="853.3" y="412.0" text-anchor="middle">1×</text>
-<line x1="966.7" y1="392" x2="966.7" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="966.7" y="412.0" text-anchor="middle">2×</text>
-<line x1="1080.0" y1="392" x2="1080.0" y2="397" stroke="#818187" stroke-width="1"/>
-<text class="tk" x="1080.0" y="412.0" text-anchor="middle">3×</text>
-<line x1="740" y1="392" x2="1080" y2="392" stroke="#818187" stroke-width="1.2"/>
-<line x1="740" y1="70" x2="740" y2="392" stroke="#818187" stroke-width="1.2"/>
-<text class="s" x="910.0" y="436.0" text-anchor="middle">吞吐（相对同步调用）</text>
-<line x1="853.3" y1="70" x2="853.3" y2="392" stroke="#30303c" stroke-width="1"/>
-<line x1="966.7" y1="70" x2="966.7" y2="392" stroke="#30303c" stroke-width="1"/>
-<line x1="1080.0" y1="70" x2="1080.0" y2="392" stroke="#30303c" stroke-width="1"/>
-<rect x="740.0" y="82.0" width="113.3" height="22" fill="#2e2e33" stroke="#9c9ca0" stroke-width="1.3"/>
-<text class="s" x="861.3" y="92.0" text-anchor="start">1.00×</text>
-<text class="c" x="861.3" y="107.0" text-anchor="start">忙碌 78% / 0%</text>
-<rect x="740.0" y="128.0" width="114.5" height="22" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="862.5" y="138.0" text-anchor="start">1.01×</text>
-<text class="c" x="862.5" y="153.0" text-anchor="start">忙碌 78% / 0%</text>
-<rect x="740.0" y="174.0" width="159.2" height="22" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="907.2" y="184.0" text-anchor="start">1.40×</text>
-<text class="c" x="907.2" y="199.0" text-anchor="start">忙碌 79% / 79%</text>
-<rect x="740.0" y="220.0" width="160.4" height="22" fill="#262f4c" stroke="#6b87c3" stroke-width="1.3"/>
-<text class="s" x="908.4" y="230.0" text-anchor="start">1.42×</text>
-<text class="c" x="908.4" y="245.0" text-anchor="start">忙碌 100% / 100%</text>
-<rect x="740.0" y="266.0" width="138.8" height="22" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<text class="s" x="886.8" y="276.0" text-anchor="start">1.23×</text>
-<text class="c" x="886.8" y="291.0" text-anchor="start">忙碌 72% / 72%</text>
-<rect x="740.0" y="312.0" width="154.1" height="22" fill="#4e3c2a" stroke="#b79578" stroke-width="1.3"/>
-<text class="s" x="902.1" y="322.0" text-anchor="start">1.36×</text>
-<text class="c" x="902.1" y="337.0" text-anchor="start">忙碌 84% / 84%</text>
-<rect x="740.0" y="358.0" width="160.4" height="22" fill="#205347" stroke="#1dffdc" stroke-width="1.3"/>
-<text class="s" x="908.4" y="368.0" text-anchor="start">1.42×</text>
-<text class="c" x="908.4" y="383.0" text-anchor="start">忙碌 100% / 100%</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 376" width="800" height="376">
+<rect x="0" y="0" width="800" height="376" fill="#161618"/><style>text{font-family:Arial,"Helvetica Neue","PingFang SC",sans-serif}</style><rect width="800" height="376" fill="#1a1a1a"/>
+<rect x="4" y="8" width="452" height="360" rx="10" fill="#2e2e2e"/>
+<rect x="468" y="8" width="328" height="360" rx="10" fill="#2e2e2e"/>
+<text x="18.0" y="36.0" text-anchor="start" style="font-size:15.5px;fill:#e6e6e6;font-weight:600">(a) 权重常驻</text>
+<rect x="154" y="50" width="288" height="252" fill="#1a1a1a"/>
+<line x1="154.0" y1="50" x2="154.0" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="237.5" y1="50" x2="237.5" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="321.0" y1="50" x2="321.0" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="404.4" y1="50" x2="404.4" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="154.0" y1="302" x2="154.0" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="154.0" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">0</text>
+<line x1="237.5" y1="302" x2="237.5" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="237.5" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">1×</text>
+<line x1="321.0" y1="302" x2="321.0" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="321.0" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">2×</text>
+<line x1="404.4" y1="302" x2="404.4" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="404.4" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">3×</text>
+<line x1="154" y1="302" x2="442" y2="302" stroke="#d3d3d3" stroke-width="1.3"/>
+<line x1="154" y1="50" x2="154" y2="302" stroke="#d3d3d3" stroke-width="1.3"/>
+<text x="298.0" y="347.0" text-anchor="middle" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">相对吞吐</text>
+<line x1="237.5" y1="50" x2="237.5" y2="302" stroke="#7d7d7d" stroke-width="1.1" stroke-dasharray="4 3"/>
+<text x="142.0" y="72.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">同步</text>
+<rect x="154.0" y="58.0" width="83.5" height="20" fill="#444444" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="244.5" y="72.5" text-anchor="start" style="font-size:13px;fill:#b3b3b3;font-weight:600">1.00×</text>
+<text x="142.0" y="108.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">异步（1 在途）</text>
+<rect x="154.0" y="94.0" width="83.5" height="20" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="244.5" y="108.5" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">1.00×</text>
+<text x="142.0" y="144.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">异步（2 在途）</text>
+<rect x="154.0" y="130.0" width="171.5" height="20" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="332.5" y="144.5" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">2.05×</text>
+<text x="142.0" y="180.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">异步（4 在途）</text>
+<rect x="154.0" y="166.0" width="235.8" height="20" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="396.8" y="180.5" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">2.83×</text>
+<text x="142.0" y="216.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">批量（每批 2）</text>
+<rect x="154.0" y="202.0" width="142.3" height="20" fill="#6c5829" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="303.3" y="216.5" text-anchor="start" style="font-size:13px;fill:#f0a25d;font-weight:600">1.71×</text>
+<text x="142.0" y="252.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">批量（每批 8）</text>
+<rect x="154.0" y="238.0" width="205.4" height="20" fill="#6c5829" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="366.4" y="252.5" text-anchor="start" style="font-size:13px;fill:#f0a25d;font-weight:600">2.46×</text>
+<text x="142.0" y="288.5" text-anchor="end" style="font-size:13px;fill:#e6e6e6;font-weight:400">双进程（各 2）</text>
+<rect x="154.0" y="274.0" width="235.4" height="20" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="396.4" y="288.5" text-anchor="start" style="font-size:13px;fill:#a0ca57;font-weight:600">2.82×</text>
+<text x="482.0" y="36.0" text-anchor="start" style="font-size:15.5px;fill:#e6e6e6;font-weight:600">(b) 读权重受限</text>
+<rect x="490" y="50" width="288" height="252" fill="#1a1a1a"/>
+<line x1="490.0" y1="50" x2="490.0" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="573.5" y1="50" x2="573.5" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="657.0" y1="50" x2="657.0" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="740.4" y1="50" x2="740.4" y2="302" stroke="#31313a" stroke-width="0.9"/>
+<line x1="490.0" y1="302" x2="490.0" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="490.0" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">0</text>
+<line x1="573.5" y1="302" x2="573.5" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="573.5" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">1×</text>
+<line x1="657.0" y1="302" x2="657.0" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="657.0" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">2×</text>
+<line x1="740.4" y1="302" x2="740.4" y2="307" stroke="#d3d3d3" stroke-width="1.1"/>
+<text x="740.4" y="323.0" text-anchor="middle" style="font-size:13px;fill:#cdcdcd;font-weight:400">3×</text>
+<line x1="490" y1="302" x2="778" y2="302" stroke="#d3d3d3" stroke-width="1.3"/>
+<line x1="490" y1="50" x2="490" y2="302" stroke="#d3d3d3" stroke-width="1.3"/>
+<text x="634.0" y="347.0" text-anchor="middle" style="font-size:14.5px;fill:#e6e6e6;font-weight:600">相对吞吐</text>
+<line x1="573.5" y1="50" x2="573.5" y2="302" stroke="#7d7d7d" stroke-width="1.1" stroke-dasharray="4 3"/>
+<rect x="490.0" y="58.0" width="83.5" height="20" fill="#444444" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="580.5" y="72.5" text-anchor="start" style="font-size:13px;fill:#b3b3b3;font-weight:600">1.00×</text>
+<rect x="490.0" y="94.0" width="84.3" height="20" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="581.3" y="108.5" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">1.01×</text>
+<rect x="490.0" y="130.0" width="117.3" height="20" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="614.3" y="144.5" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">1.40×</text>
+<rect x="490.0" y="166.0" width="118.1" height="20" fill="#29446d" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="615.1" y="180.5" text-anchor="start" style="font-size:13px;fill:#5c93d4;font-weight:600">1.42×</text>
+<rect x="490.0" y="202.0" width="102.3" height="20" fill="#6c5829" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="599.3" y="216.5" text-anchor="start" style="font-size:13px;fill:#f0a25d;font-weight:600">1.23×</text>
+<rect x="490.0" y="238.0" width="113.5" height="20" fill="#6c5829" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="610.5" y="252.5" text-anchor="start" style="font-size:13px;fill:#f0a25d;font-weight:600">1.36×</text>
+<rect x="490.0" y="274.0" width="118.1" height="20" fill="#576c2b" stroke="#d3d3d3" stroke-width="0.9"/>
+<text x="615.1" y="288.5" text-anchor="start" style="font-size:13px;fill:#a0ca57;font-weight:600">1.42×</text>
 </svg>
